@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic) UIView *rightField;
 
+@property (strong, nonatomic) UIView *checkBox;
+
 @end

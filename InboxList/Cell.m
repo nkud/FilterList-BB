@@ -43,57 +43,31 @@
                                                                  _checkbox_width)];
         [checkBoxTrue setBackgroundColor:[UIColor redColor]];
         [checkBoxFalse setBackgroundColor:[UIColor blackColor]];
+        self.checkBox = checkBoxFalse;
         
-        CGFloat centerx = CGRectGetMidX(self.contentView.frame);
-        CGFloat centery = CGRectGetMidY(self.contentView.frame);
-
-        NSLog(@"%f %f", centerx, centery);
-        [self.contentView setCenter:CGPointMake(centerx + _checkbox_width,
-                                                centery)];
         
         // チェックボックスをビューに追加する
-        [self.contentView addSubview:checkBoxFalse];
+        [self.contentView addSubview:self.checkBox];
 
         // 右フィールドをビューに追加する
-        [self setRightField];
+        // [self setRightField];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                   0,
+                                                                   self.frame.size.width - 40,
+                                                                   self.frame.size.height)];
+        [label setBackgroundColor:[UIColor greenColor]];
+//        [self.contentView addSubview:label];
     }
     return self;
 }
-- (id)init
-{
-    self = [super init];
-    
-    if (self) {
-        NSLog(@"%s", ">>> init Cell");
-        
-        // チェックボックスを初期化する
-        int _checkbox_width = 40;
-        checkBoxTrue = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                0,
-                                                                _checkbox_width,
-                                                                _checkbox_width)];
-        checkBoxFalse = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                 0,
-                                                                 _checkbox_width,
-                                                                 _checkbox_width)];
-        [checkBoxTrue setBackgroundColor:[UIColor redColor]];
-        [checkBoxFalse setBackgroundColor:[UIColor blackColor]];
-        
-        // チェックボックスをビューに追加する
-        [self.contentView addSubview:checkBoxFalse];
-        
-        // 右フィールドをビューに追加する
-        [self setRightField];
-        
-    }
-    return self;
-}
+
 
 // フレームをセットする
 -(void)setFrame:(CGRect)frame
 {
-    frame.origin.x += 40;
-    frame.size.width -= 80;
+//    frame.origin.x += 40;
+//    frame.size.width -= 80;
     
     [super setFrame:frame];
 }
@@ -117,22 +91,28 @@
     
     NSLog(@"%f", location.x);
     if (location.x < _left_side) {
-        ;
+        
+        [self turnChecked];
+        
     } else {
+
         [super touchesBegan:touches withEvent:event];
+        
     }
 }
 
 // チェックを付ける
 - (void)turnChecked
 {
-    ;
+    NSLog(@"%s", ">>> check");
+    self.checkBox = checkBoxTrue;
 }
 
 // チェックを外す
 - (void)turnUnchecked
 {
-    ;
+    NSLog(@"%s", ">>> uncheck");
+    self.checkBox = checkBoxFalse;
 }
 
 

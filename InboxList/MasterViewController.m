@@ -128,6 +128,12 @@
     
     [self dismissViewControllerAnimated:YES completion:nil]; // ビューを削除
 }
+
+// 詳細ビューを削除する前の処理
+-(void)dismissDetailView:(id)sender index:(NSIndexPath *)index
+{
+    ;
+}
 /* ===  FUNCTION  ==============================================================
  *        Name: inputAndInsertNewObjectFromModalView
  * Description: 入力画面を出す。
@@ -197,11 +203,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailViewController *detailViewController = [[DetailViewController alloc] init];
     Item *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    
+
     [detailViewController setDetailItem:object];
+    [detailViewController setIndex:indexPath];
     
     [self.navigationController pushViewController:detailViewController
-                                         animated:YES];
+                                         animated:NO];
 }
 
 

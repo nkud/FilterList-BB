@@ -27,6 +27,7 @@
 		B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C0418C9CA90007703B8 /* InputModalViewController.m */; };
 		B03E6C1718CAA316007703B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1618CAA316007703B8 /* Item.m */; };
 		B03E6C1A18CAA316007703B8 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1918CAA316007703B8 /* Tag.m */; };
+		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
 		B0DABFAD1914CC50007597E3 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* Cell.m */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,8 @@
 		B03E6C1618CAA316007703B8 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		B03E6C1818CAA316007703B8 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
 		B03E6C1918CAA316007703B8 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
+		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B0DABFAB1914CC50007597E3 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				B00AD69B18C45E470005A552 /* AppDelegate.h */,
+				B08F4B631915FAC80047E210 /* NavigationController.h */,
+				B08F4B641915FAC80047E210 /* NavigationController.m */,
 				B00AD69C18C45E470005A552 /* AppDelegate.m */,
 				B00AD6A418C45E470005A552 /* MasterViewController.h */,
 				B00AD6A518C45E470005A552 /* MasterViewController.m */,
@@ -297,6 +302,7 @@
 				B03E6C1A18CAA316007703B8 /* Tag.m in Sources */,
 				B00AD69D18C45E470005A552 /* AppDelegate.m in Sources */,
 				B00AD69918C45E470005A552 /* main.m in Sources */,
+				B08F4B651915FAC80047E210 /* NavigationController.m in Sources */,
 				B03E6C1718CAA316007703B8 /* Item.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* Cell.m in Sources */,
 			);

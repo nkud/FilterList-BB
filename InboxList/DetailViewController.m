@@ -82,6 +82,28 @@
     self.tagField = [self createTextField:0 y:200];
     [self.view addSubview:self.titleField];
     [self.view addSubview:self.tagField];
+    
+    
+    // 戻るボタン
+    self.btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.btn setTitle:@"back" forState:UIControlStateNormal];
+    [self.btn setFrame:CGRectMake(CGRectGetMidX(self.view.frame),
+                                  CGRectGetMidY(self.view.frame),
+                                  100, 50)];
+    [self.btn addTarget:self
+                 action:@selector(back)
+       forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.btn];
+    
+    
+}
+
+// 戻る
+- (void)back
+{
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate dismissDetailView:self index:self.index];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (void)viewDidLoad

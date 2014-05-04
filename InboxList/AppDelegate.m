@@ -11,6 +11,8 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
+#import "NavigationController.h"
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -32,7 +34,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     
     // NavigationController の初期化・設定
     self.navigationController
-    = [[UINavigationController alloc] initWithRootViewController:self.masterViewController];
+    = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
     
     // ナビゲーションコントローラーをルートに指定する
     self.window.rootViewController = self.navigationController;

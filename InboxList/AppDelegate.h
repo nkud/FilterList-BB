@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "MasterViewController.h"
+#import "NavigationController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UINavigationController *navigationController;
+@property (strong, nonatomic) NavigationController *navigationController;
 @property (strong, nonatomic) MasterViewController *masterViewController;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
