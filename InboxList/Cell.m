@@ -90,12 +90,12 @@
     CGPoint location = [[touches anyObject] locationInView:self.contentView];
     
     NSLog(@"%f", location.x);
-    if (location.x < _left_side) {
-        
+    if (location.x < _left_side) { // チェックボックスなら
+        // チェックボックスを変更する
         [self turnChecked];
         
     } else {
-
+        // デフォルトの処理をする
         [super touchesBegan:touches withEvent:event];
         
     }
