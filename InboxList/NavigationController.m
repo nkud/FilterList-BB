@@ -12,24 +12,24 @@
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.3f;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionFade;
+  CATransition *transition = [CATransition animation];
+  transition.duration = 0.3f;
+  transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+  transition.type = kCATransitionFade;
 	[self.view.layer addAnimation:transition forKey:nil];
-    
-    [super pushViewController:viewController animated:animated];
+
+  [super pushViewController:viewController animated:animated];
 }
 
 -(NSArray *)popToRootViewControllerAnimated:(BOOL)animated
 {
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.3f;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionFade;
+  CATransition *transition = [CATransition animation];
+  transition.duration = 0.3f;
+  transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+  transition.type = kCATransitionFade;
 	[self.view.layer addAnimation:transition forKey:nil];
-    
-    return [super popToRootViewControllerAnimated:animated];
+
+  return [super popToRootViewControllerAnimated:animated];
 }
 
 @end

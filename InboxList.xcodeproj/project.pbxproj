@@ -140,15 +140,11 @@
 				B08F4B631915FAC80047E210 /* NavigationController.h */,
 				B08F4B641915FAC80047E210 /* NavigationController.m */,
 				B00AD69C18C45E470005A552 /* AppDelegate.m */,
-				B00AD6A418C45E470005A552 /* MasterViewController.h */,
-				B00AD6A518C45E470005A552 /* MasterViewController.m */,
+				B0E7571419499EAA004C6344 /* MasterView */,
 				B03E6C1B18CAA383007703B8 /* ManagedObject */,
-				B03E6C0318C9CA8F007703B8 /* InputModalViewController.h */,
-				B03E6C0418C9CA90007703B8 /* InputModalViewController.m */,
-				B0DABFAB1914CC50007597E3 /* Cell.h */,
-				B0DABFAC1914CC50007597E3 /* Cell.m */,
-				B00AD6A718C45E470005A552 /* DetailViewController.h */,
-				B00AD6A818C45E470005A552 /* DetailViewController.m */,
+				B0E7571519499EB8004C6344 /* InputModalView */,
+				B0E7571219499D98004C6344 /* Cell */,
+				B0E7571319499E95004C6344 /* DetailView */,
 				B00AD6AA18C45E470005A552 /* Images.xcassets */,
 				B00AD6A118C45E470005A552 /* InboxList.xcdatamodeld */,
 				B00AD69318C45E470005A552 /* Supporting Files */,
@@ -194,6 +190,42 @@
 				B03E6C1618CAA316007703B8 /* Item.m */,
 			);
 			name = ManagedObject;
+			sourceTree = "<group>";
+		};
+		B0E7571219499D98004C6344 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B0DABFAB1914CC50007597E3 /* Cell.h */,
+				B0DABFAC1914CC50007597E3 /* Cell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		B0E7571319499E95004C6344 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				B00AD6A718C45E470005A552 /* DetailViewController.h */,
+				B00AD6A818C45E470005A552 /* DetailViewController.m */,
+			);
+			name = DetailView;
+			sourceTree = "<group>";
+		};
+		B0E7571419499EAA004C6344 /* MasterView */ = {
+			isa = PBXGroup;
+			children = (
+				B00AD6A418C45E470005A552 /* MasterViewController.h */,
+				B00AD6A518C45E470005A552 /* MasterViewController.m */,
+			);
+			name = MasterView;
+			sourceTree = "<group>";
+		};
+		B0E7571519499EB8004C6344 /* InputModalView */ = {
+			isa = PBXGroup;
+			children = (
+				B03E6C0318C9CA8F007703B8 /* InputModalViewController.h */,
+				B03E6C0418C9CA90007703B8 /* InputModalViewController.m */,
+			);
+			name = InputModalView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,7 +412,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "5C8F0701-F652-4421-AB03-D77B14E0CFEA";
+				PROVISIONING_PROFILE = "7FD21B0F-4A26-4ADC-8081-4F6821AD1258";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -412,7 +444,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PROVISIONING_PROFILE = "5C8F0701-F652-4421-AB03-D77B14E0CFEA";
+				PROVISIONING_PROFILE = "7FD21B0F-4A26-4ADC-8081-4F6821AD1258";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
