@@ -30,7 +30,11 @@
 {
   NSLog(@"%s", __FUNCTION__);
   UIView *newCheckBox = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-  [newCheckBox setBackgroundColor:[UIColor redColor]];
+  if (self.check == true) {
+    [newCheckBox setBackgroundColor:[UIColor redColor]];
+  } else {
+    [newCheckBox setBackgroundColor:[UIColor greenColor]];
+  }
   return newCheckBox;
 }
 /* ===  FUNCTION  ==============================================================

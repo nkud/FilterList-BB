@@ -393,6 +393,10 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  [self.tableView reloadData];
  }
  */
+/* ===  FUNCTION  ==============================================================
+ *        Name: confiureCell
+ * Description: セルの内容を設定
+ * ========================================================================== */
 
 - (void)configureCell:(Cell *)cell
           atIndexPath:(NSIndexPath *)indexPath
