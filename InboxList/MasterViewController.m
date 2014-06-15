@@ -398,7 +398,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
           atIndexPath:(NSIndexPath *)indexPath
 {
   Item *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.textLabel.text = [[object valueForKey:@"title"] description];
+//  cell.textLabel.text = [[object valueForKey:@"title"] description];
+  cell.titleLabel.text = [[object valueForKey:@"title"] description];
+  cell.check = true;
 }
 
 @end

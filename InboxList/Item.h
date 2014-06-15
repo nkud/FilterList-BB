@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSNumber * color;
 @property (nonatomic, retain) NSDate * reminder;
 @property (nonatomic, retain) NSSet *tags;
+@property Boolean state;
 @end
 
 @interface Item (CoreDataGeneratedAccessors)

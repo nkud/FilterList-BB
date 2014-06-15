@@ -72,6 +72,7 @@
 		B03E6C1918CAA316007703B8 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
 		B0DABFAB1914CC50007597E3 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,9 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				B00AD69B18C45E470005A552 /* AppDelegate.h */,
-				B08F4B631915FAC80047E210 /* NavigationController.h */,
-				B08F4B641915FAC80047E210 /* NavigationController.m */,
 				B00AD69C18C45E470005A552 /* AppDelegate.m */,
+				B0C93A1A194C4AB600733BE7 /* Navigatioin */,
 				B0E7571419499EAA004C6344 /* MasterView */,
 				B03E6C1B18CAA383007703B8 /* ManagedObject */,
 				B0E7571519499EB8004C6344 /* InputModalView */,
@@ -190,6 +190,15 @@
 				B03E6C1618CAA316007703B8 /* Item.m */,
 			);
 			name = ManagedObject;
+			sourceTree = "<group>";
+		};
+		B0C93A1A194C4AB600733BE7 /* Navigatioin */ = {
+			isa = PBXGroup;
+			children = (
+				B08F4B631915FAC80047E210 /* NavigationController.h */,
+				B08F4B641915FAC80047E210 /* NavigationController.m */,
+			);
+			name = Navigatioin;
 			sourceTree = "<group>";
 		};
 		B0E7571219499D98004C6344 /* Cell */ = {
@@ -576,9 +585,10 @@
 		B00AD6A118C45E470005A552 /* InboxList.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */,
 				B00AD6A218C45E470005A552 /* InboxList.xcdatamodel */,
 			);
-			currentVersion = B00AD6A218C45E470005A552 /* InboxList.xcdatamodel */;
+			currentVersion = B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */;
 			path = InboxList.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

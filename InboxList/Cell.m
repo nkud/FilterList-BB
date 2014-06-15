@@ -14,12 +14,35 @@
   UIView *checkBoxFalse;
 }
 
-- (void)setRightField;
+- (UIView *)createCheckBox;
+- (UILabel *)createTitleLabel;
 
 @end
 
 
 @implementation Cell
+
+/* ===  FUNCTION  ==============================================================
+ *        Name: createCheckBox
+ * Description:
+ * ========================================================================== */
+-(UIView *)createCheckBox
+{
+  NSLog(@"%s", __FUNCTION__);
+  UIView *newCheckBox = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+  [newCheckBox setBackgroundColor:[UIColor redColor]];
+  return newCheckBox;
+}
+/* ===  FUNCTION  ==============================================================
+ *        Name: createTitleLabel
+ * Description:
+ * ========================================================================== */
+-(UILabel *)createTitleLabel
+{
+  NSLog(@"%s", __FUNCTION__);
+  UILabel *newTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 100, 40)];
+  return newTitleLabel;
+}
 
 /* ===  FUNCTION  ==============================================================
  *        Name: initWithStyle
@@ -29,40 +52,34 @@
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
 {
+  /* superで初期化 */
   self = [super initWithStyle:style
               reuseIdentifier:reuseIdentifier];
 
   if (self) {
     NSLog(@"%s", ">>> init Cell");
 
-    // チェックボックスを初期化する
-    int _checkbox_width = 40;
-    checkBoxTrue = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                            0,
-                                                            _checkbox_width,
-                                                            _checkbox_width)];
-    checkBoxFalse = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                             0,
-                                                             _checkbox_width,
-                                                             _checkbox_width)];
-    // 背景を初期化する
-    [checkBoxTrue setBackgroundColor:[UIColor redColor]];
-    [checkBoxFalse setBackgroundColor:[UIColor blackColor]];
-    self.checkBox = checkBoxFalse;
-
-    // チェックボックスをビューに追加する
+    /* チェックボックスを作成 */
+    self.checkBox = [self createCheckBox];
     [self.contentView addSubview:self.checkBox];
 
-    // 右フィールドをビューに追加する
-    // [self setRightField];
+    /* タイトルラベルを作成 */
+    self.titleLabel = [self createTitleLabel];
+    [self.contentView addSubview:self.titleLabel];
+//    int _checkbox_width = 40;
+//    checkBoxTrue = [[UIView alloc] initWithFrame:CGRectMake(0,
+//                                                            0,
+//                                                            _checkbox_width,
+//                                                            _checkbox_width)];
+//    checkBoxFalse = [[UIView alloc] initWithFrame:CGRectMake(0,
+//                                                             0,
+//                                                             _checkbox_width,
+//                                                             _checkbox_width)];
+//
+//    [checkBoxTrue setBackgroundColor:[UIColor redColor]];
+//    [checkBoxFalse setBackgroundColor:[UIColor blackColor]];
+//    self.checkBox = checkBoxFalse;
 
-    UILabel *label
-    = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                0,
-                                                self.frame.size.width - 40,
-                                                self.frame.size.height)];
-    [label setBackgroundColor:[UIColor greenColor]];
-    //        [self.contentView addSubview:label];
   }
   return self;
 }
@@ -79,20 +96,6 @@
   //    frame.size.width -= 80;
 
   [super setFrame:frame];
-}
-
-/* ===  FUNCTION  ==============================================================
- *        Name: setRightField
- * Description: フィールドを追加する
- * ========================================================================== */
-- (void)setRightField
-{
-  // ビューを作成
-  self.rightField = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-  [self.rightField setBackgroundColor:[UIColor redColor]];
-
-  // ビューにセットする
-  [self.contentView addSubview:self.rightField];
 }
 
 /* ===  FUNCTION  ==============================================================

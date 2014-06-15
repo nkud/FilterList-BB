@@ -10,8 +10,10 @@
 
 @interface Cell : UITableViewCell
 
-@property (strong, nonatomic) UIView *rightField;
+@property (strong, nonatomic) UIView *checkBox; /* チェックボックス */
 
-@property (strong, nonatomic) UIView *checkBox;
+@property (strong, nonatomic) UILabel *titleLabel;
+
+@property BOOL check;
 
 @end

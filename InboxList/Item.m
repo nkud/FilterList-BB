@@ -16,5 +16,6 @@
 @dynamic color;
 @dynamic reminder;
 @dynamic tags;
+@dynamic state;
 
 @end
