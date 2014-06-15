@@ -27,6 +27,8 @@
 		B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C0418C9CA90007703B8 /* InputModalViewController.m */; };
 		B03E6C1718CAA316007703B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1618CAA316007703B8 /* Item.m */; };
 		B03E6C1A18CAA316007703B8 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1918CAA316007703B8 /* Tag.m */; };
+		B03F2BD1194D75EB0037AE2C /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B03F2BD0194D75EB0037AE2C /* CheckBox_False.png */; };
+		B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */ = {isa = PBXBuildFile; fileRef = B03F2BD3194D76460037AE2C /* CheckBox_True.png */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
 		B0DABFAD1914CC50007597E3 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* Cell.m */; };
 /* End PBXBuildFile section */
@@ -70,6 +72,8 @@
 		B03E6C1618CAA316007703B8 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		B03E6C1818CAA316007703B8 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
 		B03E6C1918CAA316007703B8 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
+		B03F2BD0194D75EB0037AE2C /* CheckBox_False.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_False.png; path = resource/CheckBox_False.png; sourceTree = SOURCE_ROOT; };
+		B03F2BD3194D76460037AE2C /* CheckBox_True.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_True.png; path = resource/CheckBox_True.png; sourceTree = SOURCE_ROOT; };
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 			children = (
 				B00AD69B18C45E470005A552 /* AppDelegate.h */,
 				B00AD69C18C45E470005A552 /* AppDelegate.m */,
+				B03F2BD2194D75F40037AE2C /* Resource */,
 				B0C93A1A194C4AB600733BE7 /* Navigatioin */,
 				B0E7571419499EAA004C6344 /* MasterView */,
 				B03E6C1B18CAA383007703B8 /* ManagedObject */,
@@ -190,6 +195,15 @@
 				B03E6C1618CAA316007703B8 /* Item.m */,
 			);
 			name = ManagedObject;
+			sourceTree = "<group>";
+		};
+		B03F2BD2194D75F40037AE2C /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				B03F2BD3194D76460037AE2C /* CheckBox_True.png */,
+				B03F2BD0194D75EB0037AE2C /* CheckBox_False.png */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		B0C93A1A194C4AB600733BE7 /* Navigatioin */ = {
@@ -316,7 +330,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B03F2BD1194D75EB0037AE2C /* CheckBox_False.png in Resources */,
 				B00AD6AB18C45E470005A552 /* Images.xcassets in Resources */,
+				B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */,
 				B00AD69718C45E470005A552 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

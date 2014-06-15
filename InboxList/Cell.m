@@ -14,7 +14,7 @@
   UIView *checkBoxFalse;
 }
 
-- (UIView *)createCheckBox;
+- (void)updateCheckBox;
 - (UILabel *)createTitleLabel;
 
 @end
@@ -23,19 +23,19 @@
 @implementation Cell
 
 /* ===  FUNCTION  ==============================================================
- *        Name: createCheckBox
+ *        Name: updateCheckBox
  * Description:
  * ========================================================================== */
--(UIView *)createCheckBox
+-(void)updateCheckBox
 {
   NSLog(@"%s", __FUNCTION__);
-  UIView *newCheckBox = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
   if (self.check == true) {
-    [newCheckBox setBackgroundColor:[UIColor redColor]];
+    UIImage *check_true = [UIImage imageNamed:@"CheckBox_True.png"];
+    [self.imageView setImage:check_true];
   } else {
-    [newCheckBox setBackgroundColor:[UIColor greenColor]];
+    UIImage *check_false = [UIImage imageNamed:@"CheckBox_False.png"];
+    [self.imageView setImage:check_false];
   }
-  return newCheckBox;
 }
 /* ===  FUNCTION  ==============================================================
  *        Name: createTitleLabel
@@ -63,27 +63,8 @@
   if (self) {
     NSLog(@"%s", ">>> init Cell");
 
-    /* チェックボックスを作成 */
-    self.checkBox = [self createCheckBox];
-    [self.contentView addSubview:self.checkBox];
-
-    /* タイトルラベルを作成 */
-    self.titleLabel = [self createTitleLabel];
-    [self.contentView addSubview:self.titleLabel];
-//    int _checkbox_width = 40;
-//    checkBoxTrue = [[UIView alloc] initWithFrame:CGRectMake(0,
-//                                                            0,
-//                                                            _checkbox_width,
-//                                                            _checkbox_width)];
-//    checkBoxFalse = [[UIView alloc] initWithFrame:CGRectMake(0,
-//                                                             0,
-//                                                             _checkbox_width,
-//                                                             _checkbox_width)];
-//
-//    [checkBoxTrue setBackgroundColor:[UIColor redColor]];
-//    [checkBoxFalse setBackgroundColor:[UIColor blackColor]];
-//    self.checkBox = checkBoxFalse;
-
+    /* チェックボックスを更新 */
+    [self updateCheckBox];
   }
   return self;
 }

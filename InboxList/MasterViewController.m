@@ -65,7 +65,7 @@
 
   // セルとして使うクラスを登録する
   [self.tableView registerClass:[Cell class] forCellReuseIdentifier:@"Cell"];
-  [self.tableView setRowHeight:40];
+  [self.tableView setRowHeight:50];
   //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 200)];
   //    view.backgroundColor = [UIColor redColor];
 
@@ -163,8 +163,7 @@
   NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
   NSLog(@"%@", [entity name]);
 
-  // -----------------
-  // 新しい項目を初期化・追加する
+  /* 新しい項目を初期化・追加する */
   Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
                                                 inManagedObjectContext:context];
 
@@ -172,8 +171,7 @@
   // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
   //    [newManagedObject setValuesForKeysWithDictionary:nsdictionary];
 
-  // -----------------
-  // 項目を設定する
+  /* 項目を設定する */
   [newItem setValue:data[0] forKey:@"title"];
   Tag *newTags = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
                                                inManagedObjectContext:context];
@@ -183,8 +181,7 @@
   NSLog(@"%@", newItem);
   NSLog(@"%@", [[[newItem tags] allObjects][0] title]);
 
-  // -----------------
-  // エラー処理
+  /* エラー処理 */
   // Save the context.
   NSError *error = nil;
   if (![context save:&error]) {
@@ -197,7 +194,10 @@
 
 #pragma mark - Table View
 
-// セルが選択された時の処理
+/* ===  FUNCTION  ==============================================================
+ *        Name: tableView:tableView didSelectRowAtIndexPath
+ * Description: セルが選択されたときの処理
+ * ========================================================================== */
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -225,7 +225,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   return [sectionInfo numberOfObjects];
 }
 
-// indexPath 列目のセルを返す
+/* ===  FUNCTION  ==============================================================
+ *        Name: tableView:tableView cellForRowAtIndexPath:
+ * Description: indexPath 列目のセルを返す
+ * ========================================================================== */
 - (Cell *)tableView:(UITableView *)tableView
 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -241,6 +244,11 @@ cellForRowAtIndexPath:(NSIndexPath *)indexPath
   return cell;
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name:
+ * Description:
+ * ========================================================================== */
+
 - (BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -248,6 +256,10 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name:
+ * Description:
+ * ========================================================================== */
 - (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -266,6 +278,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name:
+ * Description:
+ * ========================================================================== */
 - (BOOL)tableView:(UITableView *)tableView
 canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -273,6 +289,10 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name: tableView
+ * Description:
+ * ========================================================================== */
 -(void)tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
@@ -282,6 +302,10 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
 #pragma mark - Fetched results controller
 
+/* ===  FUNCTION  ==============================================================
+ *        Name:
+ * Description:
+ * ========================================================================== */
 - (NSFetchedResultsController *)fetchedResultsController
 {
   if (_fetchedResultsController != nil) {
@@ -306,9 +330,10 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
   // Edit the section name key path and cache name if appropriate.
   // nil for section name key path means "no sections".
-  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                                              managedObjectContext:self.managedObjectContext
-                                                                                                sectionNameKeyPath:nil cacheName:@"Master"];
+  NSFetchedResultsController *aFetchedResultsController
+  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:self.managedObjectContext
+                                          sectionNameKeyPath:nil cacheName:@"Master"];
   aFetchedResultsController.delegate = self;
   self.fetchedResultsController = aFetchedResultsController;
 
@@ -402,8 +427,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
           atIndexPath:(NSIndexPath *)indexPath
 {
   Item *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//  cell.textLabel.text = [[object valueForKey:@"title"] description];
-  cell.titleLabel.text = [[object valueForKey:@"title"] description];
+  cell.textLabel.text = [[object valueForKey:@"title"] description];
+//  cell.titleLabel.text = [[object valueForKey:@"title"] description];
+
   cell.check = true;
 }
 
