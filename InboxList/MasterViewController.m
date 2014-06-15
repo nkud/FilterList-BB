@@ -22,6 +22,52 @@
 @implementation MasterViewController
 
 /* ===  FUNCTION  ==============================================================
+ *        Name: tappedCheckBox
+ * Description: セルのチェックボックスがタッチされた時の処理
+ * ========================================================================== */
+-(void)tappedCheckBox:(Cell *)cell
+                touch:(UITouch *)touch
+{
+  NSLog(@"%s", __FUNCTION__);
+//  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+
+  CGPoint tappedPoint = [touch locationInView:self.view];
+  NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:tappedPoint];
+  NSManagedObject *mobject = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+
+  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+  BOOL state = [[item valueForKey:@"state"] boolValue];
+  if ( state ) {
+    NSLog(@"%@", @"true");
+
+    cell.check = NO;
+  } else {
+    NSLog(@"%@", @"false");
+
+    cell.check = YES;
+  }
+  [mobject setValue:[NSNumber numberWithBool:cell.check] forKey:@"state"];
+  [cell updateCheckBox];
+
+  NSError *error = nil;
+  if (![self.managedObjectContext save:&error]) {
+    NSLog(@"error = %@", error);
+
+  } else {
+    NSLog(@"Update Completed.");
+  }
+//  [cell updateCheckBox];
+//  NSError *error = nil;
+//  if (![context save:&error]) {
+//    // Replace this implementation with code to handle the error appropriately.
+//    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//    abort();
+//  }
+}
+
+/* ===  FUNCTION  ==============================================================
  *        Name: swipeView
  * Description: スライドさせる
  * ========================================================================== */
@@ -158,8 +204,8 @@
   // ここはよくわからない
   // 特になくても、直接指定すればいいのでは？
   NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-  NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-  NSLog(@"%@", [entity name]);
+//  NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+//  NSLog(@"%@", [entity name]);
 
   /* 新しい項目を初期化・追加する */
   Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
@@ -170,14 +216,15 @@
   //    [newManagedObject setValuesForKeysWithDictionary:nsdictionary];
 
   /* 項目を設定する */
-  [newItem setValue:data[0] forKey:@"title"];
+  [newItem setValue:data[0] forKey:@"title"]; // タイトルを設定
+  [newItem setValue:[NSNumber numberWithBool:false] forKey:@"state"]; // 初めは偽に設定
   Tag *newTags = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
                                                inManagedObjectContext:context];
   [newTags setTitle:data[1]];                                        // タグにタイトルを設定する
   [newItem addTagsObject:newTags];                                   // アイテムにタグを設定する
 
-  NSLog(@"%@", newItem);
-  NSLog(@"%@", [[[newItem tags] allObjects][0] title]);
+//  NSLog(@"%@", newItem);
+//  NSLog(@"%@", [[[newItem tags] allObjects][0] title]);
 
   /* エラー処理 */
   // Save the context.
@@ -451,6 +498,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   cell.textLabel.text = [[object valueForKey:@"title"] description];
 //  cell.titleLabel.text = [[object valueForKey:@"title"] description];
   cell.check = [object valueForKey:@"state"];
+  [cell setDelegate:self];
 }
 
 @end

@@ -13,9 +13,6 @@
   UIView *checkBoxTrue;
   UIView *checkBoxFalse;
 }
-
-- (void)updateCheckBox;
-
 @end
 
 
@@ -29,11 +26,9 @@
 {
   NSLog(@"%s", __FUNCTION__);
   if (self.check == true) {
-    UIImage *check_true = [UIImage imageNamed:@"CheckBox_True.png"];
-    [self.imageView setImage:check_true];
+    [self turnChecked];
   } else {
-    UIImage *check_false = [UIImage imageNamed:@"CheckBox_False.png"];
-    [self.imageView setImage:check_false];
+    [self turnUnchecked];
   }
 }
 
@@ -83,10 +78,13 @@
 {
   CGFloat _left_side = 50; // チェックボックスの範囲
   CGPoint location = [[touches anyObject] locationInView:self.contentView];
+  UITouch *touch = [touches anyObject]; // ここらへん分からん
 
+  NSLog(@"%s", __FUNCTION__);
   NSLog(@"%f", location.x);
   if (location.x < _left_side) {                                     // チェックボックスなら
-    [self turnChecked];                                              // チェックボックスを変更する
+//    [self turnChecked];                                              // チェックボックスを変更する
+    [self.delegate tappedCheckBox:self touch:touch]; // 自分と場所を渡す
   } else {                                                           // そうでなければ
     [super touchesBegan:touches withEvent:event];                    // デフォルトの処理をする
 
@@ -100,8 +98,8 @@
 - (void)turnChecked
 {
   NSLog(@"%s", ">>> check");
-  self.checkBox = checkBoxTrue;
-}
+  UIImage *check_true = [UIImage imageNamed:@"CheckBox_True.png"];
+  [self.imageView setImage:check_true];}
 
 /* ===  FUNCTION  ==============================================================
  *        Name: turnUnChecked
@@ -110,7 +108,8 @@
 - (void)turnUnchecked
 {
   NSLog(@"%s", ">>> uncheck");
-  self.checkBox = checkBoxFalse;
+  UIImage *check_false = [UIImage imageNamed:@"CheckBox_False.png"];
+  [self.imageView setImage:check_false];
 }
 
 

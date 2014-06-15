@@ -12,11 +12,13 @@
 #import "InputModalViewController.h"
 #import "DetailViewController.h"
 #import "Item.h"
+#import "Cell.h"
 
 @interface MasterViewController : UITableViewController
 <NSFetchedResultsControllerDelegate,
 InputModalViewControllerDelegate,
-DetailViewControllerDelegate>
+DetailViewControllerDelegate,
+CellDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
