@@ -32,7 +32,7 @@
   //    CGFloat _height = CGRectGetHeight(_main_frame);
   CGFloat center_x = self.view.center.x;
   if (sender.direction == UISwipeGestureRecognizerDirectionRight) {
-    location.x = center_x + 50;
+    location.x = center_x + 100;
   }
   [UIView animateWithDuration:0.3
                    animations:^{
@@ -66,8 +66,6 @@
   // セルとして使うクラスを登録する
   [self.tableView registerClass:[Cell class] forCellReuseIdentifier:@"Cell"];
   [self.tableView setRowHeight:50];
-  //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 200)];
-  //    view.backgroundColor = [UIColor redColor];
 
   // スワイプしてスライドさせる
   UISwipeGestureRecognizer *slideFrontView = [[UISwipeGestureRecognizer alloc] initWithTarget:self
@@ -77,7 +75,7 @@
   // Do any additional setup after loading the view, typically from a nib.
 
   // 編集ボタン
-  UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"編集"
+  UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                  style:UIBarButtonItemStyleBordered
                                                                 target:self action:@selector(toEdit:)];
   //    self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -121,12 +119,12 @@
 - (void)dismissInputModalView:(id)sender
                          data:(NSArray *)data
 {
-  NSString *title = data[0]; // タイトルを取得して
-  if (title.length > 0) { // 空欄でなければ
-    [self insertNewObject:sender data:data]; // リストを挿入する
+  NSString *title = data[0];                                         // タイトルを取得して
+  if (title.length > 0) {                                            // 空欄でなければ
+    [self insertNewObject:sender data:data];                         // リストを挿入する
   }
 
-  [self dismissViewControllerAnimated:YES completion:nil]; // ビューを削除
+  [self dismissViewControllerAnimated:YES completion:nil];           // ビューを削除
 }
 
 // 詳細ビューを削除する前の処理
@@ -175,8 +173,8 @@
   [newItem setValue:data[0] forKey:@"title"];
   Tag *newTags = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
                                                inManagedObjectContext:context];
-  [newTags setTitle:data[1]]; // タグにタイトルを設定する
-  [newItem addTagsObject:newTags]; // アイテムにタグを設定する
+  [newTags setTitle:data[1]];                                        // タグにタイトルを設定する
+  [newItem addTagsObject:newTags];                                   // アイテムにタグを設定する
 
   NSLog(@"%@", newItem);
   NSLog(@"%@", [[[newItem tags] allObjects][0] title]);
@@ -211,12 +209,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                        animated:NO];
 }
 
-
+/* ===  FUNCTION  ==============================================================
+ *        Name: numberOfSectionsInTableView
+ * Description:
+ * ========================================================================== */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return [[self.fetchedResultsController sections] count];
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name: tableView:numberOfRowsInSection
+ * Description:
+ * ========================================================================== */
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
@@ -348,11 +353,19 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   return _fetchedResultsController;
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name: controllerWillChangeContent
+ * Description:
+ * ========================================================================== */
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
   [self.tableView beginUpdates];
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name: controller:didChangeSection
+ * Description:
+ * ========================================================================== */
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
@@ -371,6 +384,10 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name: controller:didChangeObject
+ * Description:
+ * ========================================================================== */
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath
@@ -404,6 +421,10 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name: controllerDidChaneContent
+ * Description:
+ * ========================================================================== */
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
   [self.tableView endUpdates];
@@ -429,8 +450,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   Item *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.textLabel.text = [[object valueForKey:@"title"] description];
 //  cell.titleLabel.text = [[object valueForKey:@"title"] description];
-
-  cell.check = true;
+  cell.check = [object valueForKey:@"state"];
 }
 
 @end

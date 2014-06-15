@@ -15,7 +15,6 @@
 }
 
 - (void)updateCheckBox;
-- (UILabel *)createTitleLabel;
 
 @end
 
@@ -37,16 +36,6 @@
     [self.imageView setImage:check_false];
   }
 }
-/* ===  FUNCTION  ==============================================================
- *        Name: createTitleLabel
- * Description:
- * ========================================================================== */
--(UILabel *)createTitleLabel
-{
-  NSLog(@"%s", __FUNCTION__);
-  UILabel *newTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 100, 40)];
-  return newTitleLabel;
-}
 
 /* ===  FUNCTION  ==============================================================
  *        Name: initWithStyle
@@ -56,13 +45,14 @@
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
 {
+  NSLog(@"%s", ">>> init Cell");
+
   /* superで初期化 */
   self = [super initWithStyle:style
               reuseIdentifier:reuseIdentifier];
 
-  if (self) {
-    NSLog(@"%s", ">>> init Cell");
-
+  if (self)
+  {
     /* チェックボックスを更新 */
     [self updateCheckBox];
   }
@@ -88,19 +78,17 @@
  * Description: タッチされたときの処理
  * ========================================================================== */
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesBegan:(NSSet *)touches
+          withEvent:(UIEvent *)event
 {
-  CGFloat _left_side = 40;
+  CGFloat _left_side = 50; // チェックボックスの範囲
   CGPoint location = [[touches anyObject] locationInView:self.contentView];
 
   NSLog(@"%f", location.x);
-  if (location.x < _left_side) { // チェックボックスなら
-    // チェックボックスを変更する
-    [self turnChecked];
-
-  } else {
-    // デフォルトの処理をする
-    [super touchesBegan:touches withEvent:event];
+  if (location.x < _left_side) {                                     // チェックボックスなら
+    [self turnChecked];                                              // チェックボックスを変更する
+  } else {                                                           // そうでなければ
+    [super touchesBegan:touches withEvent:event];                    // デフォルトの処理をする
 
   }
 }

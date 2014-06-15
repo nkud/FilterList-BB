@@ -12,8 +12,6 @@
 
 @property (strong, nonatomic) UIView *checkBox; /* チェックボックス */
 
-@property (strong, nonatomic) UILabel *titleLabel;
-
 @property BOOL check;
 
 @end
