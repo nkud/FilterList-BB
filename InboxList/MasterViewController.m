@@ -29,42 +29,30 @@
                 touch:(UITouch *)touch
 {
   NSLog(@"%s", __FUNCTION__);
-//  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
 
+  /* 位置を取得 */
   CGPoint tappedPoint = [touch locationInView:self.view];
   NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:tappedPoint];
-  NSManagedObject *mobject = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
 
+  /* セルのデータをモデルから取得 */
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-  BOOL state = [[item valueForKey:@"state"] boolValue];
-  if ( state ) {
-    NSLog(@"%@", @"true");
+  /* チェックを変更 */
+  BOOL checkbox = ! [[item valueForKey:@"state"] boolValue];
 
-    cell.check = NO;
-  } else {
-    NSLog(@"%@", @"false");
+  /* モデル変更 */
+  item.state = [NSNumber numberWithBool:checkbox];
 
-    cell.check = YES;
-  }
-  [mobject setValue:[NSNumber numberWithBool:cell.check] forKey:@"state"];
-  [cell updateCheckBox];
+  /* チェックボックス更新 */
+  [cell updateCheckBox:checkbox];
 
+  /* モデルを保存 */
   NSError *error = nil;
   if (![self.managedObjectContext save:&error]) {
     NSLog(@"error = %@", error);
-
   } else {
     NSLog(@"Update Completed.");
   }
-//  [cell updateCheckBox];
-//  NSError *error = nil;
-//  if (![context save:&error]) {
-//    // Replace this implementation with code to handle the error appropriately.
-//    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//    abort();
-//  }
 }
 
 /* ===  FUNCTION  ==============================================================
@@ -117,8 +105,6 @@
   UISwipeGestureRecognizer *slideFrontView = [[UISwipeGestureRecognizer alloc] initWithTarget:self
                                                                                        action:@selector(swipeView:)];
   [self.view addGestureRecognizer:slideFrontView];
-
-  // Do any additional setup after loading the view, typically from a nib.
 
   // 編集ボタン
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
@@ -204,11 +190,11 @@
   // ここはよくわからない
   // 特になくても、直接指定すればいいのでは？
   NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-//  NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+  NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
 //  NSLog(@"%@", [entity name]);
 
   /* 新しい項目を初期化・追加する */
-  Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
+  Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
                                                 inManagedObjectContext:context];
 
   // If appropriate, configure the new managed object.
@@ -222,9 +208,6 @@
                                                inManagedObjectContext:context];
   [newTags setTitle:data[1]];                                        // タグにタイトルを設定する
   [newItem addTagsObject:newTags];                                   // アイテムにタグを設定する
-
-//  NSLog(@"%@", newItem);
-//  NSLog(@"%@", [[[newItem tags] allObjects][0] title]);
 
   /* エラー処理 */
   // Save the context.
@@ -355,8 +338,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 #pragma mark - Fetched results controller
 
 /* ===  FUNCTION  ==============================================================
- *        Name:
- * Description:
+ *        Name: fetchedResultsController
+ * Description: ゲッター
  * ========================================================================== */
 - (NSFetchedResultsController *)fetchedResultsController
 {
@@ -455,8 +438,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       break;
 
     case NSFetchedResultsChangeUpdate:
-      [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
-              atIndexPath:indexPath];
+      [self configureCell:(Cell *)[tableView cellForRowAtIndexPath:indexPath]
+              atIndexPath:indexPath]; // これであってる？？
       break;
 
     case NSFetchedResultsChangeMove:
@@ -494,11 +477,13 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 - (void)configureCell:(Cell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
+  NSLog(@"%s", __FUNCTION__);
+
   Item *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.textLabel.text = [[object valueForKey:@"title"] description];
-//  cell.titleLabel.text = [[object valueForKey:@"title"] description];
-  cell.check = [object valueForKey:@"state"];
-  [cell setDelegate:self];
+
+  cell.textLabel.text = [[object valueForKey:@"title"] description]; // text
+  [cell updateCheckBox:[[object valueForKey:@"state"] boolValue]]; // checkbox
+  cell.delegate = self; // delegate
 }
 
 @end

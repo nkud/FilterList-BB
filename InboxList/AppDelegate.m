@@ -122,8 +122,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   }
   NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"InboxList"
                                             withExtension:@"momd"];
-  _managedObjectModel
-  = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+  _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
   return _managedObjectModel;
 }
 

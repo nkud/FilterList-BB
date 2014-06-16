@@ -9,26 +9,38 @@
 #import "Cell.h"
 
 
-@interface Cell () {
-  UIView *checkBoxTrue;
-  UIView *checkBoxFalse;
-}
+@interface Cell ()
+
+-(void)setChecked;
+-(void)setUnChecked;
+
 @end
 
 
 @implementation Cell
 
+
 /* ===  FUNCTION  ==============================================================
  *        Name: updateCheckBox
- * Description:
+ * Description: チェックボックスを更新
  * ========================================================================== */
--(void)updateCheckBox
+//-(void)updateCheckBox
+//{
+//  if (self.isChecked == true) {
+//    [self turnChecked];
+//  } else {
+//    [self turnUnchecked];
+//  }
+//}
+
+-(BOOL)updateCheckBox:(BOOL)isChecked
 {
-  NSLog(@"%s", __FUNCTION__);
-  if (self.check == true) {
-    [self turnChecked];
+  if (isChecked) {
+    [self setChecked];
+    return TRUE;
   } else {
-    [self turnUnchecked];
+    [self setUnChecked];
+    return FALSE;
   }
 }
 
@@ -43,13 +55,11 @@
   NSLog(@"%s", ">>> init Cell");
 
   /* superで初期化 */
-  self = [super initWithStyle:style
-              reuseIdentifier:reuseIdentifier];
+  self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 
   if (self)
   {
-    /* チェックボックスを更新 */
-    [self updateCheckBox];
+    /* initialize */
   }
   return self;
 }
@@ -95,17 +105,18 @@
  *        Name: turnChecked
  * Description:
  * ========================================================================== */
-- (void)turnChecked
+-(void)setChecked
 {
   NSLog(@"%s", ">>> check");
   UIImage *check_true = [UIImage imageNamed:@"CheckBox_True.png"];
-  [self.imageView setImage:check_true];}
+  [self.imageView setImage:check_true];
+}
 
 /* ===  FUNCTION  ==============================================================
  *        Name: turnUnChecked
  * Description:
  * ========================================================================== */
-- (void)turnUnchecked
+- (void)setUnChecked
 {
   NSLog(@"%s", ">>> uncheck");
   UIImage *check_false = [UIImage imageNamed:@"CheckBox_False.png"];
