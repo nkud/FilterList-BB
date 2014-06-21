@@ -23,6 +23,4 @@ CellDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
-- (void)swipeView:(UISwipeGestureRecognizer *)sender;
-
 @end

@@ -24,15 +24,6 @@
  *        Name: updateCheckBox
  * Description: チェックボックスを更新
  * ========================================================================== */
-//-(void)updateCheckBox
-//{
-//  if (self.isChecked == true) {
-//    [self turnChecked];
-//  } else {
-//    [self turnUnchecked];
-//  }
-//}
-
 -(BOOL)updateCheckBox:(BOOL)isChecked
 {
   if (isChecked) {
@@ -64,20 +55,6 @@
   return self;
 }
 
-
-/* ===  FUNCTION  ==============================================================
- *        Name: setFrame
- * Description: フレームをセットする
- * ========================================================================== */
-
--(void)setFrame:(CGRect)frame
-{
-  //    frame.origin.x += 40;
-  //    frame.size.width -= 80;
-
-  [super setFrame:frame];
-}
-
 /* ===  FUNCTION  ==============================================================
  *        Name: touchesBegan
  * Description: タッチされたときの処理
@@ -102,7 +79,7 @@
 }
 
 /* ===  FUNCTION  ==============================================================
- *        Name: turnChecked
+ *        Name: setChecked
  * Description:
  * ========================================================================== */
 -(void)setChecked
@@ -113,7 +90,7 @@
 }
 
 /* ===  FUNCTION  ==============================================================
- *        Name: turnUnChecked
+ *        Name: setUnChecked
  * Description:
  * ========================================================================== */
 - (void)setUnChecked

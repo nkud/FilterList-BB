@@ -13,10 +13,12 @@
 #import "Item.h"
 #import "Cell.h"
 
-@interface MasterViewController ()
+@interface MasterViewController () {
+  int location_center_x;
+  BOOL isOpen;
+}
 
-- (void)configureCell:(Cell *)cell
-          atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(Cell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @implementation MasterViewController
@@ -56,25 +58,6 @@
 }
 
 /* ===  FUNCTION  ==============================================================
- *        Name: swipeView
- * Description: スライドさせる
- * ========================================================================== */
--(void)swipeView:(UISwipeGestureRecognizer *)sender
-{
-  //    CGRect _main_frame = self.view.frame;
-  CGPoint location = self.view.center;
-  //    CGFloat _height = CGRectGetHeight(_main_frame);
-  CGFloat center_x = self.view.center.x;
-  if (sender.direction == UISwipeGestureRecognizerDirectionRight) {
-    location.x = center_x + 100;
-  }
-  [UIView animateWithDuration:0.3
-                   animations:^{
-                     self.view.center = location;
-                   }];
-}
-
-/* ===  FUNCTION  ==============================================================
  *        Name: initWithStyle:
  * Description: 初期化する
  * ========================================================================== */
@@ -90,21 +73,64 @@
 }
 
 /* ===  FUNCTION  ==============================================================
- *        Name: viewDidLoad
- * Description: ビューをロードする
+ *        Name: handleSwipeFrom
+ * Description:
  * ========================================================================== */
+- (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer;
+{
+  NSLog(@"%s", __FUNCTION__);
+  int distance = 50;
+  CGPoint location = self.view.center;
+  CGFloat center_x = self.view.center.x;
+
+  switch (recognizer.direction) {
+    case UISwipeGestureRecognizerDirectionRight:
+      NSLog(@"%@", @"right");
+      location.x = center_x + distance;
+      break;
+    case UISwipeGestureRecognizerDirectionLeft:
+      NSLog(@"%@", @"left");
+      location.x = center_x - distance;
+      break;
+    default:
+      break;
+  }
+  [UIView animateWithDuration:0.2
+                   animations:^{
+                     self.view.center = location;
+                   }];
+}
+/* ===  FUNCTION  ==============================================================
+ *        Name: viewDidLoad
+ * Description:
+ * ========================================================================== */
+- (void)initParameter
+{
+  isOpen = false;
+}
+
 - (void)viewDidLoad
 {
+  /* 変数を初期化 */
   [super viewDidLoad];
+  [self initParameter];
+
+  /* ジェスチャーを設定 */
+  UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+  UISwipeGestureRecognizer *recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+  [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
+  [self.tableView addGestureRecognizer:recognizerRight];
+  [recognizerLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+  [self.tableView addGestureRecognizer:recognizerLeft];
 
   // セルとして使うクラスを登録する
   [self.tableView registerClass:[Cell class] forCellReuseIdentifier:@"Cell"];
   [self.tableView setRowHeight:50];
 
   // スワイプしてスライドさせる
-  UISwipeGestureRecognizer *slideFrontView = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                       action:@selector(swipeView:)];
-  [self.view addGestureRecognizer:slideFrontView];
+//  UISwipeGestureRecognizer *slideFrontView = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+//                                                                                       action:@selector(swipeView:)];
+//  [self.view addGestureRecognizer:slideFrontView];
 
   // 編集ボタン
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
@@ -120,6 +146,7 @@
                                 action:@selector(inputAndInsertNewObjectFromModalView)];
   self.navigationItem.rightBarButtonItem = addButton;
 }
+
 
 /* ===  FUNCTION  ==============================================================
  *        Name: toEdit

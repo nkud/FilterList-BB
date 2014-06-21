@@ -24,6 +24,7 @@
 		B00AD6B518C45E480005A552 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AD69018C45E470005A552 /* CoreData.framework */; };
 		B00AD6BD18C45E480005A552 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B00AD6BB18C45E480005A552 /* InfoPlist.strings */; };
 		B00AD6BF18C45E480005A552 /* InboxListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AD6BE18C45E480005A552 /* InboxListTests.m */; };
+		B037277C195326D60041C4A1 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B037277B195326D60041C4A1 /* MenuViewController.m */; };
 		B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C0418C9CA90007703B8 /* InputModalViewController.m */; };
 		B03E6C1718CAA316007703B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1618CAA316007703B8 /* Item.m */; };
 		B03E6C1A18CAA316007703B8 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1918CAA316007703B8 /* Tag.m */; };
@@ -66,6 +67,8 @@
 		B00AD6BA18C45E480005A552 /* InboxListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InboxListTests-Info.plist"; sourceTree = "<group>"; };
 		B00AD6BC18C45E480005A552 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B00AD6BE18C45E480005A552 /* InboxListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InboxListTests.m; sourceTree = "<group>"; };
+		B037277A195326D60041C4A1 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		B037277B195326D60041C4A1 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		B03E6C0318C9CA8F007703B8 /* InputModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputModalViewController.h; sourceTree = "<group>"; };
 		B03E6C0418C9CA90007703B8 /* InputModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputModalViewController.m; sourceTree = "<group>"; };
 		B03E6C1518CAA316007703B8 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
@@ -143,13 +146,14 @@
 			children = (
 				B00AD69B18C45E470005A552 /* AppDelegate.h */,
 				B00AD69C18C45E470005A552 /* AppDelegate.m */,
-				B03F2BD2194D75F40037AE2C /* Resource */,
+				B037277D1953270E0041C4A1 /* MenuView */,
 				B0C93A1A194C4AB600733BE7 /* Navigatioin */,
 				B0E7571419499EAA004C6344 /* MasterView */,
-				B03E6C1B18CAA383007703B8 /* ManagedObject */,
 				B0E7571519499EB8004C6344 /* InputModalView */,
 				B0E7571219499D98004C6344 /* Cell */,
 				B0E7571319499E95004C6344 /* DetailView */,
+				B03E6C1B18CAA383007703B8 /* ManagedObject */,
+				B03F2BD2194D75F40037AE2C /* Resource */,
 				B00AD6AA18C45E470005A552 /* Images.xcassets */,
 				B00AD6A118C45E470005A552 /* InboxList.xcdatamodeld */,
 				B00AD69318C45E470005A552 /* Supporting Files */,
@@ -184,6 +188,15 @@
 				B00AD6BB18C45E480005A552 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B037277D1953270E0041C4A1 /* MenuView */ = {
+			isa = PBXGroup;
+			children = (
+				B037277A195326D60041C4A1 /* MenuViewController.h */,
+				B037277B195326D60041C4A1 /* MenuViewController.m */,
+			);
+			name = MenuView;
 			sourceTree = "<group>";
 		};
 		B03E6C1B18CAA383007703B8 /* ManagedObject */ = {
@@ -361,6 +374,7 @@
 				B00AD69918C45E470005A552 /* main.m in Sources */,
 				B08F4B651915FAC80047E210 /* NavigationController.m in Sources */,
 				B03E6C1718CAA316007703B8 /* Item.m in Sources */,
+				B037277C195326D60041C4A1 /* MenuViewController.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* Cell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

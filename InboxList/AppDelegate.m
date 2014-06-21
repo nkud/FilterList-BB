@@ -32,18 +32,19 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   // MasterViewController の初期化・設定
   self.masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
 
+  self.menuViewController = [[MenuViewController alloc] initWithStyle:UITableViewStylePlain];
+  [self.window addSubview:self.menuViewController.view];
+
   // NavigationController の初期化・設定
-  self.navigationController
-  = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
+  self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
 
   // ナビゲーションコントローラーをルートに指定する
   self.window.rootViewController = self.navigationController;
 
-
   // 後ろの赤い画面
-  //    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-  //    [view setBackgroundColor:[UIColor redColor]];
-  //    [self.window addSubview:view];
+//    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    [view setBackgroundColor:[UIColor redColor]];
+//    [self.window addSubview:view];
 
   self.masterViewController.managedObjectContext = self.managedObjectContext;
 
