@@ -289,13 +289,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   return [sectionInfo numberOfObjects];
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: tableView:tableView cellForRowAtIndexPath:
- * Description: indexPath 列目のセルを返す
- * ========================================================================== */
+///
+/// tableView:cellForRowAtIndexPath
+///   @note indexPath列目のセルを返す
+///
 - (Cell *)tableView:(UITableView *)tableView
 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  NSLog(@"%s", __FUNCTION__);
   static NSString *CellIdentifier = @"Cell";
   Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
@@ -343,7 +344,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /* ===  FUNCTION  ==============================================================
- *        Name:
+ *        Name: tableView:canMoveRowAtIndexPath:
  * Description:
  * ========================================================================== */
 - (BOOL)tableView:(UITableView *)tableView
@@ -354,7 +355,7 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /* ===  FUNCTION  ==============================================================
- *        Name: tableView
+ *        Name: tableView:moveRowAtIndexPath
  * Description:
  * ========================================================================== */
 -(void)tableView:(UITableView *)tableView
@@ -377,7 +378,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
 
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSLog(@"%s", __FUNCTION__);
   // Edit the entity name as appropriate.
+  NSLog(@"%@", self.managedObjectContext);
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
                                             inManagedObjectContext:self.managedObjectContext];
   [fetchRequest setEntity:entity];
@@ -409,6 +412,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     abort();
 	}
 
+  NSLog(@"%s", __FUNCTION__);
   return _fetchedResultsController;
 }
 

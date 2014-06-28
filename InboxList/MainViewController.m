@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "Header.h"
 
 @interface MainViewController ()
 
@@ -33,6 +34,7 @@
   self = [super init];
   return self;
 }
+
 /* ===  FUNCTION  ==============================================================
  *        Name:
  * Description:
@@ -41,14 +43,26 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
   self.masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
+  self.masterViewController.managedObjectContext = self.managedObjectContext;
+  self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
+
+//  self.menuViewController = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
+//  self.menuViewController.view.backgroundColor = RGB(100, 0, 0);
+
+  self.navigationController.title = @"Master";
+  [self addChildViewController:self.navigationController];
+
 //  self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
   self.menuViewController = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
 //  [self.view addSubview:self.navigationController.view];
-  [self.view addSubview:self.masterViewController.view];
-  [self.view addSubview:self.menuViewController.view];
+//  [self.view addSubview:self.masterViewController.view];
+//  [self.view addSubview:self.menuViewController.view];
+  self.view.backgroundColor = RGB(100, 100, 100);
+  [self.view addSubview:self.navigationController.view];
 
-  [self.view bringSubviewToFront:self.masterViewController.view];
+//  [self.view bringSubviewToFront:self.menuViewController.view];
 }
 
 - (void)didReceiveMemoryWarning
