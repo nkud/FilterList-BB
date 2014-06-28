@@ -10,7 +10,8 @@
 
 @implementation NavigationController
 
--(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+-(void)pushViewController:(UIViewController *)viewController
+                 animated:(BOOL)animated
 {
   CATransition *transition = [CATransition animation];
   transition.duration = 0.3f;

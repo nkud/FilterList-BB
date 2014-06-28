@@ -10,8 +10,11 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "MainViewController.h"
 
 #import "NavigationController.h"
+
+#import "Header.h"
 
 @implementation AppDelegate
 
@@ -24,29 +27,34 @@
  * Description: 開始直後の処理
  * ========================================================================== */
 - (BOOL)application:(UIApplication *)application
-didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // window の初期化・設定
-  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  self.window = [[UIWindow alloc] initWithFrame:SCREEN_BOUNDS];
 
-  // MasterViewController の初期化・設定
-  self.masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
-
-  self.menuViewController = [[MenuViewController alloc] initWithStyle:UITableViewStylePlain];
-  [self.window addSubview:self.menuViewController.view];
-
-  // NavigationController の初期化・設定
-  self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
-
-  // ナビゲーションコントローラーをルートに指定する
-  self.window.rootViewController = self.navigationController;
+  /* メニュービュー設定 */
+//  self.menuViewController = [[MenuViewController alloc] initWithNibName:nil
+//                                                                 bundle:nil];
+//  [self.window addSubview:self.menuViewController.view];
+//
+//  // MasterViewController の初期化・設定
+//  self.masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
+//
+//  // NavigationController の初期化・設定
+//  self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
+//
+//  // ナビゲーションコントローラーをルートに指定する
+//  self.window.rootViewController = self.navigationController;
 
   // 後ろの赤い画面
 //    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    [view setBackgroundColor:[UIColor redColor]];
 //    [self.window addSubview:view];
 
-  self.masterViewController.managedObjectContext = self.managedObjectContext;
+  self.mainViewController = [[MainViewController alloc] init];
+  [self.window setRootViewController:self.mainViewController];
+
+  self.mainViewController.masterViewController.managedObjectContext = self.managedObjectContext;
+//  self.masterViewController.managedObjectContext = self.managedObjectContext;
 
   // window を表示させる
   [self.window makeKeyAndVisible];
@@ -54,6 +62,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   return YES;
 }
 
+/* ===  FUNCTION  ==============================================================
+ *        Name: applicationWillResignActive
+ * Description:
+ * ========================================================================== */
 - (void)applicationWillResignActive:(UIApplication *)application
 {
   // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -118,6 +130,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 // If the model doesn't already exist, it is created from the application's model.
 - (NSManagedObjectModel *)managedObjectModel
 {
+  NSLog(@"%s", __FUNCTION__);
   if (_managedObjectModel != nil) {
     return _managedObjectModel;
   }

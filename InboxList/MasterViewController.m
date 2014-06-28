@@ -114,6 +114,7 @@
 
 - (void)viewDidLoad
 {
+  NSLog(@"%s", __FUNCTION__);
   [super viewDidLoad];
 
   /* 変数を初期化 */

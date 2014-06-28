@@ -24,11 +24,12 @@
 		B00AD6B518C45E480005A552 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AD69018C45E470005A552 /* CoreData.framework */; };
 		B00AD6BD18C45E480005A552 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B00AD6BB18C45E480005A552 /* InfoPlist.strings */; };
 		B00AD6BF18C45E480005A552 /* InboxListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AD6BE18C45E480005A552 /* InboxListTests.m */; };
-		B037277C195326D60041C4A1 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B037277B195326D60041C4A1 /* MenuViewController.m */; };
 		B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C0418C9CA90007703B8 /* InputModalViewController.m */; };
 		B03E6C1718CAA316007703B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1618CAA316007703B8 /* Item.m */; };
 		B03E6C1A18CAA316007703B8 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1918CAA316007703B8 /* Tag.m */; };
 		B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */ = {isa = PBXBuildFile; fileRef = B03F2BD3194D76460037AE2C /* CheckBox_True.png */; };
+		B0808049195825A3007D21E4 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0808048195825A3007D21E4 /* MenuViewController.m */; };
+		B080804C19582CF6007D21E4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B080804B19582CF6007D21E4 /* MainViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
 		B0DABFAD1914CC50007597E3 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* Cell.m */; };
 		B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DC58D8194DAD770089E8FA /* CheckBox_False.png */; };
@@ -67,8 +68,6 @@
 		B00AD6BA18C45E480005A552 /* InboxListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InboxListTests-Info.plist"; sourceTree = "<group>"; };
 		B00AD6BC18C45E480005A552 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B00AD6BE18C45E480005A552 /* InboxListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InboxListTests.m; sourceTree = "<group>"; };
-		B037277A195326D60041C4A1 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
-		B037277B195326D60041C4A1 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		B03E6C0318C9CA8F007703B8 /* InputModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputModalViewController.h; sourceTree = "<group>"; };
 		B03E6C0418C9CA90007703B8 /* InputModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputModalViewController.m; sourceTree = "<group>"; };
 		B03E6C1518CAA316007703B8 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
@@ -77,6 +76,10 @@
 		B03E6C1918CAA316007703B8 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		B03F2BD3194D76460037AE2C /* CheckBox_True.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_True.png; path = resource/CheckBox_True.png; sourceTree = SOURCE_ROOT; };
 		B053C91B19557C1600C51AA1 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		B0808047195825A3007D21E4 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		B0808048195825A3007D21E4 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		B080804A19582CF6007D21E4 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		B080804B19582CF6007D21E4 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 		B00AD69218C45E470005A552 /* InboxList */ = {
 			isa = PBXGroup;
 			children = (
+				B080804A19582CF6007D21E4 /* MainViewController.h */,
+				B080804B19582CF6007D21E4 /* MainViewController.m */,
 				B00AD69B18C45E470005A552 /* AppDelegate.h */,
 				B00AD69C18C45E470005A552 /* AppDelegate.m */,
 				B053C91B19557C1600C51AA1 /* Header.h */,
@@ -195,8 +200,8 @@
 		B037277D1953270E0041C4A1 /* MenuView */ = {
 			isa = PBXGroup;
 			children = (
-				B037277A195326D60041C4A1 /* MenuViewController.h */,
-				B037277B195326D60041C4A1 /* MenuViewController.m */,
+				B0808047195825A3007D21E4 /* MenuViewController.h */,
+				B0808048195825A3007D21E4 /* MenuViewController.m */,
 			);
 			name = MenuView;
 			sourceTree = "<group>";
@@ -372,11 +377,12 @@
 				B00AD6A618C45E470005A552 /* MasterViewController.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
 				B03E6C1A18CAA316007703B8 /* Tag.m in Sources */,
+				B0808049195825A3007D21E4 /* MenuViewController.m in Sources */,
 				B00AD69D18C45E470005A552 /* AppDelegate.m in Sources */,
+				B080804C19582CF6007D21E4 /* MainViewController.m in Sources */,
 				B00AD69918C45E470005A552 /* main.m in Sources */,
 				B08F4B651915FAC80047E210 /* NavigationController.m in Sources */,
 				B03E6C1718CAA316007703B8 /* Item.m in Sources */,
-				B037277C195326D60041C4A1 /* MenuViewController.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* Cell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
