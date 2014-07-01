@@ -74,36 +74,6 @@
 }
 
 /* ===  FUNCTION  ==============================================================
- *        Name: handleSwipeFrom
- * Description: もう少し奇麗に実装できる？
- * ========================================================================== */
-- (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer;
-{
-  NSLog(@"%s", __FUNCTION__);
-  int distance = 100;
-  CGPoint next_center = self.view.center;
-  CGFloat center_x = self.view.center.x; // 現在の中心 x
-
-  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
-
-  switch (recognizer.direction) {
-      /* 右スワイプ */
-    case UISwipeGestureRecognizerDirectionRight:
-      next_center.x = center_x + distance;
-      break;
-      /* 左スワイプ */
-    case UISwipeGestureRecognizerDirectionLeft:
-      next_center.x = MAX(center_x-distance, screen_x);
-      break;
-    default:
-      break;
-  }
-  [UIView animateWithDuration:0.2
-                   animations:^{
-                     self.view.center = next_center;
-                   }];
-}
-/* ===  FUNCTION  ==============================================================
  *        Name: viewDidLoad
  * Description:
  * ========================================================================== */
@@ -120,15 +90,7 @@
   /* 変数を初期化 */
   [self initParameter];
 
-  /* ジェスチャーを設定 */
-  UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                        action:@selector(handleSwipeFrom:)];
-  UISwipeGestureRecognizer *recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                       action:@selector(handleSwipeFrom:)];
-  [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
-  [recognizerLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-  [self.tableView addGestureRecognizer:recognizerRight];
-  [self.tableView addGestureRecognizer:recognizerLeft];
+
 
   // セルとして使うクラスを登録する
   [self.tableView registerClass:[Cell class] forCellReuseIdentifier:@"Cell"];

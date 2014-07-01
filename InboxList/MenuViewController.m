@@ -15,26 +15,33 @@
 
 @implementation MenuViewController
 
+////////////////////////////////////////////////////////////////////////////////
+/// initWithNibName
+/// @todo この初期化方法は変えた方がいいのかも
+
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
   self = [super initWithNibName:nibNameOrNil
                          bundle:nibBundleOrNil];
   if (self) {
-    // Custom initialization
-    
-    NSLog(@"%s", __FUNCTION__);
+    ;
   }
   return self;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//// viewDidLoad
 - (void)viewDidLoad
 {
+  NSLog(@"%s", __FUNCTION__);
+
   [super viewDidLoad];
 
-  [self.view setBackgroundColor:RGB(255, 0, 0)];
-  // Do any additional setup after loading the view.
-  NSLog(@"%s", __FUNCTION__);
+  /// メニュービューを初期化
+  self.menuView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS
+                                               style:UITableViewStylePlain];
+  [self.view addSubview:self.menuView];
 }
 
 - (void)didReceiveMemoryWarning

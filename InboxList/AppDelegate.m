@@ -29,20 +29,16 @@
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  /// ウィンドウ初期化
   self.window = [[UIWindow alloc] initWithFrame:SCREEN_BOUNDS];
 
-  /* メニュービュー設定 */
+  /// メインビュー初期化
   self.mainViewController = [[MainViewController alloc] init];
-  [self.window setRootViewController:self.mainViewController];
 
-  self.window.backgroundColor = RGB(255, 255, 255);
-
-  NSLog(@"%@", self.managedObjectContext);
-  // ここでコンテキストを渡せていない！
-//  self.mainViewController.masterViewController.managedObjectContext = self.managedObjectContext;
+  /// 管理オブジェクトコンテキスト初期化
   self.mainViewController.managedObjectContext = self.managedObjectContext;
-  NSLog(@"%@", self.mainViewController.masterViewController.managedObjectContext);
 
+  [self.window setRootViewController:self.mainViewController];
   [self.window makeKeyAndVisible];
 
   return YES;

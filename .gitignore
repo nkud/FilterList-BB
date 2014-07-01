@@ -4,3 +4,7 @@
 !*.m
 !*.h
 .DS_Store
+
+html
+sublime
+index.html

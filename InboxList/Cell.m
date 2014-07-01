@@ -19,7 +19,6 @@
 
 @implementation Cell
 
-
 /* ===  FUNCTION  ==============================================================
  *        Name: updateCheckBox
  * Description: チェックボックスを更新

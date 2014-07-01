@@ -24,10 +24,9 @@
     }
     return self;
 }
-/* ===  FUNCTION  ==============================================================
- *        Name:
- * Description:
- * ========================================================================== */
+
+/// @brief 初期化
+///
 -(id)init
 {
   NSLog(@"%s", __FUNCTION__);
@@ -35,34 +34,70 @@
   return self;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+/// viewDidLoad
+
 /* ===  FUNCTION  ==============================================================
- *        Name:
- * Description:
+ *        Name: handleSwipeFrom
+ * Description: もう少し奇麗に実装できる？
  * ========================================================================== */
+- (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer;
+{
+  NSLog(@"%s", __FUNCTION__);
+  int distance = 100;
+  CGPoint next_center = self.navigationController.view.center;
+  CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
+
+  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
+
+  switch (recognizer.direction) {
+      /* 右スワイプ */
+    case UISwipeGestureRecognizerDirectionRight:
+      next_center.x = center_x + distance;
+      break;
+      /* 左スワイプ */
+    case UISwipeGestureRecognizerDirectionLeft:
+      next_center.x = MAX(center_x-distance, screen_x);
+      break;
+    default:
+      break;
+  }
+  [UIView animateWithDuration:0.2
+                   animations:^{
+                     self.navigationController.view.center = next_center;
+                   }];
+}
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
 
+  /// マスタービュー初期化
   self.masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
   self.masterViewController.managedObjectContext = self.managedObjectContext;
+
+  /// ナビゲーションコントローラー初期化
   self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
 
-//  self.menuViewController = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
-//  self.menuViewController.view.backgroundColor = RGB(100, 0, 0);
+  /* ジェスチャーを設定 */
+  UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                        action:@selector(handleSwipeFrom:)];
+  UISwipeGestureRecognizer *recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                       action:@selector(handleSwipeFrom:)];
+  [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
+  [recognizerLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+  [self.navigationController.view addGestureRecognizer:recognizerRight];
+  [self.navigationController.view addGestureRecognizer:recognizerLeft];
 
-  self.navigationController.title = @"Master";
-  [self addChildViewController:self.navigationController];
 
-//  self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
+  self.navigationController.title = @"InboxList";
+//  [self addChildViewController:self.navigationController];
+
+  /// メニューバー初期化
   self.menuViewController = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
-//  [self.view addSubview:self.navigationController.view];
-//  [self.view addSubview:self.masterViewController.view];
-//  [self.view addSubview:self.menuViewController.view];
-  self.view.backgroundColor = RGB(100, 100, 100);
-  [self.view addSubview:self.navigationController.view];
 
-//  [self.view bringSubviewToFront:self.menuViewController.view];
+  /// コントローラーのビューを配置
+  [self.view addSubview:self.menuViewController.view];
+  [self.view addSubview:self.navigationController.view];
 }
 
 - (void)didReceiveMemoryWarning
