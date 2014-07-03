@@ -23,4 +23,6 @@ CellDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
+- (NSArray *)getTagList;
+
 @end

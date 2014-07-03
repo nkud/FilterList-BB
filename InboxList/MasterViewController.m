@@ -24,6 +24,25 @@
 
 @implementation MasterViewController
 
+/**
+ * @brief 存在するタグのリストを取得する
+ * @note NSMutableArrayを返してもいいのか？
+ */
+- (NSArray *)getTagList
+{
+  NSMutableArray *taglist = [[NSMutableArray alloc] init];
+  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+  NSArray *objs = [[context registeredObjects] allObjects]; // 全てのオブジェクトを取得
+
+  for( NSArray *obj in [[objs valueForKey:@"tags"] valueForKey:@"title"]) {
+    for( NSString *title in obj) {
+      if ([title isEqualToString:@""]) continue; // 空ならスキップ
+      [taglist addObject:title];
+    }
+  }
+  return taglist;
+}
+
 /* ===  FUNCTION  ==============================================================
  *        Name: tappedCheckBox
  * Description: セルのチェックボックスがタッチされた時の処理
@@ -86,6 +105,10 @@
 {
   NSLog(@"%s", __FUNCTION__);
   [super viewDidLoad];
+
+  /* ログ：　タグリストを表示 */
+  NSLog(@"%@", @"TAG-LIST");
+  NSLog(@"%@", [self getTagList]);
 
   /* 変数を初期化 */
   [self initParameter];
@@ -200,7 +223,6 @@
   [newTags setTitle:data[1]];                                        // タグにタイトルを設定する
   [newItem addTagsObject:newTags];                                   // アイテムにタグを設定する
 
-  /* エラー処理 */
   // Save the context.
   NSError *error = nil;
   if (![context save:&error]) {
@@ -340,9 +362,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
 
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  NSLog(@"%s", __FUNCTION__);
   // Edit the entity name as appropriate.
-  NSLog(@"%@", self.managedObjectContext);
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
                                             inManagedObjectContext:self.managedObjectContext];
   [fetchRequest setEntity:entity];
@@ -374,7 +394,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     abort();
 	}
 
-  NSLog(@"%s", __FUNCTION__);
   return _fetchedResultsController;
 }
 

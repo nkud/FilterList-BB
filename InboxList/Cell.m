@@ -42,8 +42,6 @@
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
 {
-  NSLog(@"%s", ">>> init Cell");
-
   /* superで初期化 */
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 
@@ -66,8 +64,6 @@
   CGPoint location = [[touches anyObject] locationInView:self.contentView];
   UITouch *touch = [touches anyObject]; // ここらへん分からん
 
-  NSLog(@"%s", __FUNCTION__);
-  NSLog(@"%f", location.x);
   if (location.x < _left_side) {                                     // チェックボックスなら
 //    [self turnChecked];                                              // チェックボックスを変更する
     [self.delegate tappedCheckBox:self touch:touch]; // 自分と場所を渡す
@@ -83,7 +79,6 @@
  * ========================================================================== */
 -(void)setChecked
 {
-  NSLog(@"%s", ">>> check");
   UIImage *check_true = [UIImage imageNamed:@"CheckBox_True.png"];
   [self.imageView setImage:check_true];
 }
@@ -94,7 +89,6 @@
  * ========================================================================== */
 - (void)setUnChecked
 {
-  NSLog(@"%s", ">>> uncheck");
   UIImage *check_false = [UIImage imageNamed:@"CheckBox_False.png"];
   [self.imageView setImage:check_false];
 }
