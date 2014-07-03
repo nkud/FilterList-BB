@@ -26,27 +26,30 @@
 
 /**
  * @brief 存在するタグのリストを取得する
- * @note NSMutableArrayを返してもいいのか？
+ * @note NSMutableArrayを返してもいいのか？あと、このクラスが持つべきではないかも
  */
-- (NSArray *)getTagList
+-(NSArray *)getTagList
 {
   NSMutableArray *taglist = [[NSMutableArray alloc] init];
-  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-  NSArray *objs = [[context registeredObjects] allObjects]; // 全てのオブジェクトを取得
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag"
+                                            inManagedObjectContext:self.managedObjectContext];
+  request.entity = entity;
+  request.sortDescriptors = nil;
+  NSArray *objs = [self.managedObjectContext executeFetchRequest:request
+                                                           error:nil];
 
-  for( NSArray *obj in [[objs valueForKey:@"tags"] valueForKey:@"title"]) {
-    for( NSString *title in obj) {
-      if ([title isEqualToString:@""]) continue; // 空ならスキップ
-      [taglist addObject:title];
-    }
+  NSLog(@"%@", objs);
+  for ( Tag *tag in objs ) {
+    if ([tag.title isEqual:@""]) continue;
+    [taglist addObject:tag.title];
   }
   return taglist;
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: tappedCheckBox
- * Description: セルのチェックボックスがタッチされた時の処理
- * ========================================================================== */
+/**
+ * @brief セルのチェックボックスがタッチされた時の処理
+ */
 -(void)tappedCheckBox:(Cell *)cell
                 touch:(UITouch *)touch
 {
@@ -77,10 +80,9 @@
   }
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: initWithStyle:
- * Description: 初期化する
- * ========================================================================== */
+/**
+ * @brief 初期化する
+ */
 - (id)initWithStyle:(UITableViewStyle)style
 {
   self = [super initWithStyle:style];
@@ -96,6 +98,7 @@
  *        Name: viewDidLoad
  * Description:
  * ========================================================================== */
+
 - (void)initParameter
 {
   isOpen = false;
@@ -106,9 +109,6 @@
   NSLog(@"%s", __FUNCTION__);
   [super viewDidLoad];
 
-  /* ログ：　タグリストを表示 */
-  NSLog(@"%@", @"TAG-LIST");
-  NSLog(@"%@", [self getTagList]);
 
   /* 変数を初期化 */
   [self initParameter];
@@ -283,12 +283,6 @@ cellForRowAtIndexPath:(NSIndexPath *)indexPath
   NSLog(@"%s", __FUNCTION__);
   static NSString *CellIdentifier = @"Cell";
   Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-  //    if (cell == nil) {
-  //        cell = [[Cell alloc] initWithStyle:UITableViewCellStyleDefault
-  //                                      reuseIdentifier:CellIdentifier];
-  //    }
-
   [self configureCell:cell atIndexPath:indexPath];
   return cell;
 }

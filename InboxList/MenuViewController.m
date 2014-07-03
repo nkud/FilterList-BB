@@ -16,7 +16,6 @@
 @implementation MenuViewController
 
 ////////////////////////////////////////////////////////////////////////////////
-/// initWithNibName
 /// @todo この初期化方法は変えた方がいいのかも
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
@@ -31,23 +30,62 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-//// viewDidLoad
 - (void)viewDidLoad
 {
   NSLog(@"%s", __FUNCTION__);
 
   [super viewDidLoad];
 
-  /// メニュービューを初期化
-  self.menuView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS
-                                               style:UITableViewStylePlain];
-  [self.view addSubview:self.menuView];
+  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MenuCell"];
 }
 
-- (void)didReceiveMemoryWarning
+/**
+ *
+ */
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
+  return [[NSNumber numberWithInt:1] integerValue];
+}
+
+/**
+ *
+ */
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
+{
+  return [self.tag_list count];
+}
+
+/**
+ * テーブルのセルを表示する
+ */
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  static NSString *identifier = @"MenuCell";
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+  cell.textLabel.text = self.tag_list[indexPath.row];
+  return cell;
+}
+
+/**
+ * @brief セルの更新を行う
+ * @param cell セル
+ * @param atIndexPath 更新するセルの位置
+ * @note 現在使用せず
+ */
+- (void)updateCell:(UITableViewCell *)cell
+       atIndexPath:(NSIndexPath *)indexPath
+{
+  [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+}
+/**
+ * @brief テーブルを更新する
+ * @note 非効率かも
+ */
+- (void)updateTableView
+{
+  [self.tableView reloadData];
 }
 
 /*

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuViewController : UIViewController
+@interface MenuViewController : UITableViewController
 
-@property (nonatomic, strong) UITableView * menuView;
+@property (strong, nonatomic) NSArray *tag_list;
+
+- (void)updateTableView;
 
 @end

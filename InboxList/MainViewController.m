@@ -34,17 +34,13 @@
   return self;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-/// viewDidLoad
-
-/* ===  FUNCTION  ==============================================================
- *        Name: handleSwipeFrom
- * Description: もう少し奇麗に実装できる？
- * ========================================================================== */
+/**
+ * @brief マスタービュー上でスワイプ時の処理
+ */
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer;
 {
   NSLog(@"%s", __FUNCTION__);
-  int distance = 100;
+  int distance = 200;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
 
@@ -54,7 +50,10 @@
       /* 右スワイプ */
     case UISwipeGestureRecognizerDirectionRight:
       next_center.x = center_x + distance;
+      self.menuViewController.tag_list = [self.masterViewController getTagList]; ///< メニューの内容を更新して
+      [self.menuViewController updateTableView]; ///< ビューを更新
       break;
+
       /* 左スワイプ */
     case UISwipeGestureRecognizerDirectionLeft:
       next_center.x = MAX(center_x-distance, screen_x);
@@ -67,6 +66,9 @@
                      self.navigationController.view.center = next_center;
                    }];
 }
+/**
+ *
+ */
 - (void)viewDidLoad
 {
   [super viewDidLoad];

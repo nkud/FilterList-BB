@@ -22,10 +22,10 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-/* ===  FUNCTION  ==============================================================
- *        Name: application:didFinishLaunchingWithOptions:
- * Description: 開始直後の処理
- * ========================================================================== */
+/**
+ * @brief
+ * @note
+ */
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -35,9 +35,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   /// メインビュー初期化
   self.mainViewController = [[MainViewController alloc] init];
 
-  /// 管理オブジェクトコンテキスト初期化
+  /// 管理オブジェクトコンテキスト設定
   self.mainViewController.managedObjectContext = self.managedObjectContext;
 
+  /// ルートビューを設定
   [self.window setRootViewController:self.mainViewController];
   [self.window makeKeyAndVisible];
 

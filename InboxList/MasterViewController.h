@@ -15,14 +15,12 @@
 #import "Cell.h"
 
 @interface MasterViewController : UITableViewController
-<NSFetchedResultsControllerDelegate,
-InputModalViewControllerDelegate,
-DetailViewControllerDelegate,
-CellDelegate>
+<NSFetchedResultsControllerDelegate, InputModalViewControllerDelegate,
+DetailViewControllerDelegate, CellDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
-- (NSArray *)getTagList;
+-(NSArray *)getTagList; ///< タグのリストを取得する
 
 @end
