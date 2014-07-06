@@ -10,58 +10,84 @@
 
 @interface DetailViewController ()
 
-- (void)updateItem;
+- (void)initItem;
 
 @end
 
 @implementation DetailViewController
 
-/* ===  FUNCTION  ==============================================================
- *        Name: init
- * Description: 初期化する
- * ========================================================================== */
+#pragma mark - Initialization
+/**
+ * @brief 初期化
+ */
 -(id)init
 {
   self = [super init];
   if (self) {
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:[UIColor grayColor]];
     [self initInterface];
   }
   return self;
 }
 
-#pragma mark - Managing the detail item
+/**
+ * @brief インターフェイスを初期化
+ */
+- (void)initInterface
+{
+  /// フィールドを作成
+  self.titleField = [self createTextField:0 y:100];
+  self.tagField   = [self createTextField:0 y:200];
+  [self.view addSubview:self.titleField];
+  [self.view addSubview:self.tagField];
 
+  /// 戻るボタンを作成
+  self.btn        = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [self.btn setTitle:@"back" forState:UIControlStateNormal];
+  [self.btn setFrame:CGRectMake(CGRectGetMidX(self.view.frame),
+                                CGRectGetMidY(self.view.frame),
+                                100, 50)];
+  [self.view addSubview:self.btn];
+
+  [self.btn addTarget:self
+               action:@selector(back)
+     forControlEvents:UIControlEventTouchUpInside];
+  
+  
+}
+
+/**
+ * @brief アイテムを更新する
+ */
+- (void)initItem
+{
+  if (self.detailItem) {
+    NSString *title = [self.detailItem valueForKey:@"title"];
+    NSSet *tags     = [self.detailItem valueForKey:@"tags"];
+
+    [self.titleField setText:title]; //< タイトル設置
+    [self.tagField setText:[[tags allObjects][0] title]]; //< タグを設置
+  }
+}
+
+#pragma mark - Managing view
+
+/**
+ * @brief アイテムを設定する
+ */
 - (void)setDetailItem:(id)newDetailItem
 {
   if (_detailItem != newDetailItem) {
     _detailItem = newDetailItem;
 
     // Update the view.
-    [self updateItem];
+    [self initItem];
   }
 }
 
-- (void)updateItem
-{
-  // Update the user interface for the detail item.
-
-  if (self.detailItem) {
-    NSString *title = [self.detailItem valueForKey:@"title"];
-    NSSet *tags = [self.detailItem valueForKey:@"tags"];
-
-    //        NSString *detail = [NSString stringWithFormat:@"%@%@", title, [[tags allObjects][0] title]];
-
-    [self.titleField setText:title];
-    [self.tagField setText:[[tags allObjects][0] title]];
-    //        self.detailDescriptionLabel.text = detail;
-  }
-}
-
-/* ===  FUNCTION  ==============================================================
- *        Name: initInterface
- * Description: インターフェイスを初期化する
- * ========================================================================== */
+/**
+ * @brief テキストフィールドを作成する
+ */
 - (UITextField *)createTextField:(int)x y:(int)y
 {
   UITextField *_newTextField;
@@ -71,48 +97,39 @@
   [_newTextField setText:nil];
   return _newTextField;
 }
-- (void)initInterface
-{
-  //    // ラベルを作成
-  //    self.detailDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 400, 100, 30)];
-  //    [self.detailDescriptionLabel setBackgroundColor:[UIColor grayColor]];
-  //    [self.view addSubview:self.detailDescriptionLabel];
-  // フィールドを作成
-  self.titleField = [self createTextField:0 y:100];
-  self.tagField = [self createTextField:0 y:200];
-  [self.view addSubview:self.titleField];
-  [self.view addSubview:self.tagField];
 
-
-  // 戻るボタン
-  self.btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [self.btn setTitle:@"back" forState:UIControlStateNormal];
-  [self.btn setFrame:CGRectMake(CGRectGetMidX(self.view.frame),
-                                CGRectGetMidY(self.view.frame),
-                                100, 50)];
-  [self.btn addTarget:self
-               action:@selector(back)
-     forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:self.btn];
-
-
-}
-
-// 戻る
+/**
+ * @brief 戻るボタン
+ * @todo 通常の戻るボタンでも、更新させる
+ */
 - (void)back
 {
+  NSLog(@"%s", __FUNCTION__);
   //    [self dismissViewControllerAnimated:YES completion:nil];
-  [self.delegate dismissDetailView:self index:self.index];
-  [self.navigationController popToRootViewControllerAnimated:NO];
+
+  /// デリゲートに変更後を渡す
+  [self.delegate dismissDetailView:self
+                             index:self.index
+                             title:self.titleField.text
+                         tagTitles:[NSSet setWithObject:self.tagField.text]];
+  /// ビューを削除する
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+/**
+ * @brief ビューがロードされたあとの処理
+ */
 - (void)viewDidLoad
 {
+  NSLog(@"%s", __FUNCTION__);
   [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-  [self updateItem];
+  [self initItem]; //< アイテムを更新
 }
 
+/**
+ * @brief メモリー関係？
+ */
 - (void)didReceiveMemoryWarning
 {
   [super didReceiveMemoryWarning];

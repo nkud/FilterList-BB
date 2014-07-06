@@ -39,7 +39,6 @@
   NSArray *objs = [self.managedObjectContext executeFetchRequest:request
                                                            error:nil];
 
-  NSLog(@"%@", objs);
   for ( Tag *tag in objs ) {
     if ([tag.title isEqual:@""]) continue;
     [taglist addObject:tag.title];
@@ -53,25 +52,21 @@
 -(void)tappedCheckBox:(Cell *)cell
                 touch:(UITouch *)touch
 {
-  NSLog(@"%s", __FUNCTION__);
-
-  /* 位置を取得 */
+  /// 位置を取得して
   CGPoint tappedPoint = [touch locationInView:self.view];
   NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:tappedPoint];
 
-  /* セルのデータをモデルから取得 */
+  /// その位置のセルのデータをモデルから取得する
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-  /* チェックを変更 */
+  /// チェックの状態を変更して
   BOOL checkbox = ! [[item valueForKey:@"state"] boolValue];
-
-  /* モデル変更 */
   item.state = [NSNumber numberWithBool:checkbox];
 
-  /* チェックボックス更新 */
+  /// チェックボックスを更新する
   [cell updateCheckBox:checkbox];
 
-  /* モデルを保存 */
+  /// モデルを保存する
   NSError *error = nil;
   if (![self.managedObjectContext save:&error]) {
     NSLog(@"error = %@", error);
@@ -94,11 +89,9 @@
   return self;
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: viewDidLoad
- * Description:
- * ========================================================================== */
-
+/**
+ * @brief パラメータを初期化する
+ */
 - (void)initParameter
 {
   isOpen = false;
@@ -135,10 +128,9 @@
 }
 
 
-/* ===  FUNCTION  ==============================================================
- *        Name: toEdit
- * Description: 編集モードの切り替え
- * ========================================================================== */
+/**
+ * @brief 編集モードの切り替え
+ */
 - (void)toEdit:(id)sender
 {
   if (self.tableView.isEditing) {
@@ -148,40 +140,64 @@
   }
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: didReceiveMemoryWarning
- * Description:
- * ========================================================================== */
+/**
+ * @brief メモリー警告
+ */
 - (void)didReceiveMemoryWarning
 {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: dismissInputModalView:title:
- * Description: 入力画面を終了させる。フィールドの値を受け取る
- * ========================================================================== */
+/**
+ * @brief 入力画面を終了させる。フィールドの値を受け取る。
+ */
 - (void)dismissInputModalView:(id)sender
                          data:(NSArray *)data
 {
-  NSString *title = data[0];                                         // タイトルを取得して
-  if (title.length > 0) {                                            // 空欄でなければ
-    [self insertNewObject:sender data:data];                         // リストを挿入する
+  NSLog(@"%s", __FUNCTION__);
+  NSString *title = data[0];                                         //< タイトルを取得して
+  if (title.length > 0) {                                            //< 空欄でなければ
+    [self insertNewObject:sender data:data];                         //< リストを挿入する
   }
 
-  [self dismissViewControllerAnimated:YES completion:nil];           // ビューを削除
+  [self dismissViewControllerAnimated:YES completion:nil];           //< ビューを削除
 }
 
-// 詳細ビューを削除する前の処理
--(void)dismissDetailView:(id)sender index:(NSIndexPath *)index
+/**
+ * @brief 詳細ビューを削除する前の処理
+ * @todo 複数のタグに対応させる。インプットビューでも
+ */
+-(void)dismissDetailView:(id)sender
+                   index:(NSIndexPath *)indexPath
+                   title:(NSString *)title
+               tagTitles:(NSSet *)tagTitles
 {
-  ;
+  NSLog(@"%s", __FUNCTION__);
+  /// アイテムを取得
+  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+  [item setValue:title forKeyPath:@"title"];
+  Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+                                              inManagedObjectContext:self.managedObjectContext];
+  for( NSString *title in tagTitles) {
+    newTag.title = title;
+    [newTag addItems:[NSSet setWithObject:item]];
+  }
+  [item addTags:[NSSet setWithObject:newTag]];
+
+  /// モデルを保存する
+  NSError *error = nil;
+  if (![self.managedObjectContext save:&error]) {
+    NSLog(@"error = %@", error);
+  } else {
+    NSLog(@"Update Completed.");
+  }
 }
-/* ===  FUNCTION  ==============================================================
- *        Name: inputAndInsertNewObjectFromModalView
- * Description: 入力画面を出す。
- * ========================================================================== */
+
+/**
+ * @brief 入力画面を出す
+ */
 - (void)inputAndInsertNewObjectFromModalView
 {
   InputModalViewController *inputView = [[InputModalViewController alloc] init];
@@ -194,10 +210,9 @@
                    completion:nil];
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: insertNewObject
- * Description: 新しい項目を追加する。
- * ========================================================================== */
+/**
+ * @brief 新しい項目を追加する
+ */
 - (void)insertNewObject:(id)sender
                    data:(NSArray *)data
 {
@@ -235,10 +250,9 @@
 
 #pragma mark - Table View
 
-/* ===  FUNCTION  ==============================================================
- *        Name: tableView:tableView didSelectRowAtIndexPath
- * Description: セルが選択されたときの処理
- * ========================================================================== */
+/**
+ * @brief セルが選択された時の処理
+ */
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -247,24 +261,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
   [detailViewController setDetailItem:object];
   [detailViewController setIndex:indexPath];
+  [detailViewController setDelegate:self];
 
   [self.navigationController pushViewController:detailViewController
                                        animated:NO];
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: numberOfSectionsInTableView
- * Description:
- * ========================================================================== */
+/**
+ * @brief セクション数
+ */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return [[self.fetchedResultsController sections] count];
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: tableView:numberOfRowsInSection
- * Description:
- * ========================================================================== */
+/**
+ * @brief セクション内の項目数
+ */
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
@@ -273,10 +286,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   return [sectionInfo numberOfObjects];
 }
 
-///
-/// tableView:cellForRowAtIndexPath
-///   @note indexPath列目のセルを返す
-///
+/**
+ * @brief indexPath列目のセルを返す
+ */
 - (Cell *)tableView:(UITableView *)tableView
 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -287,11 +299,9 @@ cellForRowAtIndexPath:(NSIndexPath *)indexPath
   return cell;
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name:
- * Description:
- * ========================================================================== */
-
+/**
+ * @brief テーブル編集の可否
+ */
 - (BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -299,10 +309,9 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name:
- * Description:
- * ========================================================================== */
+/**
+ * @brief 編集スタイル？
+ */
 - (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -321,10 +330,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: tableView:canMoveRowAtIndexPath:
- * Description:
- * ========================================================================== */
+/**
+ * @brief ？？？
+ */
 - (BOOL)tableView:(UITableView *)tableView
 canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -332,10 +340,9 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: tableView:moveRowAtIndexPath
- * Description:
- * ========================================================================== */
+/**
+ * @brief ？？？
+ */
 -(void)tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
@@ -345,10 +352,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
 #pragma mark - Fetched results controller
 
-/* ===  FUNCTION  ==============================================================
- *        Name: fetchedResultsController
- * Description: ゲッター
- * ========================================================================== */
+/**
+ * @brief フェッチリザルトコントローラーを取得
+ */
 - (NSFetchedResultsController *)fetchedResultsController
 {
   if (_fetchedResultsController != nil) {
@@ -477,11 +483,10 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  [self.tableView reloadData];
  }
  */
-/* ===  FUNCTION  ==============================================================
- *        Name: confiureCell
- * Description: セルの内容を設定
- * ========================================================================== */
 
+/**
+ * @brief セルを設定する
+ */
 - (void)configureCell:(Cell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {

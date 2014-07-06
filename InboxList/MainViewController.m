@@ -29,7 +29,6 @@
 ///
 -(id)init
 {
-  NSLog(@"%s", __FUNCTION__);
   self = [super init];
   return self;
 }
@@ -39,7 +38,6 @@
  */
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer;
 {
-  NSLog(@"%s", __FUNCTION__);
   int distance = 200;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x

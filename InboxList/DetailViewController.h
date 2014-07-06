@@ -8,15 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Item.h"
+
 @protocol DetailViewControllerDelegate <NSObject>
 
-- (void)dismissDetailView:(id)sender index:(NSIndexPath *)index;
+- (void)dismissDetailView:(id)sender
+                    index:(NSIndexPath *)indexPath
+                    title:(NSString *)title
+                tagTitles:(NSSet *)tagTitles;
+
 
 @end
 
 @interface DetailViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) Item * detailItem;
 
 //@property (strong, nonatomic) UILabel *detailDescriptionLabel;
 
