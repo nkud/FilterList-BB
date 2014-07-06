@@ -174,7 +174,7 @@
 -(void)dismissDetailView:(id)sender
                    index:(NSIndexPath *)indexPath
                    title:(NSString *)title
-               tagTitles:(NSSet *)tagTitles
+               tagTitles:(NSArray *)tagTitles
 {
   NSLog(@"%s", __FUNCTION__);
   /// アイテムを取得

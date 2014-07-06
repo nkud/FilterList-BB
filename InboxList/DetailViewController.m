@@ -8,6 +8,8 @@
 
 #import "DetailViewController.h"
 
+#import "Tag.h"
+
 @interface DetailViewController ()
 
 - (void)initItem;
@@ -65,8 +67,14 @@
     NSString *title = [self.detailItem valueForKey:@"title"];
     NSSet *tags     = [self.detailItem valueForKey:@"tags"];
 
+    NSMutableString *field = [[NSMutableString alloc] init];
+
     [self.titleField setText:title]; //< タイトル設置
-    [self.tagField setText:[[tags allObjects][0] title]]; //< タグを設置
+    for( Tag *tag in tags ) { //< すべてのタグに対して
+      [field appendString:tag.title]; //< フィールドに足していく
+      [field appendString:@" "];
+    }
+    self.tagField.text = field; //< タグを設置
   }
 }
 
@@ -107,11 +115,12 @@
   NSLog(@"%s", __FUNCTION__);
   //    [self dismissViewControllerAnimated:YES completion:nil];
 
+  NSArray *tag_titles = [self.tagField.text componentsSeparatedByString:@" "];
   /// デリゲートに変更後を渡す
   [self.delegate dismissDetailView:self
                              index:self.index
                              title:self.titleField.text
-                         tagTitles:[NSSet setWithObject:self.tagField.text]];
+                         tagTitles:tag_titles];
   /// ビューを削除する
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
