@@ -40,7 +40,10 @@
                                                            error:nil];
 
   for ( Tag *tag in objs ) {
-    if ([tag.title isEqual:@""]) continue;
+    /// @todo タグ関連は要変更
+    if ([tag.title isEqual:@""]) continue; //< タイトルが未設定ならスキップ
+    if ([tag.items count]==0) continue; //< アイテムに紐付けされていなければスキップ
+
     [taglist addObject:tag.title];
   }
   return taglist;
@@ -178,13 +181,15 @@
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
   [item setValue:title forKeyPath:@"title"];
-  Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                              inManagedObjectContext:self.managedObjectContext];
-  for( NSString *title in tagTitles) {
+  NSMutableSet *tags = [[NSMutableSet alloc] init];
+  for( NSString *title in tagTitles ) {
+    Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+                                                inManagedObjectContext:self.managedObjectContext];
     newTag.title = title;
     [newTag addItems:[NSSet setWithObject:item]];
+    [tags addObject:newTag];
   }
-  [item addTags:[NSSet setWithObject:newTag]];
+  [item setValue:tags forKeyPath:@"tags"];
 
   /// モデルを保存する
   NSError *error = nil;
@@ -310,12 +315,13 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- * @brief 編集スタイル？
+ * @brief 編集時の処理
  */
 - (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];

@@ -43,14 +43,14 @@
 
   /// 戻るボタンを作成
   self.btn        = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [self.btn setTitle:@"back" forState:UIControlStateNormal];
+  [self.btn setTitle:@"save" forState:UIControlStateNormal];
   [self.btn setFrame:CGRectMake(CGRectGetMidX(self.view.frame),
                                 CGRectGetMidY(self.view.frame),
                                 100, 50)];
   [self.view addSubview:self.btn];
 
   [self.btn addTarget:self
-               action:@selector(back)
+               action:@selector(save)
      forControlEvents:UIControlEventTouchUpInside];
   
   
@@ -102,7 +102,7 @@
  * @brief 戻るボタン
  * @todo 通常の戻るボタンでも、更新させる
  */
-- (void)back
+- (void)save
 {
   NSLog(@"%s", __FUNCTION__);
   //    [self dismissViewControllerAnimated:YES completion:nil];
