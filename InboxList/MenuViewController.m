@@ -29,7 +29,12 @@
   return self;
 }
 
-////////////////////////////////////////////////////////////////////////////////
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  
+}
+
 - (void)viewDidLoad
 {
   NSLog(@"%s", __FUNCTION__);

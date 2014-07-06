@@ -14,7 +14,7 @@
 
 - (void)dismissDetailView:(id)sender
                     index:(NSIndexPath *)indexPath
-                    title:(NSString *)title
+                itemTitle:(NSString *)itemTitle
                 tagTitles:(NSArray *)tagTitles;
 
 

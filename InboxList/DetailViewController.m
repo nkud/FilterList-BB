@@ -112,14 +112,14 @@
  */
 - (void)save
 {
-  NSLog(@"%s", __FUNCTION__);
   //    [self dismissViewControllerAnimated:YES completion:nil];
 
-  NSArray *tag_titles = [self.tagField.text componentsSeparatedByString:@" "];
+  NSArray *tag_titles = [self.tagField.text componentsSeparatedByString:@" "]; //< タグの配列を生成
+
   /// デリゲートに変更後を渡す
   [self.delegate dismissDetailView:self
                              index:self.index
-                             title:self.titleField.text
+                         itemTitle:self.titleField.text
                          tagTitles:tag_titles];
   /// ビューを削除する
   [self.navigationController popToRootViewControllerAnimated:YES];

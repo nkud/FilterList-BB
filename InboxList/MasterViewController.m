@@ -30,6 +30,7 @@
  */
 -(NSArray *)getTagList
 {
+  NSLog(@"%s", __FUNCTION__);
   NSMutableArray *taglist = [[NSMutableArray alloc] init];
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag"
@@ -60,7 +61,7 @@
   NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:tappedPoint];
 
   /// その位置のセルのデータをモデルから取得する
-  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  Item *item = [[self fetchedResultsControllerForTag:@"TAG"] objectAtIndexPath:indexPath];
 
   /// チェックの状態を変更して
   BOOL checkbox = ! [[item valueForKey:@"state"] boolValue];
@@ -173,14 +174,14 @@
  */
 -(void)dismissDetailView:(id)sender
                    index:(NSIndexPath *)indexPath
-                   title:(NSString *)title
+               itemTitle:(NSString *)itemTitle
                tagTitles:(NSArray *)tagTitles
 {
   NSLog(@"%s", __FUNCTION__);
   /// アイテムを取得
-  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  Item *item = [[self fetchedResultsControllerForTag:@"TAG" ] objectAtIndexPath:indexPath];
 
-  [item setValue:title forKeyPath:@"title"];
+  [item setValue:itemTitle forKeyPath:@"title"];
   NSMutableSet *tags = [[NSMutableSet alloc] init];
   for( NSString *title in tagTitles ) {
     Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
@@ -207,8 +208,8 @@
 {
   InputModalViewController *inputView = [[InputModalViewController alloc] init];
 
-  [inputView setDelegate:self];
   [inputView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+  [inputView setDelegate:self];
 
   [self presentViewController:inputView
                      animated:YES
@@ -225,9 +226,11 @@
   // 特になくても、直接指定すればいいのでは？
   NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
   NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-//  NSLog(@"%@", [entity name]);
+  NSLog(@"%@", context);
+  NSLog(@"%@", [entity name]);
 
   /* 新しい項目を初期化・追加する */
+  /// ここがおかしい
   Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
                                                 inManagedObjectContext:context];
 
@@ -262,7 +265,7 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   DetailViewController *detailViewController = [[DetailViewController alloc] init];
-  Item *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+  Item *object = [[self fetchedResultsControllerForTag:@"TAG"] objectAtIndexPath:indexPath];
 
   [detailViewController setDetailItem:object];
   [detailViewController setIndex:indexPath];
@@ -277,7 +280,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [[self.fetchedResultsController sections] count];
+  return [[[self fetchedResultsControllerForTag:@"TAG"] sections] count];
 }
 
 /**
@@ -287,7 +290,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  numberOfRowsInSection:(NSInteger)section
 {
   id <NSFetchedResultsSectionInfo> sectionInfo
-  = [self.fetchedResultsController sections][section];
+  = [[self fetchedResultsControllerForTag:@"TAG"] sections][section];
   return [sectionInfo numberOfObjects];
 }
 
@@ -323,8 +326,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    NSManagedObjectContext *context = [[self fetchedResultsControllerForTag:@"TAG"] managedObjectContext];
+    [context deleteObject:[[self fetchedResultsControllerForTag:@"TAG"] objectAtIndexPath:indexPath]];
 
     NSError *error = nil;
     if (![context save:&error]) {
@@ -400,6 +403,60 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     abort();
 	}
 
+  return _fetchedResultsController;
+}
+
+/**
+ * タグに合わせたオブジェクトを抽出する
+ *
+ * @param tagString 抽出するタグ
+ *
+ * @todo タグを複数指定できるようにする。
+ *       キャッシュをタグで変える
+ */
+- (NSFetchedResultsController *)fetchedResultsControllerForTag:(NSString *)tagString
+{
+  if (_fetchedResultsControllerForTag != nil) {
+    return _fetchedResultsControllerForTag;
+  }
+
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
+                                            inManagedObjectContext:self.managedObjectContext];
+  [fetchRequest setEntity:entity];
+
+  // Set the batch size to a suitable number.
+  [fetchRequest setFetchBatchSize:20]; /// ??
+
+  /// ソート条件
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+                                                                 ascending:NO];
+  NSArray *sortDescriptors = @[sortDescriptor];
+  [fetchRequest setSortDescriptors:sortDescriptors]; /// ソートを設定
+
+  /// 検索条件
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY SELF.tags.title == %@", tagString];
+  [fetchRequest setPredicate:predicate];
+
+  // Edit the section name key path and cache name if appropriate.
+  // nil for section name key path means "no sections".
+  NSFetchedResultsController *aFetchedResultsController
+  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:self.managedObjectContext
+                                          sectionNameKeyPath:nil
+                                                   cacheName:nil]; //< タグをキャッシュネームにする
+  aFetchedResultsController.delegate = self;
+  _fetchedResultsControllerForTag = aFetchedResultsController;
+
+  /// フェッチを実行
+	NSError *error = nil;
+	if (![_fetchedResultsControllerForTag performFetch:&error]) {
+    // Replace this implementation with code to handle the error appropriately.
+    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    NSLog(@"%@", self.fetchedResultsControllerForTag);
+    abort();
+	}
   return _fetchedResultsController;
 }
 
@@ -498,7 +555,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 {
   NSLog(@"%s", __FUNCTION__);
 
-  Item *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  Item *object = [[self fetchedResultsControllerForTag:@"TAG"] objectAtIndexPath:indexPath];
 
   cell.textLabel.text = [[object valueForKey:@"title"] description]; // text
   [cell updateCheckBox:[[object valueForKey:@"state"] boolValue]]; // checkbox
