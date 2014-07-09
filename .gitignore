@@ -8,3 +8,9 @@
 html
 sublime
 index.html
+
+*.xcodeproj/
+
+# プロジェクトの構成情報を格納するファイル
+!*.xcodeproj/project.pbxproj
+!*.xcworkspace/contents.xcworkspacedata

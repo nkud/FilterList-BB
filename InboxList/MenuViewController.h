@@ -8,9 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MenuViewControllerDelegate <NSObject>
+
+- (void)loadMasterViewForTag:(NSString *)tag;
+
+@end
+
 @interface MenuViewController : UITableViewController
 
 @property (strong, nonatomic) NSArray *tag_list;
+
+@property (assign, nonatomic) id <MenuViewControllerDelegate> delegate;
 
 - (void)updateTableView;
 

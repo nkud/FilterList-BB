@@ -13,10 +13,13 @@
 #import "MenuViewController.h"
 
 @interface MainViewController : UIViewController
+<MenuViewControllerDelegate> {
+  int swipe_distance;
+}
 
 @property (strong, nonatomic) NavigationController *navigationController;
-
 @property (strong, nonatomic) MasterViewController *masterViewController;
+
 @property (strong, nonatomic) MenuViewController *menuViewController;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

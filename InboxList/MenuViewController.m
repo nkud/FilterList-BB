@@ -15,9 +15,9 @@
 
 @implementation MenuViewController
 
-////////////////////////////////////////////////////////////////////////////////
-/// @todo この初期化方法は変えた方がいいのかも
-
+/**
+ * @brief この初期化方法は変えたほうがいいかも
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,12 +29,21 @@
   return self;
 }
 
+/**
+ * セルが選択された時の処理
+ */
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  
+  NSLog(@"selected: %@", self.tag_list[indexPath.row]);
+
+  /// 選択されたタグをデリゲートに渡す
+  [self.delegate loadMasterViewForTag:self.tag_list[indexPath.row]];
 }
 
+/**
+ * ビューがロードされた後の処理
+ */
 - (void)viewDidLoad
 {
   NSLog(@"%s", __FUNCTION__);
@@ -74,9 +83,11 @@ numberOfRowsInSection:(NSInteger)section
 }
 
 /**
- * @brief セルの更新を行う
+ * セルの更新を行う
+ *
  * @param cell セル
  * @param atIndexPath 更新するセルの位置
+ *
  * @note 現在使用せず
  */
 - (void)updateCell:(UITableViewCell *)cell
@@ -85,7 +96,8 @@ numberOfRowsInSection:(NSInteger)section
   [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
 }
 /**
- * @brief テーブルを更新する
+ * テーブルを更新する
+ *
  * @note 非効率かも
  */
 - (void)updateTableView
