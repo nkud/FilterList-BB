@@ -25,6 +25,8 @@ DetailViewControllerDelegate, CellDelegate>
 
 @property (strong, nonatomic) NSString *selectedTagString;
 
+@property (strong, nonatomic) NSString *title;
+
 -(NSArray *)getTagList; ///< タグのリストを取得する
 -(void)updateTableView;
 

@@ -95,7 +95,7 @@
   self = [super initWithStyle:style];
 
   if (self) {
-    // pass
+    self.title = @"master";
   }
 
   return self;

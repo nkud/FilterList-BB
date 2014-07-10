@@ -35,8 +35,6 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSLog(@"selected: %@", self.tag_list[indexPath.row]);
-
   /// 選択されたタグをデリゲートに渡す
   [self.delegate loadMasterViewForTag:self.tag_list[indexPath.row]];
 }
@@ -54,7 +52,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *
+ * セクション数を返す
  */
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -62,7 +60,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *
+ * アイテム数を返す
  */
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section

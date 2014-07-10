@@ -26,19 +26,6 @@
 /**
  * 初期化
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil
-               bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-/**
- * 初期化
- */
 -(id)init
 {
   self = [super init];
@@ -146,7 +133,7 @@
 
   [self.masterViewController updateTableView]; //< テーブルを更新
 
-  [self.navigationController setTitle:tag]; //< @todo タグの名前に変えたい
+  [self.masterViewController setTitle:tag]; //< タグの名前に変える
 
   [self moveMasterViewToCenter]; //< マスタービューを中心に移動させる
 }
