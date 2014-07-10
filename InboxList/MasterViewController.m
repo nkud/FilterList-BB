@@ -61,7 +61,7 @@
   NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:tappedPoint];
 
   /// その位置のセルのデータをモデルから取得する
-  Item *item = [[self fetchedResultsControllerForTag:self.selectedTagString] objectAtIndexPath:indexPath];
+  Item *item = [[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath];
 
   /// チェックの状態を変更して
   BOOL checkbox = ! [[item valueForKey:@"state"] boolValue];
@@ -83,9 +83,8 @@
  */
 - (void)initParameter
 {
-  NSLog(@"%s", __FUNCTION__);
   isOpen = false;
-  self.selectedTagString = @"TAG";
+  self.selectedTagString = nil;
 }
 
 /**
@@ -181,7 +180,7 @@
 {
   NSLog(@"%s", __FUNCTION__);
   /// アイテムを取得
-  Item *item = [[self fetchedResultsControllerForTag:self.selectedTagString] objectAtIndexPath:indexPath];
+  Item *item = [[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath];
 
   [item setValue:itemTitle forKeyPath:@"title"]; //< 更新後のタイトルを代入
   /// 更新後のタグを代入
@@ -269,7 +268,7 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   DetailViewController *detailViewController = [[DetailViewController alloc] init];
-  Item *object = [[self fetchedResultsControllerForTag:self.selectedTagString] objectAtIndexPath:indexPath];
+  Item *object = [[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath];
 
   [detailViewController setDetailItem:object];
   [detailViewController setIndex:indexPath];
@@ -284,7 +283,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [[[self fetchedResultsControllerForTag:self.selectedTagString] sections] count];
+  return [[[self fetchedResultsControllerForSelectedTag] sections] count];
 }
 
 /**
@@ -294,7 +293,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  numberOfRowsInSection:(NSInteger)section
 {
   id <NSFetchedResultsSectionInfo> sectionInfo
-  = [[self fetchedResultsControllerForTag:self.selectedTagString] sections][section];
+  = [[self fetchedResultsControllerForSelectedTag] sections][section];
   return [sectionInfo numberOfObjects];
 }
 
@@ -330,8 +329,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSManagedObjectContext *context = [[self fetchedResultsControllerForTag:self.selectedTagString] managedObjectContext];
-    [context deleteObject:[[self fetchedResultsControllerForTag:self.selectedTagString] objectAtIndexPath:indexPath]];
+    NSManagedObjectContext *context = [[self fetchedResultsControllerForSelectedTag] managedObjectContext];
+    [context deleteObject:[[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath]];
 
     NSError *error = nil;
     if (![context save:&error]) {
@@ -370,6 +369,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (NSFetchedResultsController *)fetchedResultsController
 {
+  NSLog(@"%s", __FUNCTION__);
   if (_fetchedResultsController != nil) {
     return _fetchedResultsController;
   }
@@ -420,12 +420,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (NSFetchedResultsController *)fetchedResultsControllerForTag:(NSString *)tagString
 {
-  NSLog(@"%s", __FUNCTION__);
-  NSLog(@"%@", tagString);
-  if (_fetchedResultsControllerForTag != nil) {
-//    return _fetchedResultsControllerForTag;
-  }
-
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
                                             inManagedObjectContext:self.managedObjectContext];
@@ -441,6 +435,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [fetchRequest setSortDescriptors:sortDescriptors];                 /// ソートを設定
 
   /// 検索条件
+  /// @details 選択されたタグを持つアイテムを列挙
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY SELF.tags.title == %@", tagString];
   [fetchRequest setPredicate:predicate];
 
@@ -460,25 +455,29 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     // Replace this implementation with code to handle the error appropriately.
     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    NSLog(@"%@", self.fetchedResultsControllerForTag);
     abort();
 	}
   return _fetchedResultsControllerForTag;
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: controllerWillChangeContent
- * Description:
- * ========================================================================== */
+/**
+ * 選択されたタグのアイテムを抽出する
+ */
+- (NSFetchedResultsController *)fetchedResultsControllerForSelectedTag
+{
+  return [self fetchedResultsControllerForTag:self.selectedTagString];
+  if (self.selectedTagString == nil) {
+    return [self fetchedResultsController];
+  } else {
+    return [self fetchedResultsControllerForTag:self.selectedTagString];
+  }
+}
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
   [self.tableView beginUpdates];
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: controller:didChangeSection
- * Description:
- * ========================================================================== */
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
@@ -497,16 +496,16 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: controller:didChangeObject
- * Description:
- * ========================================================================== */
+/**
+ * リザルトコントローラーが変更を受け取った時の処理
+ */
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
+  NSLog(@"%@", controller);
   UITableView *tableView = self.tableView;
 
   switch(type) {
@@ -534,15 +533,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: controllerDidChaneContent
- * Description:
- * ========================================================================== */
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-  [self.tableView endUpdates];
-}
-
 /*
  // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
 
@@ -559,7 +549,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 - (void)configureCell:(Cell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
-  Item *object = [[self fetchedResultsControllerForTag:self.selectedTagString] objectAtIndexPath:indexPath];
+  Item *object = [[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath];
 
   NSLog(@"%@", object);
 
