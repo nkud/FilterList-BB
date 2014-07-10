@@ -14,10 +14,9 @@
 
 @implementation InputModalViewController
 
-/* ===  FUNCTION  ==============================================================
- *        Name: init
- * Description: 初期化
- * ========================================================================== */
+/**
+ * 初期化
+ */
 - (id)init {
   self = [super init];
   if (self) {
@@ -35,10 +34,10 @@
   }
   return self;
 }
-/* ===  FUNCTION  ==============================================================
- *        Name: viewDidLoad
- * Description: ビュー読み込み
- * ========================================================================== */
+
+/**
+ * ビュー読み込み
+ */
 - (UITextField *)createTextField:(int)x y:(int)y
 {
   UITextField *_newTextField;
@@ -49,6 +48,10 @@
   [_newTextField setText:nil];
   return _newTextField;
 }
+
+/**
+ * ビュー読み込み後の処理
+ */
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -71,40 +74,36 @@
   [button setFrame:CGRectMake(0, 30, 100, 50)];
   [button setTitle:@"Done" forState:UIControlStateNormal];
   [button addTarget:self
-             action:@selector(dismissInputModalView:)
+             action:@selector(dismissInput)
    forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:button];
 }
-/* ===  FUNCTION  ==============================================================
- *        Name: textFieldShouldReturn:
- * Description: テキストフィールドのReturnボタンが押された時の処理
- * ========================================================================== */
+
+/**
+ * Returnが押された時の処理
+ */
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   if (textField == self.textField) { // アイテム名入力欄なら、
-    // データを渡して、ビューを削除する
-    [self dismissInputModalView:textField];
-    //                               data:@[self.textField.text, self.tagInputField.text]];
+    [self dismissInput];
   } else if (textField == self.tagInputField) { // タグ入力時なら、
     [self.textField becomeFirstResponder]; // アイテム名入力欄に移動する
   }
   return YES;
 }
-/* ===  FUNCTION  ==============================================================
- *        Name: dismissInputModalView:title:
- * Description: データを渡して、ビューを削除する
- * ========================================================================== */
-- (void)dismissInputModalView:(id)sender
-//                        data:(NSArray *)data
+
+/**
+ * データを渡してビューを削除する
+ */
+- (void)dismissInput
 {
   NSArray *_data = @[self.textField.text, self.tagInputField.text];
-  [[self delegate] dismissInputModalView:sender
-                                    data:_data];
+  [[self delegate] dismissInputModalView:self data:_data];
 }
-/* ===  FUNCTION  ==============================================================
- *        Name: didReceiveMemoryWarning
- * Description: ???
- * ========================================================================== */
+
+/**
+ * メモリー警告
+ */
 - (void)didReceiveMemoryWarning
 {
   [super didReceiveMemoryWarning];

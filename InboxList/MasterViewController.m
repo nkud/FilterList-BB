@@ -131,9 +131,8 @@
   self.navigationItem.rightBarButtonItem = addButton;
 }
 
-
 /**
- * @brief 編集モードの切り替え
+ * 編集モードの切り替え
  */
 - (void)toEdit:(id)sender
 {
@@ -145,17 +144,9 @@
   }
 }
 
-/**
- * @brief メモリー警告
- */
-- (void)didReceiveMemoryWarning
-{
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
-}
 
 /**
- * @brief 入力画面を終了させる。フィールドの値を受け取る。
+ * 入力画面を終了させる。フィールドの値を受け取る。
  */
 - (void)dismissInputModalView:(id)sender
                          data:(NSArray *)data
@@ -202,7 +193,6 @@
   } else {
     NSLog(@"Update Completed.");
   }
-  [self updateTableView];
 }
 
 /**
@@ -233,7 +223,6 @@
   NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
 
   /* 新しい項目を初期化・追加する */
-  /// ここがおかしい
   Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
                                                 inManagedObjectContext:context];
 
@@ -421,7 +410,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                                           sectionNameKeyPath:nil
                                                    cacheName:nil]; //< 元は@"Master"
 
-  aFetchedResultsController.delegate = self; //< デリゲートを設定
+//  aFetchedResultsController.delegate = self; //< デリゲートを設定
 
   self.fetchedResultsController = aFetchedResultsController;
 
@@ -573,6 +562,15 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   NSLog(@"%s", __FUNCTION__);
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];
+}
+
+/**
+ * @brief メモリー警告
+ */
+- (void)didReceiveMemoryWarning
+{
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 @end
