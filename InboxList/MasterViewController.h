@@ -20,10 +20,12 @@ DetailViewControllerDelegate, CellDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsControllerForTag;
+
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) NSString *selectedTagString;
 
 -(NSArray *)getTagList; ///< タグのリストを取得する
+-(void)updateTableView;
 
 @end

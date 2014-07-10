@@ -143,7 +143,7 @@
   NSLog(@"%s", __FUNCTION__);
 
   self.masterViewController.selectedTagString = tag;//< 選択されたタグを渡して
-  [self.masterViewController.tableView reloadData]; //< テーブルを更新
+  [self.masterViewController updateTableView]; //< テーブルを更新
   [self.navigationController setTitle:tag]; //< @todo タグの名前に変えたい
   [self moveMasterViewToCenter]; //< マスタービューを中心に移動させる
 }

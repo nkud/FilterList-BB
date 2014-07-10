@@ -42,8 +42,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   [self.window setRootViewController:self.mainViewController];
   [self.window makeKeyAndVisible];
 
-  NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-
   return YES;
 }
 
@@ -172,14 +170,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   }
 
   return _persistentStoreCoordinator;
-}
-
-void uncaughtExceptionHandler(NSException *exception)
-{
-  // ここで、例外発生時の情報を出力します。
-  NSLog(@"%@", exception.name);
-  NSLog(@"%@", exception.reason);
-  NSLog(@"%@", exception.callStackSymbols);
 }
 
 #pragma mark - Application's Documents directory
