@@ -121,7 +121,6 @@
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                  style:UIBarButtonItemStyleBordered
                                                                 target:self action:@selector(toEdit:)];
-  //    self.navigationItem.leftBarButtonItem = self.editButtonItem;
   self.navigationItem.leftBarButtonItem = editButton;
 
   /// 新規ボタン
@@ -258,10 +257,30 @@
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     abort();
   }
-  [self updateTableView];
 }
 
 #pragma mark - Table View
+
+/**
+ * テーブルを更新する
+ */
+- (void)updateTableView
+{
+  NSLog(@"%s", __FUNCTION__);
+  [self.tableView reloadData];
+}
+
+/**
+ * セルを設定する
+ */
+- (void)configureCell:(Cell *)cell
+          atIndexPath:(NSIndexPath *)indexPath
+{
+  Item *object = [[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath];
+  cell.textLabel.text = [[object valueForKey:@"title"] description]; // text
+  [cell updateCheckBox:[[object valueForKey:@"state"] boolValue]];   // checkbox
+  cell.delegate = self;                                              // delegate
+}
 
 /**
  * @brief セルが選択された時の処理
@@ -332,7 +351,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     NSLog(@"%@", @"削除開始");
-    NSManagedObjectContext *context = [[self fetchedResultsControllerForTag] managedObjectContext];
+    NSManagedObjectContext *context = [[self fetchedResultsController] managedObjectContext];
     [context deleteObject:[[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath]];
 
     NSError *error = nil;
@@ -340,6 +359,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       // Replace this implementation with code to handle the error appropriately.
       // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
       NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+      NSLog(@"%@", [context registeredObjects]);
       abort();
     }
     NSLog(@"%@", @"削除終了");
@@ -398,7 +418,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:self.managedObjectContext
-                                          sectionNameKeyPath:nil cacheName:@"Master"];
+                                          sectionNameKeyPath:nil
+                                                   cacheName:nil]; //< 元は@"Master"
 
   aFetchedResultsController.delegate = self; //< デリゲートを設定
 
@@ -551,27 +572,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 {
   NSLog(@"%s", __FUNCTION__);
   // In the simplest, most efficient, case, reload the table view.
-  [self.tableView reloadData];
-}
-
-/**
- * テーブルを更新する
- */
-- (void)updateTableView
-{
-  [self.tableView reloadData];
-}
-
-/**
- * セルを設定する
- */
-- (void)configureCell:(Cell *)cell
-          atIndexPath:(NSIndexPath *)indexPath
-{
-  Item *object = [[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath];
-  cell.textLabel.text = [[object valueForKey:@"title"] description]; // text
-  [cell updateCheckBox:[[object valueForKey:@"state"] boolValue]];   // checkbox
-  cell.delegate = self;                                              // delegate
+  [self.tableView endUpdates];
 }
 
 @end
