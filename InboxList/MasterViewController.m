@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "InputModalViewController.h"
@@ -17,6 +18,7 @@
 @interface MasterViewController () {
   int location_center_x;
   BOOL isOpen;
+  AppDelegate *app;
 }
 
 - (void)configureCell:(Cell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -71,12 +73,7 @@
   [cell updateCheckBox:checkbox];
 
   /// モデルを保存する
-  NSError *error = nil;
-  if (![self.managedObjectContext save:&error]) {
-    NSLog(@"error = %@", error);
-  } else {
-    NSLog(@"Update Completed.");
-  }
+  [app saveContext];
 }
 /**
  * パラメータを初期化する
@@ -85,6 +82,7 @@
 {
   isOpen = false;
   self.selectedTagString = nil;
+  app = [[UIApplication sharedApplication] delegate];
 }
 
 /**
@@ -221,33 +219,30 @@
   // ここはよくわからない
   // 特になくても、直接指定すればいいのでは？
   NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-  NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+  NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
 
   /* 新しい項目を初期化・追加する */
-  Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+  Item *newItem                   = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
                                                 inManagedObjectContext:context];
 
   // If appropriate, configure the new managed object.
   // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
   //    [newManagedObject setValuesForKeysWithDictionary:nsdictionary];
 
-  /* 項目を設定する */
-  [newItem setValue:data[0] forKey:@"title"];                        // タイトルを設定
-  [newItem setValue:[NSNumber numberWithBool:false] forKey:@"state"]; // 初めは偽に設定
-  newItem.reminder = reminder;
-  Tag *newTags = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+  newItem.title                   = data[0];
+  newItem.state                   = [NSNumber numberWithBool:false];
+  newItem.reminder                = reminder;
+
+  Tag *newTags                    = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
                                                inManagedObjectContext:context];
-  [newTags setTitle:data[1]];                                        // タグにタイトルを設定する
+  newTags.title = data[1];
+
+  /// タグをアイテムに設定
   [newItem addTagsObject:newTags];                                   // アイテムにタグを設定する
 
-  // Save the context.
-  NSError *error = nil;
-  if (![context save:&error]) {
-    // Replace this implementation with code to handle the error appropriately.
-    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    abort();
-  }
+  /// 保存する
+  AppDelegate *app = [[UIApplication sharedApplication] delegate];
+  [app saveContext];
 }
 
 #pragma mark - Table View
