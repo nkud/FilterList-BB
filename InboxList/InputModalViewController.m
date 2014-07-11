@@ -99,7 +99,7 @@
 - (void)dismissInput
 {
   NSArray *_data = @[self.textField.text, self.tagInputField.text];
-  [[self delegate] dismissInputModalView:self data:_data];
+  [[self delegate] dismissInputModalView:self data:_data reminder:self.remindPicker.date];
 }
 
 /**

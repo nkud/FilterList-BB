@@ -150,13 +150,13 @@
  */
 - (void)dismissInputModalView:(id)sender
                          data:(NSArray *)data
+                     reminder:(NSDate *)reminder
 {
   NSLog(@"%s", __FUNCTION__);
   NSString *title = data[0];                                         //< タイトルを取得して
   if (title.length > 0) {                                            //< 空欄でなければ
-    [self insertNewObject:sender data:data];                         //< リストを挿入する
+    [self insertNewObject:sender data:data reminder:reminder];                         //< リストを挿入する
   }
-
   [self dismissViewControllerAnimated:YES completion:nil];           //< ビューを削除
 }
 
@@ -215,6 +215,7 @@
  */
 - (void)insertNewObject:(id)sender
                    data:(NSArray *)data
+               reminder:(NSDate *)reminder
 {
   NSLog(@"%s", __FUNCTION__);
   // ここはよくわからない
@@ -233,6 +234,7 @@
   /* 項目を設定する */
   [newItem setValue:data[0] forKey:@"title"];                        // タイトルを設定
   [newItem setValue:[NSNumber numberWithBool:false] forKey:@"state"]; // 初めは偽に設定
+  newItem.reminder = reminder;
   Tag *newTags = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
                                                inManagedObjectContext:context];
   [newTags setTitle:data[1]];                                        // タグにタイトルを設定する

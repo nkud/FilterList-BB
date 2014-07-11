@@ -11,7 +11,7 @@
 @protocol InputModalViewControllerDelegate;
 
 @protocol InputModalViewControllerDelegate <NSObject>
-- (void)dismissInputModalView:(id)sender data:(NSArray *)data;
+- (void)dismissInputModalView:(id)sender data:(NSArray *)data reminder:(NSDate *)reminder;
 @end
 
 @interface InputModalViewController : UIViewController
