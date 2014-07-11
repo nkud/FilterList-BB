@@ -37,10 +37,10 @@
   NSMutableArray *taglist = [[NSMutableArray alloc] init];           //< 返す配列
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag"
-                                            inManagedObjectContext:self.managedObjectContext];
+                                            inManagedObjectContext:app.managedObjectContext];
   request.entity = entity;
   request.sortDescriptors = nil;                                     //< @TODO メニューをソートする場合はここ
-  NSArray *objs = [self.managedObjectContext executeFetchRequest:request
+  NSArray *objs = [app.managedObjectContext executeFetchRequest:request
                                                            error:nil];
   for ( Tag *tag in objs ) {
     /// @todo タグ関連は要変更
@@ -177,7 +177,7 @@
   NSMutableSet *tags = [[NSMutableSet alloc] init];
   for( NSString *title in tagTitles ) {
     Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                                inManagedObjectContext:self.managedObjectContext];
+                                                inManagedObjectContext:[app managedObjectContext]];
     newTag.title = title;
     [newTag addItems:[NSSet setWithObject:item]];
     [tags addObject:newTag];
@@ -185,12 +185,7 @@
   [item setValue:tags forKeyPath:@"tags"];
 
   /// モデルを保存する
-  NSError *error = nil;
-  if (![self.managedObjectContext save:&error]) {
-    NSLog(@"error = %@", error);
-  } else {
-    NSLog(@"Update Completed.");
-  }
+  [app saveContext];
 }
 
 /**
@@ -241,7 +236,6 @@
   [newItem addTagsObject:newTags];                                   // アイテムにタグを設定する
 
   /// 保存する
-  AppDelegate *app = [[UIApplication sharedApplication] delegate];
   [app saveContext];
 }
 
@@ -336,19 +330,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSLog(@"%@", @"削除開始");
     NSManagedObjectContext *context = [[self fetchedResultsController] managedObjectContext];
     [context deleteObject:[[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath]];
-
-    NSError *error = nil;
-    if (![context save:&error]) {
-      // Replace this implementation with code to handle the error appropriately.
-      // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-      NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-      NSLog(@"%@", [context registeredObjects]);
-      abort();
-    }
-    NSLog(@"%@", @"削除終了");
+    [app saveContext];
   }
 }
 
@@ -380,13 +364,12 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 - (NSFetchedResultsController *)fetchedResultsController
 {
   NSLog(@"%s", __FUNCTION__);
-  NSLog(@"%@", _fetchedResultsController);
   if (_fetchedResultsController != nil) {
     return _fetchedResultsController;
   }
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
-                                            inManagedObjectContext:self.managedObjectContext];
+                                            inManagedObjectContext:app.managedObjectContext];
   [fetchRequest setEntity:entity];
 
   // Set the batch size to a suitable number.
@@ -403,7 +386,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   // nil for section name key path means "no sections".
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:self.managedObjectContext
+                                        managedObjectContext:app.managedObjectContext
                                           sectionNameKeyPath:nil
                                                    cacheName:nil]; //< 元は@"Master"
 
@@ -433,7 +416,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   NSLog(@"%@", _fetchedResultsControllerForTag);
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
-                                            inManagedObjectContext:self.managedObjectContext];
+                                            inManagedObjectContext:app.managedObjectContext];
   [fetchRequest setEntity:entity];
 
   /// Set the batch size to a suitable number.
@@ -454,7 +437,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   // nil for section name key path means "no sections".
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:self.managedObjectContext
+                                        managedObjectContext:app.managedObjectContext
                                           sectionNameKeyPath:nil
                                                    cacheName:nil];   //< タグをキャッシュネームにする
   aFetchedResultsController.delegate = self; //< デリゲートを設定

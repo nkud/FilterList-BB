@@ -22,6 +22,4 @@
 
 @property (strong, nonatomic) MenuViewController     *menuViewController;
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
 @end

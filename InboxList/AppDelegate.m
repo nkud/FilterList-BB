@@ -23,8 +23,7 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 /**
- * @brief
- * @note
+ * アプリケーション開始前？
  */
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -35,9 +34,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   /// メインビュー初期化
   self.mainViewController = [[MainViewController alloc] init];
 
-  /// 管理オブジェクトコンテキスト設定
-  self.mainViewController.managedObjectContext = self.managedObjectContext;
-
   /// ルートビューを設定
   [self.window setRootViewController:self.mainViewController];
   [self.window makeKeyAndVisible];
@@ -45,10 +41,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   return YES;
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: applicationWillResignActive
- * Description:
- * ========================================================================== */
 - (void)applicationWillResignActive:(UIApplication *)application
 {
   // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

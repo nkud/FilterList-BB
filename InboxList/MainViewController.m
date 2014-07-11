@@ -94,7 +94,6 @@
 
   /// マスタービュー初期化
   self.masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
-  self.masterViewController.managedObjectContext = self.managedObjectContext;
 
   /// ナビゲーションコントローラー初期化
   self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
