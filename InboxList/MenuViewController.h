@@ -11,6 +11,7 @@
 @protocol MenuViewControllerDelegate <NSObject>
 
 - (void)loadMasterViewForTag:(NSString *)tag;
+- (void)loadMasterViewForAll;
 
 @end
 

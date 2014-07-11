@@ -256,10 +256,15 @@
 - (void)configureCell:(Cell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
-  Item *object = [[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath];
-  cell.textLabel.text = [[object valueForKey:@"title"] description]; // text
-  [cell updateCheckBox:[[object valueForKey:@"state"] boolValue]];   // checkbox
-  cell.delegate = self;                                              // delegate
+  Item *item                 = [[self fetchedResultsControllerForSelectedTag] objectAtIndexPath:indexPath];
+//  cell.textLabel.text = [[object valueForKey:@"title"] description]; // text
+  cell.textLabel.text        = item.title;
+  [cell updateCheckBox:item.state.boolValue];
+
+  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  formatter.dateFormat       = @"yyyy/MM/dd";
+  cell.detailTextLabel.text  = [formatter stringFromDate:item.reminder];
+  cell.delegate              = self;// delegate
 }
 
 /**

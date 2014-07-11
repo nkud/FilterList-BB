@@ -35,7 +35,12 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
   /// 選択されたタグをデリゲートに渡す
+  if (indexPath.section == 0) {
+    [self.delegate loadMasterViewForAll];
+    return;
+  }
   [self.delegate loadMasterViewForTag:self.tag_list[indexPath.row]];
 }
 
@@ -56,7 +61,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [[NSNumber numberWithInt:1] integerValue];
+  return [[NSNumber numberWithInt:2] integerValue];
 }
 
 /**
@@ -65,6 +70,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
+  if (section == 0) {
+    return 1;
+  }
   return [self.tag_list count];
 }
 
@@ -76,6 +84,10 @@ numberOfRowsInSection:(NSInteger)section
 {
   static NSString *identifier = @"MenuCell";
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+  if (indexPath.section == 0) {
+    cell.textLabel.text = @"all";
+    return cell;
+  }
   cell.textLabel.text = self.tag_list[indexPath.row];
   return cell;
 }

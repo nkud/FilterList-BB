@@ -127,16 +127,22 @@
 - (void)loadMasterViewForTag:(NSString *)tag
 {
   NSLog(@"%s", __FUNCTION__);
-
   self.masterViewController.selectedTagString = tag;//< 選択されたタグを渡して
-
   [self.masterViewController updateTableView]; //< テーブルを更新
-
   [self.masterViewController setTitle:tag]; //< タグの名前に変える
-
   [self moveMasterViewToCenter]; //< マスタービューを中心に移動させる
 }
-
+/**
+ * すべてのアイテムをマスターで表示する
+ */
+-(void)loadMasterViewForAll
+{
+  NSLog(@"%s", __FUNCTION__);
+  self.masterViewController.selectedTagString = nil;
+  [self.masterViewController updateTableView];
+  [self.masterViewController setTitle:@"All"];
+  [self moveMasterViewToCenter];
+}
 /**
  * メモリー警告
  */

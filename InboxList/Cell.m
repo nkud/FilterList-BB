@@ -26,11 +26,12 @@
     reuseIdentifier:(NSString *)reuseIdentifier
 {
   /* superで初期化 */
-  self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+  self = [super initWithStyle:UITableViewCellStyleSubtitle
+              reuseIdentifier:reuseIdentifier];
 
   if (self)
   {
-    self.detailTextLabel.text = @"testlabel";
+    self.detailTextLabel.text = @"none";
   }
   return self;
 }
