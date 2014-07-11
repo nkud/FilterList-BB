@@ -81,19 +81,6 @@ numberOfRowsInSection:(NSInteger)section
 }
 
 /**
- * セルの更新を行う
- *
- * @param cell セル
- * @param atIndexPath 更新するセルの位置
- *
- * @note 現在使用せず
- */
-- (void)updateCell:(UITableViewCell *)cell
-       atIndexPath:(NSIndexPath *)indexPath
-{
-  [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-}
-/**
  * テーブルを更新する
  *
  * @note 非効率かも

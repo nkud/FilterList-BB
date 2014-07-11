@@ -19,10 +19,9 @@
 
 @implementation Cell
 
-/* ===  FUNCTION  ==============================================================
- *        Name: updateCheckBox
- * Description: チェックボックスを更新
- * ========================================================================== */
+/**
+ * チェックボックスを更新する
+ */
 -(BOOL)updateCheckBox:(BOOL)isChecked
 {
   if (isChecked) {
@@ -34,11 +33,9 @@
   }
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: initWithStyle
- * Description: 初期化する
- * ========================================================================== */
-
+/**
+ * 初期化する
+ */
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -52,11 +49,9 @@
   return self;
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: touchesBegan
- * Description: タッチされたときの処理
- * ========================================================================== */
-
+/**
+ * タッチされた時の処理
+ */
 -(void)touchesBegan:(NSSet *)touches
           withEvent:(UIEvent *)event
 {
@@ -64,8 +59,7 @@
   CGPoint location = [[touches anyObject] locationInView:self.contentView];
   UITouch *touch = [touches anyObject]; // ここらへん分からん
 
-  if (location.x < _left_side) {                                     // チェックボックスなら
-//    [self turnChecked];                                              // チェックボックスを変更する
+  if (location.x < _left_side) {                             // チェックボックスなら
     [self.delegate tappedCheckBox:self touch:touch]; // 自分と場所を渡す
   } else {                                                           // そうでなければ
     [super touchesBegan:touches withEvent:event];                    // デフォルトの処理をする
@@ -73,20 +67,18 @@
   }
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: setChecked
- * Description:
- * ========================================================================== */
+/**
+ * チェックをつける
+ */
 -(void)setChecked
 {
   UIImage *check_true = [UIImage imageNamed:@"CheckBox_True.png"];
   [self.imageView setImage:check_true];
 }
 
-/* ===  FUNCTION  ==============================================================
- *        Name: setUnChecked
- * Description:
- * ========================================================================== */
+/**
+ * チェックをはずす
+ */
 - (void)setUnChecked
 {
   UIImage *check_false = [UIImage imageNamed:@"CheckBox_False.png"];

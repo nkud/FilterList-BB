@@ -30,6 +30,7 @@
 		B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */ = {isa = PBXBuildFile; fileRef = B03F2BD3194D76460037AE2C /* CheckBox_True.png */; };
 		B0808049195825A3007D21E4 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0808048195825A3007D21E4 /* MenuViewController.m */; };
 		B080804C19582CF6007D21E4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B080804B19582CF6007D21E4 /* MainViewController.m */; };
+		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
 		B0DABFAD1914CC50007597E3 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* Cell.m */; };
 		B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DC58D8194DAD770089E8FA /* CheckBox_False.png */; };
@@ -80,6 +81,8 @@
 		B0808048195825A3007D21E4 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		B080804A19582CF6007D21E4 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		B080804B19582CF6007D21E4 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		B08EBBBF19703EB200DB9582 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		B08EBBC019703EB200DB9582 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -148,11 +151,10 @@
 		B00AD69218C45E470005A552 /* InboxList */ = {
 			isa = PBXGroup;
 			children = (
-				B080804A19582CF6007D21E4 /* MainViewController.h */,
-				B080804B19582CF6007D21E4 /* MainViewController.m */,
-				B00AD69B18C45E470005A552 /* AppDelegate.h */,
-				B00AD69C18C45E470005A552 /* AppDelegate.m */,
 				B053C91B19557C1600C51AA1 /* Header.h */,
+				B08EBBC419703ED700DB9582 /* AppDelegate */,
+				B08EBBC319703ED000DB9582 /* MainView */,
+				B08EBBC219703EBC00DB9582 /* FilterView */,
 				B037277D1953270E0041C4A1 /* MenuView */,
 				B0C93A1A194C4AB600733BE7 /* Navigatioin */,
 				B0E7571419499EAA004C6344 /* MasterView */,
@@ -224,6 +226,33 @@
 				B0DC58D8194DAD770089E8FA /* CheckBox_False.png */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		B08EBBC219703EBC00DB9582 /* FilterView */ = {
+			isa = PBXGroup;
+			children = (
+				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
+				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
+			);
+			name = FilterView;
+			sourceTree = "<group>";
+		};
+		B08EBBC319703ED000DB9582 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				B080804A19582CF6007D21E4 /* MainViewController.h */,
+				B080804B19582CF6007D21E4 /* MainViewController.m */,
+			);
+			name = MainView;
+			sourceTree = "<group>";
+		};
+		B08EBBC419703ED700DB9582 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				B00AD69B18C45E470005A552 /* AppDelegate.h */,
+				B00AD69C18C45E470005A552 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
 			sourceTree = "<group>";
 		};
 		B0C93A1A194C4AB600733BE7 /* Navigatioin */ = {
@@ -375,6 +404,7 @@
 				B00AD6A918C45E470005A552 /* DetailViewController.m in Sources */,
 				B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* MasterViewController.m in Sources */,
+				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
 				B03E6C1A18CAA316007703B8 /* Tag.m in Sources */,
 				B0808049195825A3007D21E4 /* MenuViewController.m in Sources */,

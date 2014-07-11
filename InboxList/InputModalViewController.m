@@ -55,21 +55,22 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-	// Do any additional setup after loading the view.
 
-  // -----------------
-  // アイテム入力フィールド
+  /// アイテム入力フィールド
   self.textField = [self createTextField:0 y:100];
   [self.textField becomeFirstResponder];
   [self.view addSubview:self.textField];
 
-  // -----------------
-  // タグ入力フィールド
+  /// タグ入力フィールド
   self.tagInputField = [self createTextField:0 y:150];
   [self.view addSubview:self.tagInputField];
 
-  // -----------------
-  // 入力完了ボタン
+  /// リマインダー入力ピッカーを初期化
+  self.remindPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 200, 0, 0)];
+  [self.remindPicker setDatePickerMode:UIDatePickerModeDateAndTime];
+  [self.view addSubview:self.remindPicker];
+
+  /// 入力完了ボタン
   UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
   [button setFrame:CGRectMake(0, 30, 100, 50)];
   [button setTitle:@"Done" forState:UIControlStateNormal];

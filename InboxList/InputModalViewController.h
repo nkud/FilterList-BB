@@ -10,16 +10,10 @@
 
 @protocol InputModalViewControllerDelegate;
 
-/* -----------------------------------------------------------------------------
- * プロトコル
- * -------------------------------------------------------------------------- */
 @protocol InputModalViewControllerDelegate <NSObject>
 - (void)dismissInputModalView:(id)sender data:(NSArray *)data;
 @end
 
-/* -----------------------------------------------------------------------------
- * 宣言
- * -------------------------------------------------------------------------- */
 @interface InputModalViewController : UIViewController
 <UITextFieldDelegate>
 
@@ -27,5 +21,6 @@
 
 @property UITextField *textField;
 @property UITextField *tagInputField;
+@property UIDatePicker *remindPicker;
 
 @end

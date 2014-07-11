@@ -10,14 +10,13 @@
 
 @class Cell;
 
-/* -----------------------------------------------------------------------------
- * プロトコル
- * -------------------------------------------------------------------------- */
 @protocol CellDelegate <NSObject>
 
 - (void)tappedCheckBox:(Cell *)cell touch:(UITouch *)touch;
 
 @end
+
+
 @interface Cell : UITableViewCell
 
 @property (strong, nonatomic) UIView *checkBox; /* チェックボックス */
