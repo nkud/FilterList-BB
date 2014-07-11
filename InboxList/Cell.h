@@ -21,11 +21,8 @@
 
 @property (strong, nonatomic) UIView *checkBox; /* チェックボックス */
 
-//@property BOOL isChecked;
-
 @property (nonatomic, assign) id <CellDelegate> delegate;
 
-//- (void)updateCheckBox;
 - (BOOL)updateCheckBox:(BOOL)isChecked;
 
 @end

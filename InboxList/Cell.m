@@ -16,8 +16,24 @@
 
 @end
 
-
 @implementation Cell
+
+
+/**
+ * 初期化する
+ */
+- (id)initWithStyle:(UITableViewCellStyle)style
+    reuseIdentifier:(NSString *)reuseIdentifier
+{
+  /* superで初期化 */
+  self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+
+  if (self)
+  {
+    self.detailTextLabel.text = @"testlabel";
+  }
+  return self;
+}
 
 /**
  * チェックボックスを更新する
@@ -34,22 +50,6 @@
 }
 
 /**
- * 初期化する
- */
-- (id)initWithStyle:(UITableViewCellStyle)style
-    reuseIdentifier:(NSString *)reuseIdentifier
-{
-  /* superで初期化 */
-  self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-
-  if (self)
-  {
-    /* initialize */
-  }
-  return self;
-}
-
-/**
  * タッチされた時の処理
  */
 -(void)touchesBegan:(NSSet *)touches
@@ -59,7 +59,7 @@
   CGPoint location = [[touches anyObject] locationInView:self.contentView];
   UITouch *touch = [touches anyObject]; // ここらへん分からん
 
-  if (location.x < _left_side) {                             // チェックボックスなら
+  if (location.x < _left_side) {                                     // チェックボックスなら
     [self.delegate tappedCheckBox:self touch:touch]; // 自分と場所を渡す
   } else {                                                           // そうでなければ
     [super touchesBegan:touches withEvent:event];                    // デフォルトの処理をする
