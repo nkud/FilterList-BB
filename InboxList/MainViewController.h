@@ -22,6 +22,8 @@
 
 @property (strong, nonatomic) MenuViewController     *menuViewController;
 
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+//@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
+-(void)loadMasterViewForTag:(NSString *)tag fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
 
 @end

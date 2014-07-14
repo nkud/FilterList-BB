@@ -10,8 +10,7 @@
 
 @protocol MenuViewControllerDelegate <NSObject>
 
-- (void)loadMasterViewForTag:(NSString *)tag;
-- (void)loadMasterViewForAll;
+- (void)selectedTag:(NSString *)tagString;
 
 @end
 

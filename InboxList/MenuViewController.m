@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/06/23.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "MenuViewController.h"
@@ -30,7 +30,10 @@
 }
 
 /**
- * セルが選択された時の処理
+ *  タグが選択された時の処理
+ *
+ *  @param tableView tableView description
+ *  @param indexPath 選択された場所
  */
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -38,12 +41,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
   /// 選択されたタグをデリゲートに渡す
   if (indexPath.section == 0) {
-    [self.delegate loadMasterViewForAll];
+    [self.delegate selectedTag:@"all"];
     return;
   }
-  [self.delegate loadMasterViewForTag:self.tag_list[indexPath.row]];
+  [self.delegate selectedTag:self.tag_list[indexPath.row]];
 }
 
+/**
+ *  セクションのタイトルを設定
+ *
+ *  @param tableView テーブルビュー
+ *  @param section   セクション
+ *
+ *  @return タイトルの文字列
+ */
 -(NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section
 {
