@@ -44,6 +44,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [self.delegate loadMasterViewForTag:self.tag_list[indexPath.row]];
 }
 
+-(NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section
+{
+  switch (section) {
+    case 0:
+      return @"Default";
+      break;
+    case 1:
+      return @"Tag";
+      break;
+  }
+  return nil;
+}
+
 /**
  * ビューがロードされた後の処理
  */

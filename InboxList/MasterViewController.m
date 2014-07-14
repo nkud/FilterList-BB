@@ -26,11 +26,9 @@
 
 @implementation MasterViewController
 
-/**
- * 存在するタグのリストを取得する
- *
- * @note NSMutableArrayを返してもいいのか？あと、このクラスが持つべきではないかも
- */
+///  タグのリストを返す
+///
+///  @return タグのリスト
 -(NSArray *)getTagList
 {
   NSLog(@"%s", __FUNCTION__);
@@ -52,9 +50,6 @@
   return taglist;
 }
 
-/**
- * @brief セルのチェックボックスがタッチされた時の処理
- */
 -(void)tappedCheckBox:(Cell *)cell
                 touch:(UITouch *)touch
 {
@@ -75,9 +70,7 @@
   /// モデルを保存する
   [app saveContext];
 }
-/**
- * パラメータを初期化する
- */
+
 - (void)initParameter
 {
   isOpen = false;
@@ -85,9 +78,6 @@
   app = [[UIApplication sharedApplication] delegate];
 }
 
-/**
- * 初期化する
- */
 - (id)initWithStyle:(UITableViewStyle)style
 {
   self = [super initWithStyle:style];
@@ -100,9 +90,7 @@
 }
 
 
-/**
- * ビューがロードされた後の処理
- */
+
 - (void)viewDidLoad
 {
   NSLog(@"%s", __FUNCTION__);
@@ -129,9 +117,6 @@
   self.navigationItem.rightBarButtonItem = addButton;
 }
 
-/**
- * 編集モードの切り替え
- */
 - (void)toEdit:(id)sender
 {
   NSLog(@"%s", __FUNCTION__);
@@ -143,9 +128,7 @@
 }
 
 
-/**
- * 入力画面を終了させる。フィールドの値を受け取る。
- */
+
 - (void)dismissInputModalView:(id)sender
                          data:(NSArray *)data
                      reminder:(NSDate *)reminder
@@ -158,10 +141,7 @@
   [self dismissViewControllerAnimated:YES completion:nil];           //< ビューを削除
 }
 
-/**
- * @brief 詳細ビューを削除する前の処理
- * @todo 複数のタグに対応させる。インプットビューでも
- */
+
 -(void)dismissDetailView:(id)sender
                    index:(NSIndexPath *)indexPath
                itemTitle:(NSString *)itemTitle
@@ -188,9 +168,6 @@
   [app saveContext];
 }
 
-/**
- * @brief 入力画面を出す
- */
 - (void)inputAndInsertNewObjectFromModalView
 {
   InputModalViewController *inputView = [[InputModalViewController alloc] init];
@@ -203,9 +180,11 @@
                    completion:nil];
 }
 
-/**
- * @brief 新しい項目を追加する
- */
+///  新しいオブジェクトを挿入
+///
+///  @param sender   sender description
+///  @param data     データ
+///  @param reminder リマインダー
 - (void)insertNewObject:(id)sender
                    data:(NSArray *)data
                reminder:(NSDate *)reminder
@@ -213,8 +192,8 @@
   NSLog(@"%s", __FUNCTION__);
   // ここはよくわからない
   // 特になくても、直接指定すればいいのでは？
-  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-  NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
+  NSManagedObjectContext *context = [self.fetchedResultsControllerForTag managedObjectContext];
+  NSEntityDescription *entity     = [[self.fetchedResultsControllerForTag fetchRequest] entity];
 
   /* 新しい項目を初期化・追加する */
   Item *newItem                   = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
@@ -241,18 +220,14 @@
 
 #pragma mark - Table View
 
-/**
- * テーブルを更新する
- */
+
 - (void)updateTableView
 {
   NSLog(@"%s", __FUNCTION__);
   [self.tableView reloadData];
 }
 
-/**
- * セルを設定する
- */
+
 - (void)configureCell:(Cell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
@@ -267,9 +242,7 @@
   cell.delegate              = self;// delegate
 }
 
-/**
- * @brief セルが選択された時の処理
- */
+
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -284,17 +257,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                        animated:NO];
 }
 
-/**
- * @brief セクション数
- */
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return [[[self fetchedResultsControllerForSelectedTag] sections] count];
 }
 
-/**
- * @brief セクション内の項目数
- */
+
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
@@ -303,9 +272,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   return [sectionInfo numberOfObjects];
 }
 
-/**
- * @brief indexPath列目のセルを返す
- */
+
 - (Cell *)tableView:(UITableView *)tableView
 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -316,9 +283,12 @@ cellForRowAtIndexPath:(NSIndexPath *)indexPath
   return cell;
 }
 
-/**
- * @brief テーブル編集の可否
- */
+///  テーブル編集の可否
+///
+///  @param tableView <#tableView description#>
+///  @param indexPath インデックスパス
+///
+///  @return 真偽値
 - (BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -326,9 +296,11 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
-/**
- * @brief 編集時の処理
- */
+///  編集時の処理
+///
+///  @param tableView    tableView description
+///  @param editingStyle 編集スタイル
+///  @param indexPath    選択されたインデックス
 - (void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -351,9 +323,11 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
-/**
- * @brief ？？？
- */
+///  ???
+///
+///  @param tableView
+///  @param sourceIndexPath
+///  @param destinationIndexPath
 -(void)tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
@@ -363,9 +337,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
 #pragma mark - Fetched results controller
 
-/**
- * @brief フェッチリザルトコントローラーを取得
- */
+///  フェッチリザルトコントローラーを取得
+///
+///  @return フェッチリザルトコントローラー
 - (NSFetchedResultsController *)fetchedResultsController
 {
   NSLog(@"%s", __FUNCTION__);
@@ -395,7 +369,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                                           sectionNameKeyPath:nil
                                                    cacheName:nil]; //< 元は@"Master"
 
-//  aFetchedResultsController.delegate = self; //< デリゲートを設定
+  aFetchedResultsController.delegate = self; //< デリゲートを設定
 
   self.fetchedResultsController = aFetchedResultsController;
 
@@ -407,14 +381,11 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   return _fetchedResultsController;
 }
 
-/**
- * タグに合わせたオブジェクトを抽出する
- *
- * @param tagString 抽出するタグ
- *
- * @todo タグを複数指定できるようにする。
- *       キャッシュをタグで変える
- */
+///  タグに合わせたオブジェクトを抽出する
+///
+///  @param tagString 抽出するタグ
+///
+///  @return フェッチリザルトコントローラー
 - (NSFetchedResultsController *)fetchedResultsControllerForTag:(NSString *)tagString
 {
   NSLog(@"%s", __FUNCTION__);
@@ -460,9 +431,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   return _fetchedResultsControllerForTag;
 }
 
-/**
- * 選択されたタグのアイテムを抽出する
- */
 - (NSFetchedResultsController *)fetchedResultsControllerForSelectedTag
 {
   NSLog(@"%s", __FUNCTION__);
@@ -486,20 +454,20 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 {
   switch(type) {
     case NSFetchedResultsChangeInsert:
+      NSLog(@"%@", @"Insert");
       [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
 
     case NSFetchedResultsChangeDelete:
+      NSLog(@"%@", @"Delete");
       [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
   }
 }
 
-/**
- * リザルトコントローラーが変更を受け取った時の処理
- */
+
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath
@@ -549,9 +517,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [self.tableView endUpdates];
 }
 
-/**
- * @brief メモリー警告
- */
+
 - (void)didReceiveMemoryWarning
 {
   [super didReceiveMemoryWarning];

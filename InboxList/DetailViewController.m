@@ -19,9 +19,10 @@
 @implementation DetailViewController
 
 #pragma mark - Initialization
-/**
- * @brief 初期化
- */
+
+///  初期化
+///
+///  @return self
 -(id)init
 {
   self = [super init];
@@ -32,9 +33,7 @@
   return self;
 }
 
-/**
- * @brief インターフェイスを初期化
- */
+///  インターフェイスを初期化
 - (void)initInterface
 {
   /// フィールドを作成
@@ -58,9 +57,7 @@
   
 }
 
-/**
- * @brief アイテムを更新する
- */
+///  アイテムを更新する
 - (void)initItem
 {
   if (self.detailItem) {
@@ -80,9 +77,9 @@
 
 #pragma mark - Managing view
 
-/**
- * @brief アイテムを設定する
- */
+///  アイテムを設定する
+///
+///  @param newDetailItem アイテム
 - (void)setDetailItem:(id)newDetailItem
 {
   if (_detailItem != newDetailItem) {
@@ -93,9 +90,12 @@
   }
 }
 
-/**
- * @brief テキストフィールドを作成する
- */
+///  テキストフィールドを作成する
+///
+///  @param x x座標
+///  @param y y座標
+///
+///  @return テキストフィールド
 - (UITextField *)createTextField:(int)x y:(int)y
 {
   UITextField *_newTextField;
@@ -106,10 +106,7 @@
   return _newTextField;
 }
 
-/**
- * @brief 戻るボタン
- * @todo 通常の戻るボタンでも、更新させる
- */
+///  戻るボタン
 - (void)save
 {
   //    [self dismissViewControllerAnimated:YES completion:nil];
@@ -125,9 +122,7 @@
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-/**
- * @brief ビューがロードされたあとの処理
- */
+///  ビューがロードされたあとの処理
 - (void)viewDidLoad
 {
   NSLog(@"%s", __FUNCTION__);
@@ -136,9 +131,7 @@
   [self initItem]; //< アイテムを更新
 }
 
-/**
- * @brief メモリー関係？
- */
+///  メモリー警告
 - (void)didReceiveMemoryWarning
 {
   [super didReceiveMemoryWarning];
