@@ -386,7 +386,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- * @brief ？？？
+ * ？？？
  */
 - (BOOL)tableView:(UITableView *)tableView
 canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -395,11 +395,13 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
-///  ???
-///
-///  @param tableView
-///  @param sourceIndexPath
-///  @param destinationIndexPath
+/**
+ *  ???
+ *
+ *  @param tableView            テーブルビュー
+ *  @param sourceIndexPath      元の位置？
+ *  @param destinationIndexPath 後の位置？
+ */
 -(void)tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
@@ -480,6 +482,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 /*
  // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
  */
+
 /**
  *  コンテンツが更新された後処理
  *
@@ -492,7 +495,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [self.tableView endUpdates];
 }
 
-
+/**
+ *  メモリー警告
+ */
 - (void)didReceiveMemoryWarning
 {
   [super didReceiveMemoryWarning];
