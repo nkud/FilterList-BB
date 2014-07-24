@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Filter" representedClassName="Filter" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Item" representedClassName="Item">
         <attribute name="color" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reminder" optional="YES" attributeType="Date" syncable="YES"/>
@@ -15,5 +18,6 @@
     <elements>
         <element name="Item" positionX="-4653" positionY="-1540" width="162" height="118"/>
         <element name="Tag" positionX="-4419" positionY="-1539" width="128" height="73"/>
+        <element name="Filter" positionX="-4536" positionY="-1494" width="128" height="58"/>
     </elements>
 </model>

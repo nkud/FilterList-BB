@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0D3D6116-29CB-4E75-B92E-CA117B6349E9</string>
+	<string>6C6E045B-C9B0-4641-AA8F-4928A23DCB5D</string>
 	<key>IDESourceControlProjectName</key>
 	<string>InboxList</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E6550672-4265-400D-83EA-BF38DB36CB3C</key>
+		<key>AA4BC880-0419-4C40-BC3D-FC79E00C3A19</key>
 		<string>https://github.com/s067803/InboxList</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>InboxList.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E6550672-4265-400D-83EA-BF38DB36CB3C</key>
+		<key>AA4BC880-0419-4C40-BC3D-FC79E00C3A19</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E6550672-4265-400D-83EA-BF38DB36CB3C</string>
+	<string>AA4BC880-0419-4C40-BC3D-FC79E00C3A19</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E6550672-4265-400D-83EA-BF38DB36CB3C</string>
+			<string>AA4BC880-0419-4C40-BC3D-FC79E00C3A19</string>
 			<key>IDESourceControlWCCName</key>
 			<string>InboxList</string>
 		</dict>
