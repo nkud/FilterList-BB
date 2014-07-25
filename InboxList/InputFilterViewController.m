@@ -46,8 +46,23 @@
   _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
   [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
   [_newTextField setReturnKeyType:UIReturnKeyDone];
+  [_newTextField setDelegate:self];
   [_newTextField setText:nil];
   return _newTextField;
+}
+
+/**
+ *  テキストフィールドでリターン時の処理
+ *
+ *  @param textField テキストフィールド
+ *
+ *  @return 真偽値
+ */
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  NSLog(@"%s", __FUNCTION__);
+  [self dismissViewControllerAnimated:YES completion:nil];
+  return YES;
 }
 
 /**

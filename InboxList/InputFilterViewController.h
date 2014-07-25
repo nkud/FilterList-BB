@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface InputFilterViewController : UIViewController
+<UITextFieldDelegate>
 
 /**
  *  入力フィールド

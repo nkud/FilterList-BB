@@ -61,21 +61,16 @@
  */
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer;
 {
-  int distance = 200;
-  CGPoint next_center = self.navigationController.view.center;
-  CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
-
-  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
   switch (recognizer.direction) {
-    case UISwipeGestureRecognizerDirectionRight: /// 右スワイプ時
-      next_center.x = center_x + distance;
-      self.menuViewController.tag_list = [self.masterViewController getTagList]; ///< メニューの内容を更新して
-      [self.menuViewController updateTableView]; ///< ビューを更新
+      // 右スワイプ
+    case UISwipeGestureRecognizerDirectionRight:
+      [self swipeDirectionRight];
       break;
 
-    case UISwipeGestureRecognizerDirectionLeft: /// 左スワイプ時
-      next_center.x = MAX(center_x-distance, screen_x);
+      // 左スワイプ
+    case UISwipeGestureRecognizerDirectionLeft:
+      [self swipeDirectionLeft];
       break;
 
     default:
@@ -83,6 +78,71 @@
   }
 
   /// アニメーション
+
+}
+
+/**
+ *  右方向スワイプ
+ *
+ * @todo 要改善
+ */
+- (void)swipeDirectionRight
+{
+  NSLog(@"%s", __FUNCTION__);
+  int distance = 200;
+  CGPoint next_center = self.navigationController.view.center;
+  CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
+
+  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
+
+  if (center_x == screen_x) {
+    [self.view sendSubviewToBack:self.filterViewController.view];
+  }      next_center.x = center_x + distance;
+  self.menuViewController.tag_list = [self.masterViewController getTagList]; //< メニューの内容を更新して
+  [self.menuViewController updateTableView]; //< ビューを更新
+
+  [UIView animateWithDuration:0.2
+                   animations:^{
+                     self.navigationController.view.center = next_center;
+                   }];
+}
+
+/**
+ *  中心にスワイプ
+ */
+- (void)swipeDirectionCenter
+{
+  NSLog(@"%s", __FUNCTION__);
+  CGPoint next_center = self.navigationController.view.center;
+
+  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
+  next_center.x = screen_x;
+
+  [UIView animateWithDuration:0.2
+                   animations:^{
+                     self.navigationController.view.center = next_center;
+                   }];
+}
+
+/**
+ *  左方向スワイプ
+ */
+- (void)swipeDirectionLeft
+{
+  NSLog(@"%s", __FUNCTION__);
+
+  int distance = 200;
+  CGPoint next_center = self.navigationController.view.center;
+  CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
+
+  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
+
+
+  if (center_x == screen_x) {
+    [self.view sendSubviewToBack:self.menuViewController.view];
+  }
+  //      next_center.x = MAX(center_x-distance, screen_x);
+  next_center.x = center_x - distance;
   [UIView animateWithDuration:0.2
                    animations:^{
                      self.navigationController.view.center = next_center;
@@ -103,6 +163,25 @@
 
   /// ナビゲーションコントローラー初期化
   self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
+
+  /**
+   *  タブバー初期化
+   */
+  int tab_bar_height = 100;
+  self.tabBar = [[UITabBar alloc] initWithFrame:CGRectMake(0,
+                                                           SCREEN_BOUNDS.size.height-tab_bar_height,
+                                                           SCREEN_BOUNDS.size.width,
+                                                           tab_bar_height)];
+  UITabBarItem *tabItem1 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:0];
+  UITabBarItem *tabItem2 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:1];
+  UITabBarItem *tabItem3 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:2];
+  self.tabBar.items = [NSArray arrayWithObjects:tabItem1, tabItem2, tabItem3, nil];
+  self.tabBar.delegate = self;
+  self.tabBar.translucent = NO;
+
+  self.tabBar.barStyle = UIBarStyleDefault;
+  self.tabBar.tintColor = [UIColor blueColor];
+  self.tabBar.selectedItem = tabItem2;
 
   /**
    *  フィルターコントローラーを初期化
@@ -131,6 +210,32 @@
   [self.view addSubview:self.menuViewController.view];
   [self.view addSubview:self.filterViewController.view];
   [self.view addSubview:self.navigationController.view];
+  [self.view addSubview:self.tabBar];
+}
+
+/**
+ *  タブが選択された時の処理
+ *
+ *  @param tabBar タブバー
+ *  @param item   選択されたタブ
+ */
+-(void)tabBar:(UITabBar *)tabBar
+didSelectItem:(UITabBarItem *)item
+{
+  switch (item.tag) {
+    case 0:
+      [self swipeDirectionRight];
+      break;
+    case 1:
+      [self swipeDirectionCenter];
+      break;
+    case 2:
+      [self swipeDirectionLeft];
+      break;
+
+    default:
+      break;
+  }
 }
 
 /**

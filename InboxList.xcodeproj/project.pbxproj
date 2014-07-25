@@ -29,6 +29,7 @@
 		B03E6C1718CAA316007703B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1618CAA316007703B8 /* Item.m */; };
 		B03E6C1A18CAA316007703B8 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1918CAA316007703B8 /* Tag.m */; };
 		B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */ = {isa = PBXBuildFile; fileRef = B03F2BD3194D76460037AE2C /* CheckBox_True.png */; };
+		B05FA8231982B20C00E25FAF /* TabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B05FA8221982B20C00E25FAF /* TabBar.m */; };
 		B071A15019811A4E00C5C232 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = B071A14F19811A4E00C5C232 /* Filter.m */; };
 		B0808049195825A3007D21E4 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0808048195825A3007D21E4 /* MenuViewController.m */; };
 		B080804C19582CF6007D21E4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B080804B19582CF6007D21E4 /* MainViewController.m */; };
@@ -81,6 +82,8 @@
 		B03E6C1918CAA316007703B8 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		B03F2BD3194D76460037AE2C /* CheckBox_True.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_True.png; path = resource/CheckBox_True.png; sourceTree = SOURCE_ROOT; };
 		B053C91B19557C1600C51AA1 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		B05FA8211982B20200E25FAF /* TabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBar.h; path = InboxList/TabBar.h; sourceTree = "<group>"; };
+		B05FA8221982B20C00E25FAF /* TabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBar.m; path = InboxList/TabBar.m; sourceTree = "<group>"; };
 		B071A14E19811A4E00C5C232 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
 		B071A14F19811A4E00C5C232 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		B0808047195825A3007D21E4 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
@@ -160,6 +163,7 @@
 				B053C91B19557C1600C51AA1 /* Header.h */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
 				B08EBBC319703ED000DB9582 /* MainView */,
+				B05FA8201982AE8900E25FAF /* TabBar */,
 				B08EBBC219703EBC00DB9582 /* FilterView */,
 				B037277D1953270E0041C4A1 /* MenuView */,
 				B0C93A1A194C4AB600733BE7 /* Navigatioin */,
@@ -234,6 +238,16 @@
 				B0DC58D8194DAD770089E8FA /* CheckBox_False.png */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		B05FA8201982AE8900E25FAF /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				B05FA8211982B20200E25FAF /* TabBar.h */,
+				B05FA8221982B20C00E25FAF /* TabBar.m */,
+			);
+			name = TabBar;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		B08EBBC219703EBC00DB9582 /* FilterView */ = {
@@ -426,6 +440,7 @@
 				B08F4B651915FAC80047E210 /* NavigationController.m in Sources */,
 				B03E6C1718CAA316007703B8 /* Item.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* Cell.m in Sources */,
+				B05FA8231982B20C00E25FAF /* TabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

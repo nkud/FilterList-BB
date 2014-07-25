@@ -15,18 +15,28 @@
 @end
 
 @implementation FilterViewController
-
+/**
+ *  初期化
+ *
+ *  @param nibNameOrNil   <#nibNameOrNil description#>
+ *  @param nibBundleOrNil <#nibBundleOrNil description#>
+ *
+ *  @return <#return value description#>
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-      [self.view setBackgroundColor:RGBA(0, 0, 0, 0.5)];
+      ;
     }
     return self;
 }
 
+/**
+ *  ビューを読み込んだ後の処理
+ */
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -37,19 +47,28 @@
    *  ボタン
    */
   UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [button setFrame:CGRectMake(0, 30, 100, 50)];
+  [button setFrame:CGRectMake(100, 30, 100, 50)];
   [button setTitle:@"add" forState:UIControlStateNormal];
   [button addTarget:self
-             action:@selector(dismissInput)
+             action:@selector(presentInputFilterView)
    forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:button];
+  [self.view bringSubviewToFront:button];
 }
 
-- (void)dismissInput
+/**
+ *  入力画面を閉じるときの処理
+ */
+- (void)presentInputFilterView
 {
-  ;
+  InputFilterViewController *inputFilterView = [[InputFilterViewController alloc] initWithNibName:nil bundle:nil];
+  NSLog(@"%s", __FUNCTION__);
+  [self presentViewController:inputFilterView animated:YES completion:nil];
 }
 
+/**
+ *  メモリー警告
+ */
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
