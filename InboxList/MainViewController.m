@@ -55,7 +55,9 @@
 }
 
 /**
- * @brief マスタービュー上でスワイプ時の処理
+ *  マスタービュー上でスワイプされた時の処理
+ *
+ *  @param recognizer recognizer description
  */
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer;
 {
@@ -102,6 +104,11 @@
   /// ナビゲーションコントローラー初期化
   self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
 
+  /**
+   *  フィルターコントローラーを初期化
+   */
+  self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
+
   /// ジェスチャーを設定
   UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
                                                                                         action:@selector(handleSwipeFrom:)];
@@ -122,6 +129,7 @@
 
   /// コントローラーのビューを配置
   [self.view addSubview:self.menuViewController.view];
+  [self.view addSubview:self.filterViewController.view];
   [self.view addSubview:self.navigationController.view];
 }
 
@@ -239,6 +247,12 @@
 
 /**
  * メニューでタグが選択された時の処理
+ */
+/**
+ *  メニューでタグが選択された時の処理
+ *
+ *  @param tag                     選択されたタグ
+ *  @param fetchedResultController リザルトコントローラー
  */
 - (void)loadMasterViewForTag:(NSString *)tag
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController

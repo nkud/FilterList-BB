@@ -3,10 +3,12 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/07/12.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "FilterViewController.h"
+#import "InputFilterViewController.h"
+#import "Header.h"
 
 @interface FilterViewController ()
 
@@ -20,15 +22,32 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-      [self.view setBackgroundColor:[UIColor greenColor]];
+      [self.view setBackgroundColor:RGBA(0, 0, 0, 0.5)];
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
+
+  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
+
+  /**
+   *  ボタン
+   */
+  UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [button setFrame:CGRectMake(0, 30, 100, 50)];
+  [button setTitle:@"add" forState:UIControlStateNormal];
+  [button addTarget:self
+             action:@selector(dismissInput)
+   forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:button];
+}
+
+- (void)dismissInput
+{
+  ;
 }
 
 - (void)didReceiveMemoryWarning

@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/07/25.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "InputFilterViewController.h"
@@ -32,12 +32,39 @@
     return self;
 }
 
-- (void)viewDidLoad
+/**
+ *  テキストフィールドを作成する
+ *
+ *  @param x x座標
+ *  @param y y座標
+ *
+ *  @return テキストフィールドのポインタ
+ */
+- (UITextField *)createTextField:(int)x y:(int)y
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  UITextField *_newTextField;
+  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
+  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
+  [_newTextField setReturnKeyType:UIReturnKeyDone];
+  [_newTextField setText:nil];
+  return _newTextField;
 }
 
+/**
+ *  ビューがロードされたあとの処理
+ */
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+
+  self.inputField = [self createTextField:0 y:100];
+  [self.inputField becomeFirstResponder];
+  [self.view addSubview:self.inputField];
+}
+
+/**
+ *  メモリー警告
+ */
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -11,6 +11,7 @@
 #import "MasterViewController.h"
 #import "NavigationController.h"
 #import "MenuViewController.h"
+#import "FilterViewController.h"
 
 @interface MainViewController : UIViewController
 <MenuViewControllerDelegate> {
@@ -19,6 +20,7 @@
 
 @property (strong, nonatomic) NavigationController   *navigationController;
 @property (strong, nonatomic) MasterViewController   *masterViewController;
+@property (strong, nonatomic) FilterViewController   *filterViewController;
 
 @property (strong, nonatomic) MenuViewController     *menuViewController;
 
