@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FilterViewControllerDelegate <NSObject>
+
+/**
+ *  Viewを最前面に表示する
+ *
+ *  @param view 指定するビュー
+ */
+- (void)presentInputFilterView;
+
+@end
+
 @interface FilterViewController : UITableViewController
+
+@property id <FilterViewControllerDelegate> delegate;
 
 @end

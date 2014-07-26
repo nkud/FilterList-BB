@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol InputFilterViewControlellerDelegate <NSObject>
+
+- (void)dismissInputView:(NSString *)filterString;
+
+@end
+
 @interface InputFilterViewController : UIViewController
 <UITextFieldDelegate>
 
@@ -15,5 +21,7 @@
  *  入力フィールド
  */
 @property UITextField * inputField;
+
+@property id <InputFilterViewControlellerDelegate> delegate;
 
 @end

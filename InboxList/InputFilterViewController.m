@@ -61,7 +61,8 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   NSLog(@"%s", __FUNCTION__);
-  [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+  [self.delegate dismissInputView:self.inputField.text];
   return YES;
 }
 

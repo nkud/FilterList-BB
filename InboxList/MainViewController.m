@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "AppDelegate.h"
 #import "Header.h"
+#import "InputFilterViewController.h"
 
 @interface MainViewController () {
   AppDelegate *app;
@@ -17,6 +18,34 @@
 @end
 
 @implementation MainViewController
+
+/**
+ *  フィルター入力画面を表示する
+ */
+-(void)presentInputFilterView
+{
+  // 初期化
+  InputFilterViewController *inputFilterView = [[InputFilterViewController alloc] initWithNibName:nil
+                                                                                           bundle:nil];
+  inputFilterView.delegate = self;
+  // 入力画面を最前面に表示する
+  [self.view bringSubviewToFront:inputFilterView.view];
+  // 入力画面を表示する
+  [self presentViewController:inputFilterView
+                     animated:YES
+                   completion:nil];
+}
+
+/**
+ *  フィルター入力画面を削除する
+ *
+ *  @param filterString 入力されたフィルター
+ */
+-(void)dismissInputView:(NSString *)filterString
+{
+  NSLog(@"%@", filterString);
+  [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 /**
  * パラメータを初期化
@@ -97,7 +126,12 @@
 
   if (center_x == screen_x) {
     [self.view sendSubviewToBack:self.filterViewController.view];
-  }      next_center.x = center_x + distance;
+  }
+  next_center.x = center_x + distance;
+  // 画面から消えないための処理
+  if (next_center.x > SCREEN_BOUNDS.size.width*1.5) {
+    return;
+  }
   self.menuViewController.tag_list = [self.masterViewController getTagList]; //< メニューの内容を更新して
   [self.menuViewController updateTableView]; //< ビューを更新
 
@@ -143,6 +177,10 @@
   }
   //      next_center.x = MAX(center_x-distance, screen_x);
   next_center.x = center_x - distance;
+  // 画面から消えないための処理
+  if (next_center.x < -SCREEN_BOUNDS.size.width*0.5) {
+    return;
+  }
   [UIView animateWithDuration:0.2
                    animations:^{
                      self.navigationController.view.center = next_center;
@@ -187,6 +225,7 @@
    *  フィルターコントローラーを初期化
    */
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
+  self.filterViewController.delegate = self;
 
   /// ジェスチャーを設定
   UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
@@ -223,12 +262,21 @@
 didSelectItem:(UITabBarItem *)item
 {
   switch (item.tag) {
+      /**
+       *  左スワイプ
+       */
     case 0:
       [self swipeDirectionRight];
       break;
+      /**
+       *  中心に戻る
+       */
     case 1:
       [self swipeDirectionCenter];
       break;
+      /**
+       *  右スワイプ
+       */
     case 2:
       [self swipeDirectionLeft];
       break;

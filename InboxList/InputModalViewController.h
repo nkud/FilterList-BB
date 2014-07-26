@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol InputModalViewControllerDelegate;
-
 @protocol InputModalViewControllerDelegate <NSObject>
 - (void)dismissInputModalView:(id)sender data:(NSArray *)data reminder:(NSDate *)reminder;
 @end

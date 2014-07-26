@@ -12,10 +12,12 @@
 #import "NavigationController.h"
 #import "MenuViewController.h"
 #import "FilterViewController.h"
+#import "InputFilterViewController.h"
 #import "TabBar.h"
 
 @interface MainViewController : UIViewController
-<MenuViewControllerDelegate, UITabBarDelegate> {
+<MenuViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate,
+InputFilterViewControlellerDelegate> {
   int swipe_distance;
 }
 

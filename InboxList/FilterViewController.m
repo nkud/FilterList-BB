@@ -57,13 +57,11 @@
 }
 
 /**
- *  入力画面を閉じるときの処理
+ *  入力画面を表示
  */
 - (void)presentInputFilterView
 {
-  InputFilterViewController *inputFilterView = [[InputFilterViewController alloc] initWithNibName:nil bundle:nil];
-  NSLog(@"%s", __FUNCTION__);
-  [self presentViewController:inputFilterView animated:YES completion:nil];
+  [self.delegate presentInputFilterView];
 }
 
 /**
