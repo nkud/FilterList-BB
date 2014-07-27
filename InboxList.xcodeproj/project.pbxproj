@@ -36,6 +36,7 @@
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
 		B0A35106198496D90062ABB1 /* TagField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A35105198496D90062ABB1 /* TagField.m */; };
+		B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */; };
 		B0DABFAD1914CC50007597E3 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* Cell.m */; };
 		B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DC58D8194DAD770089E8FA /* CheckBox_False.png */; };
 /* End PBXBuildFile section */
@@ -98,6 +99,8 @@
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
 		B0A35104198496D90062ABB1 /* TagField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagField.h; sourceTree = "<group>"; };
 		B0A35105198496D90062ABB1 /* TagField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagField.m; sourceTree = "<group>"; };
+		B0A3510B1984A24B0062ABB1 /* ResultControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultControllerFactory.h; sourceTree = "<group>"; };
+		B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultControllerFactory.m; sourceTree = "<group>"; };
 		B0DABFAB1914CC50007597E3 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		B0DC58D8194DAD770089E8FA /* CheckBox_False.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_False.png; path = resource/CheckBox_False.png; sourceTree = SOURCE_ROOT; };
@@ -163,7 +166,8 @@
 		B00AD69218C45E470005A552 /* InboxList */ = {
 			isa = PBXGroup;
 			children = (
-				B053C91B19557C1600C51AA1 /* Header.h */,
+				B0A3510E1984AA0F0062ABB1 /* ResultControllerFactory */,
+				B0A351071984A1140062ABB1 /* Header */,
 				B0A35104198496D90062ABB1 /* TagField.h */,
 				B0A35105198496D90062ABB1 /* TagField.m */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
@@ -281,6 +285,23 @@
 				B00AD69C18C45E470005A552 /* AppDelegate.m */,
 			);
 			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		B0A351071984A1140062ABB1 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				B053C91B19557C1600C51AA1 /* Header.h */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
+		B0A3510E1984AA0F0062ABB1 /* ResultControllerFactory */ = {
+			isa = PBXGroup;
+			children = (
+				B0A3510B1984A24B0062ABB1 /* ResultControllerFactory.h */,
+				B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */,
+			);
+			name = ResultControllerFactory;
 			sourceTree = "<group>";
 		};
 		B0C93A1A194C4AB600733BE7 /* Navigatioin */ = {
@@ -429,6 +450,7 @@
 				B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* MasterViewController.m in Sources */,
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
+				B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
 				B03E6C1A18CAA316007703B8 /* Tag.m in Sources */,
 				B0808049195825A3007D21E4 /* MenuViewController.m in Sources */,

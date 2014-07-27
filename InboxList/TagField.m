@@ -8,19 +8,44 @@
 
 #import "TagField.h"
 
+enum __INPUT_STATE__ {
+  __INPUT__,
+  __NEW_INPUT__
+};
+
 @interface TagField () {
-  /**
-   *  入力状態
-   */
-  enum __STATE__ {
-    input,
-    end
-  };
+  enum __INPUT_STATE__ input_state_;
 }
 
 @end
 
 @implementation TagField
+
+
+/**
+ *  リターンキーが押された時の処理
+ *
+ *  @param textField 押されたテキストフィールド
+ *
+ *  @return ???
+ */
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  switch (input_state_) {
+      // 入力途中
+    case __INPUT__:
+
+      break;
+      // 入力完了状態
+    case __NEW_INPUT__:
+      [textField resignFirstResponder];
+      break;
+
+    default:
+      break;
+  }
+  return NO;
+}
 
 /**
  *  初期化

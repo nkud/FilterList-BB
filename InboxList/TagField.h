@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TagField : UITextField
+<UITextFieldDelegate>
 
 /**
  *  入力されたタグの配列

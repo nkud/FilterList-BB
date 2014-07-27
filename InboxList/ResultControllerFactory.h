@@ -10,4 +10,15 @@
 
 @interface ResultControllerFactory : NSObject
 
+/**
+ *  通常のリザルトコントローラー
+ *
+ *  @param controller デリゲートを設定するコントローラー
+ *
+ *  @return リザルトコントローラー
+ */
++ (NSFetchedResultsController *)fetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
+
++ (NSFetchedResultsController *)fetchedResultsControllerForTag:(NSString *)tagString
+                                                      delegate:(id<NSFetchedResultsControllerDelegate>)controller;
 @end
