@@ -7,6 +7,7 @@
 //
 
 #import "InputFilterViewController.h"
+#import "TagFieldViewController.h"
 
 @interface InputFilterViewController ()
 
@@ -25,7 +26,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
     if (self) {
       [self.view setBackgroundColor:[UIColor grayColor]];
     }
@@ -40,16 +42,17 @@
  *
  *  @return テキストフィールドのポインタ
  */
-- (UITextField *)createTextField:(int)x y:(int)y
-{
-  UITextField *_newTextField;
-  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
-  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
-  [_newTextField setReturnKeyType:UIReturnKeyDone];
-  [_newTextField setDelegate:self];
-  [_newTextField setText:nil];
-  return _newTextField;
-}
+//- (UITextField *)createTextField:(int)x
+//                               y:(int)y
+//{
+//  UITextField *_newTextField;
+//  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
+//  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
+//  [_newTextField setReturnKeyType:UIReturnKeyDone];
+//  [_newTextField setDelegate:self];
+//  [_newTextField setText:nil];
+//  return _newTextField;
+//}
 
 /**
  *  テキストフィールドでリターン時の処理
@@ -62,7 +65,7 @@
 {
   NSLog(@"%s", __FUNCTION__);
 //    [self dismissViewControllerAnimated:YES completion:nil];
-  [self.delegate dismissInputView:self.inputField.text];
+  [self.delegate dismissInputView:@"data"];
   return YES;
 }
 
@@ -73,9 +76,16 @@
 {
   [super viewDidLoad];
 
-  self.inputField = [self createTextField:0 y:100];
-  [self.inputField becomeFirstResponder];
-  [self.view addSubview:self.inputField];
+//  self.inputField = [self createTextField:0 y:100];
+//  [self.inputField becomeFirstResponder];
+//  [self.view addSubview:self.inputField];
+
+  /**
+   *  タグフィールドを作成
+   */
+  self.tagFieldViewController = [[TagFieldViewController alloc] initWithNibName:nil
+                                                                         bundle:nil];
+  [self.view addSubview:self.tagFieldViewController.view];
 }
 
 /**

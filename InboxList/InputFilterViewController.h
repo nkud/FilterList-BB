@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TagFieldViewController.h"
 
 @protocol InputFilterViewControlellerDelegate <NSObject>
 
@@ -20,7 +21,9 @@
 /**
  *  入力フィールド
  */
-@property UITextField * inputField;
+//@property UITextField * inputField;
+
+@property (strong, nonatomic) TagFieldViewController *tagFieldViewController;
 
 @property id <InputFilterViewControlellerDelegate> delegate;
 

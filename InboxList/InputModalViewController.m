@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/03/07.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "InputModalViewController.h"
@@ -20,15 +20,25 @@
 - (id)init {
   self = [super init];
   if (self) {
-    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithWhite:1
+                                                  alpha:1];
   }
   return self;
 }
 
+/**
+ *  初期化
+ *
+ *  @param nibNameOrNil   <#nibNameOrNil description#>
+ *  @param nibBundleOrNil <#nibBundleOrNil description#>
+ *
+ *  @return <#return value description#>
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  self = [super initWithNibName:nibNameOrNil
+                         bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
   }
@@ -38,7 +48,8 @@
 /**
  * ビュー読み込み
  */
-- (UITextField *)createTextField:(int)x y:(int)y
+- (UITextField *)createTextField:(int)x
+                               y:(int)y
 {
   UITextField *_newTextField;
   _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
@@ -57,12 +68,14 @@
   [super viewDidLoad];
 
   /// アイテム入力フィールド
-  self.textField = [self createTextField:0 y:100];
+  self.textField = [self createTextField:0
+                                       y:100];
   [self.textField becomeFirstResponder];
   [self.view addSubview:self.textField];
 
   /// タグ入力フィールド
-  self.tagInputField = [self createTextField:0 y:150];
+  self.tagInputField = [self createTextField:0
+                                           y:150];
   [self.view addSubview:self.tagInputField];
 
   /// リマインダー入力ピッカーを初期化
@@ -99,7 +112,8 @@
 - (void)dismissInput
 {
   NSArray *_data = @[self.textField.text, self.tagInputField.text];
-  [[self delegate] dismissInputModalView:self data:_data reminder:self.remindPicker.date];
+  [[self delegate] dismissInputModalView:self data:_data
+                                reminder:self.remindPicker.date];
 }
 
 /**

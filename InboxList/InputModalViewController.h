@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @protocol InputModalViewControllerDelegate <NSObject>
-- (void)dismissInputModalView:(id)sender data:(NSArray *)data reminder:(NSDate *)reminder;
+- (void)dismissInputModalView:(id)sender
+                         data:(NSArray *)data
+                     reminder:(NSDate *)reminder;
 @end
 
 @interface InputModalViewController : UIViewController
