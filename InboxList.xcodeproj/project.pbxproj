@@ -35,6 +35,7 @@
 		B080804C19582CF6007D21E4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B080804B19582CF6007D21E4 /* MainViewController.m */; };
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
+		B0A35106198496D90062ABB1 /* TagField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A35105198496D90062ABB1 /* TagField.m */; };
 		B0DABFAD1914CC50007597E3 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* Cell.m */; };
 		B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DC58D8194DAD770089E8FA /* CheckBox_False.png */; };
 /* End PBXBuildFile section */
@@ -95,6 +96,8 @@
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
+		B0A35104198496D90062ABB1 /* TagField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagField.h; sourceTree = "<group>"; };
+		B0A35105198496D90062ABB1 /* TagField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagField.m; sourceTree = "<group>"; };
 		B0DABFAB1914CC50007597E3 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		B0DC58D8194DAD770089E8FA /* CheckBox_False.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_False.png; path = resource/CheckBox_False.png; sourceTree = SOURCE_ROOT; };
@@ -161,6 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				B053C91B19557C1600C51AA1 /* Header.h */,
+				B0A35104198496D90062ABB1 /* TagField.h */,
+				B0A35105198496D90062ABB1 /* TagField.m */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
 				B08EBBC319703ED000DB9582 /* MainView */,
 				B05FA8201982AE8900E25FAF /* TabBar */,
@@ -168,7 +173,6 @@
 				B037277D1953270E0041C4A1 /* MenuView */,
 				B0C93A1A194C4AB600733BE7 /* Navigatioin */,
 				B0E7571419499EAA004C6344 /* MasterView */,
-				B0E7571519499EB8004C6344 /* InputModalView */,
 				B0E7571219499D98004C6344 /* Cell */,
 				B0E7571319499E95004C6344 /* DetailView */,
 				B03E6C1B18CAA383007703B8 /* ManagedObject */,
@@ -309,19 +313,12 @@
 		B0E7571419499EAA004C6344 /* MasterView */ = {
 			isa = PBXGroup;
 			children = (
+				B03E6C0318C9CA8F007703B8 /* InputModalViewController.h */,
+				B03E6C0418C9CA90007703B8 /* InputModalViewController.m */,
 				B00AD6A418C45E470005A552 /* MasterViewController.h */,
 				B00AD6A518C45E470005A552 /* MasterViewController.m */,
 			);
 			name = MasterView;
-			sourceTree = "<group>";
-		};
-		B0E7571519499EB8004C6344 /* InputModalView */ = {
-			isa = PBXGroup;
-			children = (
-				B03E6C0318C9CA8F007703B8 /* InputModalViewController.h */,
-				B03E6C0418C9CA90007703B8 /* InputModalViewController.m */,
-			);
-			name = InputModalView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -427,6 +424,7 @@
 			files = (
 				B00AD6A918C45E470005A552 /* DetailViewController.m in Sources */,
 				B071A15019811A4E00C5C232 /* Filter.m in Sources */,
+				B0A35106198496D90062ABB1 /* TagField.m in Sources */,
 				B00483671981D1960076025B /* InputFilterViewController.m in Sources */,
 				B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* MasterViewController.m in Sources */,
