@@ -35,8 +35,8 @@
 		B080804C19582CF6007D21E4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B080804B19582CF6007D21E4 /* MainViewController.m */; };
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
-		B0A35106198496D90062ABB1 /* TagField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A35105198496D90062ABB1 /* TagField.m */; };
 		B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */; };
+		B0A351111984ADD80062ABB1 /* TagFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A351101984ADD80062ABB1 /* TagFieldViewController.m */; };
 		B0DABFAD1914CC50007597E3 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* Cell.m */; };
 		B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DC58D8194DAD770089E8FA /* CheckBox_False.png */; };
 /* End PBXBuildFile section */
@@ -97,10 +97,10 @@
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
-		B0A35104198496D90062ABB1 /* TagField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagField.h; sourceTree = "<group>"; };
-		B0A35105198496D90062ABB1 /* TagField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagField.m; sourceTree = "<group>"; };
 		B0A3510B1984A24B0062ABB1 /* ResultControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultControllerFactory.h; sourceTree = "<group>"; };
 		B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultControllerFactory.m; sourceTree = "<group>"; };
+		B0A3510F1984ADD80062ABB1 /* TagFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagFieldViewController.h; sourceTree = "<group>"; };
+		B0A351101984ADD80062ABB1 /* TagFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagFieldViewController.m; sourceTree = "<group>"; };
 		B0DABFAB1914CC50007597E3 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		B0DC58D8194DAD770089E8FA /* CheckBox_False.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_False.png; path = resource/CheckBox_False.png; sourceTree = SOURCE_ROOT; };
@@ -135,6 +135,8 @@
 		B00AD67E18C45E470005A552 = {
 			isa = PBXGroup;
 			children = (
+				B0A3510F1984ADD80062ABB1 /* TagFieldViewController.h */,
+				B0A351101984ADD80062ABB1 /* TagFieldViewController.m */,
 				B00AD69218C45E470005A552 /* InboxList */,
 				B00AD6B818C45E480005A552 /* InboxListTests */,
 				B00AD68918C45E470005A552 /* Frameworks */,
@@ -168,8 +170,6 @@
 			children = (
 				B0A3510E1984AA0F0062ABB1 /* ResultControllerFactory */,
 				B0A351071984A1140062ABB1 /* Header */,
-				B0A35104198496D90062ABB1 /* TagField.h */,
-				B0A35105198496D90062ABB1 /* TagField.m */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
 				B08EBBC319703ED000DB9582 /* MainView */,
 				B05FA8201982AE8900E25FAF /* TabBar */,
@@ -445,7 +445,6 @@
 			files = (
 				B00AD6A918C45E470005A552 /* DetailViewController.m in Sources */,
 				B071A15019811A4E00C5C232 /* Filter.m in Sources */,
-				B0A35106198496D90062ABB1 /* TagField.m in Sources */,
 				B00483671981D1960076025B /* InputFilterViewController.m in Sources */,
 				B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* MasterViewController.m in Sources */,
@@ -460,6 +459,7 @@
 				B08F4B651915FAC80047E210 /* NavigationController.m in Sources */,
 				B03E6C1718CAA316007703B8 /* Item.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* Cell.m in Sources */,
+				B0A351111984ADD80062ABB1 /* TagFieldViewController.m in Sources */,
 				B05FA8231982B20C00E25FAF /* TabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
