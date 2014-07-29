@@ -15,10 +15,14 @@
 @end
 
 @interface TagField : UITextField
+<UITextFieldDelegate>
 
 /**
  *  @todo どういうことか分からない
  */
 @property (nonatomic, assign) id <TagFieldDelegate, UITextFieldDelegate> delegate;
+
+- (void)stateInput;
+- (void)stateFixed;
 
 @end

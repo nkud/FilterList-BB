@@ -35,6 +35,25 @@
   [super deleteBackward];
 }
 
+/**
+ *  入力状態
+ */
+- (void)stateInput
+{
+  [self setBackgroundColor:[UIColor whiteColor]];
+  [self setTextColor:[UIColor blackColor]];
+}
+
+/**
+ *  確定状態
+ */
+- (void)stateFixed
+{
+  [self setBackgroundColor:[UIColor blueColor]];
+  [self setTextColor:[UIColor whiteColor]];
+  [self setFont:[UIFont fontWithName:@"menlo" size:10]];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

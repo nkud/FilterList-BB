@@ -66,14 +66,13 @@
  */
 - (void)addNewTextField:(CGRect)rect
 {
-  NSLog(@"%s", __FUNCTION__);
   rect.origin.y = pointY;
   TagField *textField = [self createTextField:rect];
 
   [self.textFieldArray addObject:textField];
 
   [textField becomeFirstResponder];
-  NSLog(@"%@", self.textFieldArray);
+  [textField stateInput];
   [self.view addSubview:textField];
   pointY += field_height;
 }
@@ -87,15 +86,24 @@
   [self addNewTextField:CGRectMake(0, 100, SCREEN_BOUNDS.size.width, field_height)];
 }
 
+/**
+ *  バックスペースが押された時の処理
+ */
 -(void)backspaceWillDown
 {
   TagField *field = [self.textFieldArray lastObject];
   if ([field.text isEqual:@""] && [self.textFieldArray count] > 1 ) {
     [self deleteLastField];
-    [[self.textFieldArray lastObject] becomeFirstResponder];
+
+    field = [self.textFieldArray lastObject];
+    [field becomeFirstResponder];
+    [field stateInput];
   }
 }
 
+/**
+ *  フィールドを削除
+ */
 - (void)deleteLastField
 {
   TagField *field = [self.textFieldArray lastObject];
@@ -119,9 +127,8 @@
     pointY -= field_height;
     return NO;
   }
-  for (UITextField *textField in self.textFieldArray) {
-    [textField setBackgroundColor:RGBA(255, 255, 255, 0.5)];
-    NSLog(@"%@", textField.text);
+  for (TagField *textField in self.textFieldArray) {
+    [textField stateFixed];
   }
   [self addNewTextField:CGRectMake(0, 200, SCREEN_BOUNDS.size.width, field_height)];
   return NO;
