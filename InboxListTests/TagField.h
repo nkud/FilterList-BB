@@ -3,24 +3,22 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/07/27.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@protocol TagFieldDelegate <NSObject>
+@class TagField;
 
-- (void)backspaceWillDown;
+@protocol TagFieldDelegate <UITextFieldDelegate>
+
+- (void)backspaceWillDown:(TagField *)sender;
 
 @end
 
 @interface TagField : UITextField
-<UITextFieldDelegate>
 
-/**
- *  @todo どういうことか分からない
- */
-@property (nonatomic, assign) id <TagFieldDelegate, UITextFieldDelegate> delegate;
+@property (nonatomic, assign) id <TagFieldDelegate> delegate;
 
 - (void)stateInput;
 - (void)stateFixed;

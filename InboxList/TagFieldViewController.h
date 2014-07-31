@@ -10,7 +10,7 @@
 #import "TagField.h"
 
 @interface TagFieldViewController : UIViewController
-<UITextFieldDelegate, TagFieldDelegate>
+<TagFieldDelegate>
 
 @property (strong, nonatomic) NSMutableArray *textFieldArray;
 

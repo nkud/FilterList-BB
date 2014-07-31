@@ -89,15 +89,15 @@
 /**
  *  バックスペースが押された時の処理
  */
--(void)backspaceWillDown
+-(void)backspaceWillDown:(TagField *)sender
 {
   TagField *field = [self.textFieldArray lastObject];
-  if ([field.text isEqual:@""] && [self.textFieldArray count] > 1 ) {
+  if ([sender.text isEqual:@""] && [self.textFieldArray count] > 1 ) {
     [self deleteLastField];
 
     field = [self.textFieldArray lastObject];
-    [field becomeFirstResponder];
     [field stateInput];
+    [field becomeFirstResponder];
   }
 }
 
@@ -125,13 +125,13 @@
     [textField removeFromSuperview];
     [self.textFieldArray removeObject:textField];
     pointY -= field_height;
-    return NO;
+    return YES;
   }
   for (TagField *textField in self.textFieldArray) {
     [textField stateFixed];
   }
   [self addNewTextField:CGRectMake(0, 200, SCREEN_BOUNDS.size.width, field_height)];
-  return NO;
+  return YES;
 }
 
 /**
@@ -142,6 +142,23 @@
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
+
+//-(BOOL)textField:(UITextField *)textField
+//shouldChangeCharactersInRange:(NSRange)range
+//replacementString:(NSString *)string
+//{
+//  CGRect new_rect = textField.frame;
+//  CGSize bounds = CGSizeMake(400, 200);
+//  UIFont *font = textField.font;
+//  new_rect.size.width = [textField.text boundingRectWithSize:bounds
+//                                               options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine
+//                                            attributes:@{NSFontAttributeName:font}
+//                                               context:nil].size.width;
+//  textField.frame = new_rect;
+//  NSLog(@"%f", new_rect.size.width);
+//  NSLog(@"%f", new_rect.size.height);
+//  return YES;
+//}
 
 /*
 #pragma mark - Navigation

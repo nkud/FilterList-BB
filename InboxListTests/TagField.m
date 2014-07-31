@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/07/27.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "TagField.h"
@@ -20,8 +20,10 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    if (self)
+    {
+      [self setPlaceholder:@"input filter..."];
+      [self setBorderStyle:UITextBorderStyleRoundedRect];
     }
     return self;
 }
@@ -31,7 +33,7 @@
  */
 -(void)deleteBackward
 {
-  [self.delegate backspaceWillDown];
+  [self.delegate backspaceWillDown:self];
   [super deleteBackward];
 }
 
@@ -49,9 +51,10 @@
  */
 - (void)stateFixed
 {
-  [self setBackgroundColor:[UIColor blueColor]];
+  [self setBackgroundColor:[UIColor greenColor]];
   [self setTextColor:[UIColor whiteColor]];
-  [self setFont:[UIFont fontWithName:@"menlo" size:10]];
+  [self setFont:[UIFont fontWithName:@"menlo"
+                                size:15]];
 }
 
 /*

@@ -251,10 +251,10 @@
 		B08EBBC219703EBC00DB9582 /* FilterMode */ = {
 			isa = PBXGroup;
 			children = (
-				B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */,
 				B0A3511819854B170062ABB1 /* TagField.h */,
 				B0A3511919854B170062ABB1 /* TagField.m */,
 				B0A351121984B6A20062ABB1 /* TagFieldViewController.h */,
+				B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */,
 				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
 				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
 				B00483651981D1960076025B /* InputFilterViewController.h */,
