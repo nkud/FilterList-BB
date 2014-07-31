@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@class Cell;
+@class ItemCell;
 
 @protocol CellDelegate <NSObject>
 
-- (void)tappedCheckBox:(Cell *)cell touch:(UITouch *)touch;
+- (void)tappedCheckBox:(ItemCell *)cell touch:(UITouch *)touch;
 
 @end
 
 
-@interface Cell : UITableViewCell
+@interface ItemCell : UITableViewCell
 
 @property (strong, nonatomic) UIView *checkBox; /* チェックボックス */
 

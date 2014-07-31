@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
-#import "DetailViewController.h"
+#import "ItemDetailViewController.h"
 
 #import "Tag.h"
 
-@interface DetailViewController ()
+@interface ItemDetailViewController ()
 
 - (void)initItem;
 
 @end
 
-@implementation DetailViewController
+@implementation ItemDetailViewController
 
 #pragma mark - Initialization
 

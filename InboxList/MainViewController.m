@@ -134,8 +134,8 @@
   if (next_center.x > SCREEN_BOUNDS.size.width*1.5) {
     return;
   }
-  self.menuViewController.tag_list = [self.masterViewController getTagList]; //< メニューの内容を更新して
-  [self.menuViewController updateTableView]; //< ビューを更新
+  self.tagViewController.tag_list = [self.itemViewController getTagList]; //< メニューの内容を更新して
+  [self.tagViewController updateTableView]; //< ビューを更新
 
   [UIView animateWithDuration:0.2
                    animations:^{
@@ -175,7 +175,7 @@
 
 
   if (center_x == screen_x) {
-    [self.view sendSubviewToBack:self.menuViewController.view];
+    [self.view sendSubviewToBack:self.tagViewController.view];
   }
   //      next_center.x = MAX(center_x-distance, screen_x);
   next_center.x = center_x - distance;
@@ -199,10 +199,10 @@
   [self initParameter];
 
   /// マスタービュー初期化
-  self.masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
+  self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
 
   /// ナビゲーションコントローラー初期化
-  self.navigationController = [[NavigationController alloc] initWithRootViewController:self.masterViewController];
+  self.navigationController = [[NavigationController alloc] initWithRootViewController:self.itemViewController];
 
   /**
    *  タブバー初期化
@@ -244,11 +244,11 @@
 //  [self addChildViewController:self.navigationController];
 
   /// メニューバー初期化
-  self.menuViewController = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
-  self.menuViewController.delegate = self;
+  self.tagViewController = [[TagViewController alloc] initWithNibName:nil bundle:nil];
+  self.tagViewController.delegate = self;
 
   /// コントローラーのビューを配置
-  [self.view addSubview:self.menuViewController.view];
+  [self.view addSubview:self.tagViewController.view];
   [self.view addSubview:self.filterViewController.view];
   [self.view addSubview:self.navigationController.view];
   [self.view addSubview:self.tabBar];
@@ -297,12 +297,12 @@ didSelectItem:(UITabBarItem *)item
 {
   if ([tagString isEqualToString:@"all"]) {
     [self loadMasterViewForTag:@"all"
-        fetcheResultController:[ResultControllerFactory fetchedResultsController:self.masterViewController]];
+        fetcheResultController:[ResultControllerFactory fetchedResultsController:self.itemViewController]];
     return;
   }
   [self loadMasterViewForTag:tagString
       fetcheResultController:[ResultControllerFactory fetchedResultsControllerForTag:tagString
-                                                                            delegate:self.masterViewController]];
+                                                                            delegate:self.itemViewController]];
 }
 
 /**
@@ -318,10 +318,10 @@ didSelectItem:(UITabBarItem *)item
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
   NSLog(@"%s", __FUNCTION__);
-  self.masterViewController.selectedTagString = tag;//< 選択されたタグを渡して
-  self.masterViewController.fetchedResultsController = fetchedResultController;
-  [self.masterViewController updateTableView]; //< テーブルを更新
-  [self.masterViewController setTitle:tag]; //< タグの名前に変える
+  self.itemViewController.selectedTagString = tag;//< 選択されたタグを渡して
+  self.itemViewController.fetchedResultsController = fetchedResultController;
+  [self.itemViewController updateTableView]; //< テーブルを更新
+  [self.itemViewController setTitle:tag]; //< タグの名前に変える
   [self moveMasterViewToCenter]; //< マスタービューを中心に移動させる
 }
 

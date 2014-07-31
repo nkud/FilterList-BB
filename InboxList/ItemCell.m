@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
-#import "Cell.h"
+#import "ItemCell.h"
 
 
-@interface Cell ()
+@interface ItemCell ()
 
 -(void)setChecked;
 -(void)setUnChecked;
 
 @end
 
-@implementation Cell
+@implementation ItemCell
 
 
 /**

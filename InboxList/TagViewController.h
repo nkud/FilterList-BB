@@ -8,17 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol MenuViewControllerDelegate <NSObject>
+@protocol TagViewControllerDelegate <NSObject>
 
 - (void)selectedTag:(NSString *)tagString;
 
 @end
 
-@interface MenuViewController : UITableViewController
+@interface TagViewController : UITableViewController
 
 @property (strong, nonatomic) NSArray *tag_list;
 
-@property (assign, nonatomic) id <MenuViewControllerDelegate> delegate;
+@property (assign, nonatomic) id <TagViewControllerDelegate> delegate;
 
 - (void)updateTableView;
 

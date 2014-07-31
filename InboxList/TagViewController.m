@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
-#import "MenuViewController.h"
+#import "TagViewController.h"
 #import "Header.h"
 
-@interface MenuViewController ()
+@interface TagViewController ()
 
 @end
 
-@implementation MenuViewController
+@implementation TagViewController
 
 /**
  * @brief この初期化方法は変えたほうがいいかも

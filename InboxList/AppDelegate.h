@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MasterViewController.h"
+#import "ItemViewController.h"
 #import "NavigationController.h"
-#import "MenuViewController.h"
+#import "TagViewController.h"
 #import "MainViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

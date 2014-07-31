@@ -8,25 +8,28 @@
 
 #import <UIKit/UIKit.h>
 
-#import "MasterViewController.h"
+#import "ItemViewController.h"
 #import "NavigationController.h"
-#import "MenuViewController.h"
+#import "TagViewController.h"
 #import "FilterViewController.h"
 #import "InputFilterViewController.h"
 #import "TabBar.h"
 
 @interface MainViewController : UIViewController
-<MenuViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate,
+<TagViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate,
 InputFilterViewControlellerDelegate> {
   int swipe_distance;
 }
 
+/**
+ *  コントローラー
+ */
 @property (strong, nonatomic) NavigationController       *navigationController;
-@property (strong, nonatomic) MasterViewController       *masterViewController;
+@property (strong, nonatomic) ItemViewController         *itemViewController;
 @property (strong, nonatomic) FilterViewController       *filterViewController;
 @property (strong, nonatomic) UITabBar                   *tabBar;
 
-@property (strong, nonatomic) MenuViewController         *menuViewController;
+@property (strong, nonatomic) TagViewController         *tagViewController;
 
 -(void)loadMasterViewForTag:(NSString *)tag
      fetcheResultController:(NSFetchedResultsController *)fetchedResultController;

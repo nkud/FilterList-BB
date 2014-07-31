@@ -8,8 +8,8 @@
 
 #import "AppDelegate.h"
 
-#import "MasterViewController.h"
-#import "DetailViewController.h"
+#import "ItemViewController.h"
+#import "ItemDetailViewController.h"
 #import "MainViewController.h"
 
 #import "NavigationController.h"

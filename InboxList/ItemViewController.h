@@ -10,13 +10,13 @@
 
 #import <CoreData/CoreData.h>
 #import "InputModalViewController.h"
-#import "DetailViewController.h"
+#import "ItemDetailViewController.h"
 #import "Item.h"
-#import "Cell.h"
+#import "ItemCell.h"
 
-@interface MasterViewController : UITableViewController
+@interface ItemViewController : UITableViewController
 <NSFetchedResultsControllerDelegate, InputModalViewControllerDelegate,
-DetailViewControllerDelegate, CellDelegate>
+ItemDetailViewControllerDelegate, CellDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 

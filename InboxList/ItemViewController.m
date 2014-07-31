@@ -7,24 +7,25 @@
 //
 
 #import "AppDelegate.h"
-#import "MasterViewController.h"
-#import "DetailViewController.h"
+#import "ItemViewController.h"
+#import "ItemDetailViewController.h"
 #import "InputModalViewController.h"
 #import "Tag.h"
 #import "Item.h"
-#import "Cell.h"
+#import "ItemCell.h"
 #import "Header.h"
 
-@interface MasterViewController () {
+@interface ItemViewController () {
   int location_center_x;
   BOOL isOpen;
   AppDelegate *app;
 }
 
-- (void)configureCell:(Cell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(ItemCell *)cell
+          atIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@implementation MasterViewController
+@implementation ItemViewController
 
 /**
 *  現存するタグリストを返す
@@ -58,7 +59,7 @@
  *  @param cell  タップされたセル
  *  @param touch タッチ？
  */
--(void)tappedCheckBox:(Cell *)cell
+-(void)tappedCheckBox:(ItemCell *)cell
                 touch:(UITouch *)touch
 {
   // 位置を取得して
@@ -112,7 +113,7 @@
   [self initParameter];
 
   // セルとして使うクラスを登録する
-  [self.tableView registerClass:[Cell class] forCellReuseIdentifier:@"Cell"];
+  [self.tableView registerClass:[ItemCell class] forCellReuseIdentifier:@"ItemCell"];
   [self.tableView setRowHeight:50];
 
   // 編集ボタン
@@ -271,7 +272,7 @@
  *  @param cell      作成するセル
  *  @param indexPath 作成するセルの位置
  */
-- (void)configureCell:(Cell *)cell
+- (void)configureCell:(ItemCell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
   Item *item                 = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -294,7 +295,7 @@
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  DetailViewController *detailViewController = [[DetailViewController alloc] init];
+  ItemDetailViewController *detailViewController = [[ItemDetailViewController alloc] init];
   Item *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
   [detailViewController setDetailItem:object];
@@ -341,12 +342,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  *
  *  @return セル
  */
-- (Cell *)tableView:(UITableView *)tableView
+- (ItemCell *)tableView:(UITableView *)tableView
 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSLog(@"%s", __FUNCTION__);
-  static NSString *CellIdentifier = @"Cell";
-  Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  static NSString *CellIdentifier = @"ItemCell";
+  ItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   [self configureCell:cell atIndexPath:indexPath];
   return cell;
 }
@@ -465,7 +466,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
     case NSFetchedResultsChangeUpdate:
       NSLog(@"%@", @"update");
-      [self configureCell:(Cell *)[tableView cellForRowAtIndexPath:indexPath]
+      [self configureCell:(ItemCell *)[tableView cellForRowAtIndexPath:indexPath]
               atIndexPath:indexPath];                                // これであってる？？
       break;
 

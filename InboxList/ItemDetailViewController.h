@@ -10,7 +10,7 @@
 
 #import "Item.h"
 
-@protocol DetailViewControllerDelegate <NSObject>
+@protocol ItemDetailViewControllerDelegate <NSObject>
 
 - (void)dismissDetailView:(id)sender
                     index:(NSIndexPath *)indexPath
@@ -20,13 +20,13 @@
 
 @end
 
-@interface DetailViewController : UIViewController
+@interface ItemDetailViewController : UIViewController
 
 @property (strong, nonatomic) Item * detailItem;
 
 //@property (strong, nonatomic) UILabel *detailDescriptionLabel;
 
-@property id <DetailViewControllerDelegate> delegate;
+@property id <ItemDetailViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) UITextField *titleField;
 @property (strong, nonatomic) UITextField *tagField;
