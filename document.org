@@ -1,0 +1,27 @@
+#+TITLE: FilterList
+#+AUTHOR: Naoki Ueda
+#+OPTIONS: \n:t H:1 toc:t creator:nil num:t
+#+LANGUAGE: ja
+#+LaTeX_CLASS: jsarticle
+#+STARTUP: content
+#+HTML_HEAD: <style type="text/css">body {font-family:"menlo";font-size:0.7em;}</style>
+
+* モード
+
+** アイテム
+
+** タグ
+
+** フィルター
+
+* プロモーション戦略
+
+** TODO アウトソーシングする。他者に依頼する。
+
+** TODO ホームページを作成する
+
+* アプリ説明文章
+
+** シンプルを追求したデザイン
+
+* メモ
