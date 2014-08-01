@@ -12,6 +12,11 @@
 
 @protocol TagFieldDelegate <UITextFieldDelegate>
 
+/**
+ *  バックスペースが押された時の処理
+ *
+ *  @param sender カレントテキストフィールド
+ */
 - (void)backspaceWillDown:(TagField *)sender;
 
 @end

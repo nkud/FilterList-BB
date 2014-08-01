@@ -86,6 +86,25 @@
   self.tagFieldViewController = [[TagFieldViewController alloc] initWithNibName:nil
                                                                          bundle:nil];
   [self.view addSubview:self.tagFieldViewController.view];
+
+  // ボタン
+  UIButton *backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [backButton setTitle:@"save"
+              forState:UIControlStateNormal];
+  backButton.frame = CGRectMake(0, 400, 50, 30);
+  [backButton addTarget:self
+                 action:@selector(saveFilterAndDismiss)
+       forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:backButton];
+}
+
+/**
+ *  フィルターを保存して入力画面を削除
+ */
+- (void)saveFilterAndDismiss
+{
+  NSLog(@"%s", __FUNCTION__);
+  [self.delegate dismissInputView:@"filter"];
 }
 
 /**

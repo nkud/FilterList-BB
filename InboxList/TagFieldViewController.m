@@ -40,18 +40,18 @@
 /**
  *  初期化
  *
- *  @param nibNameOrNil   <#nibNameOrNil description#>
- *  @param nibBundleOrNil <#nibBundleOrNil description#>
+ *  @param nibNameOrNil   nibNameOrNil description
+ *  @param nibBundleOrNil nibBundleOrNil description
  *
- *  @return <#return value description#>
+ *  @return コントローラー
  */
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil
                            bundle:nibBundleOrNil];
-    if (self) {
-      // Custom initialization
+    if (self)
+    {
       self.textFieldArray = [[NSMutableArray alloc] initWithObjects:nil];
       pointY = 50;
       field_height = 30;
@@ -115,9 +115,9 @@
 /**
  *  リターンが押された時の処理
  *
- *  @param textField <#textField description#>
+ *  @param textField テキストフィールド
  *
- *  @return <#return value description#>
+ *  @return 真偽値
  */
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -143,22 +143,32 @@
   // Dispose of any resources that can be recreated.
 }
 
-//-(BOOL)textField:(UITextField *)textField
-//shouldChangeCharactersInRange:(NSRange)range
-//replacementString:(NSString *)string
-//{
-//  CGRect new_rect = textField.frame;
-//  CGSize bounds = CGSizeMake(400, 200);
-//  UIFont *font = textField.font;
-//  new_rect.size.width = [textField.text boundingRectWithSize:bounds
-//                                               options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine
-//                                            attributes:@{NSFontAttributeName:font}
-//                                               context:nil].size.width;
-//  textField.frame = new_rect;
-//  NSLog(@"%f", new_rect.size.width);
-//  NSLog(@"%f", new_rect.size.height);
-//  return YES;
-//}
+/**
+ *  入力文字列が変化した時の処理
+ *
+ *  @param textField 変化したテキストフィールド
+ *  @param range     レンジ
+ *  @param string    文字列？
+ *
+ *  @return 真偽値
+ */
+-(BOOL)textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+replacementString:(NSString *)string
+{
+  /**
+   *  テキストフィールドの幅を変更する
+   */
+  CGRect new_rect = textField.frame;
+  CGSize bounds = CGSizeMake(400, 200);
+  UIFont *font = textField.font;
+  new_rect.size.width = [textField.text boundingRectWithSize:bounds
+                                                     options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine
+                                                  attributes:@{NSFontAttributeName:font}
+                                                     context:nil].size.width +30. ;
+  textField.frame = new_rect;
+  return YES;
+}
 
 /*
 #pragma mark - Navigation

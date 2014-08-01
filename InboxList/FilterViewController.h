@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InputFilterViewController.h"
 
 @protocol FilterViewControllerDelegate <NSObject>
 
@@ -14,6 +15,7 @@
  *  Viewを最前面に表示する
  *
  *  @param view 指定するビュー
+ *  @todo メインには、画面の重なり順だけデリゲートするようにする。viewを渡して。
  */
 - (void)presentInputFilterView;
 

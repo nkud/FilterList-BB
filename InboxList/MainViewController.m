@@ -46,7 +46,8 @@
 -(void)dismissInputView:(NSString *)filterString
 {
   NSLog(@"%@", filterString);
-  [self dismissViewControllerAnimated:YES completion:nil];
+  [self dismissViewControllerAnimated:YES
+                           completion:nil];
 }
 
 /**
