@@ -73,7 +73,14 @@
 
   [textField becomeFirstResponder];
   [textField stateInput];
-  [self.view addSubview:textField];
+  [UIView animateWithDuration:1.0f
+                   animations:^{
+                     [self.view addSubview:textField];
+                   }
+                   completion:^(BOOL finished) {
+                     NSLog(@"%@", @"adding animation end.");
+                   }];
+//  [self.view addSubview:textField];
   pointY += field_height;
 }
 

@@ -25,6 +25,8 @@
 
 @property (nonatomic, assign) id <TagFieldDelegate> delegate;
 
+@property NSTimeInterval duration;
+
 - (void)stateInput;
 - (void)stateFixed;
 

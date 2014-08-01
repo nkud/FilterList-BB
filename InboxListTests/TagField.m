@@ -24,6 +24,7 @@
     {
       [self setPlaceholder:@"input filter..."];
       [self setBorderStyle:UITextBorderStyleRoundedRect];
+      self.duration = 0.2f;
     }
     return self;
 }
@@ -42,8 +43,17 @@
  */
 - (void)stateInput
 {
-  [self setBackgroundColor:[UIColor whiteColor]];
-  [self setTextColor:[UIColor blackColor]];
+  [UIView animateWithDuration:self.duration
+                   animations:^{
+                     [self setBackgroundColor:[UIColor whiteColor]];
+                     [self setTextColor:[UIColor blackColor]];
+                     [self setFont:[UIFont fontWithName:@"menlo"
+                                                   size:15]];
+
+                   } completion:^(BOOL finished) {
+                     NSLog(@"%@", @"入力状態");
+                   }];
+
 }
 
 /**
@@ -51,10 +61,16 @@
  */
 - (void)stateFixed
 {
-  [self setBackgroundColor:[UIColor greenColor]];
-  [self setTextColor:[UIColor whiteColor]];
-  [self setFont:[UIFont fontWithName:@"menlo"
-                                size:15]];
+  [UIView animateWithDuration:self.duration
+                   animations:^{
+                     [self setBackgroundColor:[UIColor blueColor]];
+                     [self setTextColor:[UIColor whiteColor]];
+                     [self setFont:[UIFont fontWithName:@"menlo"
+                                                   size:15]];
+                     
+                   } completion:^(BOOL finished) {
+                     NSLog(@"%@", @"確定状態");
+                   }];
 }
 
 /*
