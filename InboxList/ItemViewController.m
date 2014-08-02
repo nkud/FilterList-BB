@@ -14,6 +14,7 @@
 #import "Item.h"
 #import "ItemCell.h"
 #import "Header.h"
+#import "InputHeader.h"
 
 @interface ItemViewController () {
   int location_center_x;
@@ -129,13 +130,10 @@
                                 action:@selector(inputAndInsertNewObjectFromModalView)];
   self.navigationItem.rightBarButtonItem = addButton;
 
-  // 新規入力トリガー
-  CGRect rect = self.tableView.bounds;
-	rect.origin.y -= 40;
-	rect.size.height = 40;
-	self.itemTriggerHeader = [[UILabel alloc] initWithFrame:rect];
-	self.itemTriggerHeader.text = @"New item...";
-	[self.tableView addSubview:self.itemTriggerHeader];
+  // 入力ヘッダ
+  self.inputHeader = [[InputHeader alloc] initWithFrame:self.tableView.bounds];
+  self.inputHeader.delegate = self;
+  [self.tableView addSubview:self.inputHeader];
 }
 
 /**
@@ -145,25 +143,62 @@
  */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-  CGRect rect = scrollView.bounds;
-  self.triggerDragging = rect.origin.y;
-  self.itemTriggerHeader.text = [NSString stringWithFormat:@"%f", self.triggerDragging];
+  CGRect rect = scrollView.bounds; // 現在のスクロールビューの位置を取得して
+  self.triggerDragging = rect.origin.y; // ドラッグしている距離を更新
 }
 
 /**
- *  スクロールをドラッグした後の処理
+ *  @brief スクロールをドラッグした後の処理
  *
  *  @param scrollView <#scrollView description#>
  *  @param decelerate <#decelerate description#>
+ *
+ *  @todo  入力ヘッダを綺麗に出すようにする
  */
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView
                  willDecelerate:(BOOL)decelerate
 {
-  NSLog(@"%s", __FUNCTION__);
-  if (self.triggerDragging < -120) {
+  if (self.triggerDragging < -120) { // 規定値よりもドラッグすると
     NSLog(@"%@", @"クイック入力");
-    [self inputAndInsertNewObjectFromModalView];
+    [self.inputHeader activateInput]; // クイック入力を作動させる
   }
+}
+
+/**
+ *  @brief タイトルだけ指定して新しいアイテムを追加
+ *
+ *  @param itemString 追加するアイテムのタイトル
+ */
+-(void)quickInsertNewItem:(NSString *)itemString
+{
+  NSLog(@"%s", __FUNCTION__);
+  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+  NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
+
+  /* 新しい項目を初期化・追加する */
+  Item *newItem                   = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+                                                                  inManagedObjectContext:context];
+
+  newItem.title                   = itemString;
+  newItem.state                   = [NSNumber numberWithBool:false];
+  newItem.reminder                = [NSDate date];
+
+  if ([self.selectedTagString isEqual:@"all"]) {
+    NSLog(@"%@", @"tag not selected");
+
+  } else // タグが選択されていれば
+  {
+//    NSLog(@"%@", @"tag selected");
+//    Tag *newTags                    = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+//                                                                    inManagedObjectContext:context]; //< @todo 要変更
+//    newTags.title = self.selectedTagString;
+//    
+//    /// タグをアイテムに設定
+//    [newItem addTagsObject:newTags];                                   // アイテムにタグを設定する
+  }
+
+  /// 保存する
+  [app saveContext];
 }
 
 /**

@@ -20,9 +20,11 @@
 
 #pragma mark - Initialization
 
-///  初期化
-///
-///  @return self
+/**
+ *  初期化
+ *
+ *  @return インスタンス
+ */
 -(id)init
 {
   self = [super init];
@@ -33,7 +35,9 @@
   return self;
 }
 
-///  インターフェイスを初期化
+/**
+ *  インターフェイスを初期化する
+ */
 - (void)initInterface
 {
   /// フィールドを作成
@@ -57,7 +61,9 @@
   
 }
 
-///  アイテムを更新する
+/**
+ *  アイテムを更新する
+ */
 - (void)initItem
 {
   if (self.detailItem) {
@@ -65,21 +71,24 @@
     NSSet *tags     = [self.detailItem valueForKey:@"tags"];
 
     NSMutableString *field = [[NSMutableString alloc] init];
-
     [self.titleField setText:title]; //< タイトル設置
-    for( Tag *tag in tags ) { //< すべてのタグに対して
+    for( Tag *tag in tags )
+    { //< すべてのタグに対して
       [field appendString:tag.title]; //< フィールドに足していく
       [field appendString:@" "];
     }
     self.tagField.text = field; //< タグを設置
+
   }
 }
 
 #pragma mark - Managing view
 
-///  アイテムを設定する
-///
-///  @param newDetailItem アイテム
+/**
+ *  アイテムを設定する
+ *
+ *  @param newDetailItem アイテム
+ */
 - (void)setDetailItem:(id)newDetailItem
 {
   if (_detailItem != newDetailItem) {
@@ -90,12 +99,14 @@
   }
 }
 
-///  テキストフィールドを作成する
-///
-///  @param x x座標
-///  @param y y座標
-///
-///  @return テキストフィールド
+/**
+ *  テキストフィールドを作成する
+ *
+ *  @param x x座標
+ *  @param y y座標
+ *
+ *  @return インスタンス
+ */
 - (UITextField *)createTextField:(int)x y:(int)y
 {
   UITextField *_newTextField;
@@ -127,7 +138,6 @@
 {
   NSLog(@"%s", __FUNCTION__);
   [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
   [self initItem]; //< アイテムを更新
 }
 

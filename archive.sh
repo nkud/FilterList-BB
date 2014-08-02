@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/sh
 
 #SDK
 SDK="iphoneos7.1"
@@ -22,7 +22,8 @@ OUT_APP_DIR="out_app"
 OUT_IPA_DIR="out_ipa"
 
 # 出力されるipaファイル名
-IPA_FILE_NAME="archive-test.ipa"
+now=` date +%y%m%d-%H%M%S`
+IPA_FILE_NAME="${now}"
 
 # ライセンス取得時の開発者名
 DEVELOPPER_NAME="iPhone Distribution: hoge Developper"
@@ -35,6 +36,7 @@ PROVISIONING_PATH="${HOME}/Library/MobileDevice/Provisioning\ Profiles/hoge.mobi
 if [ ! -d ${OUT_IPA_DIR} ]; then
   mkdir "${OUT_IPA_DIR}"
 fi
+
 
 # クリーン
 # -------------------------
