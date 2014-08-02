@@ -8,6 +8,7 @@
 
 #import "TagViewController.h"
 #import "Header.h"
+#import "TagCell.h"
 
 @interface TagViewController ()
 
@@ -38,13 +39,12 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
   /// 選択されたタグをデリゲートに渡す
-  if (indexPath.section == 0) {
-    [self.delegate selectedTag:@"all"];
+  if (indexPath.section == 0) { // セクション０なら
+    [self.delegate selectedTag:@"all"]; // すべてのリストを表示
     return;
-  }
-  [self.delegate selectedTag:self.tag_list[indexPath.row]];
+  } // そうでないなら
+  [self.delegate selectedTag:self.tag_list[indexPath.row]]; // 選択されたタグを渡す
 }
 
 /**
@@ -78,7 +78,10 @@ titleForHeaderInSection:(NSInteger)section
 
   [super viewDidLoad];
 
-  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MenuCell"];
+//  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MenuCell"];
+  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCell class])
+                                             bundle:nil]
+       forCellReuseIdentifier:TagModeCellIdentifier];
 }
 
 /**
@@ -107,8 +110,7 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  static NSString *identifier = @"MenuCell";
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+  TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
   if (indexPath.section == 0) {
     cell.textLabel.text = @"all";
     return cell;

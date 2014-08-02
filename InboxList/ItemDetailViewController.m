@@ -36,29 +36,54 @@
 }
 
 /**
+ *  Nibファイルで初期化
+ *
+ *  @param nibNameOrNil   Nibファイル名
+ *  @param nibBundleOrNil バンドル
+ *
+ *  @return インスタンス
+ */
+-(id)initWithNibName:(NSString *)nibNameOrNil
+              bundle:(NSBundle *)nibBundleOrNil
+{
+  NSLog(@"%s", __FUNCTION__);
+  self = [super initWithNibName:nibNameOrNil
+                         bundle:nibBundleOrNil];
+  [self initInterface];
+  return self;
+}
+
+/**
  *  インターフェイスを初期化する
  */
 - (void)initInterface
 {
+  NSLog(@"%s", __FUNCTION__);
   /// フィールドを作成
-  self.titleField = [self createTextField:0 y:100];
-  self.tagField   = [self createTextField:0 y:200];
-  [self.view addSubview:self.titleField];
-  [self.view addSubview:self.tagField];
+//  self.titleField = [self createTextField:0 y:100];
+//  self.tagField   = [self createTextField:0 y:200];
+//  [self.view addSubview:self.titleField];
+//  [self.view addSubview:self.tagField];
 
   /// 戻るボタンを作成
-  self.btn        = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [self.btn setTitle:@"save" forState:UIControlStateNormal];
-  [self.btn setFrame:CGRectMake(CGRectGetMidX(self.view.frame),
-                                CGRectGetMidY(self.view.frame),
-                                100, 50)];
-  [self.view addSubview:self.btn];
+//  self.btn        = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//  [self.btn setTitle:@"save" forState:UIControlStateNormal];
+//  [self.btn setFrame:CGRectMake(CGRectGetMidX(self.view.frame),
+//                                CGRectGetMidY(self.view.frame),
+//                                100, 50)];
+//  [self.view addSubview:self.btn];
 
-  [self.btn addTarget:self
-               action:@selector(save)
-     forControlEvents:UIControlEventTouchUpInside];
-  
-  
+//  [self.btn addTarget:self
+//               action:@selector(save)
+//     forControlEvents:UIControlEventTouchUpInside];
+  /**
+   *  ボタン
+   */
+  [self.saveButton setTitle:@"Save"
+                   forState:UIControlStateNormal];
+  [self.saveButton addTarget:self
+                      action:@selector(save)
+            forControlEvents:UIControlEventTouchUpInside];
 }
 
 /**
@@ -117,7 +142,9 @@
   return _newTextField;
 }
 
-///  戻るボタン
+/**
+ *  保存して戻る
+ */
 - (void)save
 {
   //    [self dismissViewControllerAnimated:YES completion:nil];
@@ -139,6 +166,7 @@
   NSLog(@"%s", __FUNCTION__);
   [super viewDidLoad];
   [self initItem]; //< アイテムを更新
+  [self initInterface];
 }
 
 ///  メモリー警告

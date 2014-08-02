@@ -28,9 +28,13 @@
 
 @property id <ItemDetailViewControllerDelegate> delegate;
 
-@property (strong, nonatomic) UITextField *titleField;
-@property (strong, nonatomic) UITextField *tagField;
-@property (strong, nonatomic) UIButton *btn;
+//@property (strong, nonatomic) UITextField *titleField;
+//@property (strong, nonatomic) UITextField *tagField;
+//@property (strong, nonatomic) UIButton *btn;
+
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UITextField *titleField;
+@property (weak, nonatomic) IBOutlet UITextField *tagField;
 
 @property (strong, nonatomic) NSIndexPath *index;
 

@@ -12,7 +12,8 @@
 
 @protocol CellDelegate <NSObject>
 
-- (void)tappedCheckBox:(ItemCell *)cell touch:(UITouch *)touch;
+- (void)tappedCheckBox:(ItemCell *)cell
+                 touch:(UITouch *)touch;
 
 @end
 

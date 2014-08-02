@@ -4,11 +4,14 @@
 #+LANGUAGE: ja
 #+LaTeX_CLASS: jsarticle
 #+STARTUP: content
-#+HTML_HEAD: <style type="text/css">body {font-family:"menlo";font-size:0.7em;}</style>
+#+HTML_HEAD: <style type="text/css">body {font-family:"menlo";font-size:1em;}</style>
 
-* 作業工程 [0%]
+* 作業工程 [14%]
 
-** TODO スライドで新規入力するようにする
+** DONE スライドで新規入力するようにする
+CLOSED: [2014-08-02 Sat 21:46]
+
+** TODO 複数タグのデータの渡し方を統一する
 
 ** TODO アイテムセルを完成形にする
 
@@ -23,6 +26,8 @@
 ** TODO 完了済みのタグを見るコントローラーを作成する
 
 ** TODO 完了済みのタグをアイテムモードから自動的に消す
+
+** TODO トッパツのサイトで紹介する
 
 * モード
 
@@ -49,4 +54,9 @@
 
 ** シンプルを追求したデザイン
 
+** スムーズにGTDを活用できる
+
+** カスタマイズ性
+
+** どう使用するかは、あなた次第
 * メモ

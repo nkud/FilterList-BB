@@ -114,8 +114,12 @@
   [self initParameter];
 
   // セルとして使うクラスを登録する
-  [self.tableView registerClass:[ItemCell class] forCellReuseIdentifier:@"ItemCell"];
-  [self.tableView setRowHeight:50];
+//  [self.tableView registerClass:[ItemCell class]
+//         forCellReuseIdentifier:@"ItemCell"];
+  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ItemCell class])
+                                             bundle:nil]
+       forCellReuseIdentifier:@"ItemCell"];
+//  [self.tableView setRowHeight:100];
 
   // 編集ボタン
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
@@ -366,7 +370,9 @@
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  ItemDetailViewController *detailViewController = [[ItemDetailViewController alloc] init];
+//  ItemDetailViewController *detailViewController = [[ItemDetailViewController alloc] init];
+  ItemDetailViewController *detailViewController = [[ItemDetailViewController alloc] initWithNibName:@"ItemDetailViewController"
+                                                                                              bundle:nil];
   Item *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
   [detailViewController setDetailItem:object];

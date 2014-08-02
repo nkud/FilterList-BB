@@ -28,7 +28,6 @@
   /* superで初期化 */
   self = [super initWithStyle:UITableViewCellStyleSubtitle
               reuseIdentifier:reuseIdentifier];
-
   if (self)
   {
     self.detailTextLabel.text = @"none";
@@ -61,7 +60,8 @@
   UITouch *touch = [touches anyObject]; // ここらへん分からん
 
   if (location.x < _left_side) {                                     // チェックボックスなら
-    [self.delegate tappedCheckBox:self touch:touch]; // 自分と場所を渡す
+    [self.delegate tappedCheckBox:self
+                            touch:touch]; // 自分と場所を渡す
   } else {                                                           // そうでなければ
     [super touchesBegan:touches withEvent:event];                    // デフォルトの処理をする
 
