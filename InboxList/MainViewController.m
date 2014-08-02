@@ -201,6 +201,7 @@
 
   /// マスタービュー初期化
   self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
+  self.itemViewController.fetchedResultsController = [ResultControllerFactory fetchedResultsController:self.itemViewController];
 
   /// ナビゲーションコントローラー初期化
   self.navigationController = [[NavigationController alloc] initWithRootViewController:self.itemViewController];
