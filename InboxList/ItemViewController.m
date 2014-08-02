@@ -128,6 +128,42 @@
                                 target:self
                                 action:@selector(inputAndInsertNewObjectFromModalView)];
   self.navigationItem.rightBarButtonItem = addButton;
+
+  // 新規入力トリガー
+  CGRect rect = self.tableView.bounds;
+	rect.origin.y -= 40;
+	rect.size.height = 40;
+	self.itemTriggerHeader = [[UILabel alloc] initWithFrame:rect];
+	self.itemTriggerHeader.text = @"New item...";
+	[self.tableView addSubview:self.itemTriggerHeader];
+}
+
+/**
+ *  スクロール時の処理
+ *
+ *  @param scrollView <#scrollView description#>
+ */
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  CGRect rect = scrollView.bounds;
+  self.triggerDragging = rect.origin.y;
+  self.itemTriggerHeader.text = [NSString stringWithFormat:@"%f", self.triggerDragging];
+}
+
+/**
+ *  スクロールをドラッグした後の処理
+ *
+ *  @param scrollView <#scrollView description#>
+ *  @param decelerate <#decelerate description#>
+ */
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView
+                 willDecelerate:(BOOL)decelerate
+{
+  NSLog(@"%s", __FUNCTION__);
+  if (self.triggerDragging < -120) {
+    NSLog(@"%@", @"クイック入力");
+    [self inputAndInsertNewObjectFromModalView];
+  }
 }
 
 /**

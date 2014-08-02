@@ -24,6 +24,10 @@ ItemDetailViewControllerDelegate, CellDelegate>
 
 @property (strong, nonatomic) NSString *title;
 
+@property (strong, nonatomic) UILabel *itemTriggerHeader;
+
+@property CGFloat triggerDragging;
+
 /**
  *  タグのリストを取得する
  *
