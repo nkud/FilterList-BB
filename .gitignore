@@ -44,3 +44,5 @@ DerivedData
 #
 # Pods/
 *.html
+out_app
+out_ipa
