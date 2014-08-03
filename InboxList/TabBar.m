@@ -7,16 +7,36 @@
 //
 
 #import "TabBar.h"
+#import "Header.h"
 
 @implementation TabBar
 
+-(void)createTabs
+{
+  UITabBarItem *tabItem1 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:0];
+  UITabBarItem *tabItem2 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:1];
+  UITabBarItem *tabItem3 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:2];
+  self.items = [NSArray arrayWithObjects:tabItem1, tabItem2, tabItem3, nil];
+  self.selectedItem = tabItem2;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+  NSLog(@"%s", __FUNCTION__);
+  self = [super initWithFrame:frame];
+    if (self)
+    {
+      [self createTabs];
+      self.barStyle = UIBarStyleDefault;
+      self.tintColor = [UIColor blueColor];
+      self.translucent = NO;
     }
     return self;
+}
+
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+  NSLog(@"%@", item);
 }
 
 /*

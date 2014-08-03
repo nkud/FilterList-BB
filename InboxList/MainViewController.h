@@ -27,7 +27,8 @@ InputFilterViewControlellerDelegate> {
 @property (strong, nonatomic) NavigationController       *navigationController;
 @property (strong, nonatomic) ItemViewController         *itemViewController;
 @property (strong, nonatomic) FilterViewController       *filterViewController;
-@property (strong, nonatomic) UITabBar                   *tabBar;
+
+@property (strong, nonatomic) TabBar                   *tabBar;
 
 @property (strong, nonatomic) TagViewController         *tagViewController;
 

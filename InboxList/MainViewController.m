@@ -209,21 +209,12 @@
   /**
    *  タブバー初期化
    */
-  int tab_bar_height = 100;
-  self.tabBar = [[UITabBar alloc] initWithFrame:CGRectMake(0,
-                                                           SCREEN_BOUNDS.size.height-tab_bar_height,
-                                                           SCREEN_BOUNDS.size.width,
-                                                           tab_bar_height)];
-  UITabBarItem *tabItem1 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:0];
-  UITabBarItem *tabItem2 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:1];
-  UITabBarItem *tabItem3 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:2];
-  self.tabBar.items = [NSArray arrayWithObjects:tabItem1, tabItem2, tabItem3, nil];
+  int tab_bar_height = 49;
+  self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
+                                                         SCREEN_BOUNDS.size.height-tab_bar_height,
+                                                         SCREEN_BOUNDS.size.width,
+                                                         tab_bar_height)];
   self.tabBar.delegate = self;
-  self.tabBar.translucent = NO;
-
-  self.tabBar.barStyle = UIBarStyleDefault;
-  self.tabBar.tintColor = [UIColor blueColor];
-  self.tabBar.selectedItem = tabItem2;
 
   /**
    *  フィルターコントローラーを初期化
