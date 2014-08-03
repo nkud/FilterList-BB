@@ -9,6 +9,12 @@
 #import "ResultControllerFactory.h"
 #import "AppDelegate.h"
 
+@interface ResultControllerFactory () {
+
+}
+
+@end
+
 @implementation ResultControllerFactory
 
 /**
@@ -49,8 +55,6 @@
 
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
 
-  //  self.fetchedResultsController = aFetchedResultsController;
-
 	NSError *error = nil;
 	if (![aFetchedResultsController performFetch:&error]) {
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -66,8 +70,8 @@
  *
  *  @return リザルトコントローラー
  */
-+ (NSFetchedResultsController *)fetchedResultsControllerForTag:(NSString *)tagString
-delegate:(id<NSFetchedResultsControllerDelegate>)controller
++ (NSFetchedResultsController *)fetchedResultsControllerForTags:(NSSet *)tagStringSets
+                                                       delegate:(id<NSFetchedResultsControllerDelegate>)controller
 {
   AppDelegate *app = [[UIApplication sharedApplication] delegate];
 
@@ -79,16 +83,23 @@ delegate:(id<NSFetchedResultsControllerDelegate>)controller
 
   /// Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
-
-  /// ソート条件
+  /**
+   *  ソート条件
+   */
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
   [fetchRequest setSortDescriptors:sortDescriptors];                 /// ソートを設定
 
-  /// 検索条件
-  /// @details 選択されたタグを持つアイテムを列挙
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY SELF.tags.title == %@", tagString];
+  /**
+   *  検索条件
+   */
+  NSMutableArray *tagStringArray;
+  for (NSString *title in tagStringSets) {
+    [tagStringArray addObject:title];
+  }
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY SELF.tags.title == %@"
+                                              argumentArray:tagStringArray];
   [fetchRequest setPredicate:predicate];
 
   // Edit the section name key path and cache name if appropriate.
@@ -100,9 +111,9 @@ delegate:(id<NSFetchedResultsControllerDelegate>)controller
                                                    cacheName:nil];   //< タグをキャッシュネームにする
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
 
-  //  _fetchedResultsControllerForTag = aFetchedResultsController;
-
-  /// フェッチを実行
+	/**
+	 *  フェッチを実行
+	 */
 	NSError *error = nil;
 	if (![aFetchedResultsController performFetch:&error]) {
     // Replace this implementation with code to handle the error appropriately.

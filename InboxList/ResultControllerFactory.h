@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString const *predicateFormat = @"ANY SELF.tags.title == %@";
+
 @interface ResultControllerFactory : NSObject
 
 /**
@@ -19,6 +21,6 @@
  */
 + (NSFetchedResultsController *)fetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 
-+ (NSFetchedResultsController *)fetchedResultsControllerForTag:(NSString *)tagString
-                                                      delegate:(id<NSFetchedResultsControllerDelegate>)controller;
++ (NSFetchedResultsController *)fetchedResultsControllerForTags:(NSSet *)tagStringSet
+                                                       delegate:(id<NSFetchedResultsControllerDelegate>)controller;
 @end

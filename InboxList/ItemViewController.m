@@ -93,6 +93,13 @@
   app = [[UIApplication sharedApplication] delegate];
 }
 
+/**
+ *  初期化
+ *
+ *  @param style <#style description#>
+ *
+ *  @return <#return value description#>
+ */
 - (id)initWithStyle:(UITableViewStyle)style
 {
   self = [super initWithStyle:style];

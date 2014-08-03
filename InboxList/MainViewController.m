@@ -302,9 +302,10 @@ didSelectItem:(UITabBarItem *)item
         fetcheResultController:[ResultControllerFactory fetchedResultsController:self.itemViewController]];
     return;
   }
+
   [self loadMasterViewForTag:tagString
-      fetcheResultController:[ResultControllerFactory fetchedResultsControllerForTag:tagString
-                                                                            delegate:self.itemViewController]];
+      fetcheResultController:[ResultControllerFactory fetchedResultsControllerForTags:[NSSet setWithObject:tagString]
+                                                                             delegate:self.itemViewController]];
 }
 
 /**
