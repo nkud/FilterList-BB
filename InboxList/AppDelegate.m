@@ -71,6 +71,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 - (void)saveContext
 {
+  LOG(@"Save");
   NSError *error = nil;
   NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
   if (managedObjectContext != nil) {

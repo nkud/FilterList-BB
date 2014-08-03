@@ -185,14 +185,16 @@
 			children = (
 				B080804A19582CF6007D21E4 /* MainViewController.h */,
 				B080804B19582CF6007D21E4 /* MainViewController.m */,
-				B0A3510E1984AA0F0062ABB1 /* ResultControllerFactory */,
-				B0A351071984A1140062ABB1 /* Header */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
+				B0A351071984A1140062ABB1 /* Header */,
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
+				B0A351121984B6A20062ABB1 /* TagFieldViewController.h */,
+				B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */,
 				B05FA8201982AE8900E25FAF /* TabBar */,
 				B03E6C1B18CAA383007703B8 /* ManagedObject */,
+				B0A3510E1984AA0F0062ABB1 /* ResultControllerFactory */,
 				B03F2BD2194D75F40037AE2C /* Resource */,
 				B00AD6AA18C45E470005A552 /* Images.xcassets */,
 				B00AD6A118C45E470005A552 /* InboxList.xcdatamodeld */,
@@ -291,17 +293,39 @@
 			name = InputItemViewController;
 			sourceTree = "<group>";
 		};
-		B08EBBC219703EBC00DB9582 /* FilterMode */ = {
+		B07D5830198E1D5600688F98 /* TagField */ = {
 			isa = PBXGroup;
 			children = (
 				B0A3511819854B170062ABB1 /* TagField.h */,
 				B0A3511919854B170062ABB1 /* TagField.m */,
-				B0A351121984B6A20062ABB1 /* TagFieldViewController.h */,
-				B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */,
+			);
+			name = TagField;
+			sourceTree = "<group>";
+		};
+		B07D5832198E1D6600688F98 /* FilterViewController */ = {
+			isa = PBXGroup;
+			children = (
 				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
 				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
+			);
+			name = FilterViewController;
+			sourceTree = "<group>";
+		};
+		B07D5833198E1D8100688F98 /* InputFilterViewController */ = {
+			isa = PBXGroup;
+			children = (
 				B00483651981D1960076025B /* InputFilterViewController.h */,
 				B00483661981D1960076025B /* InputFilterViewController.m */,
+			);
+			name = InputFilterViewController;
+			sourceTree = "<group>";
+		};
+		B08EBBC219703EBC00DB9582 /* FilterMode */ = {
+			isa = PBXGroup;
+			children = (
+				B07D5830198E1D5600688F98 /* TagField */,
+				B07D5832198E1D6600688F98 /* FilterViewController */,
+				B07D5833198E1D8100688F98 /* InputFilterViewController */,
 			);
 			name = FilterMode;
 			sourceTree = "<group>";
