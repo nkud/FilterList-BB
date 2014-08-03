@@ -87,7 +87,9 @@
 - (void)initParameter
 {
   isOpen = false;
-  self.selectedTagString = nil;
+  if (self.selectedTagString == nil) {
+    self.selectedTagString = @"all";
+  }
   app = [[UIApplication sharedApplication] delegate];
 }
 
@@ -176,32 +178,24 @@
 -(void)quickInsertNewItem:(NSString *)itemString
 {
   NSLog(@"%s", __FUNCTION__);
-  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-  NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
+//  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+//  NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
+//
+//  /* 新しい項目を初期化・追加する */
+//  Item *newItem                   = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+//                                                                  inManagedObjectContext:context];
+//
+//  newItem.title                   = itemString;
+//  newItem.state                   = [NSNumber numberWithBool:false];
+//  newItem.reminder                = [NSDate date];
 
-  /* 新しい項目を初期化・追加する */
-  Item *newItem                   = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
-                                                                  inManagedObjectContext:context];
-
-  newItem.title                   = itemString;
-  newItem.state                   = [NSNumber numberWithBool:false];
-  newItem.reminder                = [NSDate date];
-
-  if ([self.selectedTagString isEqual:@"all"]) {
-    NSLog(@"%@", @"tag not selected");
-
-  } else // タグが選択されていれば
-  {
-//    Tag *newTags                    = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-//                                                                    inManagedObjectContext:context]; //< @todo 要変更
-//    newTags.title = self.selectedTagString;
-//    
-//    /// タグをアイテムに設定
-//    [newItem addTagsObject:newTags];                                   // アイテムにタグを設定する
-  }
+  [self insertNewObject:self
+                  title:itemString
+                    tag:[NSSet setWithObject:self.selectedTagString]
+               reminder:[NSDate date]];
 
   /// 保存する
-  [app saveContext];
+//  [app saveContext];
 }
 
 /**
@@ -220,7 +214,7 @@
 }
 
 /**
- *  入力画面を終了させる処理
+ *  @brief 入力画面を終了させる処理
  *
  *  @param sender   sender description
  *  @param data     受け取った入力
@@ -233,13 +227,19 @@
   NSLog(@"%s", __FUNCTION__);
   NSString *title = data[0];                                         //< タイトルを取得して
   if (title.length > 0) {                                            //< 空欄でなければ
-    [self insertNewObject:sender data:data reminder:reminder];                         //< リストを挿入する
+    [self insertNewObject:sender
+                    title:data[0]
+                      tag:[NSSet setWithObject:data[1]]
+                 reminder:reminder];
+//    [self insertNewObject:sender
+//                     data:data
+//                 reminder:reminder];                         //< リストを挿入する
   }
   [self dismissViewControllerAnimated:YES completion:nil];           //< ビューを削除
 }
 
 /**
- *  詳細画面を終了させる処理
+ *  @brief 詳細画面を終了させる処理
  *
  *  @param sender    sender description
  *  @param indexPath 詳細を表示したセルの位置
@@ -273,7 +273,7 @@
 }
 
 /**
- *  入力画面を表示する
+ *  @brief 入力画面を表示する
  */
 - (void)inputAndInsertNewObjectFromModalView
 {
@@ -288,14 +288,16 @@
 }
 
 /**
- *  新しいオブジェクトを挿入
+ *  @brief 新しいオブジェクトを挿入
  *
- *  @param sender   sender description
- *  @param data     データ
- *  @param reminder リマインダー
+ *  @param sender      呼び出し元
+ *  @param title       アイテムのタイトル
+ *  @param tagTitleSet タグのタイトルセット
+ *  @param reminder    日付
  */
 - (void)insertNewObject:(id)sender
-                   data:(NSArray *)data
+                  title:(NSString *)title
+                    tag:(NSSet *)tagTitleSet
                reminder:(NSDate *)reminder
 {
   NSLog(@"%s", __FUNCTION__);
@@ -304,26 +306,39 @@
   NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
   NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
 
-  /* 新しい項目を初期化・追加する */
-  Item *newItem                   = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
-                                                                  inManagedObjectContext:context];
 
   // If appropriate, configure the new managed object.
   // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
   //    [newManagedObject setValuesForKeysWithDictionary:nsdictionary];
 
-  newItem.title                   = data[0];
-  newItem.state                   = [NSNumber numberWithBool:false];
-  newItem.reminder                = reminder;
+  /**
+   *  アイテムを初期化
+   */
+  Item *newItem    = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+                                                   inManagedObjectContext:context];
+  newItem.title    = title;// タイトル
+  newItem.state    = [NSNumber numberWithBool:false];// 未完了状態
+  newItem.reminder = reminder;// 日付
+
+  /**
+   *  タグを初期化
+   */
+  for (NSString *tagTitle in tagTitleSet) // 指定されたタグの数だけ
+  {
+    NSLog(@"%@%@", @"new tag: ", tagTitle);
+    Tag *newTag  = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+                                                 inManagedObjectContext:context];
+    /**
+     *  タグとアイテムを紐付
+     */
+    newTag.title = tagTitle; // タイトル
+    [newTag addItemsObject:newItem];
+    [newItem addTagsObject:newTag];
+  }
   
-  Tag *newTags                    = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                                                  inManagedObjectContext:context];
-  newTags.title = data[1];
-
-  /// タグをアイテムに設定
-  [newItem addTagsObject:newTags];                                   // アイテムにタグを設定する
-
-  /// 保存する
+  /**
+   *  保存する
+   */
   [app saveContext];
 }
 
