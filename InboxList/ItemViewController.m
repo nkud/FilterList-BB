@@ -133,7 +133,7 @@
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                 target:self
-                                action:@selector(inputAndInsertNewObjectFromModalView)];
+                                action:@selector(presentInputItemView)];
   self.navigationItem.rightBarButtonItem = addButton;
 
   // 入力ヘッダ
@@ -178,24 +178,10 @@
 -(void)quickInsertNewItem:(NSString *)itemString
 {
   NSLog(@"%s", __FUNCTION__);
-//  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-//  NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
-//
-//  /* 新しい項目を初期化・追加する */
-//  Item *newItem                   = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
-//                                                                  inManagedObjectContext:context];
-//
-//  newItem.title                   = itemString;
-//  newItem.state                   = [NSNumber numberWithBool:false];
-//  newItem.reminder                = [NSDate date];
-
   [self insertNewObject:self
                   title:itemString
                     tag:[NSSet setWithObject:self.selectedTagString]
                reminder:[NSDate date]];
-
-  /// 保存する
-//  [app saveContext];
 }
 
 /**
@@ -231,9 +217,6 @@
                     title:data[0]
                       tag:[NSSet setWithObject:data[1]]
                  reminder:reminder];
-//    [self insertNewObject:sender
-//                     data:data
-//                 reminder:reminder];                         //< リストを挿入する
   }
   [self dismissViewControllerAnimated:YES completion:nil];           //< ビューを削除
 }
@@ -273,15 +256,14 @@
 }
 
 /**
- *  @brief 入力画面を表示する
+ *  入力画面を表示する
  */
-- (void)inputAndInsertNewObjectFromModalView
+-(void)presentInputItemView
 {
-  InputModalViewController *inputView = [[InputModalViewController alloc] init];
-
+  InputModalViewController *inputView = [[InputModalViewController alloc] initWithNibName:@"InputItemViewController"
+                                                                                   bundle:nil];
+  inputView.delegate = self;
   [inputView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-  [inputView setDelegate:self];
-
   [self presentViewController:inputView
                      animated:YES
                    completion:nil];

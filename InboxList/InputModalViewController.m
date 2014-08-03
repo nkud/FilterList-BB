@@ -39,7 +39,8 @@
 {
   self = [super initWithNibName:nibNameOrNil
                          bundle:nibBundleOrNil];
-  if (self) {
+  if (self)
+  {
     // Custom initialization
   }
   return self;
@@ -68,29 +69,19 @@
   [super viewDidLoad];
 
   /// アイテム入力フィールド
-  self.textField = [self createTextField:0
-                                       y:100];
-  [self.textField becomeFirstResponder];
-  [self.view addSubview:self.textField];
+  [self.titleInputField becomeFirstResponder];
+  self.titleInputField.delegate = self;
 
   /// タグ入力フィールド
-  self.tagInputField = [self createTextField:0
-                                           y:150];
-  [self.view addSubview:self.tagInputField];
+  self.tagInputField.delegate = self;
 
   /// リマインダー入力ピッカーを初期化
-  self.remindPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 200, 0, 0)];
   [self.remindPicker setDatePickerMode:UIDatePickerModeDateAndTime];
-  [self.view addSubview:self.remindPicker];
 
   /// 入力完了ボタン
-  UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [button setFrame:CGRectMake(0, 30, 100, 50)];
-  [button setTitle:@"Done" forState:UIControlStateNormal];
-  [button addTarget:self
-             action:@selector(dismissInput)
-   forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:button];
+  [self.saveButton addTarget:self
+                      action:@selector(dismissInput)
+            forControlEvents:UIControlEventTouchUpInside];
 }
 
 /**
@@ -98,10 +89,11 @@
  */
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  if (textField == self.textField) { // アイテム名入力欄なら、
+  NSLog(@"%s", __FUNCTION__);
+  if (textField == self.titleInputField) { // アイテム名入力欄なら、
     [self dismissInput];
   } else if (textField == self.tagInputField) { // タグ入力時なら、
-    [self.textField becomeFirstResponder]; // アイテム名入力欄に移動する
+    [self.titleInputField becomeFirstResponder]; // アイテム名入力欄に移動する
   }
   return YES;
 }
@@ -111,7 +103,7 @@
  */
 - (void)dismissInput
 {
-  NSArray *_data = @[self.textField.text, self.tagInputField.text];
+  NSArray *_data = @[self.titleInputField.text, self.tagInputField.text];
   [[self delegate] dismissInputModalView:self data:_data
                                 reminder:self.remindPicker.date];
 }
