@@ -192,7 +192,6 @@
 
   } else // タグが選択されていれば
   {
-//    NSLog(@"%@", @"tag selected");
 //    Tag *newTags                    = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
 //                                                                    inManagedObjectContext:context]; //< @todo 要変更
 //    newTags.title = self.selectedTagString;
