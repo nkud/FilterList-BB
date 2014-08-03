@@ -303,9 +303,11 @@ didSelectItem:(UITabBarItem *)item
     return;
   }
 
+  LOG(@"load for tag");
   [self loadMasterViewForTag:tagString
       fetcheResultController:[ResultControllerFactory fetchedResultsControllerForTags:[NSSet setWithObject:tagString]
                                                                              delegate:self.itemViewController]];
+  LOG(@"end load for tag");
 }
 
 /**

@@ -190,8 +190,6 @@
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
-				B0A351121984B6A20062ABB1 /* TagFieldViewController.h */,
-				B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */,
 				B05FA8201982AE8900E25FAF /* TabBar */,
 				B03E6C1B18CAA383007703B8 /* ManagedObject */,
 				B0A3510E1984AA0F0062ABB1 /* ResultControllerFactory */,
@@ -333,6 +331,8 @@
 		B08EBBC319703ED000DB9582 /* TagMode */ = {
 			isa = PBXGroup;
 			children = (
+				B0A351121984B6A20062ABB1 /* TagFieldViewController.h */,
+				B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */,
 				B06D719B198D3BE1001A9F91 /* TagCell */,
 				B0808047195825A3007D21E4 /* TagViewController.h */,
 				B0808048195825A3007D21E4 /* TagViewController.m */,

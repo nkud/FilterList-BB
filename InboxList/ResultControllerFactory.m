@@ -8,6 +8,7 @@
 
 #import "ResultControllerFactory.h"
 #import "AppDelegate.h"
+#import "Header.h"
 
 @interface ResultControllerFactory () {
 
@@ -24,9 +25,8 @@
  */
 + (NSFetchedResultsController *)fetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
 {
-  AppDelegate *app = [[UIApplication sharedApplication] delegate];
+  AppDelegate *app = [[UIApplication sharedApplication] delegate]; // アプリケーションデリゲートを取得
 
-  NSLog(@"%s", __FUNCTION__);
   //  if (_fetchedResultsController != nil) {
   //    return _fetchedResultsController;
   //  }
@@ -43,7 +43,7 @@
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
 
-  [fetchRequest setSortDescriptors:sortDescriptors];
+  [fetchRequest setSortDescriptors:sortDescriptors]; // ソート条件
 
   // Edit the section name key path and cache name if appropriate.
   // nil for section name key path means "no sections".
@@ -60,7 +60,7 @@
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     abort();
 	}
-  return aFetchedResultsController;
+  return aFetchedResultsController; // 作成したリザルトコントローラーを返す
 }
 
 /**
@@ -86,6 +86,7 @@
   /**
    *  ソート条件
    */
+  LOG(@"ソート条件");
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
@@ -94,13 +95,18 @@
   /**
    *  検索条件
    */
-  NSMutableArray *tagStringArray;
-  for (NSString *title in tagStringSets) {
-    [tagStringArray addObject:title];
+  LOG(@"検索条件");
+  NSString *format = @"ANY SELF.tags.title == %@"; // フォーマット
+  NSMutableArray *predicate_array = [[NSMutableArray alloc] init]; // 条件を格納する配列
+  NSPredicate *predicate;       // 条件
+  for (NSString *tagTitle in tagStringSets) {
+    predicate = [NSPredicate predicateWithFormat:format, tagTitle]; // 条件を作成
+    [predicate_array addObject:predicate]; // 条件を配列に追加
   }
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY SELF.tags.title == %@"
-                                              argumentArray:tagStringArray];
-  [fetchRequest setPredicate:predicate];
+                                // 条件の配列から条件を合成する
+  NSCompoundPredicate *compound_predicate = [[NSCompoundPredicate alloc] initWithType:NSOrPredicateType
+                                                                        subpredicates:predicate_array];
+  [fetchRequest setPredicate:compound_predicate]; // 作成した条件を設定
 
   // Edit the section name key path and cache name if appropriate.
   // nil for section name key path means "no sections".
@@ -114,6 +120,7 @@
 	/**
 	 *  フェッチを実行
 	 */
+  LOG(@"フェッチを実行");
 	NSError *error = nil;
 	if (![aFetchedResultsController performFetch:&error]) {
     // Replace this implementation with code to handle the error appropriately.
@@ -121,6 +128,7 @@
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     abort();
 	}
-  return aFetchedResultsController;
+  return aFetchedResultsController; // 作成したリザルトコントローラーを返す
 }
+
 @end
