@@ -93,8 +93,8 @@
  */
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer;
 {
-
-  switch (recognizer.direction) {
+  switch (recognizer.direction)
+  {
       // 右スワイプ
     case UISwipeGestureRecognizerDirectionRight:
       [self swipeDirectionRight];
@@ -108,9 +108,6 @@
     default:
       break;
   }
-
-  /// アニメーション
-
 }
 
 /**
@@ -124,9 +121,6 @@
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
   next_center.x = screen_center_x;
-
-  self.tagViewController.tag_list = [self.itemViewController getTagList]; //< メニューの内容を更新して
-  [self.tagViewController updateTableView]; //< ビューを更新
 
   [UIView animateWithDuration:0.2
                    animations:^{
@@ -142,6 +136,9 @@
   int distance = 200;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
+
+  self.tagViewController.tag_list = [self.itemViewController getTagList]; //< メニューの内容を更新して
+  [self.tagViewController updateTableView]; //< ビューを更新
 
   next_center.x = screen_center_x + distance;
   [self.view sendSubviewToBack:self.filterViewController.view];

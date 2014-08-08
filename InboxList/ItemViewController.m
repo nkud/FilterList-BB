@@ -540,13 +540,13 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     case NSFetchedResultsChangeInsert:
       NSLog(@"%@", @"insert");
       [tableView insertRowsAtIndexPaths:@[newIndexPath]
-                       withRowAnimation:UITableViewRowAnimationFade];
+                       withRowAnimation:UITableViewRowAnimationLeft];
       break;
 
     case NSFetchedResultsChangeDelete:
       NSLog(@"%@", @"delete");
       [tableView deleteRowsAtIndexPaths:@[indexPath]
-                       withRowAnimation:UITableViewRowAnimationFade];
+                       withRowAnimation:UITableViewRowAnimationLeft];
       break;
 
     case NSFetchedResultsChangeUpdate:
