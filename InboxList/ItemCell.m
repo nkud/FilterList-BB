@@ -63,7 +63,8 @@
     [self.delegate tappedCheckBox:self
                             touch:touch]; // 自分と場所を渡す
   } else {                                                           // そうでなければ
-    [super touchesBegan:touches withEvent:event];                    // デフォルトの処理をする
+    [super touchesBegan:touches
+              withEvent:event];                    // デフォルトの処理をする
 
   }
 }

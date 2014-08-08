@@ -70,12 +70,17 @@
   // その位置のセルのデータをモデルから取得する
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-  // チェックの状態を変更して
-  BOOL checkbox = ! [[item valueForKey:@"state"] boolValue];
-  item.state = [NSNumber numberWithBool:checkbox];
+  BOOL checkbox = [[item valueForKey:@"state"] boolValue];
+  if (checkbox == FALSE) { // 完了にする
+    [app.managedObjectContext deleteObject:item];
+  }
 
-  // チェックボックスを更新する
-  [cell updateCheckBox:checkbox];
+//  // チェックの状態を変更して
+//  BOOL checkbox = ! [[item valueForKey:@"state"] boolValue];
+//  item.state = [NSNumber numberWithBool:checkbox];
+//
+//  // チェックボックスを更新する
+//  [cell updateCheckBox:checkbox];
 
   // モデルを保存する
   [app saveContext];
