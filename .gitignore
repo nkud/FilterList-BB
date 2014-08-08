@@ -46,3 +46,5 @@ DerivedData
 *.html
 out_app
 out_ipa
+
+*.swp

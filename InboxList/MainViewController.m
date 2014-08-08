@@ -114,6 +114,63 @@
 }
 
 /**
+ *  アイテムリスト表示モード
+ */
+-(void)itemListMode
+{
+  NSLog(@"%s", __FUNCTION__);
+  CGPoint next_center = self.navigationController.view.center;
+
+  CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
+
+  next_center.x = screen_center_x;
+
+  self.tagViewController.tag_list = [self.itemViewController getTagList]; //< メニューの内容を更新して
+  [self.tagViewController updateTableView]; //< ビューを更新
+
+  [UIView animateWithDuration:0.2
+                   animations:^{
+                     self.navigationController.view.center = next_center;
+                   }];
+}
+/**
+ *  タグリスト表示モード
+ */
+-(void)tagListMode
+{
+  NSLog(@"%s", __FUNCTION__);
+  int distance = 200;
+  CGPoint next_center = self.navigationController.view.center;
+  CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
+
+  next_center.x = screen_center_x + distance;
+  [self.view sendSubviewToBack:self.filterViewController.view];
+  
+  [UIView animateWithDuration:0.2
+                   animations:^{
+                     self.navigationController.view.center = next_center;
+                   }];
+}
+/**
+ *  フィルターリスト表示モード
+ */
+-(void)filterListMode
+{
+  NSLog(@"%s", __FUNCTION__);
+  int distance = 200;
+  CGPoint next_center = self.navigationController.view.center;
+  CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
+
+  next_center.x = screen_center_x - distance;
+  [self.view sendSubviewToBack:self.tagViewController.view];
+
+  [UIView animateWithDuration:0.2
+                   animations:^{
+                     self.navigationController.view.center = next_center;
+                   }];
+}
+
+/**
  *  右方向スワイプ
  *
  * @todo 要改善
@@ -127,8 +184,14 @@
 
   CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
+  /**
+   *  タグモード
+   */
   if (center_x == screen_x) {
     [self.view sendSubviewToBack:self.filterViewController.view];
+    self.tabBar.selectedItem = self.tabBar.tagModeTab;
+  } else {
+    self.tabBar.selectedItem = self.tabBar.itemModeTab;
   }
   next_center.x = center_x + distance;
   // 画面から消えないための処理
@@ -174,9 +237,14 @@
 
   CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
-
+  /**
+   *  フィルターモード
+   */
   if (center_x == screen_x) {
     [self.view sendSubviewToBack:self.tagViewController.view];
+    self.tabBar.selectedItem = self.tabBar.filterModeTab;
+  } else {
+    self.tabBar.selectedItem = self.tabBar.itemModeTab;
   }
   //      next_center.x = MAX(center_x-distance, screen_x);
   next_center.x = center_x - distance;
@@ -261,19 +329,19 @@ didSelectItem:(UITabBarItem *)item
        *  左スワイプ
        */
     case 0:
-      [self swipeDirectionRight];
+      [self tagListMode];
       break;
       /**
        *  中心に戻る
        */
     case 1:
-      [self swipeDirectionCenter];
+      [self itemListMode];
       break;
       /**
        *  右スワイプ
        */
     case 2:
-      [self swipeDirectionLeft];
+      [self filterListMode];
       break;
 
     default:

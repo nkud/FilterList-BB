@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/07/26.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "TabBar.h"
@@ -11,15 +11,25 @@
 
 @implementation TabBar
 
+/**
+ *  タブバーを作成・初期化
+ */
 -(void)createTabs
 {
-  UITabBarItem *tabItem1 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:0];
-  UITabBarItem *tabItem2 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:1];
-  UITabBarItem *tabItem3 = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:2];
-  self.items = [NSArray arrayWithObjects:tabItem1, tabItem2, tabItem3, nil];
-  self.selectedItem = tabItem2;
+  self.tagModeTab = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:0];
+  self.itemModeTab = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:1];
+  self.filterModeTab = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:2];
+  self.items = [NSArray arrayWithObjects:self.tagModeTab, self.itemModeTab, self.filterModeTab, nil];
+  self.selectedItem = self.itemModeTab;
 }
 
+/**
+ *  初期化
+ *
+ *  @param frame <#frame description#>
+ *
+ *  @return <#return value description#>
+ */
 - (id)initWithFrame:(CGRect)frame
 {
   NSLog(@"%s", __FUNCTION__);
@@ -32,11 +42,6 @@
       self.translucent = NO;
     }
     return self;
-}
-
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-  NSLog(@"%@", item);
 }
 
 /*
