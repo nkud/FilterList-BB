@@ -34,7 +34,7 @@ ItemDetailViewControllerDelegate, CellDelegate, InputHeaderDelegate>
  *
  *  @return タグのリスト
  */
--(NSArray *)getTagList;
+//-(NSArray *)getTagList;
 
 -(void)updateTableView;
 

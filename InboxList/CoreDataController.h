@@ -9,15 +9,23 @@
 #import <Foundation/Foundation.h>
 #import "ResultControllerFactory.h"
 #import "Tag.h"
+#import "AppDelegate.h"
 
 @interface CoreDataController : NSObject
 
 +(void)saveContext;
 
-+(BOOL)hasTag:(Tag *)tag;
++(BOOL)hasTagForTitle:(NSString *)title;
 
 +(NSArray *)getAllTagsArray;
++(NSArray *)fetchTagsForTitle:(NSString *)title;
+
++(void)insertNewItem:(NSString *)itemTitle tags:(NSSet *)tags reminder:(NSDate *)reminder;
 
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 
++(NSEntityDescription *)entityDescriptionForName:(NSString *)name;
+
++(NSManagedObjectContext *)managedObjectContext;
++(AppDelegate *)app;
 @end

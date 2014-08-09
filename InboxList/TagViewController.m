@@ -9,6 +9,7 @@
 #import "TagViewController.h"
 #import "Header.h"
 #import "TagCell.h"
+#import "Tag.h"
 
 @interface TagViewController ()
 
@@ -44,7 +45,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [self.delegate selectedTag:@"all"]; // すべてのリストを表示
     return;
   } // そうでないなら
-  [self.delegate selectedTag:self.tag_list[indexPath.row]]; // 選択されたタグを渡す
+  Tag *tag = self.tagArray_[indexPath.row];
+  [self.delegate selectedTag:tag.title]; // 選択されたタグを渡す
 }
 
 /**
@@ -101,7 +103,7 @@ numberOfRowsInSection:(NSInteger)section
   if (section == 0) {
     return 1;
   }
-  return [self.tag_list count];
+  return [self.tagArray_ count];
 }
 
 /**
@@ -115,7 +117,8 @@ numberOfRowsInSection:(NSInteger)section
     cell.textLabel.text = @"all";
     return cell;
   }
-  cell.textLabel.text = self.tag_list[indexPath.row];
+  Tag *tag = self.tagArray_[indexPath.row];
+  cell.textLabel.text = tag.title;
   return cell;
 }
 

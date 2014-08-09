@@ -11,6 +11,7 @@
 #import "Header.h"
 #import "InputFilterViewController.h"
 #import "ResultControllerFactory.h"
+#import "CoreDataController.h"
 
 @interface MainViewController () {
   AppDelegate *app;
@@ -137,7 +138,7 @@
   CGPoint next_center = self.navigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
-  self.tagViewController.tag_list = [self.itemViewController getTagList]; //< メニューの内容を更新して
+  self.tagViewController.tagArray_ = [CoreDataController getAllTagsArray];
   [self.tagViewController updateTableView]; //< ビューを更新
 
   next_center.x = screen_center_x + distance;
@@ -195,7 +196,7 @@
   if (next_center.x > SCREEN_BOUNDS.size.width*1.5) {
     return;
   }
-  self.tagViewController.tag_list = [self.itemViewController getTagList]; //< メニューの内容を更新して
+  self.tagViewController.tagArray_ = [CoreDataController getAllTagsArray];
   [self.tagViewController updateTableView]; //< ビューを更新
 
   [UIView animateWithDuration:0.2

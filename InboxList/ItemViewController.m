@@ -34,29 +34,30 @@
 *
 *  @return タグのリスト
 */
--(NSArray *)getTagList
-{
-  NSLog(@"%s", __FUNCTION__);
-  NSMutableArray *taglist = [[NSMutableArray alloc] init];           //< 返す配列
-//  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag"
-//                                            inManagedObjectContext:app.managedObjectContext];
-//  request.entity = entity;
-//  request.sortDescriptors = nil;                                     //< @TODO メニューをソートする場合はここ
-//  NSArray *objs = [app.managedObjectContext executeFetchRequest:request
-//                                                           error:nil];
-
-  NSArray *objs = [CoreDataController getAllTagsArray];
-  NSLog(@"%@", objs);
-  for ( Tag *tag in objs ) {
-    /// @todo タグ関連は要変更
-    if ([tag.title isEqual:@""]) continue;                           //< タイトルが未設定ならスキップ
-    if ([tag.items count]==0) continue;                              //< アイテムに紐付けされていなければスキップ
-
-    [taglist addObject:tag.title];
-  }
-  return taglist;
-}
+//-(NSArray *)getTagList
+//{
+//  NSLog(@"%s", __FUNCTION__);
+////  NSMutableArray *taglist = [[NSMutableArray alloc] init];           //< 返す配列
+////  NSFetchRequest *request = [[NSFetchRequest alloc] init];
+////  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag"
+////                                            inManagedObjectContext:app.managedObjectContext];
+////  request.entity = entity;
+////  request.sortDescriptors = nil;                                     //< @TODO メニューをソートする場合はここ
+////  NSArray *objs = [app.managedObjectContext executeFetchRequest:request
+////                                                           error:nil];
+//
+//  NSArray *objs = [CoreDataController getAllTagsArray];
+//  return objs;
+////  NSLog(@"%@", objs);
+////  for ( Tag *tag in objs ) {
+////    /// @todo タグ関連は要変更
+//////    if ([tag.title isEqual:@""]) continue;                           //< タイトルが未設定ならスキップ
+//////    if ([tag.items count]==0) continue;                              //< アイテムに紐付けされていなければスキップ
+////
+////    [taglist addObject:tag.title];
+////  }
+////  return taglist;
+//}
 
 /**
  *  チェックボックスがタップされた時の処理
@@ -75,8 +76,14 @@
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
   BOOL checkbox = [[item valueForKey:@"state"] boolValue];
-  if (checkbox == FALSE) { // 完了にする
-    [app.managedObjectContext deleteObject:item];
+  if (checkbox == FALSE) {      // 完了にする
+//    NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
+//    for (Tag *tag in tags) { // そのセットそれぞれに対して
+//      if ([tag.items count] == 1) { // タグの関連付けがそのアイテムのみだった場合
+//        [app.managedObjectContext deleteObject:tag]; // そのタグも削除する
+//      }
+//    }
+    [app.managedObjectContext deleteObject:item]; // アイテムを削除
   }
 
 //  // チェックの状態を変更して
@@ -87,7 +94,7 @@
 //  [cell updateCheckBox:checkbox];
 
   // モデルを保存する
-  [app saveContext];
+  [CoreDataController saveContext];
 }
 
 /**
@@ -194,18 +201,32 @@
 -(void)quickInsertNewItem:(NSString *)itemString
 {
   NSLog(@"%s", __FUNCTION__);
-  if ([self.selectedTagString isEqualToString:@"all"]) { // 全てのアイテムを表示中なら
-    [self insertNewObject:self                           // 自分に
-                    title:itemString                     // タイトルと
-                      tag:nil                            // タグは空で
-                 reminder:[NSDate date]];                // 今日の日付で挿入
-  } else {                                               // あるタグのみ表示中なら
-  [self insertNewObject:self                             // 自分に
-                  title:itemString                       // タイトルと
-                    tag:[NSSet setWithObject:self.selectedTagString] // そのタグと
-               reminder:[NSDate date]]; // 今日の日付で挿入
-  }
+//  if ([self.selectedTagString isEqualToString:@"all"]) { // 全てのアイテムを表示中なら
+//    [self insertNewObject:self                           // 自分に
+//                    title:itemString                     // タイトルと
+//                      tag:nil                            // タグは空で
+//                 reminder:[NSDate date]];                // 今日の日付で挿入
+//  } else {                                               // あるタグのみ表示中なら
+//  [self insertNewObject:self                             // 自分に
+//                  title:itemString                       // タイトルと
+//                    tag:[NSSet setWithObject:self.selectedTagString] // そのタグと
+//               reminder:[NSDate date]]; // 今日の日付で挿入
+//  }
 
+  if ([self.selectedTagString isEqualToString:@"all"]) {
+    [CoreDataController insertNewItem:itemString
+                                 tags:nil
+                             reminder:[NSDate date]];
+  } else {
+    NSMutableSet *tags = [[NSMutableSet alloc] init];
+    Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
+            insertIntoManagedObjectContext:nil];
+    tag.title = self.selectedTagString;
+    [tags addObject:tag];
+    [CoreDataController insertNewItem:itemString
+                                 tags:tags
+                             reminder:[NSDate date]];
+  }
 }
 
 /**
@@ -306,46 +327,56 @@
                     tag:(NSSet *)tagTitleSet
                reminder:(NSDate *)reminder
 {
-  NSLog(@"%s", __FUNCTION__);
-  // ここはよくわからない
-  // 特になくても、直接指定すればいいのでは？
-  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-  NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
-
-
-  // If appropriate, configure the new managed object.
-  // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-  //    [newManagedObject setValuesForKeysWithDictionary:nsdictionary];
-
-  /**
-   *  アイテムを初期化
-   */
-  Item *newItem    = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
-                                                   inManagedObjectContext:context];
-  newItem.title    = title;// タイトル
-  newItem.state    = [NSNumber numberWithBool:false];// 未完了状態
-  newItem.reminder = reminder;// 日付
-
-  /**
-   *  タグを初期化
-   */
-  for (NSString *tagTitle in tagTitleSet) // 指定されたタグの数だけ
-  {
-    NSLog(@"%@%@", @"new tag: ", tagTitle);
-    Tag *newTag  = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                                 inManagedObjectContext:context];
-    /**
-     *  タグとアイテムを紐付
-     */
-    newTag.title = tagTitle; // タイトル
-    [newTag addItemsObject:newItem];
-    [newItem addTagsObject:newTag];
+  NSMutableSet *tags = [[NSMutableSet alloc] init];
+  for (NSString *title in tagTitleSet) {
+    Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
+            insertIntoManagedObjectContext:nil];
+    tag.title = title;
+    [tags addObject:tag];
   }
-  
-  /**
-   *  保存する
-   */
-  [app saveContext];
+  [CoreDataController insertNewItem:title
+                               tags:tags
+                           reminder:reminder];
+//  NSLog(@"%s", __FUNCTION__);
+//  // ここはよくわからない
+//  // 特になくても、直接指定すればいいのでは？
+//  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+//  NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
+//
+//
+//  // If appropriate, configure the new managed object.
+//  // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+//  //    [newManagedObject setValuesForKeysWithDictionary:nsdictionary];
+//
+//  /**
+//   *  アイテムを初期化
+//   */
+//  Item *newItem    = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+//                                                   inManagedObjectContext:context];
+//  newItem.title    = title;// タイトル
+//  newItem.state    = [NSNumber numberWithBool:false];// 未完了状態
+//  newItem.reminder = reminder;// 日付
+//
+//  /**
+//   *  タグを初期化
+//   */
+//  for (NSString *tagTitle in tagTitleSet) // 指定されたタグの数だけ
+//  {
+//    NSLog(@"%@%@", @"new tag: ", tagTitle);
+//    Tag *newTag  = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+//                                                 inManagedObjectContext:context];
+//    /**
+//     *  タグとアイテムを紐付
+//     */
+//    newTag.title = tagTitle; // タイトル
+//    [newTag addItemsObject:newItem];
+//    [newItem addTagsObject:newTag];
+//  }
+//  
+//  /**
+//   *  保存する
+//   */
+//  [app saveContext];
 }
 
 #pragma mark - Table View
@@ -545,7 +576,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
-  NSLog(@"controller: %@", controller);
   UITableView *tableView = self.tableView;
 
   switch(type) {
@@ -556,15 +586,25 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       break;
 
     case NSFetchedResultsChangeDelete:
+    {
       NSLog(@"%@", @"delete");
       [tableView deleteRowsAtIndexPaths:@[indexPath]
                        withRowAnimation:UITableViewRowAnimationLeft];
+//      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//      NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
+//      for (Tag *tag in tags) { // そのセットそれぞれに対して
+//        if ([tag.items count] == 0) { // タグの関連付けがそのアイテムのみだった場合
+//          [app.managedObjectContext deleteObject:tag]; // そのタグも削除する
+//        }
+//      }
       break;
-
+    }
+      
     case NSFetchedResultsChangeUpdate:
       NSLog(@"%@", @"update");
       [self configureCell:(ItemCell *)[tableView cellForRowAtIndexPath:indexPath]
               atIndexPath:indexPath];                                // これであってる？？
+      
       break;
 
     case NSFetchedResultsChangeMove:

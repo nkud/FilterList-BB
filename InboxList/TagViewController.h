@@ -18,7 +18,8 @@ static NSString * const TagModeCellIdentifier = @"TagCell";
 
 @interface TagViewController : UITableViewController
 
-@property (strong, nonatomic) NSArray *tag_list;
+//@property (strong, nonatomic) NSArray *tag_list;
+@property (strong, nonatomic) NSArray *tagArray_;
 
 @property (assign, nonatomic) id <TagViewControllerDelegate> delegate;
 
