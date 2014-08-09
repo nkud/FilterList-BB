@@ -16,6 +16,8 @@
 
 +(BOOL)hasTag:(Tag *)tag;
 
++(NSArray *)getAllTagsArray;
+
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 
 @end

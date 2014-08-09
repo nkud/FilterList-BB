@@ -15,6 +15,7 @@
 #import "ItemCell.h"
 #import "Header.h"
 #import "InputHeader.h"
+#import "CoreDataController.h"
 
 @interface ItemViewController () {
   int location_center_x;
@@ -37,13 +38,16 @@
 {
   NSLog(@"%s", __FUNCTION__);
   NSMutableArray *taglist = [[NSMutableArray alloc] init];           //< 返す配列
-  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag"
-                                            inManagedObjectContext:app.managedObjectContext];
-  request.entity = entity;
-  request.sortDescriptors = nil;                                     //< @TODO メニューをソートする場合はここ
-  NSArray *objs = [app.managedObjectContext executeFetchRequest:request
-                                                           error:nil];
+//  NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag"
+//                                            inManagedObjectContext:app.managedObjectContext];
+//  request.entity = entity;
+//  request.sortDescriptors = nil;                                     //< @TODO メニューをソートする場合はここ
+//  NSArray *objs = [app.managedObjectContext executeFetchRequest:request
+//                                                           error:nil];
+
+  NSArray *objs = [CoreDataController getAllTagsArray];
+  NSLog(@"%@", objs);
   for ( Tag *tag in objs ) {
     /// @todo タグ関連は要変更
     if ([tag.title isEqual:@""]) continue;                           //< タイトルが未設定ならスキップ

@@ -11,6 +11,24 @@
 #import "AppDelegate.h"
 
 @implementation CoreDataController
+
+/**
+ *  全タグの配列を返す
+ *
+ *  @return <#return value description#>
+ *  @todo ソート条件までは設定していない
+ */
++(NSArray *)getAllTagsArray
+{
+  NSFetchRequest *request = [[NSFetchRequest alloc] init]; // リクエスト
+  NSEntityDescription *entity = [self entityDescriptionForName:@"Tag"]; // エンティティディスクリプションを取得
+  request.entity = entity; // エンティティディスクリプションをリクエストに設定
+
+  NSArray *tags_array = [[self managedObjectContext] executeFetchRequest:request
+                                                                   error:nil];
+  
+  return tags_array;
+}
 /**
  *  エンティティディスクリプションを返す
  *
@@ -57,15 +75,11 @@
  */
 +(BOOL)hasTag:(Tag *)tag
 {
-  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-  NSEntityDescription *entity = [self entityDescriptionForName:@"Tag"];
-  request.entity = entity;
-  NSUInteger num = [[self managedObjectContext] countForFetchRequest:request
-                                                                error:nil];
-  if (num > 0) {
-    return YES;
-  } else {
-    return NO;
+  NSInteger num = [[self getAllTagsArray] count];
+  if (num > 0) {                // それが０より大きければ
+    return YES;                 // 真を返し
+  } else {                      // そうでなければ
+    return NO;                  // 偽を返す
   }
 }
 
