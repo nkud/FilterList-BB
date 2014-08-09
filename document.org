@@ -1,12 +1,12 @@
 #+TITLE: FilterList
 #+AUTHOR: Naoki Ueda
-#+OPTIONS: \n:t H:1 toc:t creator:nil num:t
+#+OPTIONS: \n:t H:1 toc:t creator:nil num:nil
 #+LANGUAGE: ja
 #+LaTeX_CLASS: jsarticle
 #+STARTUP: content
 #+HTML_HEAD: <style type="text/css">body {font-family:"menlo";font-size:1em;}</style>
 
-* 作業工程 [9%]
+* 作業工程 [14%]
 
 ** DONE スライドで新規入力するようにする
 CLOSED: [2014-08-02 Sat 21:46]
@@ -15,7 +15,12 @@ CLOSED: [2014-08-02 Sat 21:46]
 
 ** TODO タグを削除できるようにする
 
+** DONE アイテムを削除できるようにする
+CLOSED: [2014-08-09 Sat 19:07]
+
 ** TODO フィルターを削除できるようにする
+
+** TODO スワイプ機能を削除する
 ** TODO タグリストの重複をなくす
 
 ** TODO アイテムセルを完成形にする
@@ -30,6 +35,7 @@ CLOSED: [2014-08-02 Sat 21:46]
 
 ** TODO アプリのアイコンを作成する
 ** TODO 完了済みのタグを見るコントローラーを作成する
+** TODO ゴミ箱を作る
 
 ** TODO 完了済みのタグをアイテムモードから自動的に消す
 

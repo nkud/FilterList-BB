@@ -43,7 +43,7 @@
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
 		B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */; };
 		B0A351141984B6AA0062ABB1 /* TagFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */; };
-		B0A3511A19854B170062ABB1 /* TagField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A3511919854B170062ABB1 /* TagField.m */; };
+		B0BDA87E1996341E003AA40B /* TagField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA87D1996341E003AA40B /* TagField.m */; };
 		B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* ItemCell.m */; };
 		B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DC58D8194DAD770089E8FA /* CheckBox_False.png */; };
 /* End PBXBuildFile section */
@@ -116,8 +116,8 @@
 		B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultControllerFactory.m; sourceTree = "<group>"; };
 		B0A351121984B6A20062ABB1 /* TagFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagFieldViewController.h; sourceTree = "<group>"; };
 		B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagFieldViewController.m; sourceTree = "<group>"; };
-		B0A3511819854B170062ABB1 /* TagField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagField.h; path = InboxListTests/TagField.h; sourceTree = SOURCE_ROOT; };
-		B0A3511919854B170062ABB1 /* TagField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagField.m; path = InboxListTests/TagField.m; sourceTree = SOURCE_ROOT; };
+		B0BDA87C1996341E003AA40B /* TagField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagField.h; sourceTree = "<group>"; };
+		B0BDA87D1996341E003AA40B /* TagField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagField.m; sourceTree = "<group>"; };
 		B0DABFAB1914CC50007597E3 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
 		B0DC58D8194DAD770089E8FA /* CheckBox_False.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_False.png; path = resource/CheckBox_False.png; sourceTree = SOURCE_ROOT; };
@@ -294,8 +294,8 @@
 		B07D5830198E1D5600688F98 /* TagField */ = {
 			isa = PBXGroup;
 			children = (
-				B0A3511819854B170062ABB1 /* TagField.h */,
-				B0A3511919854B170062ABB1 /* TagField.m */,
+				B0BDA87C1996341E003AA40B /* TagField.h */,
+				B0BDA87D1996341E003AA40B /* TagField.m */,
 			);
 			name = TagField;
 			sourceTree = "<group>";
@@ -524,8 +524,8 @@
 				B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
 				B03E6C1A18CAA316007703B8 /* Tag.m in Sources */,
-				B0A3511A19854B170062ABB1 /* TagField.m in Sources */,
 				B0808049195825A3007D21E4 /* TagViewController.m in Sources */,
+				B0BDA87E1996341E003AA40B /* TagField.m in Sources */,
 				B00AD69D18C45E470005A552 /* AppDelegate.m in Sources */,
 				B080804C19582CF6007D21E4 /* MainViewController.m in Sources */,
 				B072C8CC198CF80800F95B83 /* InputHeader.m in Sources */,
