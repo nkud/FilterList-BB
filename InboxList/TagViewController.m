@@ -39,8 +39,8 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  /// 選択されたタグをデリゲートに渡す
-  if (indexPath.section == 0) { // セクション０なら
+  // 選択されたタグをデリゲートに渡す
+  if (indexPath.section == 0) {         // セクション０なら
     [self.delegate selectedTag:@"all"]; // すべてのリストを表示
     return;
   } // そうでないなら

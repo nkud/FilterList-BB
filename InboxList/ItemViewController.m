@@ -190,10 +190,18 @@
 -(void)quickInsertNewItem:(NSString *)itemString
 {
   NSLog(@"%s", __FUNCTION__);
-  [self insertNewObject:self
-                  title:itemString
-                    tag:[NSSet setWithObject:self.selectedTagString]
-               reminder:[NSDate date]];
+  if ([self.selectedTagString isEqualToString:@"all"]) { // 全てのアイテムを表示中なら
+    [self insertNewObject:self                           // 自分に
+                    title:itemString                     // タイトルと
+                      tag:nil                            // タグは空で
+                 reminder:[NSDate date]];                // 今日の日付で挿入
+  } else {                                               // あるタグのみ表示中なら
+  [self insertNewObject:self                             // 自分に
+                  title:itemString                       // タイトルと
+                    tag:[NSSet setWithObject:self.selectedTagString] // そのタグと
+               reminder:[NSDate date]]; // 今日の日付で挿入
+  }
+
 }
 
 /**
