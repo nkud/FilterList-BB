@@ -4,7 +4,7 @@
 SDK="iphoneos7.1"
 
 # コンフィグレーション(「Debug」、「Release」、「Ad hoc」)
-CONFIGURATION="Release"
+CONFIGURATION="AdHoc"
 
 # Xcodeのプロジェクト名
 PROJ_FILE_PATH="InboxList.xcodeproj"
@@ -23,13 +23,15 @@ OUT_IPA_DIR="out_ipa"
 
 # 出力されるipaファイル名
 now=` date +%y%m%d-%H%M%S`
-IPA_FILE_NAME="${now}"
+# IPA_FILE_NAME="${now}"
+IPA_FILE_NAME="test"
 
 # ライセンス取得時の開発者名
 DEVELOPPER_NAME="iPhone Distribution: hoge Developper"
 
 # アプリのプロビジョニングファイルのパス
-PROVISIONING_PATH="${HOME}/Library/MobileDevice/Provisioning\ Profiles/hoge.mobileprovision"
+# PROVISIONING_PATH="${HOME}/Library/MobileDevice/Provisioning\ Profiles/hoge.mobileprovision"
+PROVISIONING_PATH="${HOME}/Desktop/heart/su104003_adhoc.mobileprovision"
 
 # 出力先ipaディレクトリ作成
 # -------------------------
