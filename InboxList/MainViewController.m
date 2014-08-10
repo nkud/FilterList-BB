@@ -74,6 +74,7 @@
  */
 - (void)moveMasterViewToCenter
 {
+  LOG(@"アイテムビューを中心に持ってくる");
   CGPoint next_center = self.navigationController.view.center;
   CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
 
@@ -288,7 +289,7 @@
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
   self.filterViewController.delegate = self;
 
-  /// ジェスチャーを設定
+  LOG(@"ジェスチャーを設定");
   UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
                                                                                         action:@selector(handleSwipeFrom:)];
   UISwipeGestureRecognizer *recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self
@@ -302,7 +303,7 @@
   self.navigationController.title = @"FilterList";
 //  [self addChildViewController:self.navigationController];
 
-  /// メニューバー初期化
+  LOG(@"メニューバー初期化");
   self.tagViewController = [[TagViewController alloc] initWithNibName:nil bundle:nil];
   self.tagViewController.delegate = self;
   self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
@@ -355,17 +356,17 @@ didSelectItem:(UITabBarItem *)item
  */
 -(void)selectedTag:(NSString *)tagString
 {
-  if ([tagString isEqualToString:@"all"]) {
-    [self loadMasterViewForTag:@"all"
+  LOG(@"タグが選択された時の処理");
+  if ([tagString isEqualToString:@""]) {
+    [self loadMasterViewForTag:@"NO TAGS"
         fetcheResultController:[ResultControllerFactory fetchedResultsController:self.itemViewController]];
     return;
   }
 
-  LOG(@"load for tag");
+  LOG(@"指定されたタグでロード");
   [self loadMasterViewForTag:tagString
       fetcheResultController:[ResultControllerFactory fetchedResultsControllerForTags:[NSSet setWithObject:tagString]
                                                                              delegate:self.itemViewController]];
-  LOG(@"end load for tag");
 }
 
 /**

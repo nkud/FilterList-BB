@@ -49,10 +49,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //    return;
 //  } // そうでないなら
 
-  NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
-
-  Tag *tag = [self.fetchedResultsController objectAtIndexPath:index];
-//  Tag *tag = self.tagArray_[indexPath.row];
+  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
   [self.delegate selectedTag:tag.title]; // 選択されたタグを渡す
 }
 
@@ -142,8 +139,13 @@ numberOfRowsInSection:(NSInteger)section
 //      break;
 //  }
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.textLabel.text = tag.title;
+  if ([tag.title isEqualToString:@""]) {
+    cell.textLabel.text = @"NO TAGS";
+  } else {
+    cell.textLabel.text = tag.title;
+  }
 
+  cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [tag.items count]];
   return cell;
 }
 
@@ -181,11 +183,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   switch (editingStyle) {
     case UITableViewCellEditingStyleDelete: // 削除
     {
-      LOG(@"delete");
+      LOG(@"タグを削除");
 //      [[CoreDataController managedObjectContext] deleteObject:self.tagArray_[indexPath.row]];
 //      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
 //                                              inSection:0];
-      [[CoreDataController managedObjectContext] deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+      Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      LOG(@"関連アイテム：%@", tag.items);
+      LOG(@"アイテムを削除");
+      for (Item *item in tag.items) {
+        [[CoreDataController managedObjectContext] deleteObject:item];
+      }
+
+      LOG(@"タグを削除");
+      [[CoreDataController managedObjectContext] deleteObject:tag];
+
+      LOG(@"削除されるオブジェクト数：%d", [[[CoreDataController managedObjectContext] deletedObjects] count]);
+
       [CoreDataController saveContext];
       break;
     }
