@@ -41,14 +41,14 @@ $(OUT_IPA_DIR)/$(IPA_FILE_NAME).ipa: build ipa
 
 ipa: $(OUT_APP_DIR)/Applications/$(PRODUCT_NAME).app
 	@[ -d $(OUT_IPA_DIR) ] || $(MKDIR) $(OUT_IPA_DIR)
-	xcrun -sdk "$(SDK)" PackageApplication "$(PWD)/$(OUT_APP_DIR)/Applications/$(PRODUCT_NAME).app" -o "$(PWD)/$(OUT_IPA_DIR)/$(IPA_FILE_NAME).ipa" -embed $(PROVISIONING_PATH)
+	@xcrun -sdk "$(SDK)" PackageApplication "$(PWD)/$(OUT_APP_DIR)/Applications/$(PRODUCT_NAME).app" -o "$(PWD)/$(OUT_IPA_DIR)/$(IPA_FILE_NAME).ipa" -embed $(PROVISIONING_PATH)
 
 
 build: clean
 	@[ -d $(OUT_APP_DIR) ] || $(MKDIR) $(OUT_APP_DIR)
-	xcodebuild -project "$(PROJ_FILE_PATH)" -sdk "$(SDK)" -configuration "$(CONFIGURATION)" -target "$(TARGET_NAME)" install DSTROOT="$(OUT_APP_DIR)"
+	@xcodebuild -project "$(PROJ_FILE_PATH)" -sdk "$(SDK)" -configuration "$(CONFIGURATION)" -target "$(TARGET_NAME)" install DSTROOT="$(OUT_APP_DIR)"
 clean:
-	xcodebuild clean -project "$(PROJ_FILE_PATH)"
+	@xcodebuild clean -project "$(PROJ_FILE_PATH)"
 
 
 upload: $(OUT_IPA_DIR)/$(IPA_FILE_NAME).ipa

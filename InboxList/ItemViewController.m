@@ -132,9 +132,9 @@
  */
 - (void)viewDidLoad
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"アイテムビューがロードされた後の処理");
   [super viewDidLoad];
-
+  
   // 変数を初期化
   [self initParameter];
 
@@ -188,7 +188,8 @@
                  willDecelerate:(BOOL)decelerate
 {
   if (self.triggerDragging < -120) { // 規定値よりもドラッグすると
-    NSLog(@"%@", @"クイック入力");
+
+    LOG(@"クイック入力開始");
     [self.inputHeader activateInput]; // クイック入力を作動させる
   }
 }
@@ -236,7 +237,7 @@
  */
 - (void)toEdit:(id)sender
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"編集");
   if (self.tableView.isEditing) {
     [self setEditing:false animated:YES];
   } else {
@@ -255,7 +256,7 @@
                          data:(NSArray *)data
                      reminder:(NSDate *)reminder
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"入力画面を終了時の処理");
   NSString *title = data[0];                                         //< タイトルを取得して
   if (title.length > 0) {                                            //< 空欄でなければ
     [self insertNewObject:sender
@@ -327,6 +328,7 @@
                     tag:(NSSet *)tagTitleSet
                reminder:(NSDate *)reminder
 {
+  LOG(@"新しいアイテムを挿入");
   NSMutableSet *tags = [[NSMutableSet alloc] init];
   for (NSString *title in tagTitleSet) {
     Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
@@ -388,7 +390,7 @@
  */
 - (void)updateTableView
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"テーブルビューの全てを更新");
   [self.tableView reloadData];
 }
 
@@ -401,6 +403,7 @@
 - (void)configureCell:(ItemCell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
+  LOG(@"セルを作成");
   Item *item                 = [self.fetchedResultsController objectAtIndexPath:indexPath];
 //  cell.textLabel.text = [[object valueForKey:@"title"] description]; // text
   cell.textLabel.text        = item.title;
@@ -421,6 +424,7 @@
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  LOG(@"アイテムが選択された時の処理");
 //  ItemDetailViewController *detailViewController = [[ItemDetailViewController alloc] init];
   ItemDetailViewController *detailViewController = [[ItemDetailViewController alloc] initWithNibName:@"ItemDetailViewController"
                                                                                               bundle:nil];
@@ -473,7 +477,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (ItemCell *)tableView:(UITableView *)tableView
 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"指定されたセルを返す");
   static NSString *CellIdentifier = @"ItemCell";
   ItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   [self configureCell:cell atIndexPath:indexPath];
@@ -506,6 +510,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  LOG(@"テーブル編集時の処理");
   /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     NSManagedObjectContext *context = [[self fetchedResultsController] managedObjectContext];
@@ -535,7 +540,7 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-  NSLog(@"%s", "Moved");
+  LOG(@"移動");
 }
 
 #pragma mark - Fetched results controller
@@ -547,6 +552,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
+  LOG(@"アイテムビューを更新する前の処理");
   [self.tableView beginUpdates];
 }
 
@@ -555,6 +561,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type
 {
+  LOG(@"アイテムビューを更新する処理");
   switch(type) {
     case NSFetchedResultsChangeInsert:
       NSLog(@"%@", @"Insert");
@@ -576,18 +583,19 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
+  LOG(@"アイテムビューを更新する処理");
   UITableView *tableView = self.tableView;
 
   switch(type) {
     case NSFetchedResultsChangeInsert:
-      NSLog(@"%@", @"insert");
+      LOG(@"挿入");
       [tableView insertRowsAtIndexPaths:@[newIndexPath]
                        withRowAnimation:UITableViewRowAnimationLeft];
       break;
 
     case NSFetchedResultsChangeDelete:
     {
-      NSLog(@"%@", @"delete");
+      LOG(@"削除");
       [tableView deleteRowsAtIndexPaths:@[indexPath]
                        withRowAnimation:UITableViewRowAnimationLeft];
 //      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -601,14 +609,14 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     }
       
     case NSFetchedResultsChangeUpdate:
-      NSLog(@"%@", @"update");
+      LOG(@"更新");
       [self configureCell:(ItemCell *)[tableView cellForRowAtIndexPath:indexPath]
               atIndexPath:indexPath];                                // これであってる？？
       
       break;
 
     case NSFetchedResultsChangeMove:
-      NSLog(@"%@", @"move");
+      LOG(@"移動");
       [tableView deleteRowsAtIndexPaths:@[indexPath]
                        withRowAnimation:UITableViewRowAnimationFade];
       [tableView insertRowsAtIndexPaths:@[newIndexPath]
@@ -628,7 +636,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"アイテムビューが更新されたあとの処理");
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];
 }
@@ -638,6 +646,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (void)didReceiveMemoryWarning
 {
+  LOG(@"メモリー警告");
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }

@@ -17,11 +17,14 @@ static NSString * const TagModeCellIdentifier = @"TagCell";
 @end
 
 @interface TagViewController : UITableViewController
+<NSFetchedResultsControllerDelegate>
 
 //@property (strong, nonatomic) NSArray *tag_list;
 @property (strong, nonatomic) NSArray *tagArray_;
 
 @property (assign, nonatomic) id <TagViewControllerDelegate> delegate;
+
+@property NSFetchedResultsController *fetchedResultsController;
 
 - (void)updateTableView;
 

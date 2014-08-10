@@ -10,6 +10,7 @@
 #import "Header.h"
 #import "TagCell.h"
 #import "Tag.h"
+#import "CoreDataController.h"
 
 @interface TagViewController ()
 
@@ -40,12 +41,18 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  // 選択されたタグをデリゲートに渡す
-  if (indexPath.section == 0) {         // セクション０なら
-    [self.delegate selectedTag:@"all"]; // すべてのリストを表示
-    return;
-  } // そうでないなら
-  Tag *tag = self.tagArray_[indexPath.row];
+  LOG(@"タグが選択された時の処理");
+
+//  // 選択されたタグをデリゲートに渡す
+//  if (indexPath.section == 0) {         // セクション０なら
+//    [self.delegate selectedTag:@"all"]; // すべてのリストを表示
+//    return;
+//  } // そうでないなら
+
+  NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+
+  Tag *tag = [self.fetchedResultsController objectAtIndexPath:index];
+//  Tag *tag = self.tagArray_[indexPath.row];
   [self.delegate selectedTag:tag.title]; // 選択されたタグを渡す
 }
 
@@ -57,27 +64,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  *
  *  @return タイトルの文字列
  */
--(NSString *)tableView:(UITableView *)tableView
-titleForHeaderInSection:(NSInteger)section
-{
-  switch (section) {
-    case 0:
-      return @"Default";
-      break;
-    case 1:
-      return @"Tag";
-      break;
-  }
-  return nil;
-}
+//-(NSString *)tableView:(UITableView *)tableView
+//titleForHeaderInSection:(NSInteger)section
+//{
+//  LOG(@"セクションのタイトルを設定");
+//  switch (section) {
+//    case 0:
+//      return @"Default";
+//      break;
+//    case 1:
+//      return @"Tag";
+//      break;
+//  }
+//  return nil;
+//}
 
 /**
  * ビューがロードされた後の処理
  */
 - (void)viewDidLoad
 {
-  NSLog(@"%s", __FUNCTION__);
-
+  LOG(@"タグビューがロードされた後の処理");
   [super viewDidLoad];
 
 //  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MenuCell"];
@@ -91,7 +98,7 @@ titleForHeaderInSection:(NSInteger)section
  */
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [[NSNumber numberWithInt:2] integerValue];
+  return [[NSNumber numberWithInt:1] integerValue];
 }
 
 /**
@@ -100,10 +107,12 @@ titleForHeaderInSection:(NSInteger)section
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  if (section == 0) {
-    return 1;
-  }
-  return [self.tagArray_ count];
+//  if (section == 0) {
+//    return 1;
+//  }
+  int num = [[self.fetchedResultsController fetchedObjects] count];
+  LOG(@"セクションのアイテム数：%d", num);
+  return num;
 }
 
 /**
@@ -113,12 +122,28 @@ numberOfRowsInSection:(NSInteger)section
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
-  if (indexPath.section == 0) {
-    cell.textLabel.text = @"all";
-    return cell;
-  }
-  Tag *tag = self.tagArray_[indexPath.row];
+
+//  LOG(@"セクションによる分岐");
+//  switch (indexPath.section) {
+//    case 0:
+//      cell.textLabel.text = @"all";
+//      break;
+//
+//    case 1:
+//    {
+//      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
+//                                              inSection:0];
+//      Tag *tag = [self.fetchedResultsController objectAtIndexPath:index];
+//      cell.textLabel.text = tag.title;
+//    }
+//      break;
+//      
+//    default:
+//      break;
+//  }
+  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.textLabel.text = tag.title;
+
   return cell;
 }
 
@@ -130,6 +155,139 @@ numberOfRowsInSection:(NSInteger)section
 - (void)updateTableView
 {
   [self.tableView reloadData];
+}
+
+/**
+ *  テーブル編集の可否
+ *
+ *  @param tableView テーブルビュー
+ *  @param indexPath インデックス
+ *
+ *  @return 可否
+ */
+-(BOOL)tableView:(UITableView *)tableView
+canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//  if (indexPath.section == 0) { // セクション０なら
+//    return NO;                  // 編集不可
+//  }                             // タグセクションなら
+  return YES;                   // 編集可
+}
+
+-(void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  switch (editingStyle) {
+    case UITableViewCellEditingStyleDelete: // 削除
+    {
+      LOG(@"delete");
+//      [[CoreDataController managedObjectContext] deleteObject:self.tagArray_[indexPath.row]];
+//      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
+//                                              inSection:0];
+      [[CoreDataController managedObjectContext] deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+      [CoreDataController saveContext];
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+/**
+ *  コンテンツを更新する前処理
+ *
+ *  @param controller リザルトコントローラー
+ */
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+  LOG(@"コンテキストを更新する前処理");
+  [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
+{
+  LOG(@"コンテキストを更新");
+  switch(type) {
+    case NSFetchedResultsChangeInsert:
+      LOG(@"挿入");
+      [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                    withRowAnimation:UITableViewRowAnimationFade];
+      break;
+
+    case NSFetchedResultsChangeDelete:
+      LOG(@"削除");
+      [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                    withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+  LOG(@"コンテキストを更新");
+  UITableView *tableView = self.tableView;
+
+  switch(type) {
+    case NSFetchedResultsChangeInsert:
+      LOG(@"挿入");
+      [tableView insertRowsAtIndexPaths:@[newIndexPath]
+                       withRowAnimation:UITableViewRowAnimationLeft];
+      break;
+
+    case NSFetchedResultsChangeDelete:
+    {
+      LOG(@"削除");
+      [tableView deleteRowsAtIndexPaths:@[indexPath]
+                       withRowAnimation:UITableViewRowAnimationLeft];
+      //      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      //      NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
+      //      for (Tag *tag in tags) { // そのセットそれぞれに対して
+      //        if ([tag.items count] == 0) { // タグの関連付けがそのアイテムのみだった場合
+      //          [app.managedObjectContext deleteObject:tag]; // そのタグも削除する
+      //        }
+      //      }
+      break;
+    }
+
+    case NSFetchedResultsChangeUpdate:
+      LOG(@"更新");
+//      [self configureCell:(ItemCell *)[tableView cellForRowAtIndexPath:indexPath]
+//              atIndexPath:indexPath];                                // これであってる？？
+
+      break;
+
+    case NSFetchedResultsChangeMove:
+      LOG(@"移動");
+      [tableView deleteRowsAtIndexPaths:@[indexPath]
+                       withRowAnimation:UITableViewRowAnimationFade];
+      [tableView insertRowsAtIndexPaths:@[newIndexPath]
+                       withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+}
+
+/*
+ // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
+ */
+
+/**
+ *  コンテンツが更新された後処理
+ *
+ *  @param controller リザルトコントローラー
+ */
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+  LOG(@"コンテキストを更新した後の処理");
+  // In the simplest, most efficient, case, reload the table view.
+  [self.tableView endUpdates];
 }
 
 /*

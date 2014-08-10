@@ -12,11 +12,20 @@
 //#define MIN(a,b)  ((a)<(b) ? (a) : (b))
 //#define MAX(a,b)  ((a)<(b) ? (b) : (a))
 
-#define LOG(A, ...) NSLog(@"DEBUG: %s:%d:%@",__PRETTY_FUNCTION__,__LINE__,[NSString stringWithFormat:A,##__VA_ARGS__]);
+// Debug
+#define LOG(A, ...) NSLog(@"[ MESSAGE ] %@ %s(%d)",[NSString stringWithFormat:A,##__VA_ARGS__],__PRETTY_FUNCTION__,__LINE__);
 
+// UIColor
 #define RGB(r, g, b)      [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
 #define RGBA(r, g, b, a)  [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
+// Bounds
 #define SCREEN_BOUNDS   ([UIScreen mainScreen].bounds)
+
+// Default Height
+#define STATUSBAR_H 20
+#define TABBAR_H    48
+#define NAVBAR_H    44
+#define TOOLBAR_H   44
 
 #endif

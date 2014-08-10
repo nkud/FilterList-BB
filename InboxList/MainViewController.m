@@ -46,7 +46,7 @@
  */
 -(void)dismissInputView:(NSString *)filterString
 {
-  NSLog(@"%@", filterString);
+  LOG(@"フィルターを削除");
   [self dismissViewControllerAnimated:YES
                            completion:nil];
 }
@@ -56,7 +56,7 @@
  */
 - (void)initParameter
 {
-  swipe_distance = 200;
+  swipe_distance = SCREEN_BOUNDS.size.width;
   app = [[UIApplication sharedApplication] delegate];
 }
 
@@ -116,7 +116,7 @@
  */
 -(void)itemListMode
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"アイテムリストモードに変更");
   CGPoint next_center = self.navigationController.view.center;
 
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
@@ -128,13 +128,14 @@
                      self.navigationController.view.center = next_center;
                    }];
 }
+
 /**
  *  タグリスト表示モード
  */
 -(void)tagListMode
 {
-  NSLog(@"%s", __FUNCTION__);
-  int distance = 200;
+  LOG(@"タグリストモードに変更");
+  int distance = SCREEN_BOUNDS.size.width;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
@@ -154,8 +155,8 @@
  */
 -(void)filterListMode
 {
-  NSLog(@"%s", __FUNCTION__);
-  int distance = 200;
+  LOG(@"フィルターリストモード");
+  int distance = SCREEN_BOUNDS.size.width;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
@@ -175,8 +176,8 @@
  */
 - (void)swipeDirectionRight
 {
-  NSLog(@"%s", __FUNCTION__);
-  int distance = 200;
+  LOG(@"右にスワイプ");
+  int distance = SCREEN_BOUNDS.size.width;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
 
@@ -210,7 +211,7 @@
  */
 - (void)swipeDirectionCenter
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"中心にスワイプ");
   CGPoint next_center = self.navigationController.view.center;
 
   CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
@@ -227,9 +228,8 @@
  */
 - (void)swipeDirectionLeft
 {
-  NSLog(@"%s", __FUNCTION__);
-
-  int distance = 200;
+  LOG(@"左方向にスワイプ");
+  int distance = SCREEN_BOUNDS.size.width;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
 
@@ -305,6 +305,7 @@
   /// メニューバー初期化
   self.tagViewController = [[TagViewController alloc] initWithNibName:nil bundle:nil];
   self.tagViewController.delegate = self;
+  self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
 
   /// コントローラーのビューを配置
   [self.view addSubview:self.tagViewController.view];
@@ -379,7 +380,7 @@ didSelectItem:(UITabBarItem *)item
 - (void)loadMasterViewForTag:(NSString *)tag
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"アイテムビューをロードする");
   self.itemViewController.selectedTagString = tag;//< 選択されたタグを渡して
   self.itemViewController.fetchedResultsController = fetchedResultController;
   [self.itemViewController updateTableView]; //< テーブルを更新

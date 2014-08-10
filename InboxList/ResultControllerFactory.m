@@ -25,6 +25,7 @@
  */
 + (NSFetchedResultsController *)fetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
 {
+  LOG(@"通常のリザルトコントローラー");
   AppDelegate *app = [[UIApplication sharedApplication] delegate]; // アプリケーションデリゲートを取得
 
   //  if (_fetchedResultsController != nil) {
@@ -56,6 +57,7 @@
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
 
 	NSError *error = nil;
+  LOG(@"フェッチを実行");
 	if (![aFetchedResultsController performFetch:&error]) {
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     abort();
@@ -75,7 +77,7 @@
 {
   AppDelegate *app = [[UIApplication sharedApplication] delegate];
 
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"タグを指定したリザルトコントローラー");
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
                                             inManagedObjectContext:app.managedObjectContext];
@@ -86,7 +88,6 @@
   /**
    *  ソート条件
    */
-  LOG(@"ソート条件");
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
@@ -95,7 +96,6 @@
   /**
    *  検索条件
    */
-  LOG(@"検索条件");
   NSString *format = @"ANY SELF.tags.title == %@"; // フォーマット
   NSMutableArray *predicate_array = [[NSMutableArray alloc] init]; // 条件を格納する配列
   NSPredicate *predicate;       // 条件
