@@ -6,7 +6,7 @@
 #+STARTUP: content
 #+HTML_HEAD: <style type="text/css">body {font-family:"menlo";font-size:1em;}</style>
 
-* 作業工程 [18%]
+* 作業工程 [29%]
 
 ** DONE スライドで新規入力するようにする
 CLOSED: [2014-08-02 Sat 21:46]
@@ -14,7 +14,11 @@ CLOSED: [2014-08-02 Sat 21:46]
 ** DONE [#A] タグリストの重複をなくす
 CLOSED: [2014-08-10 Sun 01:26]
 
-** TODO タグを削除できるようにする
+** DONE タグを削除できるようにする
+CLOSED: [2014-08-10 Sun 18:20]
+
+** DONE タグの横にアイテム数を表示
+CLOSED: [2014-08-10 Sun 18:21]
 
 ** TODO 複数タグのデータの渡し方を統一する
 

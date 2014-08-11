@@ -283,22 +283,36 @@
   NSLog(@"%s", __FUNCTION__);
   // アイテムを取得
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
-  [item setValue:itemTitle forKeyPath:@"title"]; //< 更新後のタイトルを代入
+  item.title = itemTitle;
+  //  [item setValue:itemTitle forKeyPath:@"title"]; //< 更新後のタイトルを代入
   // 更新後のタグを代入
   // ここでは空白区切りで羅列している
-  NSMutableSet *tags = [[NSMutableSet alloc] init];
-  for( NSString *title in tagTitles ) {
-    Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                                inManagedObjectContext:[app managedObjectContext]];
-    newTag.title = title;
-    [newTag addItems:[NSSet setWithObject:item]];
-    [tags addObject:newTag];
-  }
-  [item setValue:tags forKeyPath:@"tags"];
+//  NSMutableSet *tags = [[NSMutableSet alloc] init];
+//  for( NSString *title in tagTitles ) {
+//    NSArray[CoreDataController fetchTagsForTitle:title];
+//    Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+//                                                inManagedObjectContext:[app managedObjectContext]];
+//    newTag.title = title;
+//    [newTag addItems:[NSSet setWithObject:item]];
+//    [tags addObject:newTag];
+//  }
 
+  for (NSString *title in tagTitles) {
+    NSArray *tags = [CoreDataController fetchTagsForTitle:title];
+    if ([tags count] > 0) {
+      Tag *tag = [tags objectAtIndex:0];
+      [tag addItemsObject:item];
+      [item addTagsObject:tag];
+    } else {
+      Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+                                                  inManagedObjectContext:[CoreDataController managedObjectContext]];
+      newTag.title = title;
+      [newTag addItemsObject:item];
+      [item addTagsObject:newTag];
+    }
+  }
   // モデルを保存する
-  [app saveContext];
+  [CoreDataController saveContext];
 }
 
 /**

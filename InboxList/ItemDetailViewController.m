@@ -7,7 +7,7 @@
 //
 
 #import "ItemDetailViewController.h"
-
+#import "Header.h"
 #import "Tag.h"
 
 @interface ItemDetailViewController ()
@@ -46,7 +46,7 @@
 -(id)initWithNibName:(NSString *)nibNameOrNil
               bundle:(NSBundle *)nibBundleOrNil
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"詳細ビューを初期化");
   self = [super initWithNibName:nibNameOrNil
                          bundle:nibBundleOrNil];
   [self initInterface];
@@ -58,7 +58,7 @@
  */
 - (void)initInterface
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"詳細ビューインターフェイスを初期化");
   /**
    *  ボタン
    */
@@ -72,9 +72,10 @@
  */
 - (void)initItem
 {
+  LOG(@"アイテムを更新する");
   if (self.detailItem) {
-    NSString *title = [self.detailItem valueForKey:@"title"];
-    NSSet *tags     = [self.detailItem valueForKey:@"tags"];
+    NSString *title = self.detailItem.title;
+    NSSet *tags     = self.detailItem.tags;
 
     NSMutableString *field = [[NSMutableString alloc] init];
     [self.titleField setText:title]; //< タイトル設置

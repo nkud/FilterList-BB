@@ -31,6 +31,9 @@
   newItem.state = [NSNumber numberWithBool:false];
   newItem.reminder = reminder;
 
+  /**
+   *  @todo ここを関数化！！！
+   */
   for (Tag *tag in tags) {
     NSArray *tags = [self fetchTagsForTitle:tag.title];
     if ([tags count] > 0) {
