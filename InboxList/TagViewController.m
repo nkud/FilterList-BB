@@ -107,8 +107,7 @@ numberOfRowsInSection:(NSInteger)section
 //  if (section == 0) {
 //    return 1;
 //  }
-  int num = [[self.fetchedResultsController fetchedObjects] count];
-  LOG(@"セクションのアイテム数：%d", num);
+  NSInteger num = [[self.fetchedResultsController fetchedObjects] count];
   return num;
 }
 
@@ -144,8 +143,6 @@ numberOfRowsInSection:(NSInteger)section
   } else {
     cell.textLabel.text = tag.title;
   }
-
-  cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [tag.items count]];
   return cell;
 }
 
@@ -196,8 +193,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
       LOG(@"タグを削除");
       [[CoreDataController managedObjectContext] deleteObject:tag];
-
-      LOG(@"削除されるオブジェクト数：%d", [[[CoreDataController managedObjectContext] deletedObjects] count]);
 
       [CoreDataController saveContext];
       break;

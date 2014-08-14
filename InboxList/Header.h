@@ -13,7 +13,7 @@
 //#define MAX(a,b)  ((a)<(b) ? (b) : (a))
 
 // Debug
-#define LOG(A, ...) NSLog(@"[ MESSAGE ] %@ %s(%d)",[NSString stringWithFormat:A,##__VA_ARGS__],__PRETTY_FUNCTION__,__LINE__);
+#define LOG(A, ...) NSLog(@"[ MESSAGE ] %s(%d) %@",__PRETTY_FUNCTION__,__LINE__,[NSString stringWithFormat:A,##__VA_ARGS__]);
 
 // UIColor
 #define RGB(r, g, b)      [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]

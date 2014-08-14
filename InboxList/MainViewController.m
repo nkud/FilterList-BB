@@ -26,6 +26,7 @@
  */
 -(void)presentInputFilterView
 {
+  LOG(@"フィルター入力画面を作成・表示");
   // 初期化
   InputFilterViewController *inputFilterView = [[InputFilterViewController alloc]
                                                 initWithNibName:nil
@@ -117,7 +118,7 @@
  */
 -(void)itemListMode
 {
-  LOG(@"アイテムリストモードに変更");
+  LOG(@"アイテムリストモード");
   CGPoint next_center = self.navigationController.view.center;
 
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
@@ -135,7 +136,7 @@
  */
 -(void)tagListMode
 {
-  LOG(@"タグリストモードに変更");
+  LOG(@"タグリストモード");
   int distance = SCREEN_BOUNDS.size.width;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
@@ -162,7 +163,7 @@
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
   next_center.x = screen_center_x - distance;
-  [self.view sendSubviewToBack:self.tagViewController.view];
+  [self.view sendSubviewToBack:self.tagNavigationController.view];
 
   [UIView animateWithDuration:0.2
                    animations:^{
@@ -240,7 +241,7 @@
    *  フィルターモード
    */
   if (center_x == screen_x) {
-    [self.view sendSubviewToBack:self.tagViewController.view];
+    [self.view sendSubviewToBack:self.tagNavigationController.view];
     self.tabBar.selectedItem = self.tabBar.filterModeTab;
   } else {
     self.tabBar.selectedItem = self.tabBar.itemModeTab;
@@ -266,26 +267,24 @@
   /// パラメータを初期化
   [self initParameter];
 
-  /// マスタービュー初期化
+  LOG(@"アイテムビューを初期化");
   self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
   self.itemViewController.fetchedResultsController = [ResultControllerFactory fetchedResultsController:self.itemViewController]; // はじめは全アイテムを表示
 
-  /// ナビゲーションコントローラー初期化
+  LOG(@"ナビゲーションコントローラー初期化");
   self.navigationController = [[NavigationController alloc] initWithRootViewController:self.itemViewController];
 
   /**
    *  タブバー初期化
    */
-  int tab_bar_height = 49;
+  LOG(@"タブバー初期化");
   self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
-                                                         SCREEN_BOUNDS.size.height-tab_bar_height,
+                                                         SCREEN_BOUNDS.size.height-TABBAR_H,
                                                          SCREEN_BOUNDS.size.width,
-                                                         tab_bar_height)];
+                                                         TABBAR_H)];
   self.tabBar.delegate = self;
 
-  /**
-   *  フィルターコントローラーを初期化
-   */
+  LOG(@"フィルターコントローラーを初期化");
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
   self.filterViewController.delegate = self;
 
@@ -299,17 +298,16 @@
   [self.navigationController.view addGestureRecognizer:recognizerRight];
   [self.navigationController.view addGestureRecognizer:recognizerLeft];
 
-
   self.navigationController.title = @"FilterList";
-//  [self addChildViewController:self.navigationController];
 
-  LOG(@"メニューバー初期化");
-  self.tagViewController = [[TagViewController alloc] initWithNibName:nil bundle:nil];
+  LOG(@"タグモード初期化");
+  self.tagViewController = [[TagViewController alloc] initWithNibName:nil
+                                                               bundle:nil];
   self.tagViewController.delegate = self;
   self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
-
-  /// コントローラーのビューを配置
-  [self.view addSubview:self.tagViewController.view];
+  self.tagNavigationController = [[NavigationController alloc] initWithRootViewController:self.tagViewController];
+  LOG(@"コントローラーを配置");
+  [self.view addSubview:self.tagNavigationController.view];
   [self.view addSubview:self.filterViewController.view];
   [self.view addSubview:self.navigationController.view];
   [self.view addSubview:self.tabBar];
@@ -325,22 +323,18 @@
 didSelectItem:(UITabBarItem *)item
 {
   switch (item.tag) {
-      /**
-       *  左スワイプ
-       */
     case 0:
+      LOG(@"左スワイプ");
       [self tagListMode];
       break;
-      /**
-       *  中心に戻る
-       */
+
     case 1:
+      LOG(@"中心に戻る");
       [self itemListMode];
       break;
-      /**
-       *  右スワイプ
-       */
+
     case 2:
+      LOG(@"右スワイプ");
       [self filterListMode];
       break;
 
@@ -382,6 +376,7 @@ didSelectItem:(UITabBarItem *)item
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
   LOG(@"アイテムビューをロードする");
+  [self itemListMode];
   self.itemViewController.selectedTagString = tag;//< 選択されたタグを渡して
   self.itemViewController.fetchedResultsController = fetchedResultController;
   [self.itemViewController updateTableView]; //< テーブルを更新

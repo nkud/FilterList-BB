@@ -40,7 +40,6 @@
       Tag *tag = [tags objectAtIndex:0];
       [tag addItemsObject:newItem];
       [newItem addTagsObject:tag];
-      LOG(@"%d", tag.items.count);
     } else {
       Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
                                                   inManagedObjectContext:[self managedObjectContext]];

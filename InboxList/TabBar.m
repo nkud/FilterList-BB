@@ -16,6 +16,7 @@
  */
 -(void)createTabs
 {
+  LOG(@"タブバーを作成");
   self.tagModeTab = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:0];
   self.itemModeTab = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:1];
   self.filterModeTab = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:2];
@@ -32,7 +33,7 @@
  */
 - (id)initWithFrame:(CGRect)frame
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"初期化");
   self = [super initWithFrame:frame];
     if (self)
     {

@@ -30,6 +30,7 @@ InputFilterViewControlellerDelegate> {
 
 @property (strong, nonatomic) TabBar                    *tabBar;
 
+@property (strong, nonatomic) NavigationController *tagNavigationController;
 @property (strong, nonatomic) TagViewController         *tagViewController;
 
 -(void)loadMasterViewForTag:(NSString *)tag
