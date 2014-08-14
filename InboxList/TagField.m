@@ -8,6 +8,14 @@
 
 #import "TagField.h"
 
+/**
+ *  グローバル変数
+ */
+NSString *place_holter = @"input filter...";
+
+/**
+ *  実装
+ */
 @implementation TagField
 
 /**
@@ -22,8 +30,8 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-      [self setPlaceholder:@"input filter..."];
-      [self setBorderStyle:UITextBorderStyleRoundedRect];
+      [self setPlaceholder:place_holter]; // プレースホルダを設定
+      [self setBorderStyle:UITextBorderStyleRoundedRect]; // 境界を設定
       self.duration = 0.2f;
     }
     return self;
@@ -43,17 +51,16 @@
  */
 - (void)stateInput
 {
-  [UIView animateWithDuration:self.duration
-                   animations:^{
-                     [self setBackgroundColor:[UIColor whiteColor]];
-                     [self setTextColor:[UIColor blackColor]];
-                     [self setFont:[UIFont fontWithName:@"menlo"
-                                                   size:15]];
-
-                   } completion:^(BOOL finished) {
-                     NSLog(@"%@", @"入力状態");
-                   }];
-
+  [self setBackgroundColor:[UIColor whiteColor]];
+  [self setTextColor:[UIColor blackColor]];
+//  [UIView animateWithDuration:self.duration
+//                   animations:^{
+//                     [self setBackgroundColor:[UIColor whiteColor]];
+//                     [self setTextColor:[UIColor blackColor]];
+//                   } completion:^(BOOL finished) {
+//                     NSLog(@"%@", @"入力状態");
+//                   }];
+//
 }
 
 /**
@@ -61,16 +68,15 @@
  */
 - (void)stateFixed
 {
-  [UIView animateWithDuration:self.duration
-                   animations:^{
-                     [self setBackgroundColor:[UIColor blueColor]];
-                     [self setTextColor:[UIColor whiteColor]];
-                     [self setFont:[UIFont fontWithName:@"menlo"
-                                                   size:15]];
-                     
-                   } completion:^(BOOL finished) {
-                     NSLog(@"%@", @"確定状態");
-                   }];
+  [self setBackgroundColor:[UIColor blueColor]];
+  [self setTextColor:[UIColor whiteColor]];
+//  [UIView animateWithDuration:self.duration
+//                   animations:^{
+//                     [self setBackgroundColor:[UIColor blueColor]];
+//                     [self setTextColor:[UIColor whiteColor]];
+//                   } completion:^(BOOL finished) {
+//                     NSLog(@"%@", @"確定状態");
+//                   }];
 }
 
 /*

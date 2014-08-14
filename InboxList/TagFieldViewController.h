@@ -14,4 +14,6 @@
 
 @property (strong, nonatomic) NSMutableArray *textFieldArray;
 
+-(NSSet *)getFields;
+
 @end

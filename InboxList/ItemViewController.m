@@ -300,56 +300,16 @@
                reminder:(NSDate *)reminder
 {
   LOG(@"新しいアイテムを挿入");
-  NSMutableSet *tags = [[NSMutableSet alloc] init];
-  for (NSString *title in tagTitleSet) {
+  NSMutableSet *tags = [[NSMutableSet alloc] init]; // 渡すタグの配列
+  for (NSString *title in tagTitleSet) {            // 指定されたタグ名の
     Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
             insertIntoManagedObjectContext:nil];
-    tag.title = title;
-    [tags addObject:tag];
+    tag.title = title;          // タグを作成して
+    [tags addObject:tag];       // 配列に追加
   }
   [CoreDataController insertNewItem:title
                                tags:tags
                            reminder:reminder];
-//  NSLog(@"%s", __FUNCTION__);
-//  // ここはよくわからない
-//  // 特になくても、直接指定すればいいのでは？
-//  NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-//  NSEntityDescription *entity     = [[self.fetchedResultsController fetchRequest] entity];
-//
-//
-//  // If appropriate, configure the new managed object.
-//  // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-//  //    [newManagedObject setValuesForKeysWithDictionary:nsdictionary];
-//
-//  /**
-//   *  アイテムを初期化
-//   */
-//  Item *newItem    = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
-//                                                   inManagedObjectContext:context];
-//  newItem.title    = title;// タイトル
-//  newItem.state    = [NSNumber numberWithBool:false];// 未完了状態
-//  newItem.reminder = reminder;// 日付
-//
-//  /**
-//   *  タグを初期化
-//   */
-//  for (NSString *tagTitle in tagTitleSet) // 指定されたタグの数だけ
-//  {
-//    NSLog(@"%@%@", @"new tag: ", tagTitle);
-//    Tag *newTag  = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-//                                                 inManagedObjectContext:context];
-//    /**
-//     *  タグとアイテムを紐付
-//     */
-//    newTag.title = tagTitle; // タイトル
-//    [newTag addItemsObject:newItem];
-//    [newItem addTagsObject:newTag];
-//  }
-//  
-//  /**
-//   *  保存する
-//   */
-//  [app saveContext];
 }
 
 #pragma mark - Table View

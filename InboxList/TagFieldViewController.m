@@ -20,6 +20,20 @@
 @implementation TagFieldViewController
 
 /**
+ *  入力された文字列を返す
+ *
+ *  @return 文字列のセット
+ */
+-(NSSet *)getFields
+{
+  NSMutableSet *fields = [[NSMutableSet alloc] init];
+  for (UITextField *field in self.textFieldArray) {
+    [fields addObject:field.text];
+  }
+  return fields;
+}
+
+/**
  *  新しいテキストフィールド作成する
  *
  *  @param rect サイズ
@@ -28,6 +42,7 @@
  */
 - (TagField *)createTextField:(CGRect)rect
 {
+  LOG(@"テキストフィールドを作成");
   TagField *newTextField = [[TagField alloc] initWithFrame:rect];
   [newTextField setBorderStyle:UITextBorderStyleRoundedRect];
   [newTextField setReturnKeyType:UIReturnKeyDone];
@@ -66,6 +81,7 @@
  */
 - (void)addNewTextField:(CGRect)rect
 {
+  LOG(@"新しいテキストフィールドを追加");
   rect.origin.y = pointY;
   TagField *textField = [self createTextField:rect];
 
@@ -73,14 +89,13 @@
 
   [textField becomeFirstResponder];
   [textField stateInput];
-  [UIView animateWithDuration:1.0f
-                   animations:^{
-                     [self.view addSubview:textField];
-                   }
-                   completion:^(BOOL finished) {
-                     NSLog(@"%@", @"adding animation end.");
-                   }];
-//  [self.view addSubview:textField];
+//  [UIView animateWithDuration:1.0f
+//                   animations:^{
+//                     [self.view addSubview:textField];
+//                   }
+//                   completion:^(BOOL finished) {
+//                   }];
+  [self.view addSubview:textField];
   pointY += field_height;
 }
 
@@ -128,16 +143,22 @@
  */
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+  // 空欄の場合
   if ([textField.text isEqual:@""]) {
     [textField removeFromSuperview];
     [self.textFieldArray removeObject:textField];
     pointY -= field_height;
     return YES;
   }
-  for (TagField *textField in self.textFieldArray) {
+  // 追加する場合
+  [self addNewTextField:CGRectMake(0, 200, SCREEN_BOUNDS.size.width, field_height)];
+  LOG(@"テキストフィールド数: %d", [self.textFieldArray count]);
+  NSMutableArray *stock = [NSMutableArray arrayWithArray:self.textFieldArray];
+  [stock removeObject:[stock lastObject]];
+  for (TagField *textField in stock) {
     [textField stateFixed];
   }
-  [self addNewTextField:CGRectMake(0, 200, SCREEN_BOUNDS.size.width, field_height)];
+
   return YES;
 }
 

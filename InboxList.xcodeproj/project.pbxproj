@@ -194,6 +194,7 @@
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
+				B0A2C2B8199C8DC800856058 /* TagFieldViewController */,
 				B05FA8201982AE8900E25FAF /* TabBar */,
 				B03F2BD2194D75F40037AE2C /* Resource */,
 				B00AD6AA18C45E470005A552 /* Images.xcassets */,
@@ -316,7 +317,6 @@
 			children = (
 				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
 				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
-				B07D5830198E1D5600688F98 /* TagField */,
 				B07D5833198E1D8100688F98 /* InputFilterViewController */,
 			);
 			name = FilterMode;
@@ -325,8 +325,6 @@
 		B08EBBC319703ED000DB9582 /* TagMode */ = {
 			isa = PBXGroup;
 			children = (
-				B0A351121984B6A20062ABB1 /* TagFieldViewController.h */,
-				B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */,
 				B06D719B198D3BE1001A9F91 /* TagCell */,
 				B0808047195825A3007D21E4 /* TagViewController.h */,
 				B0808048195825A3007D21E4 /* TagViewController.m */,
@@ -341,6 +339,16 @@
 				B00AD69C18C45E470005A552 /* AppDelegate.m */,
 			);
 			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		B0A2C2B8199C8DC800856058 /* TagFieldViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B07D5830198E1D5600688F98 /* TagField */,
+				B0A351121984B6A20062ABB1 /* TagFieldViewController.h */,
+				B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */,
+			);
+			name = TagFieldViewController;
 			sourceTree = "<group>";
 		};
 		B0A351071984A1140062ABB1 /* Header */ = {
