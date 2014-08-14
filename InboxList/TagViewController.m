@@ -42,13 +42,6 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"タグが選択された時の処理");
-
-//  // 選択されたタグをデリゲートに渡す
-//  if (indexPath.section == 0) {         // セクション０なら
-//    [self.delegate selectedTag:@"all"]; // すべてのリストを表示
-//    return;
-//  } // そうでないなら
-
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
   [self.delegate selectedTag:tag.title]; // 選択されたタグを渡す
 }
@@ -88,6 +81,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCell class])
                                              bundle:nil]
        forCellReuseIdentifier:TagModeCellIdentifier];
+
+  LOG(@"編集ボタンを追加");
+  UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"タグ編集"
+                                                                 style:UIBarButtonItemStyleBordered
+                                                                target:self
+                                                                action:@selector(toEdit:)];
+  self.navigationItem.leftBarButtonItem = editButton;
+}
+
+/**
+ *  編集モード切り替え
+ *
+ *  @param sender センダー
+ */
+-(void)toEdit:(id)sender
+{
+  if (self.tableView.isEditing) {
+    [self setEditing:false animated:YES];
+  } else {
+    [self setEditing:true animated:YES];
+  }
 }
 
 /**
@@ -107,7 +121,8 @@ numberOfRowsInSection:(NSInteger)section
 //  if (section == 0) {
 //    return 1;
 //  }
-  NSInteger num = [[self.fetchedResultsController fetchedObjects] count];
+  int num = [[self.fetchedResultsController fetchedObjects] count];
+  LOG(@"セクションのアイテム数：%d", num);
   return num;
 }
 
@@ -143,6 +158,8 @@ numberOfRowsInSection:(NSInteger)section
   } else {
     cell.textLabel.text = tag.title;
   }
+
+  cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [tag.items count]];
   return cell;
 }
 
@@ -193,6 +210,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
       LOG(@"タグを削除");
       [[CoreDataController managedObjectContext] deleteObject:tag];
+
+      LOG(@"削除されるオブジェクト数：%d", [[[CoreDataController managedObjectContext] deletedObjects] count]);
 
       [CoreDataController saveContext];
       break;

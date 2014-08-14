@@ -30,36 +30,6 @@
 @implementation ItemViewController
 
 /**
-*  現存するタグリストを返す
-*
-*  @return タグのリスト
-*/
-//-(NSArray *)getTagList
-//{
-//  NSLog(@"%s", __FUNCTION__);
-////  NSMutableArray *taglist = [[NSMutableArray alloc] init];           //< 返す配列
-////  NSFetchRequest *request = [[NSFetchRequest alloc] init];
-////  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag"
-////                                            inManagedObjectContext:app.managedObjectContext];
-////  request.entity = entity;
-////  request.sortDescriptors = nil;                                     //< @TODO メニューをソートする場合はここ
-////  NSArray *objs = [app.managedObjectContext executeFetchRequest:request
-////                                                           error:nil];
-//
-//  NSArray *objs = [CoreDataController getAllTagsArray];
-//  return objs;
-////  NSLog(@"%@", objs);
-////  for ( Tag *tag in objs ) {
-////    /// @todo タグ関連は要変更
-//////    if ([tag.title isEqual:@""]) continue;                           //< タイトルが未設定ならスキップ
-//////    if ([tag.items count]==0) continue;                              //< アイテムに紐付けされていなければスキップ
-////
-////    [taglist addObject:tag.title];
-////  }
-////  return taglist;
-//}
-
-/**
  *  チェックボックスがタップされた時の処理
  *
  *  @param cell  タップされたセル
@@ -77,21 +47,8 @@
 
   BOOL checkbox = [[item valueForKey:@"state"] boolValue];
   if (checkbox == FALSE) {      // 完了にする
-//    NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
-//    for (Tag *tag in tags) { // そのセットそれぞれに対して
-//      if ([tag.items count] == 1) { // タグの関連付けがそのアイテムのみだった場合
-//        [app.managedObjectContext deleteObject:tag]; // そのタグも削除する
-//      }
-//    }
     [app.managedObjectContext deleteObject:item]; // アイテムを削除
   }
-
-//  // チェックの状態を変更して
-//  BOOL checkbox = ! [[item valueForKey:@"state"] boolValue];
-//  item.state = [NSNumber numberWithBool:checkbox];
-//
-//  // チェックボックスを更新する
-//  [cell updateCheckBox:checkbox];
 
   // モデルを保存する
   [CoreDataController saveContext];
@@ -237,7 +194,7 @@
  */
 - (void)toEdit:(id)sender
 {
-  LOG(@"編集");
+  LOG(@"編集モード");
   if (self.tableView.isEditing) {
     [self setEditing:false animated:YES];
   } else {

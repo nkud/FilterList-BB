@@ -302,15 +302,6 @@
 			name = TagField;
 			sourceTree = "<group>";
 		};
-		B07D5832198E1D6600688F98 /* FilterViewController */ = {
-			isa = PBXGroup;
-			children = (
-				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
-				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
-			);
-			name = FilterViewController;
-			sourceTree = "<group>";
-		};
 		B07D5833198E1D8100688F98 /* InputFilterViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,8 +314,9 @@
 		B08EBBC219703EBC00DB9582 /* FilterMode */ = {
 			isa = PBXGroup;
 			children = (
+				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
+				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
 				B07D5830198E1D5600688F98 /* TagField */,
-				B07D5832198E1D6600688F98 /* FilterViewController */,
 				B07D5833198E1D8100688F98 /* InputFilterViewController */,
 			);
 			name = FilterMode;

@@ -16,7 +16,6 @@
 @interface MainViewController () {
   AppDelegate *app;
 }
-
 @end
 
 @implementation MainViewController
@@ -57,7 +56,7 @@
  */
 - (void)initParameter
 {
-  swipe_distance = SCREEN_BOUNDS.size.width;
+  swipe_distance = SCREEN_BOUNDS.size.width - 50;
   app = [[UIApplication sharedApplication] delegate];
 }
 
@@ -137,14 +136,14 @@
 -(void)tagListMode
 {
   LOG(@"タグリストモード");
-  int distance = SCREEN_BOUNDS.size.width;
+//  int distance = SCREEN_BOUNDS.size.width;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
   self.tagViewController.tagArray_ = [CoreDataController getAllTagsArray];
   [self.tagViewController updateTableView]; //< ビューを更新
 
-  next_center.x = screen_center_x + distance;
+  next_center.x = screen_center_x + swipe_distance;
   [self.view sendSubviewToBack:self.filterViewController.view];
   
   [UIView animateWithDuration:0.2
@@ -158,11 +157,11 @@
 -(void)filterListMode
 {
   LOG(@"フィルターリストモード");
-  int distance = SCREEN_BOUNDS.size.width;
+//  int distance = SCREEN_BOUNDS.size.width;
   CGPoint next_center = self.navigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
-  next_center.x = screen_center_x - distance;
+  next_center.x = screen_center_x - swipe_distance;
   [self.view sendSubviewToBack:self.tagNavigationController.view];
 
   [UIView animateWithDuration:0.2
