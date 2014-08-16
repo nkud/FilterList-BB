@@ -13,5 +13,6 @@
 @property UITabBarItem *tagModeTab;
 @property UITabBarItem *itemModeTab;
 @property UITabBarItem *filterModeTab;
+@property UITabBarItem *completedModeTab;
 
 @end
