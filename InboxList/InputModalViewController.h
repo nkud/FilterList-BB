@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TagFieldViewController.h"
 
 @protocol InputModalViewControllerDelegate <NSObject>
 - (void)dismissInputModalView:(id)sender
@@ -27,5 +28,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleInputField;
 @property (weak, nonatomic) IBOutlet UITextField *tagInputField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *remindPicker;
+
+@property (strong, nonatomic) TagFieldViewController *tagFieldViewController;
 
 @end

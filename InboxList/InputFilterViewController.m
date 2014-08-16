@@ -30,7 +30,7 @@
     self = [super initWithNibName:nibNameOrNil
                            bundle:nibBundleOrNil];
     if (self) {
-      [self.view setBackgroundColor:[UIColor grayColor]];
+      ;
     }
     return self;
 }

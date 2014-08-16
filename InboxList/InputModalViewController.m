@@ -7,6 +7,8 @@
 //
 
 #import "InputModalViewController.h"
+#import "TagFieldViewController.h"
+#import "Header.h"
 
 @interface InputModalViewController ()
 
@@ -47,19 +49,19 @@
 }
 
 /**
- * ビュー読み込み
+ * テキストフィールドを作成
  */
-- (UITextField *)createTextField:(int)x
-                               y:(int)y
-{
-  UITextField *_newTextField;
-  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
-  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
-  [_newTextField setReturnKeyType:UIReturnKeyDone];
-  [_newTextField setDelegate:self];
-  [_newTextField setText:nil];
-  return _newTextField;
-}
+//- (UITextField *)createTextField:(int)x
+//                               y:(int)y
+//{
+//  UITextField *_newTextField;
+//  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
+//  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
+//  [_newTextField setReturnKeyType:UIReturnKeyDone];
+//  [_newTextField setDelegate:self];
+//  [_newTextField setText:nil];
+//  return _newTextField;
+//}
 
 /**
  * ビュー読み込み後の処理
@@ -82,6 +84,10 @@
   [self.saveButton addTarget:self
                       action:@selector(dismissInput)
             forControlEvents:UIControlEventTouchUpInside];
+
+  self.tagFieldViewController = [[TagFieldViewController alloc] initWithNibName:nil
+                                                                         bundle:nil];
+  [self.view addSubview:self.tagFieldViewController.view];
 }
 
 /**
@@ -103,6 +109,7 @@
  */
 - (void)dismissInput
 {
+  LOG(@"データを渡して入力画面を閉じる");
   NSArray *_data = @[self.titleInputField.text, self.tagInputField.text];
   [[self delegate] dismissInputModalView:self data:_data
                                 reminder:self.remindPicker.date];
