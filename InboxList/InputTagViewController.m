@@ -33,6 +33,7 @@
   [self.saveButton addTarget:self
                       action:@selector(save:)
             forControlEvents:UIControlEventTouchUpInside];
+  [self.titleField becomeFirstResponder];
 }
 
 /**
@@ -41,13 +42,18 @@
 -(void)save:(id)sender
 {
   LOG(@"入力を保存して戻る");
+  [self.delegate saveTags:[NSSet setWithObject:self.titleField.text]];
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+/**
+ *  メモリー警告
+ */
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  LOG(@"メモリー警告");
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 @end

@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol InputTagViewControllerProtocol <NSObject>
+
+-(void)saveTags:(NSSet *)tagStrings;
+
+@end
+
 @interface InputTagViewController : UIViewController
-
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
-
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
-
+@property id<InputTagViewControllerProtocol> delegate;
 @end

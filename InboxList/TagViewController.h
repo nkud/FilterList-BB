@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InputTagViewController.h"
 
 static NSString * const TagModeCellIdentifier = @"TagCell";
 
@@ -17,7 +18,7 @@ static NSString * const TagModeCellIdentifier = @"TagCell";
 @end
 
 @interface TagViewController : UITableViewController
-<NSFetchedResultsControllerDelegate>
+<NSFetchedResultsControllerDelegate, InputTagViewControllerProtocol>
 
 //@property (strong, nonatomic) NSArray *tag_list;
 @property (strong, nonatomic) NSArray *tagArray_;

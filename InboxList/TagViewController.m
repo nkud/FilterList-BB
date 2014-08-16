@@ -106,10 +106,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)toAdd:(id)sender
 {
   LOG(@"新規入力画面をプッシュ");
-  InputTagViewController *inputTagViewController = [[InputTagViewController alloc] initWithNibName:@"InputTagViewController"
+  NSString *inputTagNibName = @"InputTagViewController";
+  InputTagViewController *inputTagViewController = [[InputTagViewController alloc] initWithNibName:inputTagNibName
                                                                                             bundle:nil];
+  inputTagViewController.delegate = self;
   [self.navigationController pushViewController:inputTagViewController
                                        animated:YES];
+}
+
+-(void)saveTags:(NSSet *)tagStrings
+{
+  LOG(@"新規タグを保存");
+  Tag *newTag;
+  for (NSString *title in tagStrings) {
+    newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+                                           inManagedObjectContext:[CoreDataController managedObjectContext]];
+    newTag.title = title;
+  }
+  [CoreDataController saveContext];
 }
 
 /**
