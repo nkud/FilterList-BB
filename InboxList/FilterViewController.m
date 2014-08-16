@@ -81,17 +81,12 @@
 
   [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
 
-  /**
-   *  ボタン
-   */
-  UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [button setFrame:CGRectMake(100, 30, 100, 50)];
-  [button setTitle:@"add" forState:UIControlStateNormal];
-  [button addTarget:self
-             action:@selector(presentInputFilterView)
-   forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:button];
-  [self.view bringSubviewToFront:button];
+  LOG(@"編集ボタンを追加");
+  UIBarButtonItem *newFilterButton = [[UIBarButtonItem alloc] initWithTitle:@"新規"
+                                                                 style:UIBarButtonItemStyleBordered
+                                                                target:self
+                                                                action:@selector(presentInputFilterView)];
+  self.navigationItem.rightBarButtonItem = newFilterButton;
 }
 
 /**

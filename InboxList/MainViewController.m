@@ -113,7 +113,7 @@
   [self.tagViewController updateTableView]; //< ビューを更新
 
   next_center.x = screen_center_x + swipe_distance;
-  [self.view sendSubviewToBack:self.filterViewController.view];
+  [self.view sendSubviewToBack:self.filterNavigationController.view];
   
   [UIView animateWithDuration:0.2
                    animations:^{
@@ -157,7 +157,7 @@
    *  タグモード
    */
   if (center_x == screen_x) {
-    [self.view sendSubviewToBack:self.filterViewController.view];
+    [self.view sendSubviewToBack:self.filterNavigationController.view];
     self.tabBar.selectedItem = self.tabBar.tagModeTab;
   } else {
     self.tabBar.selectedItem = self.tabBar.itemModeTab;
@@ -256,6 +256,7 @@
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
 //  self.filterViewController.delegate = self;
   self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
+  self.filterNavigationController = [[NavigationController alloc] initWithRootViewController:self.filterViewController];
 
   LOG(@"ジェスチャーを設定");
   UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
@@ -277,7 +278,7 @@
   self.tagNavigationController = [[NavigationController alloc] initWithRootViewController:self.tagViewController];
   LOG(@"コントローラーを配置");
   [self.view addSubview:self.tagNavigationController.view];
-  [self.view addSubview:self.filterViewController.view];
+  [self.view addSubview:self.filterNavigationController.view];
   [self.view addSubview:self.navigationController.view];
   [self.view addSubview:self.tabBar];
 }

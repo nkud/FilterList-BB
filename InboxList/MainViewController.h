@@ -20,11 +20,10 @@
   int swipe_distance;
 }
 
-/**
- *  コントローラー
- */
 @property (strong, nonatomic) NavigationController       *navigationController;
 @property (strong, nonatomic) ItemViewController         *itemViewController;
+
+@property (strong, nonatomic) NavigationController *filterNavigationController;
 @property (strong, nonatomic) FilterViewController       *filterViewController;
 
 @property (strong, nonatomic) TabBar                    *tabBar;
