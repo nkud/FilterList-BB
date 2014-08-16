@@ -9,9 +9,66 @@
 #import "CoreDataController.h"
 #import "ResultControllerFactory.h"
 #import "AppDelegate.h"
+#import "Filter.h"
 #import "Header.h"
 
 @implementation CoreDataController
+
++(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
+{
+  LOG(@"フィルターリザルトコントローラー");
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+  // エンティティを設定
+  NSEntityDescription *entity = [self entityDescriptionForName:@"Filter"];
+  fetchRequest.entity = entity;
+
+  /// Set the batch size to a suitable number.
+  [fetchRequest setFetchBatchSize:20];
+
+  // ソート条件を設定
+  LOG(@"ソート条件");
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"
+                                                                 ascending:NO];
+  NSArray *sortDescriptors = @[sortDescriptor];
+  fetchRequest.sortDescriptors = sortDescriptors;
+
+  // Edit the section name key path and cache name if appropriate.
+  // nil for section name key path means "no sections".
+  NSFetchedResultsController *aFetchedResultsController
+  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:[self managedObjectContext]
+                                          sectionNameKeyPath:nil
+                                                   cacheName:nil];   //< タグをキャッシュネームにする
+  aFetchedResultsController.delegate = controller; //< デリゲートを設定
+
+	/**
+	 *  フェッチを実行
+	 */
+  LOG(@"フェッチを実行");
+	NSError *error = nil;
+	if (![aFetchedResultsController performFetch:&error]) {
+    // Replace this implementation with code to handle the error appropriately.
+    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+	}
+  return aFetchedResultsController; // 作成したリザルトコントローラーを返す
+}
+
+/**
+ *  新しいフィルターを新規挿入する
+ *
+ *  @param filterTitle フィルター名
+ */
++(void)insertNewFilter:(NSString *)filterTitle
+{
+  LOG(@"フィルターを新規挿入");
+  Filter *newFilter = [NSEntityDescription insertNewObjectForEntityForName:@"Filter"
+                                                    inManagedObjectContext:[self managedObjectContext]];
+  newFilter.name = filterTitle;
+  [self saveContext];
+}
 
 /**
  *  新しいアイテムを挿入する
@@ -24,7 +81,7 @@
                 tags:(NSSet *)tags
             reminder:(NSDate *)reminder
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"アイテムを新規挿入");
   Item *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
                                              inManagedObjectContext:[self managedObjectContext]];
   newItem.title = itemTitle;

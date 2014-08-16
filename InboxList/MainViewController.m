@@ -21,42 +21,11 @@
 @implementation MainViewController
 
 /**
- *  フィルター入力画面を表示する
- */
--(void)presentInputFilterView
-{
-  LOG(@"フィルター入力画面を作成・表示");
-  // 初期化
-  InputFilterViewController *inputFilterView = [[InputFilterViewController alloc]
-                                                initWithNibName:nil
-                                                bundle:nil];
-  inputFilterView.delegate = self;
-  // 入力画面を最前面に表示する
-  [self.view bringSubviewToFront:inputFilterView.view];
-  // 入力画面を表示する
-  [self presentViewController:inputFilterView
-                     animated:YES
-                   completion:nil];
-}
-
-/**
- *  フィルター入力画面を削除する
- *
- *  @param filterString 入力されたフィルター
- */
--(void)dismissInputView:(NSString *)filterString
-{
-  LOG(@"フィルターを削除");
-  [self dismissViewControllerAnimated:YES
-                           completion:nil];
-}
-
-/**
  * パラメータを初期化
  */
 - (void)initParameter
 {
-  swipe_distance = SCREEN_BOUNDS.size.width - 50;
+  swipe_distance = SCREEN_BOUNDS.size.width;
   app = [[UIApplication sharedApplication] delegate];
 }
 
@@ -285,7 +254,8 @@
 
   LOG(@"フィルターコントローラーを初期化");
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
-  self.filterViewController.delegate = self;
+//  self.filterViewController.delegate = self;
+  self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
 
   LOG(@"ジェスチャーを設定");
   UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self

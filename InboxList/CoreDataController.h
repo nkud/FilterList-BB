@@ -21,9 +21,12 @@
 +(NSArray *)fetchTagsForTitle:(NSString *)title;
 
 +(void)insertNewItem:(NSString *)itemTitle tags:(NSSet *)tags reminder:(NSDate *)reminder;
++(void)insertNewFilter:(NSString *)filterTitle;
 
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
+
++(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 
 +(NSEntityDescription *)entityDescriptionForName:(NSString *)name;
 

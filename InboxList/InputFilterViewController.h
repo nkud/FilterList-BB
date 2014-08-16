@@ -11,7 +11,7 @@
 
 @protocol InputFilterViewControlellerDelegate <NSObject>
 
-- (void)dismissInputView:(NSString *)filterString;
+- (void)dismissInputView:(NSSet *)filterStrings;
 
 @end
 

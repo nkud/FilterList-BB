@@ -8,6 +8,7 @@
 
 #import "InputFilterViewController.h"
 #import "TagFieldViewController.h"
+#import "Header.h"
 
 @interface InputFilterViewController ()
 
@@ -61,13 +62,13 @@
  *
  *  @return 真偽値
  */
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-  NSLog(@"%s", __FUNCTION__);
-//    [self dismissViewControllerAnimated:YES completion:nil];
-  [self.delegate dismissInputView:@"data"];
-  return YES;
-}
+//-(BOOL)textFieldShouldReturn:(UITextField *)textField
+//{
+//  NSLog(@"%s", __FUNCTION__);
+////    [self dismissViewControllerAnimated:YES completion:nil];
+//  [self.delegate dismissInputView:@"data"];
+//  return YES;
+//}
 
 /**
  *  ビューがロードされたあとの処理
@@ -103,8 +104,8 @@
  */
 - (void)saveFilterAndDismiss
 {
-  NSLog(@"%s", __FUNCTION__);
-  [self.delegate dismissInputView:@"filter"];
+  LOG(@"入力されたフィルター: %@", [self.tagFieldViewController getFields]);
+  [self.delegate dismissInputView:[self.tagFieldViewController getFields]];
 }
 
 /**
