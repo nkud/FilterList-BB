@@ -11,6 +11,7 @@
 #import "TagCell.h"
 #import "Tag.h"
 #import "CoreDataController.h"
+#import "InputTagViewController.h"
 
 @interface TagViewController ()
 
@@ -88,6 +89,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                                                 target:self
                                                                 action:@selector(toEdit:)];
   self.navigationItem.leftBarButtonItem = editButton;
+
+  LOG(@"新規入力ボタンを追加");
+  UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"新規"
+                                                                style:UIBarButtonItemStyleBordered
+                                                               target:self
+                                                               action:@selector(toAdd:)];
+  self.navigationItem.rightBarButtonItem = addButton;
+}
+
+/**
+ *  新規入力を開始する
+ *
+ *  @param sender センダー
+ */
+-(void)toAdd:(id)sender
+{
+  LOG(@"新規入力画面をプッシュ");
+  InputTagViewController *inputTagViewController = [[InputTagViewController alloc] initWithNibName:@"InputTagViewController"
+                                                                                            bundle:nil];
+  [self.navigationController pushViewController:inputTagViewController
+                                       animated:YES];
 }
 
 /**

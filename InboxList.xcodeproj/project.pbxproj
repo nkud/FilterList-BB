@@ -34,6 +34,8 @@
 		B053199A199FC92C00F63783 /* filtertab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531997199FC92C00F63783 /* filtertab.png */; };
 		B053199B199FC92C00F63783 /* itemtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531998199FC92C00F63783 /* itemtab.png */; };
 		B053199C199FC92C00F63783 /* tagtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531999199FC92C00F63783 /* tagtab.png */; };
+		B05319A0199FD46F00F63783 /* InputTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B053199E199FD46F00F63783 /* InputTagViewController.m */; };
+		B05319A1199FD46F00F63783 /* InputTagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B053199F199FD46F00F63783 /* InputTagViewController.xib */; };
 		B056F7CA198D394800768E8E /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B056F7C9198D394800768E8E /* TagCell.xib */; };
 		B05FA8231982B20C00E25FAF /* TabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B05FA8221982B20C00E25FAF /* TabBar.m */; };
 		B06894E7198D544F000A4DCB /* ItemDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06894E6198D544F000A4DCB /* ItemDetailViewController.xib */; };
@@ -102,6 +104,9 @@
 		B0531997199FC92C00F63783 /* filtertab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filtertab.png; sourceTree = "<group>"; };
 		B0531998199FC92C00F63783 /* itemtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemtab.png; sourceTree = "<group>"; };
 		B0531999199FC92C00F63783 /* tagtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tagtab.png; sourceTree = "<group>"; };
+		B053199D199FD46F00F63783 /* InputTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTagViewController.h; sourceTree = "<group>"; };
+		B053199E199FD46F00F63783 /* InputTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTagViewController.m; sourceTree = "<group>"; };
+		B053199F199FD46F00F63783 /* InputTagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputTagViewController.xib; sourceTree = "<group>"; };
 		B053C91B19557C1600C51AA1 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		B056F7C9198D394800768E8E /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		B05FA8211982B20200E25FAF /* TabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBar.h; path = InboxList/TabBar.h; sourceTree = "<group>"; };
@@ -279,6 +284,16 @@
 			name = FilterCell;
 			sourceTree = "<group>";
 		};
+		B05319A2199FD47700F63783 /* InputTagViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B053199D199FD46F00F63783 /* InputTagViewController.h */,
+				B053199E199FD46F00F63783 /* InputTagViewController.m */,
+				B053199F199FD46F00F63783 /* InputTagViewController.xib */,
+			);
+			name = InputTagViewController;
+			sourceTree = "<group>";
+		};
 		B05FA8201982AE8900E25FAF /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +368,7 @@
 				B06D719B198D3BE1001A9F91 /* TagCell */,
 				B0808047195825A3007D21E4 /* TagViewController.h */,
 				B0808048195825A3007D21E4 /* TagViewController.m */,
+				B05319A2199FD47700F63783 /* InputTagViewController */,
 			);
 			name = TagMode;
 			sourceTree = "<group>";
@@ -532,6 +548,7 @@
 				B07D582F198E081300688F98 /* InputItemViewController.xib in Resources */,
 				B053199C199FC92C00F63783 /* tagtab.png in Resources */,
 				B06D719D198D43A8001A9F91 /* ItemCell.xib in Resources */,
+				B05319A1199FD46F00F63783 /* InputTagViewController.xib in Resources */,
 				B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */,
 				B053199B199FC92C00F63783 /* itemtab.png in Resources */,
 				B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */,
@@ -570,6 +587,7 @@
 				B03E6C1A18CAA316007703B8 /* Tag.m in Sources */,
 				B0808049195825A3007D21E4 /* TagViewController.m in Sources */,
 				B0BDA87E1996341E003AA40B /* TagField.m in Sources */,
+				B05319A0199FD46F00F63783 /* InputTagViewController.m in Sources */,
 				B00AD69D18C45E470005A552 /* AppDelegate.m in Sources */,
 				B080804C19582CF6007D21E4 /* MainViewController.m in Sources */,
 				B072C8CC198CF80800F95B83 /* InputHeader.m in Sources */,
