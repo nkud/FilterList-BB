@@ -6,7 +6,7 @@
 #+STARTUP: content
 #+HTML_HEAD: <style type="text/css">body {font-family:"menlo";font-size:1em;}</style>
 
-* 作業工程 [33%]
+* 作業工程 [31%]
 
 ** DONE スライドで新規入力するようにする
 CLOSED: [2014-08-02 Sat 21:46]
@@ -21,6 +21,8 @@ CLOSED: [2014-08-10 Sun 18:20]
 CLOSED: [2014-08-10 Sun 18:21]
 
 ** TODO all用のタグを作成する
+
+** TODO 縦モードのみにする
 ** TODO 複数タグのデータの渡し方を統一する
 
 ** DONE アイテムを削除できるようにする
