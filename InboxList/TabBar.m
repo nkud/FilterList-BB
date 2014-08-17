@@ -22,15 +22,15 @@
                                                   image:[UIImage imageNamed:@"tagtab.png"]
                                                     tag:0];
   self.itemModeTab = [[UITabBarItem alloc] initWithTitle:@"Item"
-                                                  image:[UIImage imageNamed:@"itemtab.png"]
-                                                    tag:1];
+                                                   image:[UIImage imageNamed:@"itemtab.png"]
+                                                     tag:1];
   self.filterModeTab = [[UITabBarItem alloc] initWithTitle:@"Filter"
-                                                  image:[UIImage imageNamed:@"filtertab.png"]
-                                                    tag:2];
+                                                     image:[UIImage imageNamed:@"filtertab.png"]
+                                                       tag:2];
   self.completedModeTab = [[UITabBarItem alloc] initWithTitle:@"Completed"
                                                         image:[UIImage imageNamed:@"completedtab.png"]
                                                           tag:3];
-
+  
   self.items = [NSArray arrayWithObjects:self.tagModeTab, self.itemModeTab, self.filterModeTab, self.completedModeTab, nil];
   self.selectedItem = self.itemModeTab;
 }

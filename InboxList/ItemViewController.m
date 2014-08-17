@@ -170,7 +170,9 @@
 //                    tag:[NSSet setWithObject:self.selectedTagString] // そのタグと
 //               reminder:[NSDate date]]; // 今日の日付で挿入
 //  }
-
+  if ([itemString isEqualToString:@""]) {
+    return;
+  }
   if ([self.selectedTagString isEqualToString:@"all"]) {
     [CoreDataController insertNewItem:itemString
                                  tags:nil
