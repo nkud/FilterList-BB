@@ -28,7 +28,7 @@
 
   // ソート条件を設定
   LOG(@"ソート条件");
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
   fetchRequest.sortDescriptors = sortDescriptors;
@@ -66,7 +66,7 @@
   LOG(@"フィルターを新規挿入");
   Filter *newFilter = [NSEntityDescription insertNewObjectForEntityForName:@"Filter"
                                                     inManagedObjectContext:[self managedObjectContext]];
-  newFilter.name = filterTitle;
+  newFilter.title = filterTitle;
   [self saveContext];
 }
 

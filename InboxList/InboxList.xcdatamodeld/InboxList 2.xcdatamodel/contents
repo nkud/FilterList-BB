@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Filter" representedClassName="Filter" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="filters" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="Item" representedClassName="Item">
         <attribute name="color" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -13,11 +14,12 @@
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="filters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Filter" inverseName="tags" inverseEntity="Filter" syncable="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="tags" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-4653" positionY="-1540" width="162" height="118"/>
-        <element name="Tag" positionX="-4419" positionY="-1539" width="128" height="73"/>
-        <element name="Filter" positionX="-4536" positionY="-1494" width="128" height="58"/>
+        <element name="Filter" positionX="-4727" positionY="-1819" width="128" height="73"/>
+        <element name="Item" positionX="-4743" positionY="-1719" width="162" height="118"/>
+        <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="88"/>
     </elements>
 </model>

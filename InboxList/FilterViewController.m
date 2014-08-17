@@ -149,7 +149,7 @@ numberOfRowsInSection:(NSInteger)section
 {
   LOG(@"セルを設定");
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.textLabel.text = filter.name;
+  cell.textLabel.text = filter.title;
   return cell;
 }
 /**
