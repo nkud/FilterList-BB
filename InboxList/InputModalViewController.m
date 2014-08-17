@@ -85,9 +85,9 @@
                       action:@selector(dismissInput)
             forControlEvents:UIControlEventTouchUpInside];
 
-  self.tagFieldViewController = [[TagFieldViewController alloc] initWithNibName:nil
-                                                                         bundle:nil];
-  [self.view addSubview:self.tagFieldViewController.view];
+//  self.tagFieldViewController = [[TagFieldViewController alloc] initWithNibName:nil
+//                                                                         bundle:nil];
+//  [self.view addSubview:self.tagFieldViewController.view];
 }
 
 /**
