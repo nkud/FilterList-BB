@@ -46,6 +46,7 @@
 		B07D582F198E081300688F98 /* InputItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B07D582E198E081300688F98 /* InputItemViewController.xib */; };
 		B0808049195825A3007D21E4 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0808048195825A3007D21E4 /* TagViewController.m */; };
 		B080804C19582CF6007D21E4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B080804B19582CF6007D21E4 /* MainViewController.m */; };
+		B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */; };
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
 		B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */; };
@@ -55,7 +56,6 @@
 		B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* ItemCell.m */; };
 		B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DC58D8194DAD770089E8FA /* CheckBox_False.png */; };
 		B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4690D19A84B99008B3150 /* TagNavigationController.m */; };
-		B0E4691119A84BB3008B3150 /* ItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4691019A84BB3008B3150 /* ItemNavigationController.m */; };
 		B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4691319A84BC3008B3150 /* FilterNavigationController.m */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +127,8 @@
 		B0808048195825A3007D21E4 /* TagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
 		B080804A19582CF6007D21E4 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		B080804B19582CF6007D21E4 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		B08C33A319A84E4F00AB5F25 /* ItemNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemNavigationController.h; sourceTree = "<group>"; };
+		B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemNavigationController.m; sourceTree = "<group>"; };
 		B08EBBBF19703EB200DB9582 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		B08EBBC019703EB200DB9582 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -146,8 +148,6 @@
 		B0DC58D8194DAD770089E8FA /* CheckBox_False.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_False.png; path = resource/CheckBox_False.png; sourceTree = SOURCE_ROOT; };
 		B0E4690C19A84B99008B3150 /* TagNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagNavigationController.h; sourceTree = "<group>"; };
 		B0E4690D19A84B99008B3150 /* TagNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagNavigationController.m; sourceTree = "<group>"; };
-		B0E4690F19A84BB3008B3150 /* ItemNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemNavigationController.h; path = ../ItemNavigationController.h; sourceTree = "<group>"; };
-		B0E4691019A84BB3008B3150 /* ItemNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemNavigationController.m; path = ../ItemNavigationController.m; sourceTree = "<group>"; };
 		B0E4691219A84BC3008B3150 /* FilterNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterNavigationController.h; sourceTree = "<group>"; };
 		B0E4691319A84BC3008B3150 /* FilterNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -429,8 +429,8 @@
 			children = (
 				B08F4B631915FAC80047E210 /* NavigationController.h */,
 				B08F4B641915FAC80047E210 /* NavigationController.m */,
-				B0E4690F19A84BB3008B3150 /* ItemNavigationController.h */,
-				B0E4691019A84BB3008B3150 /* ItemNavigationController.m */,
+				B08C33A319A84E4F00AB5F25 /* ItemNavigationController.h */,
+				B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */,
 				B0E4690C19A84B99008B3150 /* TagNavigationController.h */,
 				B0E4690D19A84B99008B3150 /* TagNavigationController.m */,
 				B0E4691219A84BC3008B3150 /* FilterNavigationController.h */,
@@ -584,7 +584,6 @@
 			files = (
 				B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */,
 				B05319A819A089FD00F63783 /* Filter.m in Sources */,
-				B0E4691119A84BB3008B3150 /* ItemNavigationController.m in Sources */,
 				B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */,
 				B00AD6A918C45E470005A552 /* ItemDetailViewController.m in Sources */,
 				B0BDA88119965639003AA40B /* CoreDataController.m in Sources */,
@@ -593,6 +592,7 @@
 				B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
+				B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */,
 				B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
 				B03E6C1A18CAA316007703B8 /* Tag.m in Sources */,

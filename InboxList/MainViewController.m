@@ -82,11 +82,11 @@
                                                                                          action:@selector(handleSwipeFrom:)];
     [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
     [recognizerLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [self.navigationController.view addGestureRecognizer:recognizerRight];
-    [self.navigationController.view addGestureRecognizer:recognizerLeft];
+    [self.itemNavigationController.view addGestureRecognizer:recognizerRight];
+    [self.itemNavigationController.view addGestureRecognizer:recognizerLeft];
     
-    self.navigationController.title = @"FilterList";
-    
+//    self.itemNavigationController.title = @"FilterList";
+  
     LOG(@"タグモード初期化");
     self.tagViewController = [[TagViewController alloc] initWithNibName:nil
                                                                  bundle:nil];
@@ -96,7 +96,7 @@
     LOG(@"コントローラーを配置");
     [self.view addSubview:self.tagNavigationController.view];
     [self.view addSubview:self.filterNavigationController.view];
-    [self.view addSubview:self.navigationController.view];
+    [self.view addSubview:self.itemNavigationController.view];
     [self.view addSubview:self.tabBar];
 }
 
@@ -106,8 +106,8 @@
 - (void)moveMasterViewToCenter
 {
   LOG(@"アイテムビューを中心に持ってくる");
-  CGPoint next_center = self.navigationController.view.center;
-  CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
+  CGPoint next_center = self.itemNavigationController.view.center;
+  CGFloat center_x = self.itemNavigationController.view.center.x; // 現在の中心 x
 
   CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
   next_center.x = MAX(center_x-swipe_distance, screen_x);
@@ -115,7 +115,7 @@
   /// アニメーション
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
-                     self.navigationController.view.center = next_center;
+                     self.itemNavigationController.view.center = next_center;
                    }];
 }
 
@@ -149,7 +149,7 @@
 -(void)itemListMode
 {
   LOG(@"アイテムリストモード");
-  CGPoint next_center = self.navigationController.view.center;
+  CGPoint next_center = self.itemNavigationController.view.center;
 
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
@@ -157,7 +157,7 @@
 
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
-                     self.navigationController.view.center = next_center;
+                     self.itemNavigationController.view.center = next_center;
                    }];
 }
 
@@ -168,7 +168,7 @@
 {
   LOG(@"タグリストモード");
 //  int distance = SCREEN_BOUNDS.size.width;
-  CGPoint next_center = self.navigationController.view.center;
+  CGPoint next_center = self.itemNavigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
   self.tagViewController.tagArray_ = [CoreDataController getAllTagsArray];
@@ -179,7 +179,7 @@
   
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
-                     self.navigationController.view.center = next_center;
+                     self.itemNavigationController.view.center = next_center;
                    }];
 }
 /**
@@ -189,7 +189,7 @@
 {
   LOG(@"フィルターリストモード");
 //  int distance = SCREEN_BOUNDS.size.width;
-  CGPoint next_center = self.navigationController.view.center;
+  CGPoint next_center = self.itemNavigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
   next_center.x = screen_center_x - swipe_distance;
@@ -197,7 +197,7 @@
 
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
-                     self.navigationController.view.center = next_center;
+                     self.itemNavigationController.view.center = next_center;
                    }];
 }
 
@@ -210,8 +210,8 @@
 {
   LOG(@"右にスワイプ");
   int distance = SCREEN_BOUNDS.size.width;
-  CGPoint next_center = self.navigationController.view.center;
-  CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
+  CGPoint next_center = self.itemNavigationController.view.center;
+  CGFloat center_x = self.itemNavigationController.view.center.x; // 現在の中心 x
 
   CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
@@ -234,7 +234,7 @@
 
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
-                     self.navigationController.view.center = next_center;
+                     self.itemNavigationController.view.center = next_center;
                    }];
 }
 
@@ -244,14 +244,14 @@
 - (void)swipeDirectionCenter
 {
   LOG(@"中心にスワイプ");
-  CGPoint next_center = self.navigationController.view.center;
+  CGPoint next_center = self.itemNavigationController.view.center;
 
   CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
   next_center.x = screen_x;
 
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
-                     self.navigationController.view.center = next_center;
+                     self.itemNavigationController.view.center = next_center;
                    }];
 }
 
@@ -262,8 +262,8 @@
 {
   LOG(@"左方向にスワイプ");
   int distance = SCREEN_BOUNDS.size.width;
-  CGPoint next_center = self.navigationController.view.center;
-  CGFloat center_x = self.navigationController.view.center.x; // 現在の中心 x
+  CGPoint next_center = self.itemNavigationController.view.center;
+  CGFloat center_x = self.itemNavigationController.view.center.x; // 現在の中心 x
 
   CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
@@ -284,7 +284,7 @@
   }
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
-                     self.navigationController.view.center = next_center;
+                     self.itemNavigationController.view.center = next_center;
                    }];
 }
 

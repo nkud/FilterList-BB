@@ -26,16 +26,16 @@
   int swipe_distance;
 }
 
-@property (strong, nonatomic) ItemNavigationController       *itemNavigationController;
+@property (strong, nonatomic) ItemNavigationController   *itemNavigationController;
 @property (strong, nonatomic) ItemViewController         *itemViewController;
 
 @property (strong, nonatomic) FilterNavigationController *filterNavigationController;
 @property (strong, nonatomic) FilterViewController       *filterViewController;
 
-@property (strong, nonatomic) TabBar                    *tabBar;
+@property (strong, nonatomic) TagNavigationController    *tagNavigationController;
+@property (strong, nonatomic) TagViewController          *tagViewController;
 
-@property (strong, nonatomic) TagNavigationController *tagNavigationController;
-@property (strong, nonatomic) TagViewController         *tagViewController;
+@property (strong, nonatomic) TabBar                    *tabBar;
 
 -(void)loadMasterViewForTag:(NSString *)tag
      fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
