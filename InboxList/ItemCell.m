@@ -7,6 +7,7 @@
 //
 
 #import "ItemCell.h"
+#import "Header.h"
 
 
 @interface ItemCell ()
@@ -30,13 +31,17 @@
               reuseIdentifier:reuseIdentifier];
   if (self)
   {
-    self.detailTextLabel.text = @"none";
+    self.reminderLabel.text = @"none";
   }
   return self;
 }
 
 /**
- * チェックボックスを更新する
+ * @brief  チェックボックスを更新する
+ *
+ * @param isChecked 設定したいチェックの状態
+ *
+ * @return 変更後のチェックの状態
  */
 -(BOOL)updateCheckBox:(BOOL)isChecked
 {
@@ -50,32 +55,12 @@
 }
 
 /**
- * タッチされた時の処理
- */
--(void)touchesBegan:(NSSet *)touches
-          withEvent:(UIEvent *)event
-{
-  CGFloat _left_side = 50; // チェックボックスの範囲
-  CGPoint location = [[touches anyObject] locationInView:self.contentView];
-  UITouch *touch = [touches anyObject]; // ここらへん分からん
-
-  if (location.x < _left_side) {                                     // チェックボックスなら
-    [self.delegate tappedCheckBox:self
-                            touch:touch]; // 自分と場所を渡す
-  } else {                                                           // そうでなければ
-    [super touchesBegan:touches
-              withEvent:event];                    // デフォルトの処理をする
-
-  }
-}
-
-/**
  * チェックをつける
  */
 -(void)setChecked
 {
   UIImage *check_true = [UIImage imageNamed:@"CheckBox_True.png"];
-  [self.imageView setImage:check_true];
+  [self.checkBoxImageView setImage:check_true];
 }
 
 /**
@@ -84,7 +69,7 @@
 - (void)setUnChecked
 {
   UIImage *check_false = [UIImage imageNamed:@"CheckBox_False.png"];
-  [self.imageView setImage:check_false];
+  [self.checkBoxImageView setImage:check_false];
 }
 
 

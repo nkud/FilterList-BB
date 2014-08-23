@@ -33,26 +33,23 @@
 @implementation ItemViewController
 
 /**
- *  チェックボックスがタップされた時の処理
+ * @brief  チェックボックスがタッチされた時の処理
  *
- *  @param cell  タップされたセル
- *  @param touch タッチ？
+ * @param sender タップリコクナイザー
  */
--(void)tappedCheckBox:(ItemCell *)cell
-                touch:(UITouch *)touch
+- (void)touchedCheckBox:(UITapGestureRecognizer*)sender
 {
-  // 位置を取得して
-  CGPoint tappedPoint = [touch locationInView:self.view];
-  NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:tappedPoint];
-
+  CGPoint point = [sender locationInView:self.tableView];
+  NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+  
   // その位置のセルのデータをモデルから取得する
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
+  
   BOOL checkbox = [[item valueForKey:@"state"] boolValue];
   if (checkbox == FALSE) {      // 完了にする
     [app.managedObjectContext deleteObject:item]; // アイテムを削除
   }
-
+  
   // モデルを保存する
   [CoreDataController saveContext];
 }
@@ -88,7 +85,7 @@
 }
 
 /**
- *  ビューがロードされたあとの処理
+ * @brief  ビューのロード後処理
  */
 - (void)viewDidLoad
 {
@@ -370,16 +367,21 @@
 - (void)configureCell:(ItemCell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
-  LOG(@"セルを作成");
+  /// セルを作成
   Item *item                 = [self.fetchedResultsController objectAtIndexPath:indexPath];
 //  cell.textLabel.text = [[object valueForKey:@"title"] description]; // text
-  cell.textLabel.text        = item.title;
+  cell.titleLabel.text       = item.title;
   [cell updateCheckBox:item.state.boolValue];
 
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   formatter.dateFormat       = @"yyyy/MM/dd";
-  cell.detailTextLabel.text  = [formatter stringFromDate:item.reminder];
-  cell.delegate              = self;// delegate
+  cell.reminderLabel.text    = [formatter stringFromDate:item.reminder];
+
+  /// 画像タッチを認識する設定
+  UITapGestureRecognizer *recoqnizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                               action:@selector(touchedCheckBox:)];
+  [cell.checkBoxImageView setUserInteractionEnabled:YES];
+  [cell.checkBoxImageView addGestureRecognizer:recoqnizer];
 }
 
 /**

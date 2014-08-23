@@ -17,7 +17,7 @@
 
 @interface ItemViewController : UITableViewController
 <NSFetchedResultsControllerDelegate, InputModalViewControllerDelegate,
-ItemDetailViewControllerDelegate, CellDelegate, InputHeaderDelegate>
+ItemDetailViewControllerDelegate, InputHeaderDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
