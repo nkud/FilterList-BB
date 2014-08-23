@@ -18,16 +18,16 @@
 {
   LOG(@"タブバーを作成");
 
-  self.tagModeTab = [[UITabBarItem alloc] initWithTitle:@"Tag"
+  self.tagModeTab = [[UITabBarItem alloc] initWithTitle:@"TAG"
                                                   image:[UIImage imageNamed:@"tagtab.png"]
                                                     tag:0];
-  self.itemModeTab = [[UITabBarItem alloc] initWithTitle:@"Item"
+  self.itemModeTab = [[UITabBarItem alloc] initWithTitle:@"ITEM"
                                                    image:[UIImage imageNamed:@"itemtab.png"]
                                                      tag:1];
-  self.filterModeTab = [[UITabBarItem alloc] initWithTitle:@"Filter"
+  self.filterModeTab = [[UITabBarItem alloc] initWithTitle:@"FILTER"
                                                      image:[UIImage imageNamed:@"filtertab.png"]
                                                        tag:2];
-  self.completedModeTab = [[UITabBarItem alloc] initWithTitle:@"Completed"
+  self.completedModeTab = [[UITabBarItem alloc] initWithTitle:@"COMP"
                                                         image:[UIImage imageNamed:@"completedtab.png"]
                                                           tag:3];
   
