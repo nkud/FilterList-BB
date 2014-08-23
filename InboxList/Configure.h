@@ -9,6 +9,8 @@
 #ifndef InboxList_Configure_h
 #define InboxList_Configure_h
 
+#include "Header.h"
+
 /**
  * @brief  スワイプする時間
  */
@@ -20,5 +22,7 @@
 #define TAG_LIST_TITLE @"TAG"
 #define ITEM_LIST_TITLE @"ITEM"
 #define FILTER_LIST_TITLE @"FILTER"
+
+#define ITEM_NAVBAR_COLOR RGB(230, 230, 0)
 
 #endif

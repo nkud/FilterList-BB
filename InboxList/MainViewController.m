@@ -57,7 +57,7 @@
     self.itemViewController.fetchedResultsController = [ResultControllerFactory fetchedResultsController:self.itemViewController]; // はじめは全アイテムを表示
     
     LOG(@"ナビゲーションコントローラー初期化");
-    self.navigationController = [[NavigationController alloc] initWithRootViewController:self.itemViewController];
+    self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
     
     /**
      *  タブバー初期化
@@ -73,7 +73,7 @@
     self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
     //  self.filterViewController.delegate = self;
     self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
-    self.filterNavigationController = [[NavigationController alloc] initWithRootViewController:self.filterViewController];
+    self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
     
     LOG(@"ジェスチャーを設定");
     UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
@@ -92,7 +92,7 @@
                                                                  bundle:nil];
     self.tagViewController.delegate = self;
     self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
-    self.tagNavigationController = [[NavigationController alloc] initWithRootViewController:self.tagViewController];
+    self.tagNavigationController = [[TagNavigationController alloc] initWithRootViewController:self.tagViewController];
     LOG(@"コントローラーを配置");
     [self.view addSubview:self.tagNavigationController.view];
     [self.view addSubview:self.filterNavigationController.view];

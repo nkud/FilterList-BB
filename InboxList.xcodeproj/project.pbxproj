@@ -54,6 +54,9 @@
 		B0BDA88119965639003AA40B /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA88019965639003AA40B /* CoreDataController.m */; };
 		B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* ItemCell.m */; };
 		B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DC58D8194DAD770089E8FA /* CheckBox_False.png */; };
+		B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4690D19A84B99008B3150 /* TagNavigationController.m */; };
+		B0E4691119A84BB3008B3150 /* ItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4691019A84BB3008B3150 /* ItemNavigationController.m */; };
+		B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4691319A84BC3008B3150 /* FilterNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +144,12 @@
 		B0DABFAB1914CC50007597E3 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
 		B0DC58D8194DAD770089E8FA /* CheckBox_False.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_False.png; path = resource/CheckBox_False.png; sourceTree = SOURCE_ROOT; };
+		B0E4690C19A84B99008B3150 /* TagNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagNavigationController.h; sourceTree = "<group>"; };
+		B0E4690D19A84B99008B3150 /* TagNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagNavigationController.m; sourceTree = "<group>"; };
+		B0E4690F19A84BB3008B3150 /* ItemNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemNavigationController.h; path = ../ItemNavigationController.h; sourceTree = "<group>"; };
+		B0E4691019A84BB3008B3150 /* ItemNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemNavigationController.m; path = ../ItemNavigationController.m; sourceTree = "<group>"; };
+		B0E4691219A84BC3008B3150 /* FilterNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterNavigationController.h; sourceTree = "<group>"; };
+		B0E4691319A84BC3008B3150 /* FilterNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +218,7 @@
 				B080804B19582CF6007D21E4 /* MainViewController.m */,
 				B0BDA8821996563C003AA40B /* CoreData */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
+				B0C93A1A194C4AB600733BE7 /* NavigationController */,
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
@@ -414,13 +424,19 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
-		B0C93A1A194C4AB600733BE7 /* Navigatioin */ = {
+		B0C93A1A194C4AB600733BE7 /* NavigationController */ = {
 			isa = PBXGroup;
 			children = (
 				B08F4B631915FAC80047E210 /* NavigationController.h */,
 				B08F4B641915FAC80047E210 /* NavigationController.m */,
+				B0E4690F19A84BB3008B3150 /* ItemNavigationController.h */,
+				B0E4691019A84BB3008B3150 /* ItemNavigationController.m */,
+				B0E4690C19A84B99008B3150 /* TagNavigationController.h */,
+				B0E4690D19A84B99008B3150 /* TagNavigationController.m */,
+				B0E4691219A84BC3008B3150 /* FilterNavigationController.h */,
+				B0E4691319A84BC3008B3150 /* FilterNavigationController.m */,
 			);
-			name = Navigatioin;
+			name = NavigationController;
 			sourceTree = "<group>";
 		};
 		B0E7571219499D98004C6344 /* ItemCell */ = {
@@ -448,7 +464,6 @@
 			children = (
 				B072C8CD198CF80D00F95B83 /* InputHeader */,
 				B0E7571219499D98004C6344 /* ItemCell */,
-				B0C93A1A194C4AB600733BE7 /* Navigatioin */,
 				B0E7571319499E95004C6344 /* ItemDetailView */,
 				B07D582D198E07B300688F98 /* InputItemViewController */,
 				B00AD6A418C45E470005A552 /* ItemViewController.h */,
@@ -569,6 +584,8 @@
 			files = (
 				B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */,
 				B05319A819A089FD00F63783 /* Filter.m in Sources */,
+				B0E4691119A84BB3008B3150 /* ItemNavigationController.m in Sources */,
+				B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */,
 				B00AD6A918C45E470005A552 /* ItemDetailViewController.m in Sources */,
 				B0BDA88119965639003AA40B /* CoreDataController.m in Sources */,
 				B00483671981D1960076025B /* InputFilterViewController.m in Sources */,
@@ -590,6 +607,7 @@
 				B03E6C1718CAA316007703B8 /* Item.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */,
 				B0A351141984B6AA0062ABB1 /* TagFieldViewController.m in Sources */,
+				B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */,
 				B05FA8231982B20C00E25FAF /* TabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

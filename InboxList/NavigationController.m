@@ -7,8 +7,10 @@
 //
 
 #import "NavigationController.h"
+#import "Header.h"
+#import "Configure.h"
 
-@implementation NavigationController
+@implementation __NavigationController
 
 /**
  * @brief  ナビゲーションコントローラを初期化

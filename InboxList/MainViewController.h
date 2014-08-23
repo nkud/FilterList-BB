@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 #import "ItemViewController.h"
-#import "NavigationController.h"
+//#import "NavigationController.h"
+#import "ItemNavigationController.h"
+#import "TagNavigationController.h"
+#import "FilterNavigationController.h"
 #import "TagViewController.h"
 #import "FilterViewController.h"
 #import "InputFilterViewController.h"
@@ -23,15 +26,15 @@
   int swipe_distance;
 }
 
-@property (strong, nonatomic) NavigationController       *navigationController;
+@property (strong, nonatomic) ItemNavigationController       *itemNavigationController;
 @property (strong, nonatomic) ItemViewController         *itemViewController;
 
-@property (strong, nonatomic) NavigationController *filterNavigationController;
+@property (strong, nonatomic) FilterNavigationController *filterNavigationController;
 @property (strong, nonatomic) FilterViewController       *filterViewController;
 
 @property (strong, nonatomic) TabBar                    *tabBar;
 
-@property (strong, nonatomic) NavigationController *tagNavigationController;
+@property (strong, nonatomic) TagNavigationController *tagNavigationController;
 @property (strong, nonatomic) TagViewController         *tagViewController;
 
 -(void)loadMasterViewForTag:(NSString *)tag
