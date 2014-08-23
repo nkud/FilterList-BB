@@ -174,7 +174,7 @@
   // 追加する場合
 //  [self addNewTextField:CGRectMake(0, 200, SCREEN_BOUNDS.size.width, field_height)];
   [self addNewTextField];
-  LOG(@"テキストフィールド数: %lu", [self.textFieldArray count]);
+  LOG(@"テキストフィールド数: %ul", [self.textFieldArray count]);
   NSMutableArray *stock = [NSMutableArray arrayWithArray:self.textFieldArray];
   [stock removeObject:[stock lastObject]];
   for (TagField *textField in stock) {

@@ -197,8 +197,7 @@ numberOfRowsInSection:(NSInteger)section
   } else {
     cell.textLabel.text = tag.title;
   }
-
-  cell.detailTextLabel.text = [NSString stringWithFormat:@"%lx", [tag.items count]];
+  cell.detailTextLabel.text = [NSString stringWithFormat:@"%ul", [tag.items count]];
   return cell;
 }
 
