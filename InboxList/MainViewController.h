@@ -15,6 +15,9 @@
 #import "InputFilterViewController.h"
 #import "TabBar.h"
 
+/**
+ *  @brief  メイン
+ */
 @interface MainViewController : UIViewController
 <TagViewControllerDelegate, UITabBarDelegate> {
   int swipe_distance;

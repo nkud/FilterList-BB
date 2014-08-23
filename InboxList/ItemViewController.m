@@ -13,7 +13,10 @@
 #import "Tag.h"
 #import "Item.h"
 #import "ItemCell.h"
+
 #import "Header.h"
+#import "Configure.h"
+
 #import "InputHeader.h"
 #import "CoreDataController.h"
 
@@ -78,7 +81,7 @@
   self = [super initWithStyle:style];
 
   if (self) {
-    self.title = @"master";
+    ;
   }
 
   return self;
@@ -93,16 +96,16 @@
   [super viewDidLoad];
   
   // 変数を初期化
+  [self setTitle:ITEM_LIST_TITLE];
   [self initParameter];
 
   // セルとして使うクラスを登録する
-//  [self.tableView registerClass:[ItemCell class]
-//         forCellReuseIdentifier:@"ItemCell"];
+  //  [self.tableView registerClass:[ItemCell class] forCellReuseIdentifier:@"ItemCell"];
   [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ItemCell class])
                                              bundle:nil]
        forCellReuseIdentifier:@"ItemCell"];
-//  [self.tableView setRowHeight:100];
-
+  //  [self.tableView setRowHeight:100];
+  
   // 編集ボタン
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                  style:UIBarButtonItemStyleBordered
@@ -117,15 +120,27 @@
   self.navigationItem.rightBarButtonItem = addButton;
 
   // 入力ヘッダ
-  self.inputHeader = [[InputHeader alloc] initWithFrame:self.tableView.bounds];
-  self.inputHeader.delegate = self;
-  [self.tableView addSubview:self.inputHeader];
+//  LOG(@"nav: %@", self.navigationController.view);
+//  self.inputHeader = [[InputHeader alloc] initWithFrame:self.navigationController.view.frame];
+//  self.inputHeader.delegate = self;
+//  [self.navigationController.view addSubview:self.inputHeader];
+//  LOG(@"inputHeader: %@", self.inputHeader);
+//  //  [self.tableView addSubview:self.inputHeader];
+//
+//  LOG(@"テーブルビューを少しずらす");
+//
+//  LOG(@"tableview: %@", self.tableView);
+//  CGRect table_frame = self.tableView.frame;
+//  table_frame.origin.y += 500;
+////  [self.tableView setContentOffset:CGPointMake(table_frame.origin.x, table_frame.origin.y)];
+//  [self.tableView setFrame:table_frame];
+//  LOG(@"tableview: %@", self.tableView);
 }
 
 /**
  *  スクロール時の処理
  *
- *  @param scrollView <#scrollView description#>
+ *  @param scrollView スクロールビュー
  */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -136,7 +151,7 @@
 /**
  *  @brief スクロールをドラッグした後の処理
  *
- *  @param scrollView <#scrollView description#>
+ *  @param scrollView スクロールビュー
  *  @param decelerate <#decelerate description#>
  *
  *  @todo  入力ヘッダを綺麗に出すようにする
@@ -144,11 +159,39 @@
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView
                  willDecelerate:(BOOL)decelerate
 {
-  if (self.triggerDragging < -120) { // 規定値よりもドラッグすると
-
+  LOG(@"スクロールをドラッグした時の処理");
+  int activate_quick_distance = -120;
+  if (self.triggerDragging < activate_quick_distance) { // 規定値よりもドラッグすると
+    
     LOG(@"クイック入力開始");
-    [self.inputHeader activateInput]; // クイック入力を作動させる
+//    [self.inputHeader activateInput]; // クイック入力を作動させる
   }
+}
+
+/**
+ *  フレームをずらす
+ *
+ * @todo 良いやり方がないか
+ */
+-(void)setFrameForInputField
+{
+  LOG(@"フレームをずらす");
+//  CGRect rect = self.tableView.frame;
+//  rect.origin.y += self.inputHeader.height;
+//  self.tableView.frame = rect;
+//  CGFloat y = rect.origin.y - self.inputHeader.height;
+  CGFloat y = self.tableView.bounds.origin.y + self.inputHeader.height;
+  self.tableView.contentOffset = CGPointMake(0, y);
+}
+/**
+ *  フレームを戻す
+ */
+-(void)recoverFrameForInputField
+{
+  LOG(@"フレームを戻す");
+  CGRect rect = self.tableView.frame;
+  rect.origin.y -= self.inputHeader.height;
+  self.tableView.frame = rect;
 }
 
 /**
@@ -158,34 +201,25 @@
  */
 -(void)quickInsertNewItem:(NSString *)itemString
 {
-  NSLog(@"%s", __FUNCTION__);
-//  if ([self.selectedTagString isEqualToString:@"all"]) { // 全てのアイテムを表示中なら
-//    [self insertNewObject:self                           // 自分に
-//                    title:itemString                     // タイトルと
-//                      tag:nil                            // タグは空で
-//                 reminder:[NSDate date]];                // 今日の日付で挿入
-//  } else {                                               // あるタグのみ表示中なら
-//  [self insertNewObject:self                             // 自分に
-//                  title:itemString                       // タイトルと
-//                    tag:[NSSet setWithObject:self.selectedTagString] // そのタグと
-//               reminder:[NSDate date]]; // 今日の日付で挿入
-//  }
-  if ([itemString isEqualToString:@""]) {
-    return;
+  LOG(@"タイトルだけ指定して新しいアイテムを追加");
+  if ([itemString isEqualToString:@""]) { // 空欄なら
+    return;                               // 終了
   }
-  if ([self.selectedTagString isEqualToString:@"all"]) {
+  if ([self.selectedTagString isEqualToString:@"all"])
+  {                             // 全タグ表示中なら
     [CoreDataController insertNewItem:itemString
                                  tags:nil
-                             reminder:[NSDate date]];
-  } else {
-    NSMutableSet *tags = [[NSMutableSet alloc] init];
+                             reminder:[NSDate date]]; // タグなしで追加して終了
+  }
+  else                          // あるタグを表示中なら
+  {
     Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
             insertIntoManagedObjectContext:nil];
     tag.title = self.selectedTagString;
-    [tags addObject:tag];
+    NSSet *tags = [NSSet setWithObject:tag];
     [CoreDataController insertNewItem:itemString
                                  tags:tags
-                             reminder:[NSDate date]];
+                             reminder:[NSDate date]]; // 新しいアイテムを追加    
   }
 }
 

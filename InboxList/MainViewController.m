@@ -13,6 +13,8 @@
 #import "ResultControllerFactory.h"
 #import "CoreDataController.h"
 
+#import "Configure.h"
+
 @interface MainViewController () {
   AppDelegate *app;
 }
@@ -21,8 +23,8 @@
 @implementation MainViewController
 
 /**
- * パラメータを初期化
- */
+*  @brief  パラメータを初期化
+*/
 - (void)initParameter
 {
   swipe_distance = SCREEN_BOUNDS.size.width;
@@ -30,12 +32,72 @@
 }
 
 /**
- * 初期化
+ *  @brief  初期化
+ *
+ *  @return インスタンス
  */
 -(id)init
 {
   self = [super init];
   return self;
+}
+
+/**
+ *  @brief  ビューがロードされた後の処理
+ */
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    /// パラメータを初期化
+    [self initParameter];
+    
+    LOG(@"アイテムビューを初期化");
+    self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
+    self.itemViewController.fetchedResultsController = [ResultControllerFactory fetchedResultsController:self.itemViewController]; // はじめは全アイテムを表示
+    
+    LOG(@"ナビゲーションコントローラー初期化");
+    self.navigationController = [[NavigationController alloc] initWithRootViewController:self.itemViewController];
+    
+    /**
+     *  タブバー初期化
+     */
+    LOG(@"タブバー初期化");
+    self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
+                                                           SCREEN_BOUNDS.size.height-TABBAR_H,
+                                                           SCREEN_BOUNDS.size.width,
+                                                           TABBAR_H)];
+    self.tabBar.delegate = self;
+    
+    LOG(@"フィルターコントローラーを初期化");
+    self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
+    //  self.filterViewController.delegate = self;
+    self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
+    self.filterNavigationController = [[NavigationController alloc] initWithRootViewController:self.filterViewController];
+    
+    LOG(@"ジェスチャーを設定");
+    UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                          action:@selector(handleSwipeFrom:)];
+    UISwipeGestureRecognizer *recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                         action:@selector(handleSwipeFrom:)];
+    [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    [recognizerLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.navigationController.view addGestureRecognizer:recognizerRight];
+    [self.navigationController.view addGestureRecognizer:recognizerLeft];
+    
+    self.navigationController.title = @"FilterList";
+    
+    LOG(@"タグモード初期化");
+    self.tagViewController = [[TagViewController alloc] initWithNibName:nil
+                                                                 bundle:nil];
+    self.tagViewController.delegate = self;
+    self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
+    self.tagNavigationController = [[NavigationController alloc] initWithRootViewController:self.tagViewController];
+    LOG(@"コントローラーを配置");
+    [self.view addSubview:self.tagNavigationController.view];
+    [self.view addSubview:self.filterNavigationController.view];
+    [self.view addSubview:self.navigationController.view];
+    [self.view addSubview:self.tabBar];
 }
 
 /**
@@ -51,7 +113,7 @@
   next_center.x = MAX(center_x-swipe_distance, screen_x);
 
   /// アニメーション
-  [UIView animateWithDuration:0.2
+  [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
                      self.navigationController.view.center = next_center;
                    }];
@@ -93,7 +155,7 @@
 
   next_center.x = screen_center_x;
 
-  [UIView animateWithDuration:0.2
+  [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
                      self.navigationController.view.center = next_center;
                    }];
@@ -115,7 +177,7 @@
   next_center.x = screen_center_x + swipe_distance;
   [self.view sendSubviewToBack:self.filterNavigationController.view];
   
-  [UIView animateWithDuration:0.2
+  [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
                      self.navigationController.view.center = next_center;
                    }];
@@ -133,7 +195,7 @@
   next_center.x = screen_center_x - swipe_distance;
   [self.view sendSubviewToBack:self.tagNavigationController.view];
 
-  [UIView animateWithDuration:0.2
+  [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
                      self.navigationController.view.center = next_center;
                    }];
@@ -170,7 +232,7 @@
   self.tagViewController.tagArray_ = [CoreDataController getAllTagsArray];
   [self.tagViewController updateTableView]; //< ビューを更新
 
-  [UIView animateWithDuration:0.2
+  [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
                      self.navigationController.view.center = next_center;
                    }];
@@ -187,7 +249,7 @@
   CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
   next_center.x = screen_x;
 
-  [UIView animateWithDuration:0.2
+  [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
                      self.navigationController.view.center = next_center;
                    }];
@@ -220,67 +282,10 @@
   if (next_center.x < -SCREEN_BOUNDS.size.width*0.5) {
     return;
   }
-  [UIView animateWithDuration:0.2
+  [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
                      self.navigationController.view.center = next_center;
                    }];
-}
-/**
- * ビューがロードされた後の処理
- */
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-
-  /// パラメータを初期化
-  [self initParameter];
-
-  LOG(@"アイテムビューを初期化");
-  self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
-  self.itemViewController.fetchedResultsController = [ResultControllerFactory fetchedResultsController:self.itemViewController]; // はじめは全アイテムを表示
-
-  LOG(@"ナビゲーションコントローラー初期化");
-  self.navigationController = [[NavigationController alloc] initWithRootViewController:self.itemViewController];
-
-  /**
-   *  タブバー初期化
-   */
-  LOG(@"タブバー初期化");
-  self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
-                                                         SCREEN_BOUNDS.size.height-TABBAR_H,
-                                                         SCREEN_BOUNDS.size.width,
-                                                         TABBAR_H)];
-  self.tabBar.delegate = self;
-
-  LOG(@"フィルターコントローラーを初期化");
-  self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
-//  self.filterViewController.delegate = self;
-  self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
-  self.filterNavigationController = [[NavigationController alloc] initWithRootViewController:self.filterViewController];
-
-  LOG(@"ジェスチャーを設定");
-  UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                        action:@selector(handleSwipeFrom:)];
-  UISwipeGestureRecognizer *recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                       action:@selector(handleSwipeFrom:)];
-  [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
-  [recognizerLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-  [self.navigationController.view addGestureRecognizer:recognizerRight];
-  [self.navigationController.view addGestureRecognizer:recognizerLeft];
-
-  self.navigationController.title = @"FilterList";
-
-  LOG(@"タグモード初期化");
-  self.tagViewController = [[TagViewController alloc] initWithNibName:nil
-                                                               bundle:nil];
-  self.tagViewController.delegate = self;
-  self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
-  self.tagNavigationController = [[NavigationController alloc] initWithRootViewController:self.tagViewController];
-  LOG(@"コントローラーを配置");
-  [self.view addSubview:self.tagNavigationController.view];
-  [self.view addSubview:self.filterNavigationController.view];
-  [self.view addSubview:self.navigationController.view];
-  [self.view addSubview:self.tabBar];
 }
 
 /**

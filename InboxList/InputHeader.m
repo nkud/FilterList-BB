@@ -7,8 +7,17 @@
 //
 
 #import "InputHeader.h"
+#import "Header.h"
 
 @implementation InputHeader
+
+/**
+ *  初期パラメータを設定
+ */
+-(void)setParameter
+{
+  [self setHeight:40];
+}
 
 /**
  *  初期化
@@ -19,24 +28,26 @@
  */
 - (id)initWithFrame:(CGRect)frame
 {
-  int input_height = 40;
-  CGRect field_rect = frame;
-  frame.size.height = input_height;
-  frame.origin.y -= input_height;
+  [self setParameter];
 
-  self = [super initWithFrame:frame];
-  self.backgroundColor = [UIColor greenColor];
+  CGRect input_frame = frame;
+  input_frame.origin.y += STATUSBAR_H + NAVBAR_H;
+  input_frame.size.height = self.height;
+  self = [super initWithFrame:input_frame];
+
+  self.backgroundColor = [UIColor grayColor];
   
   if (self)
   {
     // テキストフィールド初期化
-    field_rect.size.height = input_height;
+    CGRect field_rect = input_frame;
+    field_rect.size.height = self.height;
     field_rect.origin.y = 0;
     self.inputField = [[UITextField alloc] initWithFrame:field_rect];
-    self.inputField.placeholder = @"new input...";
+    self.inputField.placeholder = @"Add new item";
     self.inputField.delegate = self;
     [self addSubview:self.inputField];
-    }
+  }
   return self;
 }
 
@@ -45,7 +56,8 @@
  */
 -(void)activateInput
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"入力を開始する");
+//  [self.delegate setFrameForInputField]; // フィールドを出す
   [self.inputField becomeFirstResponder]; // キーボードを出す
 }
 
@@ -54,9 +66,10 @@
  */
 -(void)deactivateInput
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"入力状態を終了する");
   [self.delegate quickInsertNewItem:self.inputField.text];
   self.inputField.text = @"";
+//  [self.delegate recoverFrameForInputField];
   [self.inputField resignFirstResponder];
 }
 
@@ -69,7 +82,7 @@
  */
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"リターン時の処理");
   [self deactivateInput]; // 入力状態を終了する
   return YES;
 }

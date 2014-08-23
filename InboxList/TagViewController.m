@@ -13,6 +13,8 @@
 #import "CoreDataController.h"
 #import "InputTagViewController.h"
 
+#import "Configure.h"
+
 @interface TagViewController ()
 
 @end
@@ -70,14 +72,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //  return nil;
 //}
 
+
 /**
- * ビューがロードされた後の処理
+ *  @brief  ビューがロードされた後の処理
  */
 - (void)viewDidLoad
 {
   LOG(@"タグビューがロードされた後の処理");
   [super viewDidLoad];
 
+  [self setTitle:TAG_LIST_TITLE];
 //  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MenuCell"];
   [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCell class])
                                              bundle:nil]
@@ -194,7 +198,7 @@ numberOfRowsInSection:(NSInteger)section
     cell.textLabel.text = tag.title;
   }
 
-  cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", [tag.items count]];
+  cell.detailTextLabel.text = [NSString stringWithFormat:@"%lx", [tag.items count]];
   return cell;
 }
 
@@ -245,8 +249,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
       LOG(@"タグを削除");
       [[CoreDataController managedObjectContext] deleteObject:tag];
-
-      LOG(@"削除されるオブジェクト数：%lu", [[[CoreDataController managedObjectContext] deletedObjects] count]);
+//      LOG(@"削除されるオブジェクト数：%lu", [[[CoreDataController managedObjectContext] deletedObjects] count]);
 
       [CoreDataController saveContext];
       break;

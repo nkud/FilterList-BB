@@ -21,6 +21,9 @@
 //
 //@end
 
+/**
+ *  @brief  フィルター
+ */
 @interface FilterViewController : UITableViewController
 <NSFetchedResultsControllerDelegate, InputFilterViewControlellerDelegate>
 

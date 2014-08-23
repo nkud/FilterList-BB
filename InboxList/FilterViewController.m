@@ -13,6 +13,8 @@
 #import "FilterCell.h"
 #import "Filter.h"
 
+#import "Configure.h"
+
 @interface FilterViewController ()
 
 @end
@@ -79,7 +81,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
+  [self setTitle:FILTER_LIST_TITLE];
   [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
 
   LOG(@"編集ボタンを追加");

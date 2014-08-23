@@ -128,6 +128,7 @@
 		B08EBBC019703EB200DB9582 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		B08F791B19A8286900145F75 /* Configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
 		B0A3510B1984A24B0062ABB1 /* ResultControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultControllerFactory.h; sourceTree = "<group>"; };
 		B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultControllerFactory.m; sourceTree = "<group>"; };
@@ -202,11 +203,12 @@
 		B00AD69218C45E470005A552 /* InboxList */ = {
 			isa = PBXGroup;
 			children = (
+				B053C91B19557C1600C51AA1 /* Header.h */,
+				B08F791B19A8286900145F75 /* Configure.h */,
 				B080804A19582CF6007D21E4 /* MainViewController.h */,
 				B080804B19582CF6007D21E4 /* MainViewController.m */,
 				B0BDA8821996563C003AA40B /* CoreData */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
-				B0A351071984A1140062ABB1 /* Header */,
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
@@ -390,14 +392,6 @@
 				B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */,
 			);
 			name = TagFieldViewController;
-			sourceTree = "<group>";
-		};
-		B0A351071984A1140062ABB1 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				B053C91B19557C1600C51AA1 /* Header.h */,
-			);
-			name = Header;
 			sourceTree = "<group>";
 		};
 		B0A3510E1984AA0F0062ABB1 /* ResultControllerFactory */ = {
