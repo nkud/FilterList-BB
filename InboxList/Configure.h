@@ -25,4 +25,10 @@
 
 #define ITEM_NAVBAR_COLOR RGB(230, 230, 0)
 
+/**
+ * @brief セルの高さ
+ */
+#define TAG_CELL_HEIGHT 50
+
+
 #endif

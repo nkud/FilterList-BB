@@ -82,8 +82,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [super viewDidLoad];
 
   [self setTitle:TAG_LIST_TITLE];
+  
 //  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MenuCell"];
-  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCell class])
+  [self.tableView registerNib:[UINib nibWithNibName:@"TagCell"
                                              bundle:nil]
        forCellReuseIdentifier:TagModeCellIdentifier];
 
@@ -109,7 +110,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(void)toAdd:(id)sender
 {
-  LOG(@"新規入力画面をプッシュ");
+  LOG(@"新規入力画面eをプッシュ");
   NSString *inputTagNibName = @"InputTagViewController";
   InputTagViewController *inputTagViewController = [[InputTagViewController alloc] initWithNibName:inputTagNibName
                                                                                             bundle:nil];
@@ -176,7 +177,7 @@ numberOfRowsInSection:(NSInteger)section
 //  LOG(@"セクションによる分岐");
 //  switch (indexPath.section) {
 //    case 0:
-//      cell.textLabel.text = @"all";
+//      cell.tagTitle.text = @"all";
 //      break;
 //
 //    case 1:
@@ -184,7 +185,7 @@ numberOfRowsInSection:(NSInteger)section
 //      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
 //                                              inSection:0];
 //      Tag *tag = [self.fetchedResultsController objectAtIndexPath:index];
-//      cell.textLabel.text = tag.title;
+//      cell.tagTitle.text = tag.title;
 //    }
 //      break;
 //      
@@ -193,12 +194,26 @@ numberOfRowsInSection:(NSInteger)section
 //  }
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
   if ([tag.title isEqualToString:@""]) {
-    cell.textLabel.text = @"NO TAGS";
+    cell.tagTitle.text = @"NO TAGS";
   } else {
-    cell.textLabel.text = tag.title;
+    cell.tagTitle.text = tag.title;
   }
-  cell.detailTextLabel.text = [NSString stringWithFormat:@"%ul", [tag.items count]];
+  cell.numOfItemsTextLabel.text = [NSString stringWithFormat:@"%u", [tag.items count]];
   return cell;
+}
+
+/**
+ * @brief  セルの高さ
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return セルの高さ
+ */
+-(CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return TAG_CELL_HEIGHT;
 }
 
 /**
@@ -248,7 +263,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
       LOG(@"タグを削除");
       [[CoreDataController managedObjectContext] deleteObject:tag];
-//      LOG(@"削除されるオブジェクト数：%lu", [[[CoreDataController managedObjectContext] deletedObjects] count]);
+      LOG(@"削除されるオブジェクト数：%u", [[[CoreDataController managedObjectContext] deletedObjects] count]);
 
       [CoreDataController saveContext];
       break;

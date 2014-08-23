@@ -22,7 +22,7 @@
 //@end
 
 /**
- *  @brief  フィルター
+ *  @brief  フィルターリスト
  */
 @interface FilterViewController : UITableViewController
 <NSFetchedResultsControllerDelegate, InputFilterViewControlellerDelegate>

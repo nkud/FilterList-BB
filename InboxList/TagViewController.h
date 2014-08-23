@@ -17,6 +17,9 @@ static NSString * const TagModeCellIdentifier = @"TagCell";
 
 @end
 
+/**
+ * @brief  タグリスト
+ */
 @interface TagViewController : UITableViewController
 <NSFetchedResultsControllerDelegate, InputTagViewControllerProtocol>
 

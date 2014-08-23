@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * @brief  ナビゲーションコントローラインターフェイス
+ */
 @interface __NavigationController : UINavigationController
 
 @end

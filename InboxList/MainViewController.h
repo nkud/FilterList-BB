@@ -19,7 +19,7 @@
 #import "TabBar.h"
 
 /**
- *  @brief  メイン
+ *  @brief  メインコンテナ
  */
 @interface MainViewController : UIViewController
 <TagViewControllerDelegate, UITabBarDelegate> {

@@ -11,6 +11,14 @@
 
 @implementation TagCell
 
+/**
+ * @brief  タグセル初期化
+ *
+ * @param style           スタイル
+ * @param reuseIdentifier アイデンティティ
+ *
+ * @return セル
+ */
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
 {
