@@ -22,6 +22,8 @@
 
 //+ (CGFloat)cellHeight;
 
-- (BOOL)updateCheckBox:(BOOL)isChecked;
+-(BOOL)updateCheckBox:(BOOL)isChecked;
+-(void)setChecked;
+-(void)setUnChecked;
 
 @end

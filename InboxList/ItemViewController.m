@@ -20,15 +20,23 @@
 #import "InputHeader.h"
 #import "CoreDataController.h"
 
+
 @interface ItemViewController () {
   int location_center_x;
   BOOL isOpen;
   AppDelegate *app;
 }
 
+/**
+ * @brief  セルを設定
+ *
+ * @param cell      設定するセル
+ * @param indexPath セルの位置
+ */
 - (void)configureCell:(ItemCell *)cell
           atIndexPath:(NSIndexPath *)indexPath;
 @end
+
 
 @implementation ItemViewController
 
@@ -36,22 +44,54 @@
  * @brief  チェックボックスがタッチされた時の処理
  *
  * @param sender タップリコクナイザー
+ * @todo なんかおかしい
  */
-- (void)touchedCheckBox:(UITapGestureRecognizer*)sender
+- (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
 {
-  CGPoint point = [sender locationInView:self.tableView];
-  NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-  
-  // その位置のセルのデータをモデルから取得する
-  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  
-  BOOL checkbox = [[item valueForKey:@"state"] boolValue];
-  if (checkbox == FALSE) {      // 完了にする
-    [app.managedObjectContext deleteObject:item]; // アイテムを削除
+  static bool flag = false;
+  switch (sender.state) {
+    case UIGestureRecognizerStateBegan:
+//    case UIGestureRecognizerStateChanged:
+    {
+      LOG(@"チェックボックスのタッチ開始");
+      CGPoint point = [sender locationInView:self.tableView];
+      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+      
+      // その位置のセルのデータをモデルから取得する
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      
+      if ([item.state boolValue]) { // 完了済みなら
+        LOG(@"未完了に変更");
+        item.state = [NSNumber numberWithBool:false]; // 未完了にする
+      } else { // 未完了なら
+        LOG(@"完了に変更して削除する前処理");
+        item.state = [NSNumber numberWithBool:true]; // 完了にして
+        flag = true; // 削除する
+      }
+    }
+      break;
+      
+    case UIGestureRecognizerStateEnded:
+    {
+      LOG(@"チェックボックスのタッチ終了");
+      CGPoint point = [sender locationInView:self.tableView];
+      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+      
+      // その位置のセルのデータをモデルから取得する
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      if ( flag ) {
+        LOG(@"アイテムを削除する");
+        [app.managedObjectContext deleteObject:item]; // アイテムを削除
+      }
+
+      [CoreDataController saveContext];
+    }
+      break;
+      
+    default:
+      break;
   }
-  
-  // モデルを保存する
-  [CoreDataController saveContext];
+
 }
 
 /**
@@ -348,7 +388,7 @@
 #pragma mark - Table View
 
 /**
- *  テーブルビューを更新する
+ * @brief テーブルビューを更新する
  *
  * @todo 効率のいい更新方法にする
  */
@@ -359,7 +399,7 @@
 }
 
 /**
- *  セルを作成する
+ *  @brief セルを作成する
  *
  *  @param cell      作成するセル
  *  @param indexPath 作成するセルの位置
@@ -369,7 +409,7 @@
 {
   /// セルを作成
   Item *item                 = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//  cell.textLabel.text = [[object valueForKey:@"title"] description]; // text
+  
   cell.titleLabel.text       = item.title;
   [cell updateCheckBox:item.state.boolValue];
 
@@ -378,14 +418,16 @@
   cell.reminderLabel.text    = [formatter stringFromDate:item.reminder];
 
   /// 画像タッチを認識する設定
-  UITapGestureRecognizer *recoqnizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                               action:@selector(touchedCheckBox:)];
+  UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(touchedCheckBox:)];
+
+  [recognizer setMinimumPressDuration:0.0];
   [cell.checkBoxImageView setUserInteractionEnabled:YES];
-  [cell.checkBoxImageView addGestureRecognizer:recoqnizer];
+  [cell.checkBoxImageView addGestureRecognizer:recognizer];
 }
 
 /**
- *  セルが選択された時の処理
+ *  @brief セルが選択された時の処理
  *
  *  @param tableView テーブルビュー
  *  @param indexPath 選択された場所
@@ -394,11 +436,10 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"アイテムが選択された時の処理");
-//  ItemDetailViewController *detailViewController = [[ItemDetailViewController alloc] init];
   ItemDetailViewController *detailViewController = [[ItemDetailViewController alloc] initWithNibName:@"ItemDetailViewController"
                                                                                               bundle:nil];
   Item *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
+  
   [detailViewController setDetailItem:object];
   [detailViewController setIndex:indexPath];
   [detailViewController setDelegate:self];
@@ -408,7 +449,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *  セクション数を返す
+ *  @brief セクション数を返す
  *
  *  @param tableView テーブルビュー
  *

@@ -59,6 +59,7 @@
  */
 -(void)setChecked
 {
+  LOG(@"チェックを付ける");
   UIImage *check_true = [UIImage imageNamed:@"CheckBox_True.png"];
   [self.checkBoxImageView setImage:check_true];
 }
@@ -68,6 +69,7 @@
  */
 - (void)setUnChecked
 {
+  LOG(@"チェックを外す");
   UIImage *check_false = [UIImage imageNamed:@"CheckBox_False.png"];
   [self.checkBoxImageView setImage:check_false];
 }
