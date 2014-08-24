@@ -9,6 +9,7 @@
 #import "TagSelectViewController.h"
 #import "CoreDataController.h"
 #import "Tag.h"
+#import "Header.h"
 
 @interface TagSelectViewController () {
   NSString *cell_identifier_;
@@ -18,7 +19,8 @@
 
 @implementation TagSelectViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -32,23 +34,40 @@
   [super viewDidLoad];
   
   cell_identifier_ = @"TagSelectCell";
-  [self.tagTableView registerClass:[UITableViewCell class]
-            forCellReuseIdentifier:cell_identifier_];
+//  [self.tagTableView registerClass:[UITableViewCell class]
+//            forCellReuseIdentifier:cell_identifier_];
+  [self.tagTableView registerNib:[UINib nibWithNibName:@"TagSelectCell"
+                                                bundle:nil]
+          forCellReuseIdentifier:cell_identifier_];
   
   // ボタンの設定
   [self.saveButton addTarget:self
-                      action:@selector(pop)
+                      action:@selector(dismissTagSelectView)
             forControlEvents:UIControlEventTouchUpInside];
   
   // リザルトコントローラーの設定
   self.fetchedResultsController = [CoreDataController tagFetchedResultsController:self];
-  }
+  
+  
+  // 複数選択を可能にする
+  self.tagTableView.allowsMultipleSelectionDuringEditing = YES;
+  [self.tagTableView setEditing:YES];
+}
 
 /**
  * @brief  入力画面を終了
  */
--(void)pop
+-(void)dismissTagSelectView
 {
+  LOG(@"入力画面を終了");
+  NSArray *selected_rows = [self.tagTableView indexPathsForSelectedRows];
+  NSMutableSet *tags_for_selected = [[NSMutableSet alloc] init];
+  for (NSIndexPath *index in selected_rows) {
+    Tag *tag = [self.fetchedResultsController objectAtIndexPath:index];
+    [tags_for_selected addObject:tag];
+  }
+  [self.delegate dismissTagSelectView:tags_for_selected]; // 選択されたタグを渡す
+  
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -77,6 +96,24 @@ numberOfRowsInSection:(NSInteger)section
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return [[self.fetchedResultsController sections] count];
+}
+
+-(BOOL)tableView:(UITableView *)tableView
+canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return YES;
+}
+
+/**
+ * @brief  セルを選択した時の処理
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 選択した位置
+ */
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  LOG(@"選択する");
 }
 
 /**

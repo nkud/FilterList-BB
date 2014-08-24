@@ -9,6 +9,7 @@
                 <outlet property="buttonTagSelectView" destination="nJG-KS-0BX" id="GDX-7K-xBT"/>
                 <outlet property="remindPicker" destination="ENn-x5-83W" id="nAT-az-1fr"/>
                 <outlet property="saveButton" destination="0XL-Zh-RLA" id="ajO-1V-dfU"/>
+                <outlet property="selectedTagsLabel" destination="RKT-04-HMk" id="lNh-Oe-RId"/>
                 <outlet property="tagInputField" destination="Ovf-C4-875" id="bDt-y6-XZg"/>
                 <outlet property="titleInputField" destination="Drr-26-dsC" id="5Uz-cv-NPv"/>
                 <outlet property="view" destination="pfQ-Js-cDq" id="H5R-TR-wfE"/>
@@ -73,6 +74,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKT-04-HMk">
+                    <rect key="frame" x="20" y="164" width="280" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

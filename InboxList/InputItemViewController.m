@@ -10,6 +10,7 @@
 #import "TagFieldViewController.h"
 #import "Header.h"
 #import "TagSelectViewController.h"
+#import "Tag.h"
 
 @interface InputItemViewController ()
 
@@ -107,6 +108,7 @@
                                               bundle:nil];
   [self.navigationController pushViewController:tagSelectViewController
                                        animated:YES];
+  [tagSelectViewController setDelegate:self];
   return;
 }
 
@@ -133,6 +135,17 @@
   NSArray *_data = @[self.titleInputField.text, self.tagInputField.text];
   [[self delegate] dismissInputModalView:self data:_data
                                 reminder:self.remindPicker.date];
+}
+
+-(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
+{
+  LOG(@"選択されたタグを更新する");
+  NSMutableString *tags_title = [NSMutableString stringWithString:@""];
+  for (Tag *tag in tagsForSelectedRows) {
+    [tags_title appendFormat:@"%@ ", tag.title];
+  }
+  self.selectedTagsLabel.text = tags_title;
+  self.tagInputField.text = tags_title;
 }
 
 /**

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TagSelectViewControllerDelegate <NSObject>
+
+-(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows;
+
+@end
+
 /// タグ選択画面
 @interface TagSelectViewController : UIViewController
 <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
@@ -18,5 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @property NSFetchedResultsController *fetchedResultsController;
+
+@property id <TagSelectViewControllerDelegate> delegate;
 
 @end

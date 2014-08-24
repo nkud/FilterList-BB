@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TagFieldViewController.h"
+#import "TagSelectViewController.h"
 
 @protocol InputItemViewControllerDelegate <NSObject>
 
@@ -17,7 +18,7 @@
 @end
 
 @interface InputItemViewController : UIViewController
-<UITextFieldDelegate>
+<UITextFieldDelegate, TagSelectViewControllerDelegate>
 
 @property id <InputItemViewControllerDelegate> delegate;
 
@@ -27,5 +28,6 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *remindPicker;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonTagSelectView;
+@property (weak, nonatomic) IBOutlet UILabel *selectedTagsLabel;
 
 @end
