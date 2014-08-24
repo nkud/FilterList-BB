@@ -17,6 +17,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
-//@property NSFetchedResultsController *fetchedResultsController;
+@property NSFetchedResultsController *fetchedResultsController;
 
 @end

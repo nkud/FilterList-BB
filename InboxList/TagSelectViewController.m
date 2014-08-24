@@ -8,8 +8,11 @@
 
 #import "TagSelectViewController.h"
 #import "CoreDataController.h"
+#import "Tag.h"
 
-@interface TagSelectViewController ()
+@interface TagSelectViewController () {
+  NSString *cell_identifier_;
+}
 
 @end
 
@@ -28,27 +31,52 @@
 {
   [super viewDidLoad];
   
+  cell_identifier_ = @"TagSelectCell";
+  [self.tagTableView registerClass:[UITableViewCell class]
+            forCellReuseIdentifier:cell_identifier_];
+  
+  // ボタンの設定
   [self.saveButton addTarget:self
                       action:@selector(pop)
             forControlEvents:UIControlEventTouchUpInside];
-//  [self.fetchedResultsController = [CoreDataController tagFetchedResultsController:self]];
-  [self.tagTableView setDelegate:self];
-}
+  
+  // リザルトコントローラーの設定
+  self.fetchedResultsController = [CoreDataController tagFetchedResultsController:self];
+  }
 
+/**
+ * @brief  入力画面を終了
+ */
 -(void)pop
 {
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+/**
+ * @brief  セクション内のセル数
+ *
+ * @param tableView <#tableView description#>
+ * @param section   <#section description#>
+ *
+ * @return <#return value description#>
+ */
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  return 1;
+  id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+  return [sectionInfo numberOfObjects];
 }
+
+/**
+ * @brief  セクション数
+ *
+ * @param tableView <#tableView description#>
+ *
+ * @return <#return value description#>
+ */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//  return [[self.fetchedResultsController sections] count];
-  return 5;
+  return [[self.fetchedResultsController sections] count];
 }
 
 /**
@@ -60,11 +88,14 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView*)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                 reuseIdentifier:@"tagselectcell"];
-  cell.textLabel.text = @"tag";
+  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+  UITableViewCell *cell = [self.tagTableView dequeueReusableCellWithIdentifier:cell_identifier_];
+
+  cell.textLabel.text = tag.title;
   return cell;
 }
+
 
 - (void)didReceiveMemoryWarning
 {
