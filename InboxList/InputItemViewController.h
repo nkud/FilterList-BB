@@ -26,5 +26,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *tagInputField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *remindPicker;
 
+@property (weak, nonatomic) IBOutlet UIButton *buttonTagSelectView;
 
 @end

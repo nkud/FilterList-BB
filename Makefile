@@ -36,6 +36,8 @@ DISTRIBUTION_LISTS="FilterList"
 
 .PHONY: all build clean ipa upload
 
+all: build ipa upload
+
 $(OUT_IPA_DIR)/$(IPA_FILE_NAME).ipa: build ipa
 
 
@@ -60,6 +62,3 @@ upload: $(OUT_IPA_DIR)/$(IPA_FILE_NAME).ipa
 	  -F notify=${NOTIFY} \
 	  -F distribution_lists="${DISTRIBUTION_LISTS}" \
 	  -v
-
-all: build ipa upload
-

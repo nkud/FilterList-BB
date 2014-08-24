@@ -85,9 +85,23 @@
                       action:@selector(dismissInput)
             forControlEvents:UIControlEventTouchUpInside];
 
+  [self.buttonTagSelectView addTarget:self
+                               action:@selector(toTagSelectView)
+                     forControlEvents:UIControlEventTouchUpInside];
+  [self.buttonTagSelectView setTitle:@"select tags"
+                            forState:UIControlStateNormal];
 //  self.tagFieldViewController = [[TagFieldViewController alloc] initWithNibName:nil
 //                                                                         bundle:nil];
 //  [self.view addSubview:self.tagFieldViewController.view];
+}
+
+/**
+ * @brief  タグ選択画面を表示する
+ */
+-(void)toTagSelectView
+{
+  LOG(@"タグ選択画面表示");
+  return;
 }
 
 /**
