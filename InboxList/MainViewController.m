@@ -74,18 +74,7 @@
     //  self.filterViewController.delegate = self;
     self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
     self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
-    
-    LOG(@"ジェスチャーを設定");
-    UISwipeGestureRecognizer *recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                          action:@selector(handleSwipeFrom:)];
-    UISwipeGestureRecognizer *recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                         action:@selector(handleSwipeFrom:)];
-    [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    [recognizerLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [self.itemNavigationController.view addGestureRecognizer:recognizerRight];
-    [self.itemNavigationController.view addGestureRecognizer:recognizerLeft];
-    
-//    self.itemNavigationController.title = @"FilterList";
+
   
     LOG(@"タグモード初期化");
     self.tagViewController = [[TagViewController alloc] initWithNibName:nil
@@ -117,30 +106,6 @@
                    animations:^{
                      self.itemNavigationController.view.center = next_center;
                    }];
-}
-
-/**
- *  マスタービュー上でスワイプされた時の処理
- *
- *  @param recognizer recognizer description
- */
-- (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer;
-{
-  switch (recognizer.direction)
-  {
-      // 右スワイプ
-    case UISwipeGestureRecognizerDirectionRight:
-      [self swipeDirectionRight];
-      break;
-
-      // 左スワイプ
-    case UISwipeGestureRecognizerDirectionLeft:
-      [self swipeDirectionLeft];
-      break;
-
-    default:
-      break;
-  }
 }
 
 /**
@@ -195,93 +160,6 @@
   next_center.x = screen_center_x - swipe_distance;
   [self.view sendSubviewToBack:self.tagNavigationController.view];
 
-  [UIView animateWithDuration:SWIPE_DURATION
-                   animations:^{
-                     self.itemNavigationController.view.center = next_center;
-                   }];
-}
-
-/**
- *  右方向スワイプ
- *
- * @todo 要改善
- */
-- (void)swipeDirectionRight
-{
-  LOG(@"右にスワイプ");
-  int distance = SCREEN_BOUNDS.size.width;
-  CGPoint next_center = self.itemNavigationController.view.center;
-  CGFloat center_x = self.itemNavigationController.view.center.x; // 現在の中心 x
-
-  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
-
-  /**
-   *  タグモード
-   */
-  if (center_x == screen_x) {
-    [self.view sendSubviewToBack:self.filterNavigationController.view];
-    self.tabBar.selectedItem = self.tabBar.tagModeTab;
-  } else {
-    self.tabBar.selectedItem = self.tabBar.itemModeTab;
-  }
-  next_center.x = center_x + distance;
-  // 画面から消えないための処理
-  if (next_center.x > SCREEN_BOUNDS.size.width*1.5) {
-    return;
-  }
-  self.tagViewController.tagArray_ = [CoreDataController getAllTagsArray];
-  [self.tagViewController updateTableView]; //< ビューを更新
-
-  [UIView animateWithDuration:SWIPE_DURATION
-                   animations:^{
-                     self.itemNavigationController.view.center = next_center;
-                   }];
-}
-
-/**
- *  中心にスワイプ
- */
-- (void)swipeDirectionCenter
-{
-  LOG(@"中心にスワイプ");
-  CGPoint next_center = self.itemNavigationController.view.center;
-
-  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
-  next_center.x = screen_x;
-
-  [UIView animateWithDuration:SWIPE_DURATION
-                   animations:^{
-                     self.itemNavigationController.view.center = next_center;
-                   }];
-}
-
-/**
- *  左方向スワイプ
- */
-- (void)swipeDirectionLeft
-{
-  LOG(@"左方向にスワイプ");
-  int distance = SCREEN_BOUNDS.size.width;
-  CGPoint next_center = self.itemNavigationController.view.center;
-  CGFloat center_x = self.itemNavigationController.view.center.x; // 現在の中心 x
-
-  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
-
-  /**
-   *  フィルターモード
-   */
-  if (center_x == screen_x) {
-    [self.view sendSubviewToBack:self.tagNavigationController.view];
-    self.tabBar.selectedItem = self.tabBar.filterModeTab;
-  } else {
-    self.tabBar.selectedItem = self.tabBar.itemModeTab;
-  }
-  //      next_center.x = MAX(center_x-distance, screen_x);
-  next_center.x = center_x - distance;
-  // 画面から消えないための処理
-  if (next_center.x < -SCREEN_BOUNDS.size.width*0.5) {
-    return;
-  }
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
                      self.itemNavigationController.view.center = next_center;
