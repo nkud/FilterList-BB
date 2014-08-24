@@ -26,6 +26,7 @@
   return self;
 }
 
+
 /**
  * @brief  ビューを表示させる
  * @param viewController 表示させるビュー

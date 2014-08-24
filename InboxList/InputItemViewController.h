@@ -21,15 +21,10 @@
 
 @property id <InputItemViewControllerDelegate> delegate;
 
-//@property UITextField *textField;
-//@property UITextField *tagInputField;
-//@property UIDatePicker *remindPicker;
-
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleInputField;
 @property (weak, nonatomic) IBOutlet UITextField *tagInputField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *remindPicker;
 
-//@property (strong, nonatomic) TagFieldViewController *tagFieldViewController;
 
 @end

@@ -20,6 +20,8 @@
 #import "InputHeader.h"
 #import "CoreDataController.h"
 
+#import "InputItemNavigationController.h"
+
 
 @interface ItemViewController () {
   int location_center_x;
@@ -346,15 +348,20 @@
 }
 
 /**
- *  入力画面を表示する
+ * @brief  入力画面を表示する
  */
 -(void)presentInputItemView
 {
+  LOG(@"入力画面を表示");
   InputItemViewController *inputView = [[InputItemViewController alloc] initWithNibName:@"InputItemViewController"
-                                                                                   bundle:nil];
+                                                                                 bundle:nil];
   inputView.delegate = self;
   [inputView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-  [self presentViewController:inputView
+  
+  InputItemNavigationController *inputItemNavigationController
+  = [[InputItemNavigationController alloc] initWithRootViewController:inputView];
+
+  [self presentViewController:inputItemNavigationController
                      animated:YES
                    completion:nil];
 }
