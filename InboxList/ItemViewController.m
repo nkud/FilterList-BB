@@ -349,6 +349,8 @@
 
 /**
  * @brief  入力画面を表示する
+ *
+ * @todo あらかじめインスタンスを作っておく
  */
 -(void)presentInputItemView
 {

@@ -9,6 +9,7 @@
 #import "InputItemViewController.h"
 #import "TagFieldViewController.h"
 #import "Header.h"
+#import "TagSelectViewController.h"
 
 @interface InputItemViewController ()
 
@@ -69,7 +70,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
+  NSString *tag_select_button_title = @"select tags";
   /// アイテム入力フィールド
   [self.titleInputField becomeFirstResponder];
   self.titleInputField.delegate = self;
@@ -88,7 +89,7 @@
   [self.buttonTagSelectView addTarget:self
                                action:@selector(toTagSelectView)
                      forControlEvents:UIControlEventTouchUpInside];
-  [self.buttonTagSelectView setTitle:@"select tags"
+  [self.buttonTagSelectView setTitle:tag_select_button_title
                             forState:UIControlStateNormal];
 //  self.tagFieldViewController = [[TagFieldViewController alloc] initWithNibName:nil
 //                                                                         bundle:nil];
@@ -101,6 +102,11 @@
 -(void)toTagSelectView
 {
   LOG(@"タグ選択画面表示");
+  TagSelectViewController *tagSelectViewController
+  = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
+                                              bundle:nil];
+  [self.navigationController pushViewController:tagSelectViewController
+                                       animated:YES];
   return;
 }
 

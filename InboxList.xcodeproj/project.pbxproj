@@ -52,6 +52,8 @@
 		B0A351141984B6AA0062ABB1 /* TagFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */; };
 		B0BC6A7A19A9916700E53AEF /* InputItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A7919A9916700E53AEF /* InputItemViewController.m */; };
 		B0BC6A8819A9BB1E00E53AEF /* InputItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A8719A9BB1E00E53AEF /* InputItemNavigationController.m */; };
+		B0BC6A8C19A9CDC700E53AEF /* TagSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A8A19A9CDC700E53AEF /* TagSelectViewController.m */; };
+		B0BC6A8D19A9CDC700E53AEF /* TagSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BC6A8B19A9CDC700E53AEF /* TagSelectViewController.xib */; };
 		B0BDA87E1996341E003AA40B /* TagField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA87D1996341E003AA40B /* TagField.m */; };
 		B0BDA88119965639003AA40B /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA88019965639003AA40B /* CoreDataController.m */; };
 		B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* ItemCell.m */; };
@@ -142,6 +144,9 @@
 		B0BC6A7919A9916700E53AEF /* InputItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputItemViewController.m; sourceTree = "<group>"; };
 		B0BC6A8619A9BB1E00E53AEF /* InputItemNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputItemNavigationController.h; sourceTree = "<group>"; };
 		B0BC6A8719A9BB1E00E53AEF /* InputItemNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputItemNavigationController.m; sourceTree = "<group>"; };
+		B0BC6A8919A9CDC700E53AEF /* TagSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSelectViewController.h; sourceTree = "<group>"; };
+		B0BC6A8A19A9CDC700E53AEF /* TagSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSelectViewController.m; sourceTree = "<group>"; };
+		B0BC6A8B19A9CDC700E53AEF /* TagSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagSelectViewController.xib; sourceTree = "<group>"; };
 		B0BDA87C1996341E003AA40B /* TagField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagField.h; sourceTree = "<group>"; };
 		B0BDA87D1996341E003AA40B /* TagField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagField.m; sourceTree = "<group>"; };
 		B0BDA87F19965639003AA40B /* CoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataController.h; sourceTree = "<group>"; };
@@ -418,6 +423,16 @@
 			name = ResultControllerFactory;
 			sourceTree = "<group>";
 		};
+		B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B0BC6A8919A9CDC700E53AEF /* TagSelectViewController.h */,
+				B0BC6A8A19A9CDC700E53AEF /* TagSelectViewController.m */,
+				B0BC6A8B19A9CDC700E53AEF /* TagSelectViewController.xib */,
+			);
+			name = TagSelectViewController;
+			sourceTree = "<group>";
+		};
 		B0BDA8821996563C003AA40B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +486,7 @@
 				B0E7571219499D98004C6344 /* ItemCell */,
 				B0E7571319499E95004C6344 /* ItemDetailView */,
 				B07D582D198E07B300688F98 /* InputItemViewController */,
+				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B00AD6A418C45E470005A552 /* ItemViewController.h */,
 				B00AD6A518C45E470005A552 /* ItemViewController.m */,
 			);
@@ -563,6 +579,7 @@
 				B053199C199FC92C00F63783 /* tagtab.png in Resources */,
 				B06D719D198D43A8001A9F91 /* ItemCell.xib in Resources */,
 				B05319A1199FD46F00F63783 /* InputTagViewController.xib in Resources */,
+				B0BC6A8D19A9CDC700E53AEF /* TagSelectViewController.xib in Resources */,
 				B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */,
 				B053199B199FC92C00F63783 /* itemtab.png in Resources */,
 				B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */,
@@ -591,6 +608,7 @@
 				B05319A819A089FD00F63783 /* Filter.m in Sources */,
 				B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */,
 				B00AD6A918C45E470005A552 /* ItemDetailViewController.m in Sources */,
+				B0BC6A8C19A9CDC700E53AEF /* TagSelectViewController.m in Sources */,
 				B0BDA88119965639003AA40B /* CoreDataController.m in Sources */,
 				B00483671981D1960076025B /* InputFilterViewController.m in Sources */,
 				B0501AE9199E56D600A58C2D /* FilterCell.m in Sources */,
