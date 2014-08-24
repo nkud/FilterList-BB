@@ -9,16 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "TagFieldViewController.h"
 
-@protocol InputModalViewControllerDelegate <NSObject>
+@protocol InputItemViewControllerDelegate <NSObject>
+
 - (void)dismissInputModalView:(id)sender
                          data:(NSArray *)data
                      reminder:(NSDate *)reminder;
 @end
 
-@interface InputModalViewController : UIViewController
+@interface InputItemViewController : UIViewController
 <UITextFieldDelegate>
 
-@property id <InputModalViewControllerDelegate> delegate;
+@property id <InputItemViewControllerDelegate> delegate;
 
 //@property UITextField *textField;
 //@property UITextField *tagInputField;

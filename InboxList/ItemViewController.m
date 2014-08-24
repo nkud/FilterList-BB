@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "ItemViewController.h"
 #import "ItemDetailViewController.h"
-#import "InputModalViewController.h"
+#import "InputItemViewController.h"
 #import "Tag.h"
 #import "Item.h"
 #import "ItemCell.h"
@@ -350,7 +350,7 @@
  */
 -(void)presentInputItemView
 {
-  InputModalViewController *inputView = [[InputModalViewController alloc] initWithNibName:@"InputItemViewController"
+  InputItemViewController *inputView = [[InputItemViewController alloc] initWithNibName:@"InputItemViewController"
                                                                                    bundle:nil];
   inputView.delegate = self;
   [inputView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];

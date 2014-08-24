@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 
 #import <CoreData/CoreData.h>
-#import "InputModalViewController.h"
+#import "InputItemViewController.h"
 #import "ItemDetailViewController.h"
 #import "Item.h"
 #import "ItemCell.h"
 #import "InputHeader.h"
 
 @interface ItemViewController : UITableViewController
-<NSFetchedResultsControllerDelegate, InputModalViewControllerDelegate,
+<NSFetchedResultsControllerDelegate, InputItemViewControllerDelegate,
 ItemDetailViewControllerDelegate, InputHeaderDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;

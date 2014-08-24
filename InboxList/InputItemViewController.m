@@ -1,20 +1,20 @@
 //
-//  InputModalViewController.m
+//  InputItemViewController.m
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/03/07.
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
-#import "InputModalViewController.h"
+#import "InputItemViewController.h"
 #import "TagFieldViewController.h"
 #import "Header.h"
 
-@interface InputModalViewController ()
+@interface InputItemViewController ()
 
 @end
 
-@implementation InputModalViewController
+@implementation InputItemViewController
 
 /**
  * 初期化

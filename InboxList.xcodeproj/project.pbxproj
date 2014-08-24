@@ -25,7 +25,6 @@
 		B00AD6B518C45E480005A552 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AD69018C45E470005A552 /* CoreData.framework */; };
 		B00AD6BD18C45E480005A552 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B00AD6BB18C45E480005A552 /* InfoPlist.strings */; };
 		B00AD6BF18C45E480005A552 /* InboxListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AD6BE18C45E480005A552 /* InboxListTests.m */; };
-		B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C0418C9CA90007703B8 /* InputModalViewController.m */; };
 		B03E6C1718CAA316007703B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1618CAA316007703B8 /* Item.m */; };
 		B03E6C1A18CAA316007703B8 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1918CAA316007703B8 /* Tag.m */; };
 		B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */ = {isa = PBXBuildFile; fileRef = B03F2BD3194D76460037AE2C /* CheckBox_True.png */; };
@@ -51,6 +50,7 @@
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
 		B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */; };
 		B0A351141984B6AA0062ABB1 /* TagFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */; };
+		B0BC6A7A19A9916700E53AEF /* InputItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A7919A9916700E53AEF /* InputItemViewController.m */; };
 		B0BDA87E1996341E003AA40B /* TagField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA87D1996341E003AA40B /* TagField.m */; };
 		B0BDA88119965639003AA40B /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA88019965639003AA40B /* CoreDataController.m */; };
 		B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* ItemCell.m */; };
@@ -94,8 +94,6 @@
 		B00AD6BA18C45E480005A552 /* InboxListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InboxListTests-Info.plist"; sourceTree = "<group>"; };
 		B00AD6BC18C45E480005A552 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B00AD6BE18C45E480005A552 /* InboxListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InboxListTests.m; sourceTree = "<group>"; };
-		B03E6C0318C9CA8F007703B8 /* InputModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputModalViewController.h; sourceTree = "<group>"; };
-		B03E6C0418C9CA90007703B8 /* InputModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputModalViewController.m; sourceTree = "<group>"; };
 		B03E6C1518CAA316007703B8 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		B03E6C1618CAA316007703B8 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		B03E6C1818CAA316007703B8 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
@@ -139,6 +137,8 @@
 		B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultControllerFactory.m; sourceTree = "<group>"; };
 		B0A351121984B6A20062ABB1 /* TagFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagFieldViewController.h; sourceTree = "<group>"; };
 		B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagFieldViewController.m; sourceTree = "<group>"; };
+		B0BC6A7819A9916700E53AEF /* InputItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputItemViewController.h; sourceTree = "<group>"; };
+		B0BC6A7919A9916700E53AEF /* InputItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputItemViewController.m; sourceTree = "<group>"; };
 		B0BDA87C1996341E003AA40B /* TagField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagField.h; sourceTree = "<group>"; };
 		B0BDA87D1996341E003AA40B /* TagField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagField.m; sourceTree = "<group>"; };
 		B0BDA87F19965639003AA40B /* CoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataController.h; sourceTree = "<group>"; };
@@ -338,9 +338,9 @@
 		B07D582D198E07B300688F98 /* InputItemViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B03E6C0318C9CA8F007703B8 /* InputModalViewController.h */,
-				B03E6C0418C9CA90007703B8 /* InputModalViewController.m */,
 				B07D582E198E081300688F98 /* InputItemViewController.xib */,
+				B0BC6A7819A9916700E53AEF /* InputItemViewController.h */,
+				B0BC6A7919A9916700E53AEF /* InputItemViewController.m */,
 			);
 			name = InputItemViewController;
 			sourceTree = "<group>";
@@ -589,7 +589,6 @@
 				B0BDA88119965639003AA40B /* CoreDataController.m in Sources */,
 				B00483671981D1960076025B /* InputFilterViewController.m in Sources */,
 				B0501AE9199E56D600A58C2D /* FilterCell.m in Sources */,
-				B03E6C0518C9CA90007703B8 /* InputModalViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
 				B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */,
@@ -604,6 +603,7 @@
 				B072C8CC198CF80800F95B83 /* InputHeader.m in Sources */,
 				B00AD69918C45E470005A552 /* main.m in Sources */,
 				B08F4B651915FAC80047E210 /* NavigationController.m in Sources */,
+				B0BC6A7A19A9916700E53AEF /* InputItemViewController.m in Sources */,
 				B03E6C1718CAA316007703B8 /* Item.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */,
 				B0A351141984B6AA0062ABB1 /* TagFieldViewController.m in Sources */,
