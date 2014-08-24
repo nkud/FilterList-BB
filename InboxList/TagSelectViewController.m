@@ -7,6 +7,7 @@
 //
 
 #import "TagSelectViewController.h"
+#import "CoreDataController.h"
 
 @interface TagSelectViewController ()
 
@@ -30,11 +31,39 @@
   [self.saveButton addTarget:self
                       action:@selector(pop)
             forControlEvents:UIControlEventTouchUpInside];
+//  [self.fetchedResultsController = [CoreDataController tagFetchedResultsController:self]];
+  [self.tagTableView setDelegate:self];
 }
 
 -(void)pop
 {
   [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
+{
+  return 1;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+//  return [[self.fetchedResultsController sections] count];
+  return 5;
+}
+
+/**
+ * @brief  セルを返す
+ *
+ * @param tableView <#tableView description#>
+ * @param indexPath <#indexPath description#>
+ */
+-(UITableViewCell *)tableView:(UITableView*)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                 reuseIdentifier:@"tagselectcell"];
+  cell.textLabel.text = @"tag";
+  return cell;
 }
 
 - (void)didReceiveMemoryWarning

@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+/// タグ選択画面
 @interface TagSelectViewController : UIViewController
+<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tagTableView;
+@property (weak, nonatomic) IBOutlet UITextField *inputField;
+
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
+
+//@property NSFetchedResultsController *fetchedResultsController;
 
 @end
