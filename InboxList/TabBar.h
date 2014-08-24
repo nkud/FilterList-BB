@@ -15,4 +15,9 @@
 @property UITabBarItem *filterModeTab;
 @property UITabBarItem *completedModeTab;
 
+-(void)setItemMode;
+-(void)setTagMode;
+-(void)setFilterMode;
+-(void)setCompletedMode;
+
 @end

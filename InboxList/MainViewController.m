@@ -388,12 +388,13 @@ didSelectItem:(UITabBarItem *)item
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
   LOG(@"アイテムビューをロードする");
-  [self toItemListMode];
   self.itemViewController.selectedTagString = tag;// 選択されたタグを渡して
   self.itemViewController.fetchedResultsController = fetchedResultController;
   [self.itemViewController updateTableView]; // テーブルを更新
   [self.itemViewController setTitle:tag]; // タグの名前に変える
-  [self moveMasterViewToCenter]; // マスタービューを中心に移動させる
+  
+  [self.tabBar setItemMode];
+  [self toItemListMode];
 }
 
 /**

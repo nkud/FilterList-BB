@@ -54,7 +54,23 @@
     }
     return self;
 }
+-(void)setItemMode
+{
+  self.selectedItem = self.itemModeTab;
+}
 
+-(void)setTagMode
+{
+  self.selectedItem = self.tagModeTab;
+}
+-(void)setFilterMode
+{
+  self.selectedItem = self.filterModeTab;
+}
+-(void)setCompletedMode
+{
+  self.selectedItem = self.completedModeTab;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
