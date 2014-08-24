@@ -12,9 +12,14 @@
 
 @protocol InputItemViewControllerDelegate <NSObject>
 
-- (void)dismissInputModalView:(id)sender
-                         data:(NSArray *)data
-                     reminder:(NSDate *)reminder;
+//- (void)dismissInputModalView:(id)sender
+//                         data:(NSArray *)data
+//                     reminder:(NSDate *)reminder;
+
+-(void)dismissInputItemView:(NSString *)title
+        tagsForSelectedRows:(NSSet *)tagsForSelectedRows
+                   reminder:(NSDate *)reminder;
+
 @end
 
 @interface InputItemViewController : UIViewController
@@ -24,10 +29,12 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleInputField;
-@property (weak, nonatomic) IBOutlet UITextField *tagInputField;
+
 @property (weak, nonatomic) IBOutlet UIDatePicker *remindPicker;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonTagSelectView;
 @property (weak, nonatomic) IBOutlet UILabel *selectedTagsLabel;
+
+@property NSSet *selectedTags;
 
 @end

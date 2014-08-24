@@ -10,7 +10,6 @@
                 <outlet property="remindPicker" destination="ENn-x5-83W" id="nAT-az-1fr"/>
                 <outlet property="saveButton" destination="0XL-Zh-RLA" id="ajO-1V-dfU"/>
                 <outlet property="selectedTagsLabel" destination="RKT-04-HMk" id="lNh-Oe-RId"/>
-                <outlet property="tagInputField" destination="Ovf-C4-875" id="bDt-y6-XZg"/>
                 <outlet property="titleInputField" destination="Drr-26-dsC" id="5Uz-cv-NPv"/>
                 <outlet property="view" destination="pfQ-Js-cDq" id="H5R-TR-wfE"/>
             </connections>
@@ -29,12 +28,6 @@
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Drr-26-dsC">
                     <rect key="frame" x="20" y="50" width="280" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ovf-C4-875">
-                    <rect key="frame" x="20" y="88" width="280" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>

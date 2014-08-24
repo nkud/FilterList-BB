@@ -77,7 +77,7 @@
   self.titleInputField.delegate = self;
 
   /// タグ入力フィールド
-  self.tagInputField.delegate = self;
+//  self.tagInputField.delegate = self;
 
   /// リマインダー入力ピッカーを初期化
   [self.remindPicker setDatePickerMode:UIDatePickerModeDateAndTime];
@@ -120,8 +120,6 @@
   NSLog(@"%s", __FUNCTION__);
   if (textField == self.titleInputField) { // アイテム名入力欄なら、
     [self dismissInput];
-  } else if (textField == self.tagInputField) { // タグ入力時なら、
-    [self.titleInputField becomeFirstResponder]; // アイテム名入力欄に移動する
   }
   return YES;
 }
@@ -132,9 +130,12 @@
 - (void)dismissInput
 {
   LOG(@"データを渡して入力画面を閉じる");
-  NSArray *_data = @[self.titleInputField.text, self.tagInputField.text];
-  [[self delegate] dismissInputModalView:self data:_data
-                                reminder:self.remindPicker.date];
+//  NSArray *_data = @[self.titleInputField.text, self.tagInputField.text];
+//  [[self delegate] dismissInputModalView:self data:_data
+//                                reminder:self.remindPicker.date];
+  [[self delegate] dismissInputItemView:self.titleInputField.text
+                    tagsForSelectedRows:self.selectedTags
+                               reminder:self.remindPicker.date];
 }
 
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
@@ -144,8 +145,9 @@
   for (Tag *tag in tagsForSelectedRows) {
     [tags_title appendFormat:@"%@ ", tag.title];
   }
+  self.selectedTags = tagsForSelectedRows;
   self.selectedTagsLabel.text = tags_title;
-  self.tagInputField.text = tags_title;
+//  self.tagInputField.text = tags_title;
 }
 
 /**

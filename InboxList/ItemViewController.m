@@ -284,19 +284,37 @@
  *  @param data     受け取った入力
  *  @param reminder 設定されたリマインダー
  */
-- (void)dismissInputModalView:(id)sender
-                         data:(NSArray *)data
-                     reminder:(NSDate *)reminder
+//- (void)dismissInputModalView:(id)sender
+//                         data:(NSArray *)data
+//                     reminder:(NSDate *)reminder
+//{
+//  LOG(@"入力画面を終了時の処理");
+//  NSString *title = data[0];                                         //< タイトルを取得して
+//  if (title.length > 0) {                                            //< 空欄でなければ
+//    [self insertNewObject:sender
+//                    title:data[0]
+//                      tag:[NSSet setWithObject:data[1]]
+//                 reminder:reminder];
+//  }
+//  [self dismissViewControllerAnimated:YES completion:nil];           //< ビューを削除
+//}
+
+/**
+ * @brief  入力画面を終了させる処理
+ *
+ * @param title               タイトル
+ * @param tagsForSelectedRows 選択されたタグ
+ * @param reminder            リマインダー
+ */
+-(void)dismissInputItemView:(NSString *)title
+        tagsForSelectedRows:(NSSet *)tagsForSelectedRows
+                   reminder:(NSDate *)reminder
 {
-  LOG(@"入力画面を終了時の処理");
-  NSString *title = data[0];                                         //< タイトルを取得して
-  if (title.length > 0) {                                            //< 空欄でなければ
-    [self insertNewObject:sender
-                    title:data[0]
-                      tag:[NSSet setWithObject:data[1]]
-                 reminder:reminder];
-  }
-  [self dismissViewControllerAnimated:YES completion:nil];           //< ビューを削除
+  [CoreDataController insertNewItem:title
+                               tags:tagsForSelectedRows
+                           reminder:reminder];
+  [self dismissViewControllerAnimated:YES
+                           completion:nil];
 }
 
 /**
