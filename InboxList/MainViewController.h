@@ -37,6 +37,12 @@
 
 @property (strong, nonatomic) TabBar                    *tabBar;
 
+
+-(void)toItemListMode;
+-(void)toTagListMode;
+-(void)toFilterListMode;
+-(void)toCompleteListMode;
+
 -(void)loadMasterViewForTag:(NSString *)tag
      fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
 

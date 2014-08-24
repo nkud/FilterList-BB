@@ -16,6 +16,8 @@
  */
 #define SWIPE_DURATION 0.1
 
+#define SWIPE_DISTANCE SCREEN_BOUNDS.size.width
+
 /**
  * @brief  リストのタイトル
  */

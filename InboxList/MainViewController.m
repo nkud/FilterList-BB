@@ -12,13 +12,24 @@
 #import "InputFilterViewController.h"
 #import "ResultControllerFactory.h"
 #import "CoreDataController.h"
-
 #import "Configure.h"
 
+/**
+ リストモード
+ */
+enum __LIST_MODE__ {
+  __ITEM_MODE__,
+  __TAG_MODE__,
+  __FILTER_MODE__,
+  __COMPLETE_MODE__
+};
+
+
 @interface MainViewController () {
-  AppDelegate *app;
+  enum __LIST_MODE__ currentListMode_;
 }
 @end
+
 
 @implementation MainViewController
 
@@ -27,8 +38,7 @@
 */
 - (void)initParameter
 {
-  swipe_distance = SCREEN_BOUNDS.size.width;
-  app = [[UIApplication sharedApplication] delegate];
+  swipe_distance = SWIPE_DURATION;
 }
 
 /**
@@ -47,46 +57,49 @@
  */
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
-    /// パラメータを初期化
-    [self initParameter];
-    
-    LOG(@"アイテムビューを初期化");
-    self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.itemViewController.fetchedResultsController = [ResultControllerFactory fetchedResultsController:self.itemViewController]; // はじめは全アイテムを表示
-    
-    LOG(@"ナビゲーションコントローラー初期化");
-    self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
-    
-    /**
-     *  タブバー初期化
-     */
-    LOG(@"タブバー初期化");
-    self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
-                                                           SCREEN_BOUNDS.size.height-TABBAR_H,
-                                                           SCREEN_BOUNDS.size.width,
-                                                           TABBAR_H)];
-    self.tabBar.delegate = self;
-    
-    LOG(@"フィルターコントローラーを初期化");
-    self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
-    //  self.filterViewController.delegate = self;
-    self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
-    self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
-
+  [super viewDidLoad];
+  [self initParameter];
   
-    LOG(@"タグモード初期化");
-    self.tagViewController = [[TagViewController alloc] initWithNibName:nil
-                                                                 bundle:nil];
-    self.tagViewController.delegate = self;
-    self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
-    self.tagNavigationController = [[TagNavigationController alloc] initWithRootViewController:self.tagViewController];
-    LOG(@"コントローラーを配置");
-    [self.view addSubview:self.tagNavigationController.view];
-    [self.view addSubview:self.filterNavigationController.view];
-    [self.view addSubview:self.itemNavigationController.view];
-    [self.view addSubview:self.tabBar];
+  /**
+   *  タブバー初期化
+   */
+  LOG(@"タブバー初期化");
+  self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
+                                                         SCREEN_BOUNDS.size.height-TABBAR_H,
+                                                         SCREEN_BOUNDS.size.width,
+                                                         TABBAR_H)];
+  self.tabBar.delegate = self;
+  
+  LOG(@"アイテムビューを初期化");
+  self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
+  self.itemViewController.fetchedResultsController = [ResultControllerFactory fetchedResultsController:self.itemViewController]; // はじめは全アイテムを表示
+    
+  LOG(@"ナビゲーションコントローラー初期化");
+  
+  self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
+ 
+  LOG(@"フィルターコントローラーを初期化");
+  self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
+  //  self.filterViewController.delegate = self;
+  self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
+  self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
+  
+  
+  LOG(@"タグモード初期化");
+  self.tagViewController = [[TagViewController alloc] initWithNibName:nil
+                                                               bundle:nil];
+  self.tagViewController.delegate = self;
+  self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
+  self.tagNavigationController = [[TagNavigationController alloc] initWithRootViewController:self.tagViewController];
+  
+  LOG(@"コントローラーを配置");
+  [self.view addSubview:self.tagNavigationController.view];
+  [self.view addSubview:self.filterNavigationController.view];
+  [self.view addSubview:self.itemNavigationController.view];
+  [self.view addSubview:self.tabBar];
+  
+  LOG(@"アイテムモードにする");
+  currentListMode_ = __ITEM_MODE__;
 }
 
 /**
@@ -109,11 +122,107 @@
 }
 
 /**
+ * @brief  指定のモードをトップに表示する
+ *
+ * @param controller コントローラー
+ */
+-(void)bringTopMode:(UIViewController *)controller
+{
+  NSMutableArray *modearray = [NSMutableArray arrayWithObjects:
+                               self.itemNavigationController,
+                               self.tagNavigationController,
+                               self.filterNavigationController,
+                               nil];
+  UIView *currentview;
+  switch (currentListMode_) {
+    case __ITEM_MODE__:
+      [modearray removeObject:self.itemNavigationController];
+      currentview = self.itemNavigationController.view;
+      break;
+    case __TAG_MODE__:
+      [modearray removeObject:self.tagNavigationController];
+      currentview = self.tagNavigationController.view;
+      break;
+    case __FILTER_MODE__:
+      [modearray removeObject:self.filterNavigationController];
+      currentview = self.filterNavigationController.view;
+      break;
+    case __COMPLETE_MODE__:
+//      [modearray removeObject:self.itemNavigationController];
+//      break;
+      return;
+    default:
+      break;
+  }
+  [modearray removeObject:controller];
+  
+  [self.view sendSubviewToBack:currentview];
+  for (UIViewController *mode in modearray) {
+    [self.view sendSubviewToBack:mode.view];
+  }
+}
+
+
+
+/*-----------------------------------------------------------------------------
+ *
+ *  リスト変更関数
+ *
+ *-----------------------------------------------------------------------------*/
+-(void)setItemMode
+{
+  currentListMode_ = __ITEM_MODE__;
+}
+-(BOOL)isItemMode
+{
+  if (currentListMode_ == __ITEM_MODE__) {
+    return YES;
+  } else return NO;
+}
+-(void)setTagMode
+{
+  currentListMode_ = __TAG_MODE__;
+}
+-(void)setFilterMode
+{
+  currentListMode_ = __FILTER_MODE__;
+}
+-(void)setCompleteMode
+{
+  currentListMode_ = __COMPLETE_MODE__;
+}
+
+
+
+/**
  *  アイテムリスト表示モード
  */
--(void)itemListMode
+-(void)toItemListMode
 {
+  [self bringTopMode:self.itemNavigationController]; // アイテムビューをトップにする
+
+  
   LOG(@"アイテムリストモード");
+  switch (currentListMode_) {
+    case __ITEM_MODE__:
+      LOG(@"何もしない");
+      return;
+      break;
+      
+    case __TAG_MODE__:
+      break;
+      
+    case __FILTER_MODE__:
+      break;
+      
+    case __COMPLETE_MODE__:
+      break;
+      
+    default:
+      break;
+  }
+  
+  [self setItemMode];
   CGPoint next_center = self.itemNavigationController.view.center;
 
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
@@ -129,8 +238,30 @@
 /**
  *  タグリスト表示モード
  */
--(void)tagListMode
+-(void)toTagListMode
 {
+  [self bringTopMode:self.tagNavigationController]; // アイテムビューをトップにする
+
+  switch (currentListMode_) {
+    case __ITEM_MODE__:
+      break;
+      
+    case __TAG_MODE__:
+      LOG(@"何もしない");
+      return;
+      break;
+      
+    case __FILTER_MODE__:
+      break;
+      
+    case __COMPLETE_MODE__:
+      break;
+      
+    default:
+      break;
+  }
+  [self setTagMode];
+  
   LOG(@"タグリストモード");
 //  int distance = SCREEN_BOUNDS.size.width;
   CGPoint next_center = self.itemNavigationController.view.center;
@@ -140,7 +271,7 @@
   [self.tagViewController updateTableView]; //< ビューを更新
 
   next_center.x = screen_center_x + swipe_distance;
-  [self.view sendSubviewToBack:self.filterNavigationController.view];
+//  [self.view sendSubviewToBack:self.filterNavigationController.view];
   
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
@@ -150,20 +281,43 @@
 /**
  *  フィルターリスト表示モード
  */
--(void)filterListMode
+-(void)toFilterListMode
 {
+  [self bringTopMode:self.filterNavigationController]; // アイテムビューをトップにする
+
+  switch (currentListMode_) {
+    case __ITEM_MODE__:
+      break;
+    case __TAG_MODE__:
+      break;
+    case __FILTER_MODE__:
+      LOG(@"何もしない");
+      return;
+      break;
+    case __COMPLETE_MODE__:
+      break;
+    default:
+      break;
+  }
+  [self setFilterMode];
+  
   LOG(@"フィルターリストモード");
-//  int distance = SCREEN_BOUNDS.size.width;
-  CGPoint next_center = self.itemNavigationController.view.center;
+  CGPoint next_center = self.filterNavigationController.view.center;
   CGFloat screen_center_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
 
   next_center.x = screen_center_x - swipe_distance;
-  [self.view sendSubviewToBack:self.tagNavigationController.view];
 
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
                      self.itemNavigationController.view.center = next_center;
                    }];
+}
+
+-(void)toCompleteListMode
+{
+  LOG(@"コンプリートリストモード");
+  [self setCompleteMode];
+  return;
 }
 
 /**
@@ -177,20 +331,25 @@ didSelectItem:(UITabBarItem *)item
 {
   switch (item.tag) {
     case 0:
-      LOG(@"左スワイプ");
-      [self tagListMode];
+      LOG(@"タブ０");
+      [self toItemListMode];
       break;
 
     case 1:
-      LOG(@"中心に戻る");
-      [self itemListMode];
+      LOG(@"タブ１");
+      [self toTagListMode];
       break;
 
     case 2:
-      LOG(@"右スワイプ");
-      [self filterListMode];
+      LOG(@"タブ２");
+      [self toFilterListMode];
       break;
-
+      
+    case 3:
+      LOG(@"タブ３");
+      [self toCompleteListMode];
+      break;
+      
     default:
       break;
   }
@@ -229,12 +388,12 @@ didSelectItem:(UITabBarItem *)item
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
   LOG(@"アイテムビューをロードする");
-  [self itemListMode];
-  self.itemViewController.selectedTagString = tag;//< 選択されたタグを渡して
+  [self toItemListMode];
+  self.itemViewController.selectedTagString = tag;// 選択されたタグを渡して
   self.itemViewController.fetchedResultsController = fetchedResultController;
-  [self.itemViewController updateTableView]; //< テーブルを更新
-  [self.itemViewController setTitle:tag]; //< タグの名前に変える
-  [self moveMasterViewToCenter]; //< マスタービューを中心に移動させる
+  [self.itemViewController updateTableView]; // テーブルを更新
+  [self.itemViewController setTitle:tag]; // タグの名前に変える
+  [self moveMasterViewToCenter]; // マスタービューを中心に移動させる
 }
 
 /**

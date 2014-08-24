@@ -17,13 +17,12 @@
 -(void)createTabs
 {
   LOG(@"タブバーを作成");
-
-  self.tagModeTab = [[UITabBarItem alloc] initWithTitle:@"TAG"
-                                                  image:[UIImage imageNamed:@"tagtab.png"]
-                                                    tag:0];
   self.itemModeTab = [[UITabBarItem alloc] initWithTitle:@"ITEM"
                                                    image:[UIImage imageNamed:@"itemtab.png"]
-                                                     tag:1];
+                                                     tag:0];  
+  self.tagModeTab = [[UITabBarItem alloc] initWithTitle:@"TAG"
+                                                  image:[UIImage imageNamed:@"tagtab.png"]
+                                                    tag:1];
   self.filterModeTab = [[UITabBarItem alloc] initWithTitle:@"FILTER"
                                                      image:[UIImage imageNamed:@"filtertab.png"]
                                                        tag:2];
@@ -31,7 +30,7 @@
                                                         image:[UIImage imageNamed:@"completedtab.png"]
                                                           tag:3];
   
-  self.items = [NSArray arrayWithObjects:self.tagModeTab, self.itemModeTab, self.filterModeTab, self.completedModeTab, nil];
+  self.items = [NSArray arrayWithObjects:self.itemModeTab, self.tagModeTab, self.filterModeTab, self.completedModeTab, nil];
   self.selectedItem = self.itemModeTab;
 }
 
