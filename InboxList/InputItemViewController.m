@@ -133,6 +133,9 @@
   self.selectedTags = tagsForSelectedRows;
   self.selectedTagsLabel.text = tags_title;
 
+  if ([tags_title isEqual:@""]) {
+    [tags_title setString:@"no tags"];
+  }
   self.buttonTagSelectView.titleLabel.text = tags_title;
 }
 
