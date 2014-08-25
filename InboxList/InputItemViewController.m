@@ -12,31 +12,122 @@
 #import "TagSelectViewController.h"
 #import "Tag.h"
 
-@interface InputItemViewController ()
+static NSString *default_cell_identifier = @"OptionContainerCell";
+static NSString *reminder_cell_identifier = @"ReminderCell";
+static NSString *tag_cell_text_;
+
+@interface InputItemViewController () {
+
+  int cell_height_;
+  int reminder_cell_height_;
+}
 
 @end
 
 @implementation InputItemViewController
 
+#pragma mark - TableView
+
 /**
- * 初期化
+ * @brief  セルを返す
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return セル
  */
-- (id)init {
-  self = [super init];
-  if (self) {
-    self.view.backgroundColor = [UIColor colorWithWhite:1
-                                                  alpha:1];
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell *cell;
+  switch (indexPath.row) {
+    case 0:
+      cell = [self.optionContainerTableView dequeueReusableCellWithIdentifier:default_cell_identifier];
+      cell.textLabel.text = tag_cell_text_;
+      break;
+    case 1:
+      cell = [self.optionContainerTableView dequeueReusableCellWithIdentifier:default_cell_identifier];
+      cell.textLabel.text = @"Reminder";
+      break;
+    case 2:
+      cell = [self.optionContainerTableView dequeueReusableCellWithIdentifier:reminder_cell_identifier];
+      break;
+    default:
+      break;
   }
-  return self;
+  return cell;
 }
+
+/**
+ * @brief  セクション内のセル数
+ *
+ * @param tableView テーブルビュー
+ * @param section   セクション
+ *
+ * @return セル数
+ */
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
+{
+  return 3;
+}
+/**
+ * @brief  セルが選択された時の処理
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ */
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  LOG(@"選択された");
+  switch (indexPath.row) {
+    case 0:
+      LOG(@"タグを選択するセル");
+      [self toTagSelectView];
+      
+      break;
+      
+    case 1:
+      LOG(@"高さを変えて、リロード");
+      reminder_cell_height_ = 162;
+      [self.optionContainerTableView reloadData];
+      break;
+      
+    case 2:
+      break;
+    default:
+      break;
+  }
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return 1;
+}
+-(CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  LOG(@"高さを設定");
+  switch (indexPath.row) {
+    case 2:
+      return reminder_cell_height_;
+      break;
+      
+    default:
+      return cell_height_;
+      break;
+  }
+}
+
+#pragma mark - Initialize
 
 /**
  *  初期化
  *
- *  @param nibNameOrNil   <#nibNameOrNil description#>
- *  @param nibBundleOrNil <#nibBundleOrNil description#>
+ *  @param nibNameOrNil   nibNameOrNil description
+ *  @param nibBundleOrNil nibBundleOrNil description
  *
- *  @return <#return value description#>
+ *  @return instance
  */
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
@@ -56,6 +147,16 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  tag_cell_text_ = @"Tags";
+
+  // セルの高さを設定
+  cell_height_ = 43;
+  reminder_cell_height_ = 0;
+  
+  [self.optionContainerTableView registerClass:[UITableViewCell class]
+                        forCellReuseIdentifier:default_cell_identifier];
+  [self.optionContainerTableView registerNib:[UINib nibWithNibName:@"ReminderCell" bundle:nil]
+                      forCellReuseIdentifier:reminder_cell_identifier];
   
   NSString *tag_select_button_title = @"no tags selected";
   /// アイテム入力フィールド
@@ -75,6 +176,7 @@
                      forControlEvents:UIControlEventTouchUpInside];
   [self.buttonTagSelectView setTitle:tag_select_button_title
                             forState:UIControlStateNormal];
+  
 }
 
 /**
@@ -121,7 +223,7 @@
 /**
  * @brief  タグ入力画面を終了する
  *
- * @param tagsForSelectedRows <#tagsForSelectedRows description#>
+ * @param tagsForSelectedRows tags
  */
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
@@ -136,7 +238,9 @@
   if ([tags_title isEqual:@""]) {
     [tags_title setString:@"no tags"];
   }
-  self.buttonTagSelectView.titleLabel.text = tags_title;
+
+  tag_cell_text_ = tags_title;
+  [self.optionContainerTableView reloadData];
 }
 
 /**

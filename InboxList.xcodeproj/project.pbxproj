@@ -45,6 +45,7 @@
 		B07D582F198E081300688F98 /* InputItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B07D582E198E081300688F98 /* InputItemViewController.xib */; };
 		B0808049195825A3007D21E4 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0808048195825A3007D21E4 /* TagViewController.m */; };
 		B080804C19582CF6007D21E4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B080804B19582CF6007D21E4 /* MainViewController.m */; };
+		B087077419AB73BE00EE3141 /* ReminderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087077319AB73BE00EE3141 /* ReminderCell.xib */; };
 		B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */; };
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
@@ -130,6 +131,7 @@
 		B0808048195825A3007D21E4 /* TagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
 		B080804A19582CF6007D21E4 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		B080804B19582CF6007D21E4 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		B087077319AB73BE00EE3141 /* ReminderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReminderCell.xib; sourceTree = "<group>"; };
 		B08C33A319A84E4F00AB5F25 /* ItemNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemNavigationController.h; sourceTree = "<group>"; };
 		B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemNavigationController.m; sourceTree = "<group>"; };
 		B08EBBBF19703EB200DB9582 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 			children = (
 				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B07D582E198E081300688F98 /* InputItemViewController.xib */,
+				B087077319AB73BE00EE3141 /* ReminderCell.xib */,
 				B0BC6A7819A9916700E53AEF /* InputItemViewController.h */,
 				B0BC6A7919A9916700E53AEF /* InputItemViewController.m */,
 				B0BC6A8619A9BB1E00E53AEF /* InputItemNavigationController.h */,
@@ -595,6 +598,7 @@
 				B053199C199FC92C00F63783 /* tagtab.png in Resources */,
 				B06D719D198D43A8001A9F91 /* ItemCell.xib in Resources */,
 				B05319A1199FD46F00F63783 /* InputTagViewController.xib in Resources */,
+				B087077419AB73BE00EE3141 /* ReminderCell.xib in Resources */,
 				B0BC6A8D19A9CDC700E53AEF /* TagSelectViewController.xib in Resources */,
 				B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */,
 				B053199B199FC92C00F63783 /* itemtab.png in Resources */,

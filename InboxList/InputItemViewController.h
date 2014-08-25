@@ -23,7 +23,7 @@
 @end
 
 @interface InputItemViewController : UIViewController
-<UITextFieldDelegate, TagSelectViewControllerDelegate>
+<UITextFieldDelegate, TagSelectViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property id <InputItemViewControllerDelegate> delegate;
 
@@ -34,6 +34,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonTagSelectView;
 @property (weak, nonatomic) IBOutlet UILabel *selectedTagsLabel;
+
+@property (weak, nonatomic) IBOutlet UITableView *optionContainerTableView;
 
 @property NSSet *selectedTags;
 
