@@ -51,33 +51,16 @@
 }
 
 /**
- * テキストフィールドを作成
- */
-//- (UITextField *)createTextField:(int)x
-//                               y:(int)y
-//{
-//  UITextField *_newTextField;
-//  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
-//  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
-//  [_newTextField setReturnKeyType:UIReturnKeyDone];
-//  [_newTextField setDelegate:self];
-//  [_newTextField setText:nil];
-//  return _newTextField;
-//}
-
-/**
  * ビュー読み込み後の処理
  */
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  NSString *tag_select_button_title = @"select tags";
+  
+  NSString *tag_select_button_title = @"no tags selected";
   /// アイテム入力フィールド
   [self.titleInputField becomeFirstResponder];
   self.titleInputField.delegate = self;
-
-  /// タグ入力フィールド
-//  self.tagInputField.delegate = self;
 
   /// リマインダー入力ピッカーを初期化
   [self.remindPicker setDatePickerMode:UIDatePickerModeDateAndTime];
@@ -92,9 +75,6 @@
                      forControlEvents:UIControlEventTouchUpInside];
   [self.buttonTagSelectView setTitle:tag_select_button_title
                             forState:UIControlStateNormal];
-//  self.tagFieldViewController = [[TagFieldViewController alloc] initWithNibName:nil
-//                                                                         bundle:nil];
-//  [self.view addSubview:self.tagFieldViewController.view];
 }
 
 /**
@@ -125,7 +105,7 @@
 }
 
 /**
- * データを渡してビューを削除する
+ * データを渡して入力画面を削除する
  */
 - (void)dismissInput
 {
@@ -138,6 +118,11 @@
                                reminder:self.remindPicker.date];
 }
 
+/**
+ * @brief  タグ入力画面を終了する
+ *
+ * @param tagsForSelectedRows <#tagsForSelectedRows description#>
+ */
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
   LOG(@"選択されたタグを更新する");
@@ -147,7 +132,8 @@
   }
   self.selectedTags = tagsForSelectedRows;
   self.selectedTagsLabel.text = tags_title;
-//  self.tagInputField.text = tags_title;
+
+  self.buttonTagSelectView.titleLabel.text = tags_title;
 }
 
 /**

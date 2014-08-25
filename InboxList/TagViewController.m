@@ -174,24 +174,6 @@ numberOfRowsInSection:(NSInteger)section
 {
   TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
 
-//  LOG(@"セクションによる分岐");
-//  switch (indexPath.section) {
-//    case 0:
-//      cell.tagTitle.text = @"all";
-//      break;
-//
-//    case 1:
-//    {
-//      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
-//                                              inSection:0];
-//      Tag *tag = [self.fetchedResultsController objectAtIndexPath:index];
-//      cell.tagTitle.text = tag.title;
-//    }
-//      break;
-//      
-//    default:
-//      break;
-//  }
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
   if ([tag.title isEqualToString:@""]) {
     cell.tagTitle.text = @"NO TAGS";
