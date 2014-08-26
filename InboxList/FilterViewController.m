@@ -20,6 +20,8 @@
 @end
 
 @implementation FilterViewController
+
+#pragma mark - 初期化
 /**
  *  初期化
  *
@@ -40,6 +42,31 @@
     }
     return self;
 }
+
+
+/**
+ *  @brief ビューを読み込んだ後の処理
+ */
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  
+  [self setTitle:FILTER_LIST_TITLE];
+  
+  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
+  
+  
+  LOG(@"編集ボタンを追加");
+  UIBarButtonItem *newFilterButton
+  = [[UIBarButtonItem alloc] initWithTitle:@"新規"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:self
+                                    action:@selector(presentInputFilterView)];
+  self.navigationItem.rightBarButtonItem = newFilterButton;
+}
+
+
+#pragma mark - フィルター入力
 
 /**
  *  フィルター入力画面を表示する
@@ -73,27 +100,13 @@
 {
   LOG(@"フィルターを追加");
   
+  // フィルターを新規挿入
+  [CoreDataController insertNewFilter:filterTitle
+                        tagsForFilter:tagsForSelected];
   
   LOG(@"フィルター入力画面を終了");
   [self dismissViewControllerAnimated:YES
                            completion:nil];
-}
-
-/**
- *  ビューを読み込んだ後の処理
- */
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-  [self setTitle:FILTER_LIST_TITLE];
-  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
-
-  LOG(@"編集ボタンを追加");
-  UIBarButtonItem *newFilterButton = [[UIBarButtonItem alloc] initWithTitle:@"新規"
-                                                                 style:UIBarButtonItemStyleBordered
-                                                                target:self
-                                                                action:@selector(presentInputFilterView)];
-  self.navigationItem.rightBarButtonItem = newFilterButton;
 }
 
 /**
@@ -104,6 +117,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - テーブルビュー
 
 /**
  *  セクション内のセル数を返す
