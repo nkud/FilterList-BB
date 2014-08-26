@@ -25,7 +25,7 @@
  *  @brief  フィルターリスト
  */
 @interface FilterViewController : UITableViewController
-<NSFetchedResultsControllerDelegate, InputFilterViewControlellerDelegate>
+<NSFetchedResultsControllerDelegate, InputFilterDelegate>
 
 //@property id <FilterViewControllerDelegate> delegate;
 

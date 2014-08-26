@@ -61,18 +61,22 @@
 }
 
 /**
- *  フィルター入力画面を削除する
+ * @brief  フィルター入力画面を終了する
  *
- *  @param filterString 入力されたフィルター
+ * @param filterTitle     入力されたフィルター
+ * @param tagsForSelected 選択されたタグ
+ *
+ * @todo リマインダーも入力の必要あり
  */
--(void)dismissInputView:(NSSet *)filterStrings
+-(void)dismissInputFilterView:(NSString *)filterTitle
+              tagsForSelected:(NSSet *)tagsForSelected
 {
-  LOG(@"フィルターを削除");
+  LOG(@"フィルターを追加");
+  
+  
+  LOG(@"フィルター入力画面を終了");
   [self dismissViewControllerAnimated:YES
                            completion:nil];
-  for (NSString *title in filterStrings) {
-    [CoreDataController insertNewFilter:title];
-  }
 }
 
 /**
