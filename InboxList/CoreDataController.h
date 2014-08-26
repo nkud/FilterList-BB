@@ -17,25 +17,27 @@
 
 +(BOOL)hasTagForTitle:(NSString *)title;
 
-+(NSArray *)getAllTagsArray;
-+(NSArray *)fetchTagsForTitle:(NSString *)title;
+
 
 // アイテム用
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
-
++(NSFetchedResultsController *)fetchedResultsControllerForTags:(NSSet *)tags
+                                                    controller:(id<NSFetchedResultsControllerDelegate>)controller;
 +(void)insertNewItem:(NSString *)itemTitle
                 tags:(NSSet *)tags
             reminder:(NSDate *)reminder;
 
 // タグ用
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
++(NSArray *)getAllTagsArray;
++(NSArray *)fetchTagsForTitle:(NSString *)title;
 
 // フィルター用
 +(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
-
 +(void)insertNewFilter:(NSString *)filterTitle
          tagsForFilter:(NSSet *)tagsForFilter;
 
+// その他
 +(NSEntityDescription *)entityDescriptionForName:(NSString *)name;
 
 +(NSManagedObjectContext *)managedObjectContext;
