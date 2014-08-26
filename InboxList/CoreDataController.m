@@ -24,7 +24,7 @@
  *
  * @return リザルトコントローラー
  */
-+ (NSFetchedResultsController *)fetchedResultsControllerForTags:(NSSet *)tags
++ (NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
                                                      controller:(id<NSFetchedResultsControllerDelegate>)controller
 {
   AppDelegate *app = [[UIApplication sharedApplication] delegate];

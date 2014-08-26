@@ -80,7 +80,7 @@ enum __LIST_MODE__ {
  
   LOG(@"フィルターコントローラーを初期化");
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
-  //  self.filterViewController.delegate = self;
+  self.filterViewController.delegate = self;
   self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
   self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
   
@@ -360,6 +360,8 @@ didSelectItem:(UITabBarItem *)item
   }
 }
 
+#pragma mark - デリゲート用
+
 /**
  *  タグが選択された時の処理
  *
@@ -378,6 +380,22 @@ didSelectItem:(UITabBarItem *)item
   [self loadMasterViewForTag:tagString
       fetcheResultController:[ResultControllerFactory fetchedResultsControllerForTags:[NSSet setWithObject:tagString]
                                                                              delegate:self.itemViewController]];
+}
+
+/**
+ * @brief  フィルターが選択された時の処理
+ *
+ * @param filterTitle フィルターのタイトル
+ * @param tags        フィルターのタグ
+ */
+-(void)didSelectedFilter:(NSString *)filterTitle
+                    tags:(NSSet *)tags
+{
+  LOG(@"フィルターが選択された時の処理");
+  NSFetchedResultsController *resultController = [CoreDataController itemFetchedResultsControllerForTags:tags
+                                                                                             controller:self.itemViewController];
+  [self loadMasterViewForTag:filterTitle
+      fetcheResultController:resultController];
 }
 
 /**

@@ -9,17 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "InputFilterViewController.h"
 
-//@protocol FilterViewControllerDelegate <NSObject>
-//
-///**
-// *  Viewを最前面に表示する
-// *
-// *  @param view 指定するビュー
-// *  @todo メインには、画面の重なり順だけデリゲートするようにする。viewを渡して。
-// */
+@protocol FilterViewControllerDelegate <NSObject>
+
+/**
+ *  Viewを最前面に表示する
+ *
+ *  @param view 指定するビュー
+ *  @todo メインには、画面の重なり順だけデリゲートするようにする。viewを渡して。
+ */
 //- (void)presentInputFilterView;
-//
-//@end
+
+-(void)didSelectedFilter:(NSString *)filterTitle
+                    tags:(NSSet *)tags;
+
+@end
 
 /**
  *  @brief  フィルターリスト
@@ -27,7 +30,7 @@
 @interface FilterViewController : UITableViewController
 <NSFetchedResultsControllerDelegate, InputFilterDelegate>
 
-//@property id <FilterViewControllerDelegate> delegate;
+@property id <FilterViewControllerDelegate> delegate;
 
 @property NSFetchedResultsController *fetchedResultsController;
 

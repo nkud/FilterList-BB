@@ -121,6 +121,21 @@
 #pragma mark - テーブルビュー
 
 /**
+ * @brief  セルが選択された時の処理
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ */
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  LOG(@"セルが選択された");
+  Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  [self.delegate didSelectedFilter:filter.title
+                              tags:filter.tags];
+}
+
+/**
  *  セクション内のセル数を返す
  *
  *  @param tableView <#tableView description#>

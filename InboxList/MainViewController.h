@@ -22,7 +22,7 @@
  *  @brief  メインコンテナ
  */
 @interface MainViewController : UIViewController
-<TagViewControllerDelegate, UITabBarDelegate> {
+<TagViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate> {
   int swipe_distance;
 }
 
