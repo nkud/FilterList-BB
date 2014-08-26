@@ -14,6 +14,13 @@
 
 @implementation CoreDataController
 
+/**
+ * @brief  フィルター用のリザルトコントローラー
+ *
+ * @param controller デリゲート先のコントローラー
+ *
+ * @return リザルトコントローラー
+ */
 +(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
 {
   LOG(@"フィルターリザルトコントローラー");
@@ -43,7 +50,7 @@
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
 
 	/**
-	 *  フェッチを実行
+	 *  @brief フェッチを実行
 	 */
   LOG(@"フェッチを実行");
 	NSError *error = nil;
@@ -57,21 +64,28 @@
 }
 
 /**
- *  新しいフィルターを新規挿入する
+ * @brief  新しいフィルターを新規挿入
  *
- *  @param filterTitle フィルター名
+ * @param filterTitle   フィルターのタイトル
+ * @param tagsForFilter 関連付けられたされたタグ
  */
 +(void)insertNewFilter:(NSString *)filterTitle
+         tagsForFilter:(NSSet *)tagsForFilter
 {
   LOG(@"フィルターを新規挿入");
   Filter *newFilter = [NSEntityDescription insertNewObjectForEntityForName:@"Filter"
                                                     inManagedObjectContext:[self managedObjectContext]];
+  // フィルターにタイトルを設定
   newFilter.title = filterTitle;
+  
+  // フィルターにタグを設定
+  [newFilter addTags:tagsForFilter];
+
   [self saveContext];
 }
 
 /**
- *  新しいアイテムを挿入する
+ *  @brief 新しいアイテムを挿入する
  *
  *  @param itemTitle タイトル
  *  @param tags      関連付けるタグのセット
@@ -112,7 +126,7 @@
 /**
  *  全タグの配列を返す
  *
- *  @return <#return value description#>
+ *  @return タグの配列
  *  @todo ソート条件までは設定していない
  */
 +(NSArray *)getAllTagsArray

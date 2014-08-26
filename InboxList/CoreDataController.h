@@ -20,13 +20,21 @@
 +(NSArray *)getAllTagsArray;
 +(NSArray *)fetchTagsForTitle:(NSString *)title;
 
-+(void)insertNewItem:(NSString *)itemTitle tags:(NSSet *)tags reminder:(NSDate *)reminder;
-+(void)insertNewFilter:(NSString *)filterTitle;
-
+// アイテム用
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
+
++(void)insertNewItem:(NSString *)itemTitle
+                tags:(NSSet *)tags
+            reminder:(NSDate *)reminder;
+
+// タグ用
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 
+// フィルター用
 +(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
+
++(void)insertNewFilter:(NSString *)filterTitle
+         tagsForFilter:(NSSet *)tagsForFilter;
 
 +(NSEntityDescription *)entityDescriptionForName:(NSString *)name;
 
