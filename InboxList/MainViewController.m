@@ -169,9 +169,11 @@ enum __LIST_MODE__ {
  *  リスト変更関数
  *
  *-----------------------------------------------------------------------------*/
+#pragma mark - リスト変更関数
 -(void)setItemMode
 {
   currentListMode_ = __ITEM_MODE__;
+  [self.tabBar setItemMode];
 }
 -(BOOL)isItemMode
 {
@@ -182,17 +184,20 @@ enum __LIST_MODE__ {
 -(void)setTagMode
 {
   currentListMode_ = __TAG_MODE__;
+  [self.tabBar setTagMode];
 }
 -(void)setFilterMode
 {
   currentListMode_ = __FILTER_MODE__;
+  [self.tabBar setFilterMode];
 }
 -(void)setCompleteMode
 {
   currentListMode_ = __COMPLETE_MODE__;
+  [self.tabBar setCompletedMode];
 }
 
-
+#pragma mark - リスト表示モード関数
 
 /**
  *  アイテムリスト表示モード
@@ -201,7 +206,6 @@ enum __LIST_MODE__ {
 {
   [self bringTopMode:self.itemNavigationController]; // アイテムビューをトップにする
 
-  
   LOG(@"アイテムリストモード");
   switch (currentListMode_) {
     case __ITEM_MODE__:
@@ -241,7 +245,8 @@ enum __LIST_MODE__ {
 -(void)toTagListMode
 {
   [self bringTopMode:self.tagNavigationController]; // アイテムビューをトップにする
-
+  
+  [self setTagMode];
   switch (currentListMode_) {
     case __ITEM_MODE__:
       break;
@@ -260,7 +265,7 @@ enum __LIST_MODE__ {
     default:
       break;
   }
-  [self setTagMode];
+
   
   LOG(@"タグリストモード");
 //  int distance = SCREEN_BOUNDS.size.width;
@@ -392,7 +397,7 @@ didSelectItem:(UITabBarItem *)item
   self.itemViewController.fetchedResultsController = fetchedResultController;
   [self.itemViewController updateTableView]; // テーブルを更新
   [self.itemViewController setTitle:tag]; // タグの名前に変える
-  
+
   [self.tabBar setItemMode];
   [self toItemListMode];
 }
