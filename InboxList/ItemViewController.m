@@ -322,10 +322,15 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
         tagsForSelectedRows:(NSSet *)tagsForSelectedRows
                    reminder:(NSDate *)reminder
 {
-  // アイテムを新規挿入して
-  [CoreDataController insertNewItem:itemTitle
-                               tags:tagsForSelectedRows
-                           reminder:reminder];
+  if ([itemTitle isEqual:@""]) {
+    // 空欄なら何もしない
+  } else {
+    // 新しいアイテムを挿入する
+    [CoreDataController insertNewItem:itemTitle
+                                 tags:tagsForSelectedRows
+                             reminder:reminder];
+  }
+  
   // 画面を終了する
   [self dismissViewControllerAnimated:YES
                            completion:nil];

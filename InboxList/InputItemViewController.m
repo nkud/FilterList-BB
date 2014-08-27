@@ -219,7 +219,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  */
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  NSLog(@"%s", __FUNCTION__);
   if (textField == self.titleInputField) { // アイテム名入力欄なら、
     [self dismissInput];
   }
