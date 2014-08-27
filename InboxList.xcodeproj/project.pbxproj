@@ -50,7 +50,6 @@
 		B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */; };
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
-		B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */; };
 		B0A351141984B6AA0062ABB1 /* TagFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */; };
 		B0BC6A7A19A9916700E53AEF /* InputItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A7919A9916700E53AEF /* InputItemViewController.m */; };
 		B0BC6A8819A9BB1E00E53AEF /* InputItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A8719A9BB1E00E53AEF /* InputItemNavigationController.m */; };
@@ -142,8 +141,6 @@
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B08F791B19A8286900145F75 /* Configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
-		B0A3510B1984A24B0062ABB1 /* ResultControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultControllerFactory.h; sourceTree = "<group>"; };
-		B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultControllerFactory.m; sourceTree = "<group>"; };
 		B0A351121984B6A20062ABB1 /* TagFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagFieldViewController.h; sourceTree = "<group>"; };
 		B0A351131984B6AA0062ABB1 /* TagFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagFieldViewController.m; sourceTree = "<group>"; };
 		B0BC6A7819A9916700E53AEF /* InputItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputItemViewController.h; sourceTree = "<group>"; };
@@ -426,15 +423,6 @@
 			name = TagFieldViewController;
 			sourceTree = "<group>";
 		};
-		B0A3510E1984AA0F0062ABB1 /* ResultControllerFactory */ = {
-			isa = PBXGroup;
-			children = (
-				B0A3510B1984A24B0062ABB1 /* ResultControllerFactory.h */,
-				B0A3510C1984A24B0062ABB1 /* ResultControllerFactory.m */,
-			);
-			name = ResultControllerFactory;
-			sourceTree = "<group>";
-		};
 		B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,7 +448,6 @@
 			isa = PBXGroup;
 			children = (
 				B03E6C1B18CAA383007703B8 /* ManagedObject */,
-				B0A3510E1984AA0F0062ABB1 /* ResultControllerFactory */,
 				B0BDA87F19965639003AA40B /* CoreDataController.h */,
 				B0BDA88019965639003AA40B /* CoreDataController.m */,
 			);
@@ -641,7 +628,6 @@
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
 				B0BC6A8819A9BB1E00E53AEF /* InputItemNavigationController.m in Sources */,
 				B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */,
-				B0A3510D1984A24B0062ABB1 /* ResultControllerFactory.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
 				B03E6C1A18CAA316007703B8 /* Tag.m in Sources */,
 				B0808049195825A3007D21E4 /* TagViewController.m in Sources */,

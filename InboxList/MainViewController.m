@@ -10,7 +10,6 @@
 #import "AppDelegate.h"
 #import "Header.h"
 #import "InputFilterViewController.h"
-#import "ResultControllerFactory.h"
 #import "CoreDataController.h"
 #import "Configure.h"
 
@@ -71,7 +70,8 @@ enum __LIST_MODE__ {
   
   LOG(@"アイテムビューを初期化");
   self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
-  self.itemViewController.fetchedResultsController = [ResultControllerFactory fetchedResultsController:self.itemViewController]; // はじめは全アイテムを表示
+
+  self.itemViewController.fetchedResultsController = [CoreDataController itemFethcedResultsController:self.itemViewController];
     
   LOG(@"ナビゲーションコントローラー初期化");
   

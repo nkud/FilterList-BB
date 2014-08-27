@@ -7,7 +7,6 @@
 //
 
 #import "CoreDataController.h"
-#import "ResultControllerFactory.h"
 #import "AppDelegate.h"
 #import "Filter.h"
 #import "Header.h"
@@ -26,8 +25,44 @@
  */
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
 {
-  NSFetchedResultsController *ret = [ResultControllerFactory fetchedResultsController:controller];
-  return ret;
+  LOG(@"通常のリザルトコントローラー");
+  AppDelegate *app = [[UIApplication sharedApplication] delegate]; // アプリケーションデリゲートを取得
+  
+  //  if (_fetchedResultsController != nil) {
+  //    return _fetchedResultsController;
+  //  }
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
+                                            inManagedObjectContext:app.managedObjectContext];
+  [fetchRequest setEntity:entity];
+  
+  // Set the batch size to a suitable number.
+  [fetchRequest setFetchBatchSize:20];
+  
+  // Edit the sort key as appropriate.
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+                                                                 ascending:NO];
+  NSArray *sortDescriptors = @[sortDescriptor];
+  
+  [fetchRequest setSortDescriptors:sortDescriptors]; // ソート条件
+  
+  // Edit the section name key path and cache name if appropriate.
+  // nil for section name key path means "no sections".
+  NSFetchedResultsController *aFetchedResultsController
+  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:app.managedObjectContext
+                                          sectionNameKeyPath:nil
+                                                   cacheName:nil]; //< 元は@"Master"
+  
+  aFetchedResultsController.delegate = controller; //< デリゲートを設定
+  
+	NSError *error = nil;
+  LOG(@"フェッチを実行");
+	if (![aFetchedResultsController performFetch:&error]) {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+	}
+  return aFetchedResultsController; // 作成したリザルトコントローラーを返す
 }
 
 /**

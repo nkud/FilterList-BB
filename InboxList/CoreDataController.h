@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResultControllerFactory.h"
+//#import "ResultControllerFactory.h"
 #import "Tag.h"
 #import "AppDelegate.h"
 
