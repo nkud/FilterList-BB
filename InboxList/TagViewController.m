@@ -194,14 +194,13 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // セルを作成する
   TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
-
+  
+  // 位置のタグを取得する
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  if ([tag.title isEqualToString:@""]) {
-    cell.tagTitle.text = @"NO TAGS";
-  } else {
-    cell.tagTitle.text = tag.title;
-  }
+  cell.tagTitle.text = tag.title;
+  LOG(@"%@", tag.items);
   cell.numOfItemsTextLabel.text = [NSString stringWithFormat:@"%u", [tag.items count]];
   return cell;
 }

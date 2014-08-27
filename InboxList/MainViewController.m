@@ -219,8 +219,9 @@ enum __LIST_MODE__ {
 -(void)toTagListMode
 {
   [self bringTopMode:self.tagNavigationController]; // アイテムビューをトップにする
-  
+  // タグモードにする
   [self setTagMode];
+  [self.tagViewController.tableView reloadData];
   switch (currentListMode_) {
     case __ITEM_MODE__:
       break;

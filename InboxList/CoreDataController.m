@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/08/09.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "CoreDataController.h"
