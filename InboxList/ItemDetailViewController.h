@@ -10,6 +10,9 @@
 
 #import "Item.h"
 
+/**
+ * @brief  詳細画面用プロトコル
+ */
 @protocol ItemDetailViewControllerDelegate <NSObject>
 
 - (void)dismissDetailView:(id)sender
@@ -19,6 +22,9 @@
 
 @end
 
+/**
+ * @brief  詳細画面
+ */
 @interface ItemDetailViewController : UIViewController
 
 @property (strong, nonatomic) Item * detailItem;

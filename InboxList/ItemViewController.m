@@ -112,16 +112,9 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"アイテムが選択された時の処理");
-  ItemDetailViewController *detailViewController = [[ItemDetailViewController alloc] initWithNibName:@"ItemDetailViewController"
-                                                                                              bundle:nil];
-  Item *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
   
-  [detailViewController setDetailItem:object];
-  [detailViewController setIndex:indexPath];
-  [detailViewController setDelegate:self];
-  
-  [self.navigationController pushViewController:detailViewController
-                                       animated:NO];
+  // インデックスの詳細画面をプッシュする
+  [self pushDetailView:indexPath];
 }
 
 /**
@@ -339,6 +332,26 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 }
 
 #pragma mark - 詳細画面処理
+
+/**
+ * @brief  詳細画面をプッシュする
+ *
+ * @param indexPath 作成する詳細のセルの位置
+ */
+-(void)pushDetailView:(NSIndexPath *)indexPath
+{
+  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  ItemDetailViewController *detailViewController =
+  [[ItemDetailViewController alloc] initWithNibName:@"ItemDetailViewController"
+                                             bundle:nil];
+  
+  [detailViewController setDetailItem:item];
+  [detailViewController setIndex:indexPath];
+  [detailViewController setDelegate:self];
+  
+  [self.navigationController pushViewController:detailViewController
+                                       animated:NO];
+}
 
 /**
  *  @brief 詳細画面を終了させる処理
