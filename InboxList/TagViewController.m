@@ -331,6 +331,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       LOG(@"削除");
       [tableView deleteRowsAtIndexPaths:@[indexPath]
                        withRowAnimation:UITableViewRowAnimationLeft];
+      
+      // 他のタグのアイテム数も変更するように更新
+      [self.tableView reloadData];
       //      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
       //      NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
       //      for (Tag *tag in tags) { // そのセットそれぞれに対して

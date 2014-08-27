@@ -221,6 +221,10 @@ enum __LIST_MODE__ {
   [self bringTopMode:self.tagNavigationController]; // アイテムビューをトップにする
   // タグモードにする
   [self setTagMode];
+  
+  // タグテーブルを更新
+  // これがないと、アイテム数が更新されない
+  // もっといい方法があるかも
   [self.tagViewController.tableView reloadData];
   switch (currentListMode_) {
     case __ITEM_MODE__:
@@ -259,11 +263,12 @@ enum __LIST_MODE__ {
                    }];
 }
 /**
- *  フィルターリスト表示モード
+ *  @brief フィルターリスト表示モード
  */
 -(void)toFilterListMode
 {
-  [self bringTopMode:self.filterNavigationController]; // アイテムビューをトップにする
+  // アイテムビューをトップにする
+  [self bringTopMode:self.filterNavigationController];
 
   switch (currentListMode_) {
     case __ITEM_MODE__:
@@ -301,7 +306,7 @@ enum __LIST_MODE__ {
 }
 
 /**
- *  タブが選択された時の処理
+ *  @brief タブが選択された時の処理
  *
  *  @param tabBar タブバー
  *  @param item   選択されたタブ
