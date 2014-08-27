@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "InputTagViewController.h"
+#import "Tag.h"
 
 static NSString * const TagModeCellIdentifier = @"TagCell";
 
 @protocol TagViewControllerDelegate <NSObject>
 
-- (void)selectedTag:(NSString *)tagString;
+- (void)selectedTag:(Tag *)tag;
 
 @end
 

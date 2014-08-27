@@ -10,17 +10,24 @@
 #import "TagFieldViewController.h"
 #import "TagSelectViewController.h"
 
+/**
+ * @brief  入力画面用のプロトコル
+ */
 @protocol InputItemViewControllerDelegate <NSObject>
 
 //- (void)dismissInputModalView:(id)sender
 //                         data:(NSArray *)data
 //                     reminder:(NSDate *)reminder;
 
--(void)dismissInputItemView:(NSString *)title
+-(void)dismissInputItemView:(NSString *)itemTitle
         tagsForSelectedRows:(NSSet *)tagsForSelectedRows
                    reminder:(NSDate *)reminder;
 
 @end
+
+/**
+ * @brief  入力画面
+ */
 
 @interface InputItemViewController : UIViewController
 <UITextFieldDelegate, TagSelectViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -32,11 +39,10 @@
 
 @property (weak, nonatomic) IBOutlet UIDatePicker *remindPicker;
 
-@property (weak, nonatomic) IBOutlet UIButton *buttonTagSelectView;
-@property (weak, nonatomic) IBOutlet UILabel *selectedTagsLabel;
 
 @property (weak, nonatomic) IBOutlet UITableView *optionContainerTableView;
 
 @property NSSet *selectedTags;
+@property NSString *cellTitleForSelectedTags;
 
 @end

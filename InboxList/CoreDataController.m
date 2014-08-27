@@ -14,6 +14,10 @@
 
 @implementation CoreDataController
 
+#pragma mark - アイテム用
+
+#pragma mark - タグ用
+
 #pragma mark - フィルター用
 
 /**
@@ -37,22 +41,18 @@
   
   /// Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
-  /**
-   *  ソート条件
-   */
+  // ソート条件
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
-  [fetchRequest setSortDescriptors:sortDescriptors];                 /// ソートを設定
+  [fetchRequest setSortDescriptors:sortDescriptors];                // ソートを設定
   
-  /**
-   *  検索条件
-   */
-  NSMutableArray *predicate_array = [[NSMutableArray alloc] init]; // 条件を格納する配列
-  NSPredicate *predicate;       // 条件
-  for (Tag *tag in tags) {
+  // 検索条件
+  NSMutableArray *predicate_array = [[NSMutableArray alloc] init];  // 条件を格納する配列
+  NSPredicate *predicate;                                           // 条件
+  for (Tag *tag in tags) { // それぞれのタグに対して
     predicate = [NSPredicate predicateWithFormat:@"SELF == %@", tag]; // 条件を作成
-    [predicate_array addObject:predicate]; // 条件を配列に追加
+    [predicate_array addObject:predicate];                          // 条件を配列に追加
   }
   // 条件の配列から条件を合成する
   NSCompoundPredicate *compound_predicate = [[NSCompoundPredicate alloc] initWithType:NSOrPredicateType
@@ -169,30 +169,36 @@
   newItem.title = itemTitle;
   newItem.state = [NSNumber numberWithBool:false];
   newItem.reminder = reminder;
+  
+  // アイテムとタグを関連付ける
+  for (Tag *tag in tags) {
+    [tag addItemsObject:newItem];
+  }
+  [newItem addTags:tags];
 
   /**
    *  @todo ここを関数化！！！
    */
-  for (Tag *tag in tags) {
-    NSArray *tags = [self fetchTagsForTitle:tag.title];
-    if ([tags count] > 0) {
-      Tag *tag = [tags objectAtIndex:0];
-      [tag addItemsObject:newItem];
-      [newItem addTagsObject:tag];
-    } else {
-      Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                                  inManagedObjectContext:[self managedObjectContext]];
-      newTag.title = tag.title;
-      [newTag addItemsObject:newItem];
-      [newItem addTagsObject:newTag];
-    }
-  }
+//  for (Tag *tag in tags) {
+//    NSArray *tags = [self fetchTagsForTitle:tag.title];
+//    if ([tags count] > 0) {
+//      Tag *tag = [tags objectAtIndex:0];
+//      [tag addItemsObject:newItem];
+//      [newItem addTagsObject:tag];
+//    } else {
+//      Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+//                                                  inManagedObjectContext:[self managedObjectContext]];
+//      newTag.title = tag.title;
+//      [newTag addItemsObject:newItem];
+//      [newItem addTagsObject:newTag];
+//    }
+//  }
 
   [self saveContext];
 }
 
 /**
- *  全タグの配列を返す
+ *  @brief 全タグの配列を返す
  *
  *  @return タグの配列
  *  @todo ソート条件までは設定していない
@@ -263,7 +269,7 @@
 }
 
 /**
- *  全てのタグから、指定したタイトルのタグの配列を返す
+ *  @brief 全てのタグから、指定したタイトルのタグの配列を返す
  *
  *  @param title 指定するタイトル
  *
@@ -284,7 +290,7 @@
 }
 
 /**
- *  全アイテムのリザルトコントローラー
+ *  @brief 全アイテムのリザルトコントローラー
  *
  *  @param controller デリゲート先
  *
@@ -297,7 +303,7 @@
 }
 
 /**
- *  タグのリザルトコントローラー
+ *  @brief タグのリザルトコントローラー
  *
  *  @param controller コントローラー
  *

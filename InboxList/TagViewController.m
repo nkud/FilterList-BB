@@ -21,6 +21,8 @@
 
 @implementation TagViewController
 
+#pragma mark - 初期化
+
 /**
  * @brief この初期化方法は変えたほうがいいかも
  */
@@ -35,46 +37,10 @@
   return self;
 }
 
-/**
- *  タグが選択された時の処理
- *
- *  @param tableView tableView description
- *  @param indexPath 選択された場所
- */
--(void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  LOG(@"タグが選択された時の処理");
-  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  [self.delegate selectedTag:tag.title]; // 選択されたタグを渡す
-}
-
-/**
- *  セクションのタイトルを設定
- *
- *  @param tableView テーブルビュー
- *  @param section   セクション
- *
- *  @return タイトルの文字列
- */
-//-(NSString *)tableView:(UITableView *)tableView
-//titleForHeaderInSection:(NSInteger)section
-//{
-//  LOG(@"セクションのタイトルを設定");
-//  switch (section) {
-//    case 0:
-//      return @"Default";
-//      break;
-//    case 1:
-//      return @"Tag";
-//      break;
-//  }
-//  return nil;
-//}
 
 
 /**
- *  @brief  ビューがロードされた後の処理
+ * @brief  ビューがロードされた後の処理
  */
 - (void)viewDidLoad
 {
@@ -103,8 +69,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   self.navigationItem.rightBarButtonItem = addButton;
 }
 
+#pragma mark - 新規入力
+
 /**
- *  新規入力を開始する
+ *  @brief 新規入力を開始する
  *
  *  @param sender センダー
  */
@@ -130,11 +98,50 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   }
   [CoreDataController saveContext];
 }
+#pragma mark - テーブルビュー
 
 /**
- *  編集モード切り替え
+ *  @brief タグが選択された時の処理
  *
- *  @param sender センダー
+ *  @param tableView tableView description
+ *  @param indexPath 選択された場所
+ */
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  LOG(@"タグが選択された時の処理");
+  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath]; // 選択された位置のタグを取得して
+  LOG(@"選択されたタグ：%@", tag.title);
+  [self.delegate selectedTag:tag];                                        // 選択されたタグを渡す
+}
+
+/**
+ *  セクションのタイトルを設定
+ *
+ *  @param tableView テーブルビュー
+ *  @param section   セクション
+ *
+ *  @return タイトルの文字列
+ */
+//-(NSString *)tableView:(UITableView *)tableView
+//titleForHeaderInSection:(NSInteger)section
+//{
+//  LOG(@"セクションのタイトルを設定");
+//  switch (section) {
+//    case 0:
+//      return @"Default";
+//      break;
+//    case 1:
+//      return @"Tag";
+//      break;
+//  }
+//  return nil;
+//}
+
+/**
+ * @brief  編集モード切り替え
+ *
+ * @param sender センダー
  */
 -(void)toEdit:(id)sender
 {
@@ -146,7 +153,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- * セクション数を返す
+ * @brief セクション数を返す
  */
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -154,7 +161,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- * アイテム数を返す
+ * @brief アイテム数を返す
  */
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
@@ -167,7 +174,7 @@ numberOfRowsInSection:(NSInteger)section
 }
 
 /**
- * テーブルのセルを表示する
+ * @brief テーブルのセルを表示する
  */
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -199,9 +206,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- * テーブルを更新する
+ * @brief  テーブルを更新する
  *
- * @note 非効率かも
+ * @note いらんかも？
  */
 - (void)updateTableView
 {
@@ -255,10 +262,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+#pragma mark - コンテンツの更新
+
 /**
- *  コンテンツを更新する前処理
+ * @brief  コンテンツを更新する前処理
  *
- *  @param controller リザルトコントローラー
+ * @param controller リザルトコントローラー
  */
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {

@@ -21,6 +21,6 @@ static NSString const *predicateFormat = @"ANY SELF.tags.title == %@";
  */
 + (NSFetchedResultsController *)fetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 
-+ (NSFetchedResultsController *)fetchedResultsControllerForTags:(NSSet *)tagStringSet
-                                                       delegate:(id<NSFetchedResultsControllerDelegate>)controller;
+//+ (NSFetchedResultsController *)fetchedResultsControllerForTags:(NSSet *)tagStringSet
+//                                                       delegate:(id<NSFetchedResultsControllerDelegate>)controller;
 @end

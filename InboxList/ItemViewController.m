@@ -16,8 +16,6 @@
 
 #import "Header.h"
 #import "Configure.h"
-
-#import "InputHeader.h"
 #import "CoreDataController.h"
 
 #import "InputItemNavigationController.h"
@@ -29,12 +27,6 @@
   AppDelegate *app;
 }
 
-/**
- * @brief  セルを設定
- *
- * @param cell      設定するセル
- * @param indexPath セルの位置
- */
 - (void)configureCell:(ItemCell *)cell
           atIndexPath:(NSIndexPath *)indexPath;
 @end
@@ -42,59 +34,8 @@
 
 @implementation ItemViewController
 
-/**
- * @brief  チェックボックスがタッチされた時の処理
- *
- * @param sender タップリコクナイザー
- * @todo なんかおかしい
- */
-- (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
-{
-  static bool flag = false;
-  switch (sender.state) {
-    case UIGestureRecognizerStateBegan:
-//    case UIGestureRecognizerStateChanged:
-    {
-      LOG(@"チェックボックスのタッチ開始");
-      CGPoint point = [sender locationInView:self.tableView];
-      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-      
-      // その位置のセルのデータをモデルから取得する
-      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-      
-      if ([item.state boolValue]) { // 完了済みなら
-        LOG(@"未完了に変更");
-        item.state = [NSNumber numberWithBool:false]; // 未完了にする
-      } else { // 未完了なら
-        LOG(@"完了に変更して削除する前処理");
-        item.state = [NSNumber numberWithBool:true]; // 完了にして
-        flag = true; // 削除する
-      }
-    }
-      break;
-      
-    case UIGestureRecognizerStateEnded:
-    {
-      LOG(@"チェックボックスのタッチ終了");
-      CGPoint point = [sender locationInView:self.tableView];
-      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-      
-      // その位置のセルのデータをモデルから取得する
-      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-      if ( flag ) {
-        LOG(@"アイテムを削除する");
-        [app.managedObjectContext deleteObject:item]; // アイテムを削除
-      }
+#pragma mark - 初期化
 
-      [CoreDataController saveContext];
-    }
-      break;
-      
-    default:
-      break;
-  }
-
-}
 
 /**
  *  パラメータを初期化
@@ -157,301 +98,9 @@
                                 target:self
                                 action:@selector(presentInputItemView)];
   self.navigationItem.rightBarButtonItem = addButton;
-
-  // 入力ヘッダ
-//  LOG(@"nav: %@", self.navigationController.view);
-//  self.inputHeader = [[InputHeader alloc] initWithFrame:self.navigationController.view.frame];
-//  self.inputHeader.delegate = self;
-//  [self.navigationController.view addSubview:self.inputHeader];
-//  LOG(@"inputHeader: %@", self.inputHeader);
-//  //  [self.tableView addSubview:self.inputHeader];
-//
-//  LOG(@"テーブルビューを少しずらす");
-//
-//  LOG(@"tableview: %@", self.tableView);
-//  CGRect table_frame = self.tableView.frame;
-//  table_frame.origin.y += 500;
-////  [self.tableView setContentOffset:CGPointMake(table_frame.origin.x, table_frame.origin.y)];
-//  [self.tableView setFrame:table_frame];
-//  LOG(@"tableview: %@", self.tableView);
 }
 
-/**
- *  スクロール時の処理
- *
- *  @param scrollView スクロールビュー
- */
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-  CGRect rect = scrollView.bounds; // 現在のスクロールビューの位置を取得して
-  self.triggerDragging = rect.origin.y; // ドラッグしている距離を更新
-}
-
-/**
- *  @brief スクロールをドラッグした後の処理
- *
- *  @param scrollView スクロールビュー
- *  @param decelerate <#decelerate description#>
- *
- *  @todo  入力ヘッダを綺麗に出すようにする
- */
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView
-                 willDecelerate:(BOOL)decelerate
-{
-  LOG(@"スクロールをドラッグした時の処理");
-  int activate_quick_distance = -120;
-  if (self.triggerDragging < activate_quick_distance) { // 規定値よりもドラッグすると
-    
-    LOG(@"クイック入力開始");
-//    [self.inputHeader activateInput]; // クイック入力を作動させる
-  }
-}
-
-/**
- *  フレームをずらす
- *
- * @todo 良いやり方がないか
- */
--(void)setFrameForInputField
-{
-  LOG(@"フレームをずらす");
-//  CGRect rect = self.tableView.frame;
-//  rect.origin.y += self.inputHeader.height;
-//  self.tableView.frame = rect;
-//  CGFloat y = rect.origin.y - self.inputHeader.height;
-  CGFloat y = self.tableView.bounds.origin.y + self.inputHeader.height;
-  self.tableView.contentOffset = CGPointMake(0, y);
-}
-/**
- *  フレームを戻す
- */
--(void)recoverFrameForInputField
-{
-  LOG(@"フレームを戻す");
-  CGRect rect = self.tableView.frame;
-  rect.origin.y -= self.inputHeader.height;
-  self.tableView.frame = rect;
-}
-
-/**
- *  @brief タイトルだけ指定して新しいアイテムを追加
- *
- *  @param itemString 追加するアイテムのタイトル
- */
--(void)quickInsertNewItem:(NSString *)itemString
-{
-  LOG(@"タイトルだけ指定して新しいアイテムを追加");
-  if ([itemString isEqualToString:@""]) { // 空欄なら
-    return;                               // 終了
-  }
-  if ([self.selectedTagString isEqualToString:@"all"])
-  {                             // 全タグ表示中なら
-    [CoreDataController insertNewItem:itemString
-                                 tags:nil
-                             reminder:[NSDate date]]; // タグなしで追加して終了
-  }
-  else                          // あるタグを表示中なら
-  {
-    Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
-            insertIntoManagedObjectContext:nil];
-    tag.title = self.selectedTagString;
-    NSSet *tags = [NSSet setWithObject:tag];
-    [CoreDataController insertNewItem:itemString
-                                 tags:tags
-                             reminder:[NSDate date]]; // 新しいアイテムを追加    
-  }
-}
-
-/**
- *  編集
- *
- *  @param sender <#sender description#>
- */
-- (void)toEdit:(id)sender
-{
-  LOG(@"編集モード");
-  if (self.tableView.isEditing) {
-    [self setEditing:false animated:YES];
-  } else {
-    [self setEditing:true animated:YES];
-  }
-}
-
-/**
- *  @brief 入力画面を終了させる処理
- *
- *  @param sender   sender description
- *  @param data     受け取った入力
- *  @param reminder 設定されたリマインダー
- */
-//- (void)dismissInputModalView:(id)sender
-//                         data:(NSArray *)data
-//                     reminder:(NSDate *)reminder
-//{
-//  LOG(@"入力画面を終了時の処理");
-//  NSString *title = data[0];                                         //< タイトルを取得して
-//  if (title.length > 0) {                                            //< 空欄でなければ
-//    [self insertNewObject:sender
-//                    title:data[0]
-//                      tag:[NSSet setWithObject:data[1]]
-//                 reminder:reminder];
-//  }
-//  [self dismissViewControllerAnimated:YES completion:nil];           //< ビューを削除
-//}
-
-/**
- * @brief  入力画面を終了させる処理
- *
- * @param title               タイトル
- * @param tagsForSelectedRows 選択されたタグ
- * @param reminder            リマインダー
- */
--(void)dismissInputItemView:(NSString *)title
-        tagsForSelectedRows:(NSSet *)tagsForSelectedRows
-                   reminder:(NSDate *)reminder
-{
-  [CoreDataController insertNewItem:title
-                               tags:tagsForSelectedRows
-                           reminder:reminder];
-  [self dismissViewControllerAnimated:YES
-                           completion:nil];
-}
-
-/**
- *  @brief 詳細画面を終了させる処理
- *
- *  @param sender    sender description
- *  @param indexPath 詳細を表示したセルの位置
- *  @param itemTitle 更新されたアイテムのタイトル
- *  @param tagTitles 更新されたタグ
- */
--(void)dismissDetailView:(id)sender
-                   index:(NSIndexPath *)indexPath
-               itemTitle:(NSString *)itemTitle
-               tagTitles:(NSArray *)tagTitles
-{
-  NSLog(@"%s", __FUNCTION__);
-  // アイテムを取得
-  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  item.title = itemTitle;
-  //  [item setValue:itemTitle forKeyPath:@"title"]; //< 更新後のタイトルを代入
-  // 更新後のタグを代入
-  // ここでは空白区切りで羅列している
-//  NSMutableSet *tags = [[NSMutableSet alloc] init];
-//  for( NSString *title in tagTitles ) {
-//    NSArray[CoreDataController fetchTagsForTitle:title];
-//    Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-//                                                inManagedObjectContext:[app managedObjectContext]];
-//    newTag.title = title;
-//    [newTag addItems:[NSSet setWithObject:item]];
-//    [tags addObject:newTag];
-//  }
-
-  for (NSString *title in tagTitles) {
-    NSArray *tags = [CoreDataController fetchTagsForTitle:title];
-    if ([tags count] > 0) {
-      Tag *tag = [tags objectAtIndex:0];
-      [tag addItemsObject:item];
-      [item addTagsObject:tag];
-    } else {
-      Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                                  inManagedObjectContext:[CoreDataController managedObjectContext]];
-      newTag.title = title;
-      [newTag addItemsObject:item];
-      [item addTagsObject:newTag];
-    }
-  }
-  // モデルを保存する
-  [CoreDataController saveContext];
-}
-
-/**
- * @brief  入力画面を表示する
- *
- * @todo あらかじめインスタンスを作っておく
- */
--(void)presentInputItemView
-{
-  LOG(@"入力画面を表示");
-  InputItemViewController *inputView = [[InputItemViewController alloc] initWithNibName:@"InputItemViewController"
-                                                                                 bundle:nil];
-  inputView.delegate = self;
-  [inputView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-  
-  InputItemNavigationController *inputItemNavigationController
-  = [[InputItemNavigationController alloc] initWithRootViewController:inputView];
-
-  [self presentViewController:inputItemNavigationController
-                     animated:YES
-                   completion:nil];
-}
-
-/**
- *  @brief 新しいオブジェクトを挿入
- *
- *  @param sender      呼び出し元
- *  @param title       アイテムのタイトル
- *  @param tagTitleSet タグのタイトルセット
- *  @param reminder    日付
- */
-- (void)insertNewObject:(id)sender
-                  title:(NSString *)title
-                    tag:(NSSet *)tagTitleSet
-               reminder:(NSDate *)reminder
-{
-  LOG(@"新しいアイテムを挿入");
-  NSMutableSet *tags = [[NSMutableSet alloc] init]; // 渡すタグの配列
-  for (NSString *title in tagTitleSet) {            // 指定されたタグ名の
-    Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
-            insertIntoManagedObjectContext:nil];
-    tag.title = title;          // タグを作成して
-    [tags addObject:tag];       // 配列に追加
-  }
-  [CoreDataController insertNewItem:title
-                               tags:tags
-                           reminder:reminder];
-}
-
-#pragma mark - Table View
-
-/**
- * @brief テーブルビューを更新する
- *
- * @todo 効率のいい更新方法にする
- */
-- (void)updateTableView
-{
-  LOG(@"テーブルビューの全てを更新");
-  [self.tableView reloadData];
-}
-
-/**
- *  @brief セルを作成する
- *
- *  @param cell      作成するセル
- *  @param indexPath 作成するセルの位置
- */
-- (void)configureCell:(ItemCell *)cell
-          atIndexPath:(NSIndexPath *)indexPath
-{
-  /// セルを作成
-  Item *item                 = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  
-  cell.titleLabel.text       = item.title;
-  [cell updateCheckBox:item.state.boolValue];
-
-  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-  formatter.dateFormat       = @"yyyy/MM/dd";
-  cell.reminderLabel.text    = [formatter stringFromDate:item.reminder];
-
-  /// 画像タッチを認識する設定
-  UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(touchedCheckBox:)];
-
-  [recognizer setMinimumPressDuration:0.0];
-  [cell.checkBoxImageView setUserInteractionEnabled:YES];
-  [cell.checkBoxImageView addGestureRecognizer:recognizer];
-}
+#pragma mark - テーブルビュー
 
 /**
  *  @brief セルが選択された時の処理
@@ -470,7 +119,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [detailViewController setDetailItem:object];
   [detailViewController setIndex:indexPath];
   [detailViewController setDelegate:self];
-
+  
   [self.navigationController pushViewController:detailViewController
                                        animated:NO];
 }
@@ -512,7 +161,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  *  @return セル
  */
 - (ItemCell *)tableView:(UITableView *)tableView
-cellForRowAtIndexPath:(NSIndexPath *)indexPath
+  cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"指定されたセルを返す");
   static NSString *CellIdentifier = @"ItemCell";
@@ -536,8 +185,69 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
+
 /**
- *  編集時の処理
+ *  スクロール時の処理
+ *
+ *  @param scrollView スクロールビュー
+ */
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  CGRect rect = scrollView.bounds; // 現在のスクロールビューの位置を取得して
+  self.triggerDragging = rect.origin.y; // ドラッグしている距離を更新
+}
+
+/**
+ *  @brief スクロールをドラッグした後の処理
+ *
+ *  @param scrollView スクロールビュー
+ *  @param decelerate <#decelerate description#>
+ *
+ *  @todo  入力ヘッダを綺麗に出すようにする
+ */
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView
+                 willDecelerate:(BOOL)decelerate
+{
+  LOG(@"スクロールをドラッグした時の処理");
+  int activate_quick_distance = -120;
+  if (self.triggerDragging < activate_quick_distance) { // 規定値よりもドラッグすると
+    
+    LOG(@"クイック入力開始");
+//    [self.inputHeader activateInput]; // クイック入力を作動させる
+  }
+}
+
+
+/**
+ * @brief テーブルビューを更新する
+ *
+ * @todo 効率のいい更新方法にする
+ */
+- (void)updateTableView
+{
+  LOG(@"テーブルビューの全てを更新");
+  [self.tableView reloadData];
+}
+
+#pragma mark - 編集時処理
+
+/**
+ *  @brief 編集
+ *
+ *  @param sender センダー
+ */
+- (void)toEdit:(id)sender
+{
+  LOG(@"編集モード");
+  if (self.tableView.isEditing) {
+    [self setEditing:false animated:YES];
+  } else {
+    [self setEditing:true animated:YES];
+  }
+}
+
+/**
+ *  @brief 編集時の処理
  *
  *  @param tableView    テーブルビュー
  *  @param editingStyle 編集スタイル
@@ -557,7 +267,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- * ？？？
+ * @brief  セルが移動できるか評価する
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return 真偽値
  */
 - (BOOL)tableView:(UITableView *)tableView
 canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -567,11 +282,11 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *  ???
+ * @brief  セルを移動する？？？
  *
- *  @param tableView            テーブルビュー
- *  @param sourceIndexPath      元の位置？
- *  @param destinationIndexPath 後の位置？
+ * @param tableView            テーブルビュー
+ * @param sourceIndexPath      元の位置
+ * @param destinationIndexPath 移動先の位置
  */
 -(void)tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
@@ -580,7 +295,232 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   LOG(@"移動");
 }
 
-#pragma mark - Fetched results controller
+#pragma mark - 入力画面処理
+
+/**
+ * @brief  入力画面を表示する
+ *
+ * @todo あらかじめインスタンスを作っておく
+ */
+-(void)presentInputItemView
+{
+  LOG(@"入力画面を表示");
+  InputItemViewController *inputView = [[InputItemViewController alloc] initWithNibName:@"InputItemViewController"
+                                                                                 bundle:nil];
+  inputView.delegate = self;
+  [inputView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+  
+  InputItemNavigationController *inputItemNavigationController
+  = [[InputItemNavigationController alloc] initWithRootViewController:inputView];
+  
+  [self presentViewController:inputItemNavigationController
+                     animated:YES
+                   completion:nil];
+}
+
+/**
+ * @brief  入力画面を終了させる処理
+ *
+ * @param title               タイトル
+ * @param tagsForSelectedRows 選択されたタグ
+ * @param reminder            リマインダー
+ */
+-(void)dismissInputItemView:(NSString *)itemTitle
+        tagsForSelectedRows:(NSSet *)tagsForSelectedRows
+                   reminder:(NSDate *)reminder
+{
+  // アイテムを新規挿入して
+  [CoreDataController insertNewItem:itemTitle
+                               tags:tagsForSelectedRows
+                           reminder:reminder];
+  // 画面を終了する
+  [self dismissViewControllerAnimated:YES
+                           completion:nil];
+}
+
+#pragma mark - 詳細画面処理
+
+/**
+ *  @brief 詳細画面を終了させる処理
+ *
+ *  @param sender    sender description
+ *  @param indexPath 詳細を表示したセルの位置
+ *  @param itemTitle 更新されたアイテムのタイトル
+ *  @param tagTitles 更新されたタグ
+ */
+-(void)dismissDetailView:(id)sender
+                   index:(NSIndexPath *)indexPath
+               itemTitle:(NSString *)itemTitle
+               tagTitles:(NSArray *)tagTitles
+{
+  NSLog(@"%s", __FUNCTION__);
+  // アイテムを取得
+  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  item.title = itemTitle;
+
+  for (NSString *title in tagTitles) {
+    NSArray *tags = [CoreDataController fetchTagsForTitle:title];
+    if ([tags count] > 0) {
+      Tag *tag = [tags objectAtIndex:0];
+      [tag addItemsObject:item];
+      [item addTagsObject:tag];
+    } else {
+      Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+                                                  inManagedObjectContext:[CoreDataController managedObjectContext]];
+      newTag.title = title;
+      [newTag addItemsObject:item];
+      [item addTagsObject:newTag];
+    }
+  }
+  // モデルを保存する
+  [CoreDataController saveContext];
+}
+
+
+
+#pragma mark - セル関連
+
+/**
+ *  @brief セルを作成する
+ *
+ *  @param cell      作成するセル
+ *  @param indexPath 作成するセルの位置
+ */
+- (void)configureCell:(ItemCell *)cell
+          atIndexPath:(NSIndexPath *)indexPath
+{
+  /// セルを作成
+  Item *item                 = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  
+  // タイトル
+  cell.titleLabel.text       = item.title;
+  
+  // 状態
+  [cell updateCheckBox:item.state.boolValue];
+
+  // リマインダー
+  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  formatter.dateFormat       = @"yyyy/MM/dd";
+  cell.reminderLabel.text    = [formatter stringFromDate:item.reminder];
+
+  // 画像タッチを認識する設定
+  UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(touchedCheckBox:)];
+  /// @todo ここはうまくしたい
+  [recognizer setMinimumPressDuration:0.0];
+  [cell.checkBoxImageView setUserInteractionEnabled:YES];
+  [cell.checkBoxImageView addGestureRecognizer:recognizer];
+}
+/**
+ * @brief  チェックボックスがタッチされた時の処理
+ *
+ * @param sender タップリコクナイザー
+ * @todo なんかおかしい
+ */
+- (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
+{
+  static bool flag = false;
+  switch (sender.state) {
+    case UIGestureRecognizerStateBegan:
+      //    case UIGestureRecognizerStateChanged:
+    {
+      LOG(@"チェックボックスのタッチ開始");
+      CGPoint point = [sender locationInView:self.tableView];
+      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+      
+      // その位置のセルのデータをモデルから取得する
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      
+      if ([item.state boolValue]) { // 完了済みなら
+        LOG(@"未完了に変更");
+        item.state = [NSNumber numberWithBool:false]; // 未完了にする
+      } else { // 未完了なら
+        LOG(@"完了に変更して削除する前処理");
+        item.state = [NSNumber numberWithBool:true]; // 完了にして
+        flag = true; // 削除する
+      }
+    }
+      break;
+      
+    case UIGestureRecognizerStateEnded:
+    {
+      LOG(@"チェックボックスのタッチ終了");
+      CGPoint point = [sender locationInView:self.tableView];
+      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+      
+      // その位置のセルのデータをモデルから取得する
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      if ( flag ) {
+        LOG(@"アイテムを削除する");
+        [app.managedObjectContext deleteObject:item]; // アイテムを削除
+      }
+      
+      [CoreDataController saveContext];
+    }
+      break;
+      
+    default:
+      break;
+  }
+}
+
+#pragma mark - CoreData
+
+/**
+ *  @brief 新しいオブジェクトを挿入
+ *
+ *  @param sender      呼び出し元
+ *  @param title       アイテムのタイトル
+ *  @param tagTitleSet タグのタイトルセット
+ *  @param reminder    日付
+ */
+- (void)insertNewObject:(id)sender
+                  title:(NSString *)title
+                    tag:(NSSet *)tagTitleSet
+               reminder:(NSDate *)reminder
+{
+  LOG(@"新しいアイテムを挿入");
+  NSMutableSet *tags = [[NSMutableSet alloc] init]; // 渡すタグの配列
+  for (NSString *title in tagTitleSet) {            // 指定されたタグ名の
+    Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
+            insertIntoManagedObjectContext:nil];
+    tag.title = title;          // タグを作成して
+    [tags addObject:tag];       // 配列に追加
+  }
+  [CoreDataController insertNewItem:title
+                               tags:tags
+                           reminder:reminder];
+}
+/**
+ *  @brief タイトルだけ指定して新しいアイテムを追加
+ *
+ *  @param itemString 追加するアイテムのタイトル
+ */
+-(void)quickInsertNewItem:(NSString *)itemString
+{
+  LOG(@"タイトルだけ指定して新しいアイテムを追加");
+  if ([itemString isEqualToString:@""]) { // 空欄なら
+    return;                               // 終了
+  }
+  if ([self.selectedTagString isEqualToString:@"all"])
+  {                             // 全タグ表示中なら
+    [CoreDataController insertNewItem:itemString
+                                 tags:nil
+                             reminder:[NSDate date]]; // タグなしで追加して終了
+  }
+  else                          // あるタグを表示中なら
+  {
+    Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
+            insertIntoManagedObjectContext:nil];
+    tag.title = self.selectedTagString;
+    NSSet *tags = [NSSet setWithObject:tag];
+    [CoreDataController insertNewItem:itemString
+                                 tags:tags
+                             reminder:[NSDate date]]; // 新しいアイテムを追加
+  }
+}
+
+#pragma mark - コンテンツの更新
 
 /**
  *  コンテンツを更新する前処理
@@ -635,13 +575,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       LOG(@"削除");
       [tableView deleteRowsAtIndexPaths:@[indexPath]
                        withRowAnimation:UITableViewRowAnimationLeft];
-//      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//      NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
-//      for (Tag *tag in tags) { // そのセットそれぞれに対して
-//        if ([tag.items count] == 0) { // タグの関連付けがそのアイテムのみだった場合
-//          [app.managedObjectContext deleteObject:tag]; // そのタグも削除する
-//        }
-//      }
       break;
     }
       
@@ -677,6 +610,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];
 }
+
+#pragma mark - その他
 
 /**
  *  メモリー警告

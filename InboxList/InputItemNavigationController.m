@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/08/24.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "InputItemNavigationController.h"
@@ -15,15 +15,32 @@
 
 @implementation InputItemNavigationController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+#pragma mark - 初期化
+
+/**
+ * @brief  初期化
+ *
+ * @param nibNameOrNil   nibNameOrNil description
+ * @param nibBundleOrNil nibBundleOrNil description
+ *
+ * @return インスタンス
+ */
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
     return self;
 }
 
+/**
+ * @brief  ビュー出現前処理
+ *
+ * @param animated アニメーション
+ */
 -(void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
@@ -39,6 +56,9 @@
 
 
 }
+
+
+#pragma mark - その他
 
 - (void)didReceiveMemoryWarning
 {

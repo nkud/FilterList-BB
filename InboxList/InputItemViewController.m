@@ -14,7 +14,6 @@
 
 static NSString *default_cell_identifier = @"OptionContainerCell";
 static NSString *reminder_cell_identifier = @"ReminderCell";
-static NSString *tag_cell_text_;
 
 @interface InputItemViewController () {
 
@@ -26,7 +25,58 @@ static NSString *tag_cell_text_;
 
 @implementation InputItemViewController
 
-#pragma mark - TableView
+#pragma mark - 初期化
+
+/**
+ *  初期化
+ *
+ *  @param nibNameOrNil   nibNameOrNil description
+ *  @param nibBundleOrNil nibBundleOrNil description
+ *
+ *  @return instance
+ */
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
+{
+  self = [super initWithNibName:nibNameOrNil
+                         bundle:nibBundleOrNil];
+  if (self)
+  {
+    // Custom initialization
+  }
+  return self;
+}
+
+/**
+ * ビュー読み込み後の処理
+ */
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  self.cellTitleForSelectedTags = @"Tags";
+  
+  // セルの高さを設定
+  cell_height_ = 43;
+  reminder_cell_height_ = 0;
+  
+  // 使用するセルを登録する, ２つ
+  [self.optionContainerTableView registerClass:[UITableViewCell class]
+                        forCellReuseIdentifier:default_cell_identifier];
+  [self.optionContainerTableView registerNib:[UINib nibWithNibName:@"ReminderCell" bundle:nil]
+                      forCellReuseIdentifier:reminder_cell_identifier];
+  
+  // アイテム入力フィールド
+  [self.titleInputField becomeFirstResponder];
+  self.titleInputField.delegate = self;
+  
+  // 入力完了ボタン
+  [self.saveButton addTarget:self
+                      action:@selector(dismissInput)
+            forControlEvents:UIControlEventTouchUpInside];
+
+}
+
+#pragma mark - テーブルビュー
 
 /**
  * @brief  セルを返す
@@ -43,7 +93,7 @@ static NSString *tag_cell_text_;
   switch (indexPath.row) {
     case 0:
       cell = [self.optionContainerTableView dequeueReusableCellWithIdentifier:default_cell_identifier];
-      cell.textLabel.text = tag_cell_text_;
+      cell.textLabel.text = self.cellTitleForSelectedTags;
       break;
     case 1:
       cell = [self.optionContainerTableView dequeueReusableCellWithIdentifier:default_cell_identifier];
@@ -119,65 +169,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
-#pragma mark - Initialize
-
-/**
- *  初期化
- *
- *  @param nibNameOrNil   nibNameOrNil description
- *  @param nibBundleOrNil nibBundleOrNil description
- *
- *  @return instance
- */
-- (id)initWithNibName:(NSString *)nibNameOrNil
-               bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil
-                         bundle:nibBundleOrNil];
-  if (self)
-  {
-    // Custom initialization
-  }
-  return self;
-}
-
-/**
- * ビュー読み込み後の処理
- */
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-  tag_cell_text_ = @"Tags";
-
-  // セルの高さを設定
-  cell_height_ = 43;
-  reminder_cell_height_ = 0;
-  
-  [self.optionContainerTableView registerClass:[UITableViewCell class]
-                        forCellReuseIdentifier:default_cell_identifier];
-  [self.optionContainerTableView registerNib:[UINib nibWithNibName:@"ReminderCell" bundle:nil]
-                      forCellReuseIdentifier:reminder_cell_identifier];
-  
-  NSString *tag_select_button_title = @"no tags selected";
-  /// アイテム入力フィールド
-  [self.titleInputField becomeFirstResponder];
-  self.titleInputField.delegate = self;
-
-  /// リマインダー入力ピッカーを初期化
-  [self.remindPicker setDatePickerMode:UIDatePickerModeDateAndTime];
-
-  /// 入力完了ボタン
-  [self.saveButton addTarget:self
-                      action:@selector(dismissInput)
-            forControlEvents:UIControlEventTouchUpInside];
-
-  [self.buttonTagSelectView addTarget:self
-                               action:@selector(toTagSelectView)
-                     forControlEvents:UIControlEventTouchUpInside];
-  [self.buttonTagSelectView setTitle:tag_select_button_title
-                            forState:UIControlStateNormal];
-  
-}
+#pragma mark - タグ選択画面
 
 /**
  * @brief  タグ選択画面を表示する
@@ -193,6 +185,34 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   [tagSelectViewController setDelegate:self];
   return;
 }
+
+/**
+ * @brief  タグ入力画面を終了する
+ *
+ * @param tagsForSelectedRows tags
+ */
+-(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
+{
+  LOG(@"選択されたタグを更新する");
+  NSMutableString *tags_title = [NSMutableString stringWithString:@""];
+  for (Tag *tag in tagsForSelectedRows) {
+    [tags_title appendFormat:@"%@ ", tag.title];
+  }
+  // 選択されたタグを更新
+  self.selectedTags = tagsForSelectedRows;
+
+  if ([tags_title isEqual:@""]) {
+    [tags_title setString:@"no tags"];
+  }
+  
+  // セルのタイトルを更新する
+  self.cellTitleForSelectedTags = tags_title;
+  
+  // テーブルビューを更新する
+  [self.optionContainerTableView reloadData];
+}
+
+#pragma mark - 終了処理
 
 /**
  * Returnが押された時の処理
@@ -220,28 +240,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
                                reminder:self.remindPicker.date];
 }
 
-/**
- * @brief  タグ入力画面を終了する
- *
- * @param tagsForSelectedRows tags
- */
--(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
-{
-  LOG(@"選択されたタグを更新する");
-  NSMutableString *tags_title = [NSMutableString stringWithString:@""];
-  for (Tag *tag in tagsForSelectedRows) {
-    [tags_title appendFormat:@"%@ ", tag.title];
-  }
-  self.selectedTags = tagsForSelectedRows;
-  self.selectedTagsLabel.text = tags_title;
-
-  if ([tags_title isEqual:@""]) {
-    [tags_title setString:@"no tags"];
-  }
-
-  tag_cell_text_ = tags_title;
-  [self.optionContainerTableView reloadData];
-}
+#pragma mark - その他
 
 /**
  * メモリー警告

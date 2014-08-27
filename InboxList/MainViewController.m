@@ -337,23 +337,23 @@ didSelectItem:(UITabBarItem *)item
 #pragma mark - デリゲート用
 
 /**
- *  タグが選択された時の処理
+ * @brief タグが選択された時の処理
  *
- *  @param tagString 選択されたタグの文字列
+ * @param tagString 選択されたタグの文字列
  */
--(void)selectedTag:(NSString *)tagString
+-(void)selectedTag:(Tag *)tag
 {
   LOG(@"タグが選択された時の処理");
-  if ([tagString isEqualToString:@""]) {
+  if ([tag.title isEqualToString:@""]) {
     [self loadItemViewForTag:@"NO TAGS"
         fetcheResultController:[ResultControllerFactory fetchedResultsController:self.itemViewController]];
     return;
   }
 
   LOG(@"指定されたタグでロード");
-  [self loadItemViewForTag:tagString
-      fetcheResultController:[ResultControllerFactory fetchedResultsControllerForTags:[NSSet setWithObject:tagString]
-                                                                             delegate:self.itemViewController]];
+  [self loadItemViewForTag:tag.title
+      fetcheResultController:[CoreDataController itemFetchedResultsControllerForTags:[NSSet setWithObject:tag]
+                                                                          controller:self.itemViewController]];
 }
 
 /**
@@ -381,14 +381,14 @@ didSelectItem:(UITabBarItem *)item
  *  @param tag                     選択されたタグ
  *  @param fetchedResultController リザルトコントローラー
  */
-- (void)loadItemViewForTag:(NSString *)tag
+- (void)loadItemViewForTag:(NSString *)tagTitle
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
   LOG(@"アイテムビューをロードする");
-  self.itemViewController.selectedTagString = tag;// 選択されたタグを渡して
+  self.itemViewController.selectedTagString = tagTitle;// 選択されたタグを渡して
   self.itemViewController.fetchedResultsController = fetchedResultController;
   [self.itemViewController updateTableView]; // テーブルを更新
-  [self.itemViewController setTitle:tag]; // タグの名前に変える
+  [self.itemViewController setTitle:tagTitle]; // タグの名前に変える
 
   [self.tabBar setItemMode];
   [self toItemListMode];

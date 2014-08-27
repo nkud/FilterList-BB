@@ -13,19 +13,16 @@
 #import "ItemDetailViewController.h"
 #import "Item.h"
 #import "ItemCell.h"
-#import "InputHeader.h"
 
 @interface ItemViewController : UITableViewController
 <NSFetchedResultsControllerDelegate, InputItemViewControllerDelegate,
-ItemDetailViewControllerDelegate, InputHeaderDelegate>
+ItemDetailViewControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @property (strong, nonatomic) NSString *selectedTagString;
 
 @property (strong, nonatomic) NSString *title;
-
-@property InputHeader *inputHeader;
 
 @property CGFloat triggerDragging;
 
