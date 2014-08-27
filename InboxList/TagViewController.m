@@ -78,26 +78,40 @@
  */
 -(void)toAdd:(id)sender
 {
-  LOG(@"新規入力画面eをプッシュ");
+  LOG(@"新規入力画面をプッシュ");
   NSString *inputTagNibName = @"InputTagViewController";
-  InputTagViewController *inputTagViewController = [[InputTagViewController alloc] initWithNibName:inputTagNibName
-                                                                                            bundle:nil];
+  
+  // タグ入力画面
+  InputTagViewController *inputTagViewController =
+  [[InputTagViewController alloc] initWithNibName:inputTagNibName
+                                           bundle:nil];
+  
+  // デリゲートを設定する
   inputTagViewController.delegate = self;
+  
+  // プッシュする
   [self.navigationController pushViewController:inputTagViewController
                                        animated:YES];
 }
 
--(void)saveTags:(NSSet *)tagStrings
+/**
+ * @brief  タグを保存する
+ *
+ * @param tagStrings <#tagStrings description#>
+ */
+-(void)saveTags:(NSString *)tagTitle
 {
+  // 文字列が空欄なら終了
+  if ([tagTitle isEqual:@""]) {
+    return;
+  }
   LOG(@"新規タグを保存");
   Tag *newTag;
-  for (NSString *title in tagStrings) {
-    newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                           inManagedObjectContext:[CoreDataController managedObjectContext]];
-    newTag.title = title;
-  }
+  newTag = [CoreDataController insertNewTag];
+  newTag.title = tagTitle;
   [CoreDataController saveContext];
 }
+
 #pragma mark - テーブルビュー
 
 /**
