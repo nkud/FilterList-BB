@@ -268,6 +268,45 @@
   return [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
                                        inManagedObjectContext:[self app].managedObjectContext];
 }
+
+/**
+ *  @brief タグが既存かどうか
+ *
+ *  @param tag 調べるタグ
+ *
+ *  @return 真偽値
+ */
++(BOOL)hasTagForTitle:(NSString *)title
+{
+  NSInteger num = [[self getAllTagsArray] count];
+  if (num > 0) {                // それが０より大きければ
+    return YES;                 // 真を返し
+  } else {                      // そうでなければ
+    return NO;                  // 偽を返す
+  }
+}
+
+/**
+ *  @brief 全てのタグから、指定したタイトルのタグの配列を返す
+ *
+ *  @param title 指定するタイトル
+ *
+ *  @return タグの配列
+ */
++(NSArray *)fetchTagsForTitle:(NSString *)title
+{
+  NSFetchRequest *request = [[NSFetchRequest alloc] init]; // リクエスト
+  
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.title == %@", title];
+  NSEntityDescription *entity = [self entityDescriptionForName:@"Tag"]; // エンティティディスクリプションを取得
+  request.predicate = predicate;
+  request.entity = entity; // エンティティディスクリプションをリクエストに設定
+  
+  NSArray *tags_array = [[self managedObjectContext] executeFetchRequest:request
+                                                                   error:nil];
+  return tags_array;
+}
+
 #pragma mark - フィルター用
 
 
@@ -382,43 +421,6 @@
   return [self app].managedObjectContext;
 }
 
-/**
- *  @brief タグが既存かどうか
- *
- *  @param tag 調べるタグ
- *
- *  @return 真偽値
- */
-+(BOOL)hasTagForTitle:(NSString *)title
-{
-  NSInteger num = [[self getAllTagsArray] count];
-  if (num > 0) {                // それが０より大きければ
-    return YES;                 // 真を返し
-  } else {                      // そうでなければ
-    return NO;                  // 偽を返す
-  }
-}
-
-/**
- *  @brief 全てのタグから、指定したタイトルのタグの配列を返す
- *
- *  @param title 指定するタイトル
- *
- *  @return タグの配列
- */
-+(NSArray *)fetchTagsForTitle:(NSString *)title
-{
-  NSFetchRequest *request = [[NSFetchRequest alloc] init]; // リクエスト
-
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.title == %@", title];
-  NSEntityDescription *entity = [self entityDescriptionForName:@"Tag"]; // エンティティディスクリプションを取得
-  request.predicate = predicate;
-  request.entity = entity; // エンティティディスクリプションをリクエストに設定
-
-  NSArray *tags_array = [[self managedObjectContext] executeFetchRequest:request
-                                                                   error:nil];
-  return tags_array;
-}
 
 
 @end
