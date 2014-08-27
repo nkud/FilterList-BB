@@ -46,22 +46,23 @@
 {
   LOG(@"タグビューがロードされた後の処理");
   [super viewDidLoad];
-
+  
+  // タイトルを設定
   [self setTitle:TAG_LIST_TITLE];
   
-//  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MenuCell"];
+  // 使用するセルを登録
   [self.tableView registerNib:[UINib nibWithNibName:@"TagCell"
                                              bundle:nil]
        forCellReuseIdentifier:TagModeCellIdentifier];
 
-  LOG(@"編集ボタンを追加");
+  // 編集ボタンを追加
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"タグ編集"
                                                                  style:UIBarButtonItemStyleBordered
                                                                 target:self
                                                                 action:@selector(toEdit:)];
   self.navigationItem.leftBarButtonItem = editButton;
 
-  LOG(@"新規入力ボタンを追加");
+  // 新規入力ボタンを追加
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"新規"
                                                                 style:UIBarButtonItemStyleBordered
                                                                target:self
@@ -126,7 +127,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"タグが選択された時の処理");
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath]; // 選択された位置のタグを取得して
   LOG(@"選択されたタグ：%@", tag.title);
-  [self.delegate selectedTag:tag];                                        // 選択されたタグを渡す
+  [self.delegate didSelectedTag:tag];                                        // 選択されたタグを渡す
 }
 
 /**

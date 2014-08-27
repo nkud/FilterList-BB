@@ -26,11 +26,12 @@
 +(void)insertNewItem:(NSString *)itemTitle
                 tags:(NSSet *)tags
             reminder:(NSDate *)reminder;
-
++(Item *)insertNewItem;
 // タグ用
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSArray *)getAllTagsArray;
 +(NSArray *)fetchTagsForTitle:(NSString *)title;
++(Tag *)insertNewTag;
 
 // フィルター用
 +(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;

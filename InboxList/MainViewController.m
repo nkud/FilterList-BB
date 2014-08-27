@@ -341,15 +341,8 @@ didSelectItem:(UITabBarItem *)item
  *
  * @param tagString 選択されたタグの文字列
  */
--(void)selectedTag:(Tag *)tag
+-(void)didSelectedTag:(Tag *)tag
 {
-  LOG(@"タグが選択された時の処理");
-  if ([tag.title isEqualToString:@""]) {
-    [self loadItemViewForTag:@"NO TAGS"
-        fetcheResultController:[ResultControllerFactory fetchedResultsController:self.itemViewController]];
-    return;
-  }
-
   LOG(@"指定されたタグでロード");
   [self loadItemViewForTag:tag.title
       fetcheResultController:[CoreDataController itemFetchedResultsControllerForTags:[NSSet setWithObject:tag]
@@ -373,10 +366,7 @@ didSelectItem:(UITabBarItem *)item
 }
 
 /**
- * メニューでタグが選択された時の処理
- */
-/**
- *  メニューでタグが選択された時の処理
+ *  @brief メニューでタグが選択された時の処理
  *
  *  @param tag                     選択されたタグ
  *  @param fetchedResultController リザルトコントローラー
@@ -385,11 +375,15 @@ didSelectItem:(UITabBarItem *)item
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
   LOG(@"アイテムビューをロードする");
-  self.itemViewController.selectedTagString = tagTitle;// 選択されたタグを渡して
+  // 選択されたタグを渡して
+  self.itemViewController.selectedTagString = tagTitle;
   self.itemViewController.fetchedResultsController = fetchedResultController;
-  [self.itemViewController updateTableView]; // テーブルを更新
-  [self.itemViewController setTitle:tagTitle]; // タグの名前に変える
+  // テーブルを更新
+  [self.itemViewController updateTableView];
+  // タグの名前に変える
+  [self.itemViewController setTitle:tagTitle];
 
+  // タブバーのモードを変更する
   [self.tabBar setItemMode];
   [self toItemListMode];
 }
@@ -397,7 +391,7 @@ didSelectItem:(UITabBarItem *)item
 #pragma mark - その他
 
 /**
- * メモリー警告
+ * @brief メモリー警告
  */
 - (void)didReceiveMemoryWarning
 {

@@ -12,9 +12,12 @@
 
 static NSString * const TagModeCellIdentifier = @"TagCell";
 
+/**
+ * @brief  タグモード用のプロトコル
+ */
 @protocol TagViewControllerDelegate <NSObject>
 
-- (void)selectedTag:(Tag *)tag;
+- (void)didSelectedTag:(Tag *)tag;
 
 @end
 
@@ -24,7 +27,6 @@ static NSString * const TagModeCellIdentifier = @"TagCell";
 @interface TagViewController : UITableViewController
 <NSFetchedResultsControllerDelegate, InputTagViewControllerProtocol>
 
-//@property (strong, nonatomic) NSArray *tag_list;
 @property (strong, nonatomic) NSArray *tagArray_;
 
 @property (assign, nonatomic) id <TagViewControllerDelegate> delegate;

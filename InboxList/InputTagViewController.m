@@ -14,7 +14,15 @@
 @end
 
 @implementation InputTagViewController
-
+#pragma mark - 初期化
+/**
+ * @brief  初期化
+ *
+ * @param nibNameOrNil   <#nibNameOrNil description#>
+ * @param nibBundleOrNil <#nibBundleOrNil description#>
+ *
+ * @return <#return value description#>
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,16 +43,21 @@
             forControlEvents:UIControlEventTouchUpInside];
   [self.titleField becomeFirstResponder];
 }
-
 /**
- *  入力を保存して戻る
+ * @brief  入力を保存して終了する
+ *
+ * @return
  */
 -(void)save:(id)sender
 {
   LOG(@"入力を保存して戻る");
-  [self.delegate saveTags:[NSSet setWithObject:self.titleField.text]];
+  // タイトルフィールドの文字列を渡す
+  [self.delegate saveTags:self.titleField.text];
+  // 画面をポップする
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+#pragma mark - その他
 
 /**
  *  メモリー警告

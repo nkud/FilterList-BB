@@ -14,6 +14,9 @@
 #import "Item.h"
 #import "ItemCell.h"
 
+/**
+ * @brief  アイテムリスト
+ */
 @interface ItemViewController : UITableViewController
 <NSFetchedResultsControllerDelegate, InputItemViewControllerDelegate,
 ItemDetailViewControllerDelegate>

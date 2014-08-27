@@ -10,7 +10,7 @@
 
 @protocol InputTagViewControllerProtocol <NSObject>
 
--(void)saveTags:(NSSet *)tagStrings;
+-(void)saveTags:(NSString *)tagTitle;
 
 @end
 
