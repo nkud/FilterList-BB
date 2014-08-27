@@ -14,12 +14,13 @@
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usercreated" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="filters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Filter" inverseName="tags" inverseEntity="Filter" syncable="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="tags" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
         <element name="Filter" positionX="-4727" positionY="-1819" width="128" height="73"/>
         <element name="Item" positionX="-4743" positionY="-1719" width="162" height="118"/>
-        <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="88"/>
+        <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="105"/>
     </elements>
 </model>

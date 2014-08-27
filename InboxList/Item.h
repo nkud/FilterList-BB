@@ -1,8 +1,8 @@
 //
-//  Event.h
+//  Item.h
 //  InboxList
 //
-//  Created by Naoki Ueda on 2014/03/08.
+//  Created by Naoki Ueda on 2014/08/28.
 //  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
 //
 
@@ -13,12 +13,11 @@
 
 @interface Item : NSManagedObject
 
-@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * color;
 @property (nonatomic, retain) NSDate * reminder;
 @property (nonatomic, retain) NSNumber * state;
-@property (nonatomic, retain) NSSet * tags;
-
+@property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSSet *tags;
 @end
 
 @interface Item (CoreDataGeneratedAccessors)

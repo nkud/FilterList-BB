@@ -24,8 +24,9 @@
 		B00AD6B518C45E480005A552 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AD69018C45E470005A552 /* CoreData.framework */; };
 		B00AD6BD18C45E480005A552 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B00AD6BB18C45E480005A552 /* InfoPlist.strings */; };
 		B00AD6BF18C45E480005A552 /* InboxListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AD6BE18C45E480005A552 /* InboxListTests.m */; };
-		B03E6C1718CAA316007703B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1618CAA316007703B8 /* Item.m */; };
-		B03E6C1A18CAA316007703B8 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E6C1918CAA316007703B8 /* Tag.m */; };
+		B0347BCD19AE45B20087140F /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0347BCC19AE45B20087140F /* Filter.m */; };
+		B0347BD019AE45B30087140F /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B0347BCF19AE45B30087140F /* Item.m */; };
+		B0347BD319AE45B30087140F /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B0347BD219AE45B30087140F /* Tag.m */; };
 		B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */ = {isa = PBXBuildFile; fileRef = B03F2BD3194D76460037AE2C /* CheckBox_True.png */; };
 		B0501AE9199E56D600A58C2D /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0501AE8199E56D600A58C2D /* FilterCell.m */; };
 		B0531996199FC79C00F63783 /* completedtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531995199FC79C00F63783 /* completedtab.png */; };
@@ -34,7 +35,6 @@
 		B053199C199FC92C00F63783 /* tagtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531999199FC92C00F63783 /* tagtab.png */; };
 		B05319A0199FD46F00F63783 /* InputTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B053199E199FD46F00F63783 /* InputTagViewController.m */; };
 		B05319A1199FD46F00F63783 /* InputTagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B053199F199FD46F00F63783 /* InputTagViewController.xib */; };
-		B05319A819A089FD00F63783 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = B05319A719A089FD00F63783 /* Filter.m */; };
 		B056F7CA198D394800768E8E /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B056F7C9198D394800768E8E /* TagCell.xib */; };
 		B05FA8231982B20C00E25FAF /* TabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B05FA8221982B20C00E25FAF /* TabBar.m */; };
 		B060917C19ACBD7A003E6D87 /* InputFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B060917A19ACBD7A003E6D87 /* InputFilterViewController.m */; };
@@ -98,10 +98,12 @@
 		B00AD6BA18C45E480005A552 /* InboxListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InboxListTests-Info.plist"; sourceTree = "<group>"; };
 		B00AD6BC18C45E480005A552 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B00AD6BE18C45E480005A552 /* InboxListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InboxListTests.m; sourceTree = "<group>"; };
-		B03E6C1518CAA316007703B8 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		B03E6C1618CAA316007703B8 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
-		B03E6C1818CAA316007703B8 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
-		B03E6C1918CAA316007703B8 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
+		B0347BCB19AE45B20087140F /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		B0347BCC19AE45B20087140F /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
+		B0347BCE19AE45B30087140F /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		B0347BCF19AE45B30087140F /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		B0347BD119AE45B30087140F /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		B0347BD219AE45B30087140F /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		B03F2BD3194D76460037AE2C /* CheckBox_True.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_True.png; path = resource/CheckBox_True.png; sourceTree = SOURCE_ROOT; };
 		B0501AE7199E56D600A58C2D /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
 		B0501AE8199E56D600A58C2D /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
@@ -112,8 +114,6 @@
 		B053199D199FD46F00F63783 /* InputTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTagViewController.h; sourceTree = "<group>"; };
 		B053199E199FD46F00F63783 /* InputTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTagViewController.m; sourceTree = "<group>"; };
 		B053199F199FD46F00F63783 /* InputTagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputTagViewController.xib; sourceTree = "<group>"; };
-		B05319A619A089FD00F63783 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
-		B05319A719A089FD00F63783 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		B053C91B19557C1600C51AA1 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		B056F7C9198D394800768E8E /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		B05FA8211982B20200E25FAF /* TabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBar.h; path = InboxList/TabBar.h; sourceTree = "<group>"; };
@@ -278,12 +278,12 @@
 		B03E6C1B18CAA383007703B8 /* ManagedObject */ = {
 			isa = PBXGroup;
 			children = (
-				B05319A619A089FD00F63783 /* Filter.h */,
-				B05319A719A089FD00F63783 /* Filter.m */,
-				B03E6C1818CAA316007703B8 /* Tag.h */,
-				B03E6C1918CAA316007703B8 /* Tag.m */,
-				B03E6C1518CAA316007703B8 /* Item.h */,
-				B03E6C1618CAA316007703B8 /* Item.m */,
+				B0347BD119AE45B30087140F /* Tag.h */,
+				B0347BD219AE45B30087140F /* Tag.m */,
+				B0347BCE19AE45B30087140F /* Item.h */,
+				B0347BCF19AE45B30087140F /* Item.m */,
+				B0347BCB19AE45B20087140F /* Filter.h */,
+				B0347BCC19AE45B20087140F /* Filter.m */,
 			);
 			name = ManagedObject;
 			sourceTree = "<group>";
@@ -617,7 +617,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */,
-				B05319A819A089FD00F63783 /* Filter.m in Sources */,
+				B0347BD019AE45B30087140F /* Item.m in Sources */,
 				B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */,
 				B00AD6A918C45E470005A552 /* ItemDetailViewController.m in Sources */,
 				B0BC6A8C19A9CDC700E53AEF /* TagSelectViewController.m in Sources */,
@@ -629,19 +629,19 @@
 				B0BC6A8819A9BB1E00E53AEF /* InputItemNavigationController.m in Sources */,
 				B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
-				B03E6C1A18CAA316007703B8 /* Tag.m in Sources */,
 				B0808049195825A3007D21E4 /* TagViewController.m in Sources */,
 				B0BDA87E1996341E003AA40B /* TagField.m in Sources */,
 				B05319A0199FD46F00F63783 /* InputTagViewController.m in Sources */,
 				B00AD69D18C45E470005A552 /* AppDelegate.m in Sources */,
 				B080804C19582CF6007D21E4 /* MainViewController.m in Sources */,
+				B0347BCD19AE45B20087140F /* Filter.m in Sources */,
 				B072C8CC198CF80800F95B83 /* InputHeader.m in Sources */,
 				B00AD69918C45E470005A552 /* main.m in Sources */,
 				B08F4B651915FAC80047E210 /* NavigationController.m in Sources */,
 				B0BC6A7A19A9916700E53AEF /* InputItemViewController.m in Sources */,
-				B03E6C1718CAA316007703B8 /* Item.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */,
 				B0A351141984B6AA0062ABB1 /* TagFieldViewController.m in Sources */,
+				B0347BD319AE45B30087140F /* Tag.m in Sources */,
 				B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */,
 				B05FA8231982B20C00E25FAF /* TabBar.m in Sources */,
 				B060917C19ACBD7A003E6D87 /* InputFilterViewController.m in Sources */,
