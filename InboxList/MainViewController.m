@@ -33,6 +33,8 @@ enum __LIST_MODE__ {
 
 @implementation MainViewController
 
+#pragma mark - 初期化
+
 /**
 *  @brief  パラメータを初期化
 */
@@ -59,10 +61,7 @@ enum __LIST_MODE__ {
 {
   [super viewDidLoad];
   [self initParameter];
-  
-  /**
-   *  タブバー初期化
-   */
+
   LOG(@"タブバー初期化");
   self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
                                                          SCREEN_BOUNDS.size.height-TABBAR_H,
@@ -100,25 +99,6 @@ enum __LIST_MODE__ {
   
   LOG(@"アイテムモードにする");
   currentListMode_ = __ITEM_MODE__;
-}
-
-/**
- * マスタービューを中心に持ってくる
- */
-- (void)moveMasterViewToCenter
-{
-  LOG(@"アイテムビューを中心に持ってくる");
-  CGPoint next_center = self.itemNavigationController.view.center;
-  CGFloat center_x = self.itemNavigationController.view.center.x; // 現在の中心 x
-
-  CGFloat screen_x = SCREEN_BOUNDS.size.width/2; // スクリーンの中心 x
-  next_center.x = MAX(center_x-swipe_distance, screen_x);
-
-  /// アニメーション
-  [UIView animateWithDuration:SWIPE_DURATION
-                   animations:^{
-                     self.itemNavigationController.view.center = next_center;
-                   }];
 }
 
 /**
@@ -162,14 +142,8 @@ enum __LIST_MODE__ {
   }
 }
 
-
-
-/*-----------------------------------------------------------------------------
- *
- *  リスト変更関数
- *
- *-----------------------------------------------------------------------------*/
 #pragma mark - リスト変更関数
+
 -(void)setItemMode
 {
   currentListMode_ = __ITEM_MODE__;
@@ -371,13 +345,13 @@ didSelectItem:(UITabBarItem *)item
 {
   LOG(@"タグが選択された時の処理");
   if ([tagString isEqualToString:@""]) {
-    [self loadMasterViewForTag:@"NO TAGS"
+    [self loadItemViewForTag:@"NO TAGS"
         fetcheResultController:[ResultControllerFactory fetchedResultsController:self.itemViewController]];
     return;
   }
 
   LOG(@"指定されたタグでロード");
-  [self loadMasterViewForTag:tagString
+  [self loadItemViewForTag:tagString
       fetcheResultController:[ResultControllerFactory fetchedResultsControllerForTags:[NSSet setWithObject:tagString]
                                                                              delegate:self.itemViewController]];
 }
@@ -394,7 +368,7 @@ didSelectItem:(UITabBarItem *)item
   LOG(@"フィルターが選択された時の処理");
   NSFetchedResultsController *resultController = [CoreDataController itemFetchedResultsControllerForTags:tags
                                                                                              controller:self.itemViewController];
-  [self loadMasterViewForTag:filterTitle
+  [self loadItemViewForTag:filterTitle
       fetcheResultController:resultController];
 }
 
@@ -407,7 +381,7 @@ didSelectItem:(UITabBarItem *)item
  *  @param tag                     選択されたタグ
  *  @param fetchedResultController リザルトコントローラー
  */
-- (void)loadMasterViewForTag:(NSString *)tag
+- (void)loadItemViewForTag:(NSString *)tag
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
   LOG(@"アイテムビューをロードする");
@@ -419,6 +393,8 @@ didSelectItem:(UITabBarItem *)item
   [self.tabBar setItemMode];
   [self toItemListMode];
 }
+
+#pragma mark - その他
 
 /**
  * メモリー警告

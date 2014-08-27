@@ -21,6 +21,7 @@
 /**
  *  @brief  メインコンテナ
  */
+
 @interface MainViewController : UIViewController
 <TagViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate> {
   int swipe_distance;
@@ -43,7 +44,7 @@
 -(void)toFilterListMode;
 -(void)toCompleteListMode;
 
--(void)loadMasterViewForTag:(NSString *)tag
+-(void)loadItemViewForTag:(NSString *)tag
      fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
 
 @end
