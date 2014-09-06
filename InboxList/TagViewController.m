@@ -274,6 +274,8 @@ titleForHeaderInSection:(NSInteger)section
       
     case 1:
       return @"TAG";
+      break;
+      
     default:
       break;
   }
@@ -424,11 +426,7 @@ titleForHeaderInSection:(NSInteger)section
   }
 
   // 新規タグを保存
-  Tag *newTag = [CoreDataController newTagObject];
-  
-  newTag.title = tagTitle;
-  
-  [CoreDataController saveContext];
+  [CoreDataController insertNewTag:tagTitle];
 }
 
 

@@ -11,6 +11,11 @@
 #import "Filter.h"
 #import "Header.h"
 
+enum __SECTION__ {
+  __MENU_SECTION__ = 0,
+  __TAG_SECTTION__ = 1
+};
+
 @interface CoreDataController () {
   int fetch_batch_size_;
 }
@@ -221,7 +226,7 @@
   
   // ソート条件を設定
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
-                                                                 ascending:NO];
+                                                                 ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];
   fetchRequest.sortDescriptors = sortDescriptors;
 
@@ -251,7 +256,7 @@
 +(void)addTagObjecForAllItems
 {
   NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Tag"];
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.section == 0"];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.section == %d", __MENU_SECTION__];
   [request setPredicate:predicate];
   NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
                                                                             error:nil];
@@ -259,7 +264,7 @@
   if ([array count] == 0) {
     Tag *tag = [self newTagObject];
     tag.title = @"All Items";
-    tag.section = [NSNumber numberWithInt:0];
+    tag.section = [NSNumber numberWithInt:__MENU_SECTION__];
     [self saveContext];
   }
 }
@@ -273,7 +278,7 @@
 {
   Tag *tag = [self newTagObject];
   tag.title = title;
-  tag.section = [NSNumber numberWithInt:1];
+  tag.section = [NSNumber numberWithInt:__TAG_SECTTION__];
   [self saveContext];
 }
 
@@ -305,8 +310,6 @@
 {
   Tag* tag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
                                            inManagedObjectContext:[self app].managedObjectContext];
-  // ユーザー定義のタグに設定
-  tag.section = [NSNumber numberWithInt:1];
   return tag;
 }
 
@@ -385,14 +388,9 @@
                                                    cacheName:nil];   //< タグをキャッシュネームにする
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
 
-	/**
-	 *  @brief フェッチを実行
-	 */
-  LOG(@"フェッチを実行");
+  // フェッチを実行
 	NSError *error = nil;
 	if (![aFetchedResultsController performFetch:&error]) {
-    // Replace this implementation with code to handle the error appropriately.
-    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     abort();
 	}
