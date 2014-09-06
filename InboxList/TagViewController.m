@@ -182,7 +182,13 @@ numberOfRowsInSection:(NSInteger)section
 {
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.tagTitle.text = tag.title;
-  cell.numOfItemsTextLabel.text = [NSString stringWithFormat:@"%u", [tag.items count]];
+  NSString *itemCountString;
+  if ([tag.section isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    itemCountString = [NSString stringWithFormat:@"%u", [CoreDataController countItems]];
+  } else {
+    itemCountString = [NSString stringWithFormat:@"%u", [tag.items count]];
+  }
+  cell.numOfItemsTextLabel.text = itemCountString;
 }
 
 /**

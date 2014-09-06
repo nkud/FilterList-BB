@@ -357,12 +357,18 @@ didSelectItem:(UITabBarItem *)item
  */
 -(void)didSelectedTag:(Tag *)tag
 {
-  LOG(@"指定されたタグでロード");
-  NSFetchedResultsController *result_controlelr
-  = [CoreDataController itemFetchedResultsControllerForTags:[NSSet setWithObject:tag]
-                                                 controller:self.itemViewController];
+  NSFetchedResultsController *result_controller;
+  LOG(@"%@", tag.section);
+  if ([tag.section isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    // 全アイテムを表示
+    result_controller = [CoreDataController itemFethcedResultsController:self.itemViewController];
+  } else {
+    // 指定されたタグでアイテムビューをロード
+    result_controller = [CoreDataController itemFetchedResultsControllerForTags:[NSSet setWithObject:tag]
+                                                                     controller:self.itemViewController];
+  }
   [self loadItemViewForTag:tag.title
-    fetcheResultController:result_controlelr];
+    fetcheResultController:result_controller];
   
 }
 

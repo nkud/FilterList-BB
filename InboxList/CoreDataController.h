@@ -30,6 +30,8 @@
                 tags:(NSSet *)tags
             reminder:(NSDate *)reminder;
 +(Item *)newItemObject;
++(NSInteger)countItems;
+
 // タグ用
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSArray *)getAllTagsArray;

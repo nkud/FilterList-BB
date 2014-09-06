@@ -199,6 +199,16 @@ enum __SECTION__ {
                                        inManagedObjectContext:[self app].managedObjectContext];
 }
 
++(NSInteger)countItems
+{
+  NSInteger ret;
+  NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Item"];
+  NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
+                                                                            error:nil];
+  ret = [array count];
+  return ret;
+}
+
 #pragma mark - タグ用
 
 /**
