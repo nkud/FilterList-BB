@@ -226,9 +226,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 -(BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//  if (indexPath.section == 0) { // セクション０なら
-//    return NO;                  // 編集不可
-//  }                             // タグセクションなら
+  if (indexPath.section == 0) { // セクション０なら
+    return NO;                  // 編集不可
+  }                             // タグセクションなら
   return YES;                   // 編集可
 }
 
