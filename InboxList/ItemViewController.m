@@ -307,7 +307,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     // 空欄なら何もしない
   } else {
     // 新しいアイテムを挿入する
-    [CoreDataController newItemObject:itemTitle
+    [CoreDataController insertNewItem:itemTitle
                                  tags:tagsForSelectedRows
                              reminder:reminder];
   }
@@ -486,7 +486,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     tag.title = title;          // タグを作成して
     [tags addObject:tag];       // 配列に追加
   }
-  [CoreDataController newItemObject:title
+  [CoreDataController insertNewItem:title
                                tags:tags
                            reminder:reminder];
 }
@@ -503,7 +503,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
   if ([self.selectedTagString isEqualToString:@"all"])
   {                             // 全タグ表示中なら
-    [CoreDataController newItemObject:itemString
+    [CoreDataController insertNewItem:itemString
                                  tags:nil
                              reminder:[NSDate date]]; // タグなしで追加して終了
   }
@@ -513,7 +513,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
             insertIntoManagedObjectContext:nil];
     tag.title = self.selectedTagString;
     NSSet *tags = [NSSet setWithObject:tag];
-    [CoreDataController newItemObject:itemString
+    [CoreDataController insertNewItem:itemString
                                  tags:tags
                              reminder:[NSDate date]]; // 新しいアイテムを追加
   }

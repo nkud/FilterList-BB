@@ -11,11 +11,15 @@
 #import "Filter.h"
 #import "Header.h"
 
+@interface CoreDataController () {
+  int fetch_batch_size_;
+}
+
+@end
+
 @implementation CoreDataController
 
 #pragma mark - アイテム用
-
-
 /**
  *  @brief 全アイテムのリザルトコントローラー
  *
@@ -25,14 +29,12 @@
  */
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
 {
-  LOG(@"通常のリザルトコントローラー");
-  AppDelegate *app = [[UIApplication sharedApplication] delegate]; // アプリケーションデリゲートを取得
+  // アプリケーションデリゲートを取得
+  AppDelegate *app = [[UIApplication sharedApplication] delegate];
   
-  //  if (_fetchedResultsController != nil) {
-  //    return _fetchedResultsController;
-  //  }
+  static NSString *item_entity_name = @"Item";
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
+  NSEntityDescription *entity = [NSEntityDescription entityForName:item_entity_name
                                             inManagedObjectContext:app.managedObjectContext];
   [fetchRequest setEntity:entity];
   
@@ -135,7 +137,7 @@
  *  @param tags      関連付けるタグのセット
  *  @param reminder  リマインダー
  */
-+(void)newItemObject:(NSString *)itemTitle
++(void)insertNewItem:(NSString *)itemTitle
                 tags:(NSSet *)tags
             reminder:(NSDate *)reminder
 {
@@ -199,18 +201,18 @@
  */
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"タグ用のリザルトコントローラー");
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   
   // エンティティを設定
-  NSEntityDescription *entity = [self entityDescriptionForName:@"Tag"];
+  static NSString *tag_entity_name = @"Tag";
+  NSEntityDescription *entity = [self entityDescriptionForName:tag_entity_name];
   fetchRequest.entity = entity;
   
   /// Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
   
   // ソート条件を設定
-  LOG(@"ソート条件");
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
@@ -228,13 +230,12 @@
 	/**
 	 *  フェッチを実行
 	 */
-  LOG(@"フェッチを実行");
 	NSError *error = nil;
 	if (![aFetchedResultsController performFetch:&error]) {
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     abort();
 	}
-  return aFetchedResultsController; // 作成したリザルトコントローラーを返す
+  return aFetchedResultsController;
 }
 
 /**
@@ -397,6 +398,7 @@
                      inManagedObjectContext:[self app].managedObjectContext];
 }
 
+#pragma mark - ゲッター
 
 /**
  *  @brief アプリケーションデリゲート
@@ -417,6 +419,11 @@
   [[self app] saveContext];
 }
 
+/**
+ * @brief  管理オブジェクトコンテキストを取得
+ *
+ * @return 管理オブジェクトコンテキスト
+ */
 +(NSManagedObjectContext *)managedObjectContext
 {
   return [self app].managedObjectContext;
