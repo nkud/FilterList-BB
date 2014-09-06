@@ -19,10 +19,51 @@ static NSString *InputFilterCellIdentifier = @"InputTagCell";
 
 @implementation InputFilterViewController
 
-#pragma mark - TableView
+#pragma mark - 初期化
 
 /**
- * @brief  セルが選択された時の処理
+ * @brief  初期化
+ *
+ * @param nibNameOrNil   nibNameOrNil description
+ * @param nibBundleOrNil nibBundleOrNil description
+ *
+ * @return インスタンス
+ */
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+/**
+ * @brief  ロード後の処理
+ */
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  
+  // セルを登録
+  [self.tagTableView registerClass:[FilterCell class]
+            forCellReuseIdentifier:InputFilterCellIdentifier];
+  self.tagFetchedResultsController = [CoreDataController userTagFetchedResultsController:self];
+  
+  // テーブルの設定
+  self.tagTableView.allowsMultipleSelectionDuringEditing = YES;
+  [self.tagTableView setEditing:YES];
+  
+  // ボタンを設定
+  [self.saveButton addTarget:self
+                      action:@selector(dismissView)
+            forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark - テーブルビュー
+
+/**
+ * @brief  セルを表示
  *
  * @param tableView テーブルビュー
  * @param indexPath 位置
@@ -55,47 +96,6 @@ numberOfRowsInSection:(NSInteger)section
   return num;
 }
 
-#pragma mark - Initialize
-
-/**
- * @brief  初期化
- *
- * @param nibNameOrNil   nibNameOrNil description
- * @param nibBundleOrNil nibBundleOrNil description
- *
- * @return インスタンス
- */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-/**
- * @brief  ロード後の処理
- */
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-  
-  // セルを登録
-  [self.tagTableView registerClass:[FilterCell class]
-            forCellReuseIdentifier:InputFilterCellIdentifier];
-  self.tagFetchedResultsController = [CoreDataController tagFetchedResultsController:self];
-  
-  // テーブルの設定
-  self.tagTableView.allowsMultipleSelectionDuringEditing = YES;
-  [self.tagTableView setEditing:YES];
-  
-  // ボタンを設定
-  [self.saveButton addTarget:self
-                      action:@selector(dismissView)
-            forControlEvents:UIControlEventTouchUpInside];
-}
-
 /**
  * @brief  入力画面を終了する
  */
@@ -111,6 +111,8 @@ numberOfRowsInSection:(NSInteger)section
   [self.delegate dismissInputFilterView:self.inputTitleField.text
                         tagsForSelected:tags_for_selected];
 }
+
+#pragma mark - その他
 
 - (void)didReceiveMemoryWarning
 {
