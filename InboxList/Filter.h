@@ -2,7 +2,7 @@
 //  Filter.h
 //  InboxList
 //
-//  Created by Naoki Ueda on 2014/08/28.
+//  Created by Naoki Ueda on 2014/09/06.
 //  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
 //
 
@@ -11,9 +11,6 @@
 
 @class Tag;
 
-/**
- * @brief  フィルターオブジェクト
- */
 @interface Filter : NSManagedObject
 
 @property (nonatomic, retain) NSString * title;

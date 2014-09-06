@@ -229,7 +229,7 @@
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:[self managedObjectContext]
-                                          sectionNameKeyPath:@"usercreated"
+                                          sectionNameKeyPath:@"section"
                                                    cacheName:nil];
   // デリゲートを設定
   aFetchedResultsController.delegate = controller;
@@ -251,7 +251,7 @@
 +(void)addTagObjecForAllItems
 {
   NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Tag"];
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.usercreated == true"];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.section == 0"];
   [request setPredicate:predicate];
   NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
                                                                             error:nil];
@@ -259,7 +259,7 @@
   if ([array count] == 0) {
     Tag *tag = [self newTagObject];
     tag.title = @"All Items";
-    tag.usercreated = [NSNumber numberWithBool:true];
+    tag.section = [NSNumber numberWithInt:0];
     [self saveContext];
   }
 }
@@ -273,11 +273,9 @@
 {
   Tag *tag = [self newTagObject];
   tag.title = title;
-  tag.usercreated = [NSNumber numberWithBool:false];
+  tag.section = [NSNumber numberWithInt:1];
   [self saveContext];
 }
-
-
 
 /**
  *  @brief 全タグの配列を返す
@@ -308,7 +306,7 @@
   Tag* tag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
                                            inManagedObjectContext:[self app].managedObjectContext];
   // ユーザー定義のタグに設定
-  [tag setUsercreated:[NSNumber numberWithBool:false]];
+  tag.section = [NSNumber numberWithInt:1];
   return tag;
 }
 
