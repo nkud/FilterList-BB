@@ -130,6 +130,7 @@
 	}
   return aFetchedResultsController; // 作成したリザルトコントローラーを返す
 }
+
 /**
  *  @brief 新しいアイテムを挿入する
  *
@@ -192,6 +193,7 @@
 }
 
 #pragma mark - タグ用
+
 /**
  *  @brief タグのリザルトコントローラー
  *
@@ -300,9 +302,9 @@
   NSFetchRequest *request = [[NSFetchRequest alloc] init]; // リクエスト
   
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.title == %@", title];
-  NSEntityDescription *entity = [self entityDescriptionForName:@"Tag"]; // エンティティディスクリプションを取得
+  NSEntityDescription *entity = [self entityDescriptionForName:@"Tag"];
   request.predicate = predicate;
-  request.entity = entity; // エンティティディスクリプションをリクエストに設定
+  request.entity = entity;
   
   NSArray *tags_array = [[self managedObjectContext] executeFetchRequest:request
                                                                    error:nil];
@@ -310,8 +312,6 @@
 }
 
 #pragma mark - フィルター用
-
-
 
 /**
  * @brief  フィルター用のリザルトコントローラー

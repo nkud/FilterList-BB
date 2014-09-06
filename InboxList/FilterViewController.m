@@ -17,6 +17,9 @@
 
 @interface FilterViewController ()
 
+- (void)configureFilterCell:(FilterCell *)cell
+                atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @implementation FilterViewController
@@ -159,7 +162,8 @@ numberOfRowsInSection:(NSInteger)section
 {
   static NSString *CellIdentifier = @"FilterCell";
   FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  [self configureCell:cell atIndexPath:indexPath];
+  [self configureFilterCell:cell
+                atIndexPath:indexPath];
   return cell;
 }
 
@@ -171,13 +175,12 @@ numberOfRowsInSection:(NSInteger)section
  *
  *  @return 設定されたセル
  */
--(FilterCell *)configureCell:(FilterCell *)cell
-                 atIndexPath:(NSIndexPath *)indexPath
+-(void)configureFilterCell:(FilterCell *)cell
+               atIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"セルを設定");
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.textLabel.text = filter.title;
-  return cell;
 }
 
 #pragma mark - コンテンツの更新
@@ -247,7 +250,7 @@ numberOfRowsInSection:(NSInteger)section
 
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-      [self configureCell:(FilterCell *)[tableView cellForRowAtIndexPath:indexPath]
+      [self configureFilterCell:(FilterCell *)[tableView cellForRowAtIndexPath:indexPath]
               atIndexPath:indexPath];                                // これであってる？？
 
       break;

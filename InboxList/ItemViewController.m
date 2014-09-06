@@ -27,7 +27,7 @@
   AppDelegate *app;
 }
 
-- (void)configureCell:(ItemCell *)cell
+- (void)configureItemCell:(ItemCell *)cell
           atIndexPath:(NSIndexPath *)indexPath;
 @end
 
@@ -140,7 +140,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"指定されたセルを返す");
   static NSString *CellIdentifier = @"ItemCell";
   ItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  [self configureCell:cell atIndexPath:indexPath];
+  [self configureItemCell:cell atIndexPath:indexPath];
   return cell;
 }
 
@@ -214,9 +214,11 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"編集モード");
   if (self.tableView.isEditing) {
-    [self setEditing:false animated:YES];
+    [self setEditing:false
+            animated:YES];
   } else {
-    [self setEditing:true animated:YES];
+    [self setEditing:true
+            animated:YES];
   }
 }
 
@@ -385,7 +387,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  *  @param cell      作成するセル
  *  @param indexPath 作成するセルの位置
  */
-- (void)configureCell:(ItemCell *)cell
+- (void)configureItemCell:(ItemCell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
   /// セルを作成
@@ -579,7 +581,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-      [self configureCell:(ItemCell *)[tableView cellForRowAtIndexPath:indexPath]
+      [self configureItemCell:(ItemCell *)[tableView cellForRowAtIndexPath:indexPath]
               atIndexPath:indexPath];                                // これであってる？？
       
       break;

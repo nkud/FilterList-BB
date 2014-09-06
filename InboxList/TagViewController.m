@@ -19,7 +19,7 @@
   
 }
 
-- (void)configureCell:(TagCell *)cell
+- (void)configureTagCell:(TagCell *)cell
           atIndexPath:(NSIndexPath *)indexPath;
 
 @end
@@ -165,7 +165,7 @@ numberOfRowsInSection:(NSInteger)section
   TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
   
   // セルを設定
-  [self configureCell:cell
+  [self configureTagCell:cell
           atIndexPath:indexPath];
   
   return cell;
@@ -177,7 +177,7 @@ numberOfRowsInSection:(NSInteger)section
  * @param cell      設定するセル
  * @param indexPath セルの位置
  */
-- (void)configureCell:(TagCell *)cell
+- (void)configureTagCell:(TagCell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -367,7 +367,7 @@ titleForHeaderInSection:(NSInteger)section
 
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-//      [self configureCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPath]
+//      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPath]
 //              atIndexPath:indexPath];                                // これであってる？？
 
       break;
