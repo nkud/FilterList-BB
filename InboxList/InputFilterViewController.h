@@ -2,24 +2,32 @@
 //  InputFilterViewController.h
 //  InboxList
 //
-//  Created by Naoki Ueda on 2014/07/25.
+//  Created by Naoki Ueda on 2014/08/26.
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "TagFieldViewController.h"
 
-@protocol InputFilterViewControlellerDelegate <NSObject>
+/**
+ * @brief  入力画面用プロトコル
+ */
+@protocol InputFilterDelegate <NSObject>
 
-- (void)dismissInputView:(NSString *)filterString;
+-(void)dismissInputFilterView:(NSString *)filterTitle
+              tagsForSelected:(NSSet *)tagsForSelected;
 
 @end
 
+/// フィルター入力画面
 @interface InputFilterViewController : UIViewController
-<UITextFieldDelegate>
+<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) TagFieldViewController *tagFieldViewController;
+@property (weak, nonatomic) IBOutlet UITextField *inputTitleField;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UITableView *tagTableView;
 
-@property id <InputFilterViewControlellerDelegate> delegate;
+@property id <InputFilterDelegate> delegate;
+
+@property NSFetchedResultsController *tagFetchedResultsController;
 
 @end

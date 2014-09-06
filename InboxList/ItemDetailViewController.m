@@ -7,7 +7,7 @@
 //
 
 #import "ItemDetailViewController.h"
-
+#import "Header.h"
 #import "Tag.h"
 
 @interface ItemDetailViewController ()
@@ -18,25 +18,10 @@
 
 @implementation ItemDetailViewController
 
-#pragma mark - Initialization
+#pragma mark - 初期化
 
 /**
- *  初期化
- *
- *  @return インスタンス
- */
--(id)init
-{
-  self = [super init];
-  if (self) {
-    [self.view setBackgroundColor:[UIColor grayColor]];
-    [self initInterface];
-  }
-  return self;
-}
-
-/**
- *  Nibファイルで初期化
+ *  @brief Nibファイルで初期化
  *
  *  @param nibNameOrNil   Nibファイル名
  *  @param nibBundleOrNil バンドル
@@ -46,35 +31,45 @@
 -(id)initWithNibName:(NSString *)nibNameOrNil
               bundle:(NSBundle *)nibBundleOrNil
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"詳細ビューを初期化");
   self = [super initWithNibName:nibNameOrNil
                          bundle:nibBundleOrNil];
-  [self initInterface];
+
   return self;
 }
 
 /**
- *  インターフェイスを初期化する
+ * @brief  ビューがロードされた後の処理
+ */
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  
+  // アイテムを更新
+  [self initItem];
+  // インターフェイスを初期化
+  [self initInterface];
+}
+
+/**
+ *  @brief インターフェイスを初期化する
  */
 - (void)initInterface
 {
-  NSLog(@"%s", __FUNCTION__);
-  /**
-   *  ボタン
-   */
+  // ボタンを設定
   [self.saveButton addTarget:self
                       action:@selector(save)
             forControlEvents:UIControlEventTouchUpInside];
 }
 
 /**
- *  アイテムを更新する
+ *  @brief アイテムを更新する
  */
 - (void)initItem
 {
   if (self.detailItem) {
-    NSString *title = [self.detailItem valueForKey:@"title"];
-    NSSet *tags     = [self.detailItem valueForKey:@"tags"];
+    NSString *title = self.detailItem.title;
+    NSSet *tags     = self.detailItem.tags;
 
     NSMutableString *field = [[NSMutableString alloc] init];
     [self.titleField setText:title]; //< タイトル設置
@@ -84,14 +79,11 @@
       [field appendString:@" "];
     }
     self.tagField.text = field; //< タグを設置
-
   }
 }
 
-#pragma mark - Managing view
-
 /**
- *  アイテムを設定する
+ *  @brief アイテムを設定する
  *
  *  @param newDetailItem アイテム
  */
@@ -106,7 +98,7 @@
 }
 
 /**
- *  テキストフィールドを作成する
+ *  @brief テキストフィールドを作成する
  *
  *  @param x x座標
  *  @param y y座標
@@ -124,7 +116,7 @@
 }
 
 /**
- *  保存して戻る
+ *  @brief 保存して戻る
  */
 - (void)save
 {
@@ -141,16 +133,11 @@
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-///  ビューがロードされたあとの処理
-- (void)viewDidLoad
-{
-  NSLog(@"%s", __FUNCTION__);
-  [super viewDidLoad];
-  [self initItem]; //< アイテムを更新
-  [self initInterface];
-}
 
-///  メモリー警告
+#pragma mark - その他
+/**
+ * @brief  メモリー警告
+ */
 - (void)didReceiveMemoryWarning
 {
   [super didReceiveMemoryWarning];

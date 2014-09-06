@@ -9,15 +9,17 @@
 #import <UIKit/UIKit.h>
 
 #import <CoreData/CoreData.h>
-#import "InputModalViewController.h"
+#import "InputItemViewController.h"
 #import "ItemDetailViewController.h"
 #import "Item.h"
 #import "ItemCell.h"
-#import "InputHeader.h"
 
+/**
+ * @brief  アイテムリスト
+ */
 @interface ItemViewController : UITableViewController
-<NSFetchedResultsControllerDelegate, InputModalViewControllerDelegate,
-ItemDetailViewControllerDelegate, CellDelegate, InputHeaderDelegate>
+<NSFetchedResultsControllerDelegate, InputItemViewControllerDelegate,
+ItemDetailViewControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
@@ -25,16 +27,14 @@ ItemDetailViewControllerDelegate, CellDelegate, InputHeaderDelegate>
 
 @property (strong, nonatomic) NSString *title;
 
-@property InputHeader *inputHeader;
-
 @property CGFloat triggerDragging;
 
 /**
- *  タグのリストを取得する
+ *  @brief タグのリストを取得する
  *
  *  @return タグのリスト
  */
--(NSArray *)getTagList;
+//-(NSArray *)getTagList;
 
 -(void)updateTableView;
 

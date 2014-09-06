@@ -1,8 +1,8 @@
 //
-//  Event.m
+//  Item.m
 //  InboxList
 //
-//  Created by Naoki Ueda on 2014/03/08.
+//  Created by Naoki Ueda on 2014/09/06.
 //  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
 //
 
@@ -12,10 +12,10 @@
 
 @implementation Item
 
-@dynamic title;
 @dynamic color;
 @dynamic reminder;
-@dynamic tags;
 @dynamic state;
+@dynamic title;
+@dynamic tags;
 
 @end

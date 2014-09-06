@@ -8,22 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@class ItemCell;
-
-@protocol CellDelegate <NSObject>
-
-- (void)tappedCheckBox:(ItemCell *)cell
-                 touch:(UITouch *)touch;
-
-@end
-
-
+/**
+ * @brief  アイテムリスト用のセル
+ */
 @interface ItemCell : UITableViewCell
 
 @property (strong, nonatomic) UIView *checkBox; /* チェックボックス */
 
-@property (nonatomic, assign) id <CellDelegate> delegate;
+//@property (weak, nonatomic) IBOutlet CheckBoxImageView *checkBoxImageView; // チェックボックス画像
+@property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
+@property (weak, nonatomic) IBOutlet UILabel *reminderLabel; // リマインダーラベル
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;    // タイトルラベル
 
-- (BOOL)updateCheckBox:(BOOL)isChecked;
+//+ (CGFloat)cellHeight;
+
+-(BOOL)updateCheckBox:(BOOL)isChecked;
+-(void)setChecked;
+-(void)setUnChecked;
 
 @end

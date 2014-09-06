@@ -16,10 +16,21 @@
  */
 -(void)createTabs
 {
-  self.tagModeTab = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:0];
-  self.itemModeTab = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:1];
-  self.filterModeTab = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostViewed tag:2];
-  self.items = [NSArray arrayWithObjects:self.tagModeTab, self.itemModeTab, self.filterModeTab, nil];
+  LOG(@"タブバーを作成");
+  self.itemModeTab = [[UITabBarItem alloc] initWithTitle:@"ITEM"
+                                                   image:[UIImage imageNamed:@"itemtab.png"]
+                                                     tag:0];  
+  self.tagModeTab = [[UITabBarItem alloc] initWithTitle:@"TAG"
+                                                  image:[UIImage imageNamed:@"tagtab.png"]
+                                                    tag:1];
+  self.filterModeTab = [[UITabBarItem alloc] initWithTitle:@"FILTER"
+                                                     image:[UIImage imageNamed:@"filtertab.png"]
+                                                       tag:2];
+  self.completedModeTab = [[UITabBarItem alloc] initWithTitle:@"COMP"
+                                                        image:[UIImage imageNamed:@"completedtab.png"]
+                                                          tag:3];
+  
+  self.items = [NSArray arrayWithObjects:self.itemModeTab, self.tagModeTab, self.filterModeTab, self.completedModeTab, nil];
   self.selectedItem = self.itemModeTab;
 }
 
@@ -32,7 +43,7 @@
  */
 - (id)initWithFrame:(CGRect)frame
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"初期化");
   self = [super initWithFrame:frame];
     if (self)
     {
@@ -43,7 +54,23 @@
     }
     return self;
 }
+-(void)setItemMode
+{
+  self.selectedItem = self.itemModeTab;
+}
 
+-(void)setTagMode
+{
+  self.selectedItem = self.tagModeTab;
+}
+-(void)setFilterMode
+{
+  self.selectedItem = self.filterModeTab;
+}
+-(void)setCompletedMode
+{
+  self.selectedItem = self.completedModeTab;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

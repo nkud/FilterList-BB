@@ -7,20 +7,31 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InputTagViewController.h"
+#import "Tag.h"
 
 static NSString * const TagModeCellIdentifier = @"TagCell";
 
+/**
+ * @brief  タグモード用のプロトコル
+ */
 @protocol TagViewControllerDelegate <NSObject>
 
-- (void)selectedTag:(NSString *)tagString;
+- (void)didSelectedTag:(Tag *)tag;
 
 @end
 
+/**
+ * @brief  タグリスト
+ */
 @interface TagViewController : UITableViewController
+<NSFetchedResultsControllerDelegate, InputTagViewControllerProtocol>
 
-@property (strong, nonatomic) NSArray *tag_list;
+@property (strong, nonatomic) NSArray *tagArray_;
 
 @property (assign, nonatomic) id <TagViewControllerDelegate> delegate;
+
+@property NSFetchedResultsController *fetchedResultsController;
 
 - (void)updateTableView;
 

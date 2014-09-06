@@ -7,9 +7,31 @@
 //
 
 #import "NavigationController.h"
+#import "Header.h"
+#import "Configure.h"
 
-@implementation NavigationController
+@implementation __NavigationController
 
+/**
+ * @brief  ナビゲーションコントローラを初期化
+ * @param rootViewController ルートビューコントローラ
+ * @return インスタンス
+ */
+-(id)initWithRootViewController:(UIViewController *)rootViewController
+{
+  self = [super initWithRootViewController:rootViewController];
+  if (self) {
+    ;
+  }
+  return self;
+}
+
+
+/**
+ * @brief  ビューを表示させる
+ * @param viewController 表示させるビュー
+ * @param animated       アニメーション
+ */
 -(void)pushViewController:(UIViewController *)viewController
                  animated:(BOOL)animated
 {
@@ -22,6 +44,11 @@
   [super pushViewController:viewController animated:animated];
 }
 
+/**
+ * @brief  ビューを削除する
+ * @param animated アニメーション
+ * @return ？？
+ */
 -(NSArray *)popToRootViewControllerAnimated:(BOOL)animated
 {
   CATransition *transition = [CATransition animation];

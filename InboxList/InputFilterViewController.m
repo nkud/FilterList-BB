@@ -2,12 +2,16 @@
 //  InputFilterViewController.m
 //  InboxList
 //
-//  Created by Naoki Ueda on 2014/07/25.
+//  Created by Naoki Ueda on 2014/08/26.
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "InputFilterViewController.h"
-#import "TagFieldViewController.h"
+#import "FilterCell.h"
+#import "Tag.h"
+#import "CoreDataController.h"
+
+static NSString *InputFilterCellIdentifier = @"InputTagCell";
 
 @interface InputFilterViewController ()
 
@@ -15,116 +19,105 @@
 
 @implementation InputFilterViewController
 
+#pragma mark - 初期化
+
 /**
- *  初期化
+ * @brief  初期化
  *
- *  @param nibNameOrNil   <#nibNameOrNil description#>
- *  @param nibBundleOrNil <#nibBundleOrNil description#>
+ * @param nibNameOrNil   nibNameOrNil description
+ * @param nibBundleOrNil nibBundleOrNil description
  *
- *  @return self
+ * @return インスタンス
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil
-               bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil
-                           bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-      [self.view setBackgroundColor:[UIColor grayColor]];
+        // Custom initialization
     }
     return self;
 }
 
 /**
- *  テキストフィールドを作成する
- *
- *  @param x x座標
- *  @param y y座標
- *
- *  @return テキストフィールドのポインタ
- */
-//- (UITextField *)createTextField:(int)x
-//                               y:(int)y
-//{
-//  UITextField *_newTextField;
-//  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
-//  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
-//  [_newTextField setReturnKeyType:UIReturnKeyDone];
-//  [_newTextField setDelegate:self];
-//  [_newTextField setText:nil];
-//  return _newTextField;
-//}
-
-/**
- *  テキストフィールドでリターン時の処理
- *
- *  @param textField テキストフィールド
- *
- *  @return 真偽値
- */
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-  NSLog(@"%s", __FUNCTION__);
-//    [self dismissViewControllerAnimated:YES completion:nil];
-  [self.delegate dismissInputView:@"data"];
-  return YES;
-}
-
-/**
- *  ビューがロードされたあとの処理
+ * @brief  ロード後の処理
  */
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
-//  self.inputField = [self createTextField:0 y:100];
-//  [self.inputField becomeFirstResponder];
-//  [self.view addSubview:self.inputField];
-
-  /**
-   *  タグフィールドを作成
-   */
-  self.tagFieldViewController = [[TagFieldViewController alloc] initWithNibName:nil
-                                                                         bundle:nil];
-  [self.view addSubview:self.tagFieldViewController.view];
-
-  // ボタン
-  UIButton *backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [backButton setTitle:@"save"
-              forState:UIControlStateNormal];
-  backButton.frame = CGRectMake(0, 400, 50, 30);
-  [backButton addTarget:self
-                 action:@selector(saveFilterAndDismiss)
-       forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:backButton];
+  
+  // セルを登録
+  [self.tagTableView registerClass:[FilterCell class]
+            forCellReuseIdentifier:InputFilterCellIdentifier];
+  self.tagFetchedResultsController = [CoreDataController userTagFetchedResultsController:self];
+  
+  // テーブルの設定
+  self.tagTableView.allowsMultipleSelectionDuringEditing = YES;
+  [self.tagTableView setEditing:YES];
+  
+  // ボタンを設定
+  [self.saveButton addTarget:self
+                      action:@selector(dismissView)
+            forControlEvents:UIControlEventTouchUpInside];
 }
 
+#pragma mark - テーブルビュー
+
 /**
- *  フィルターを保存して入力画面を削除
+ * @brief  セルを表示
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return セル
  */
-- (void)saveFilterAndDismiss
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSLog(@"%s", __FUNCTION__);
-  [self.delegate dismissInputView:@"filter"];
+  FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:InputFilterCellIdentifier];
+  
+  Tag *tag = [self.tagFetchedResultsController objectAtIndexPath:indexPath];
+  cell.textLabel.text = tag.title;
+  
+  return cell;
 }
 
 /**
- *  メモリー警告
+ * @brief  セル数
+ *
+ * @param tableView テーブルビュー
+ * @param section   セクション数
+ *
+ * @return セル数
  */
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
+{
+  NSInteger num = [[self.tagFetchedResultsController fetchedObjects] count];
+  return num;
+}
+
+/**
+ * @brief  入力画面を終了する
+ */
+-(void)dismissView
+{
+  NSArray *selected_rows =  [self.tagTableView indexPathsForSelectedRows];
+  NSMutableSet *tags_for_selected = [[NSMutableSet alloc] init];
+  for (NSIndexPath *index in selected_rows) {
+    Tag *tag = [self.tagFetchedResultsController objectAtIndexPath:index];
+    [tags_for_selected addObject:tag];
+  }
+
+  [self.delegate dismissInputFilterView:self.inputTitleField.text
+                        tagsForSelected:tags_for_selected];
+}
+
+#pragma mark - その他
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

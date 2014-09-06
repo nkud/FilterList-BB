@@ -7,13 +7,22 @@
 //
 
 #import "TagCell.h"
+#import "Header.h"
 
 @implementation TagCell
 
+/**
+ * @brief  タグセル初期化
+ *
+ * @param style           スタイル
+ * @param reuseIdentifier アイデンティティ
+ *
+ * @return セル
+ */
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"タグセルを初期化");
   self = [super initWithStyle:style
               reuseIdentifier:reuseIdentifier];
   if (self)
@@ -25,15 +34,15 @@
 
 - (void)awakeFromNib
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"Nibファイルから起動");
   // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected
            animated:(BOOL)animated
 {
+  LOG(@"選択された??");
   [super setSelected:selected animated:animated];
-  
   // Configure the view for the selected state
 }
 

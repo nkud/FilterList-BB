@@ -9,12 +9,24 @@
 #import "TagViewController.h"
 #import "Header.h"
 #import "TagCell.h"
+#import "Tag.h"
+#import "CoreDataController.h"
+#import "InputTagViewController.h"
 
-@interface TagViewController ()
+#import "Configure.h"
+
+@interface TagViewController () {
+  
+}
+
+- (void)configureTagCell:(TagCell *)cell
+          atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
 @implementation TagViewController
+
+#pragma mark - 初期化
 
 /**
  * @brief この初期化方法は変えたほうがいいかも
@@ -30,8 +42,70 @@
   return self;
 }
 
+
+
 /**
- *  タグが選択された時の処理
+ * @brief  ビューがロードされた後の処理
+ */
+- (void)viewDidLoad
+{
+  LOG(@"タグビューがロードされた後の処理");
+  [super viewDidLoad];
+  
+  // タイトルを設定
+  [self setTitle:TAG_LIST_TITLE];
+  
+  // 使用するセルを登録
+  [self.tableView registerNib:[UINib nibWithNibName:@"TagCell"
+                                             bundle:nil]
+       forCellReuseIdentifier:TagModeCellIdentifier];
+
+  // 編集ボタンを追加
+  UIBarButtonItem *editButton
+  = [[UIBarButtonItem alloc] initWithTitle:@"タグ編集"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:self
+                                    action:@selector(toEdit:)];
+  self.navigationItem.leftBarButtonItem = editButton;
+
+  // 新規入力ボタンを追加
+  UIBarButtonItem *addButton
+  = [[UIBarButtonItem alloc] initWithTitle:@"新規"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:self
+                                    action:@selector(toAdd:)];
+  self.navigationItem.rightBarButtonItem = addButton;
+}
+
+#pragma mark - 新規入力
+
+/**
+ *  @brief 新規入力を開始する
+ *
+ *  @param sender センダー
+ */
+-(void)toAdd:(id)sender
+{
+  // 新規入力画面をプッシュ
+  NSString *inputTagNibName = @"InputTagViewController";
+  
+  // タグ入力画面
+  InputTagViewController *inputTagViewController =
+  [[InputTagViewController alloc] initWithNibName:inputTagNibName
+                                           bundle:nil];
+  
+  // デリゲートを設定する
+  inputTagViewController.delegate = self;
+  
+  // プッシュする
+  [self.navigationController pushViewController:inputTagViewController
+                                       animated:YES];
+}
+
+#pragma mark - テーブルビュー
+
+/**
+ *  @brief タグが選択された時の処理
  *
  *  @param tableView tableView description
  *  @param indexPath 選択された場所
@@ -39,94 +113,297 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  /// 選択されたタグをデリゲートに渡す
-  if (indexPath.section == 0) { // セクション０なら
-    [self.delegate selectedTag:@"all"]; // すべてのリストを表示
-    return;
-  } // そうでないなら
-  [self.delegate selectedTag:self.tag_list[indexPath.row]]; // 選択されたタグを渡す
+  // 選択された位置のタグを取得して
+  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  
+  // 選択されたタグを渡す
+  [self.delegate didSelectedTag:tag];
 }
 
 /**
- *  セクションのタイトルを設定
+ * @brief  編集モード切り替え
+ *
+ * @param sender センダー
+ */
+-(void)toEdit:(id)sender
+{
+  if (self.tableView.isEditing) {
+    [self setEditing:false
+            animated:YES];
+  } else {
+    [self setEditing:true
+            animated:YES];
+  }
+}
+
+/**
+ * @brief セクション数を返す
+ */
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return [[self.fetchedResultsController sections] count];
+}
+
+/**
+ * @brief アイテム数を返す
+ */
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
+{
+  id <NSFetchedResultsSectionInfo> sectionInfo
+  = [[self.fetchedResultsController sections] objectAtIndex:section];
+  return [sectionInfo numberOfObjects];
+}
+
+/**
+ * @brief テーブルのセルを表示する
+ */
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // セルを作成する
+  TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
+  
+  // セルを設定
+  [self configureTagCell:cell
+          atIndexPath:indexPath];
+  
+  return cell;
+}
+
+/**
+ * @brief  セルを設定する
+ *
+ * @param cell      設定するセル
+ * @param indexPath セルの位置
+ */
+- (void)configureTagCell:(TagCell *)cell
+          atIndexPath:(NSIndexPath *)indexPath
+{
+  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  cell.tagTitle.text = tag.title;
+  NSString *itemCountString;
+  if ([tag.section isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    itemCountString = [NSString stringWithFormat:@"%u", [CoreDataController countItems]];
+  } else {
+    itemCountString = [NSString stringWithFormat:@"%u", [tag.items count]];
+  }
+  cell.numOfItemsTextLabel.text = itemCountString;
+}
+
+/**
+ * @brief  セルの高さ
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return セルの高さ
+ */
+-(CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return TAG_CELL_HEIGHT;
+}
+
+/**
+ * @brief  テーブルを更新する
+ *
+ * @note いらんかも？
+ */
+- (void)updateTableView
+{
+  [self.tableView reloadData];
+}
+
+/**
+ *  @brief テーブル編集の可否
  *
  *  @param tableView テーブルビュー
- *  @param section   セクション
+ *  @param indexPath インデックス
  *
- *  @return タイトルの文字列
+ *  @return 可否
+ */
+-(BOOL)tableView:(UITableView *)tableView
+canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 0) { // セクション０なら
+    return NO;                  // 編集不可
+  }                             // タグセクションなら
+  return YES;                   // 編集可
+}
+
+-(void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  switch (editingStyle) {
+    case UITableViewCellEditingStyleDelete: // 削除
+    {
+      LOG(@"タグを削除");
+//      [[CoreDataController managedObjectContext] deleteObject:self.tagArray_[indexPath.row]];
+//      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
+//                                              inSection:0];
+      Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      LOG(@"関連アイテム：%@", tag.items);
+      LOG(@"アイテムを削除");
+      for (Item *item in tag.items) {
+        [[CoreDataController managedObjectContext] deleteObject:item];
+      }
+
+      LOG(@"タグを削除");
+      [[CoreDataController managedObjectContext] deleteObject:tag];
+      LOG(@"削除されるオブジェクト数：%u", [[[CoreDataController managedObjectContext] deletedObjects] count]);
+
+      [CoreDataController saveContext];
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+/**
+ * @brief  セクション名
+ *
+ * @param tableView テーブルビュー
+ * @param section   指定するセクション
+ *
+ * @return セクション名
  */
 -(NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section
 {
   switch (section) {
     case 0:
-      return @"Default";
+      return @"MENU";
       break;
+      
     case 1:
-      return @"Tag";
+      return @"TAG";
+      break;
+      
+    default:
       break;
   }
-  return nil;
+  return @"";
 }
 
-/**
- * ビューがロードされた後の処理
- */
-- (void)viewDidLoad
-{
-  NSLog(@"%s", __FUNCTION__);
-
-  [super viewDidLoad];
-
-//  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MenuCell"];
-  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TagCell class])
-                                             bundle:nil]
-       forCellReuseIdentifier:TagModeCellIdentifier];
-}
+#pragma mark - コンテンツの更新
 
 /**
- * セクション数を返す
- */
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-  return [[NSNumber numberWithInt:2] integerValue];
-}
-
-/**
- * アイテム数を返す
- */
--(NSInteger)tableView:(UITableView *)tableView
-numberOfRowsInSection:(NSInteger)section
-{
-  if (section == 0) {
-    return 1;
-  }
-  return [self.tag_list count];
-}
-
-/**
- * テーブルのセルを表示する
- */
--(UITableViewCell *)tableView:(UITableView *)tableView
-        cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
-  if (indexPath.section == 0) {
-    cell.textLabel.text = @"all";
-    return cell;
-  }
-  cell.textLabel.text = self.tag_list[indexPath.row];
-  return cell;
-}
-
-/**
- * テーブルを更新する
+ * @brief  コンテンツを更新する前処理
  *
- * @note 非効率かも
+ * @param controller リザルトコントローラー
  */
-- (void)updateTableView
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-  [self.tableView reloadData];
+  LOG(@"コンテキストを更新する前処理");
+  [self.tableView beginUpdates];
+}
+
+/**
+ * @brief  セクションの変更処理
+ *
+ * @param controller   <#controller description#>
+ * @param sectionInfo  <#sectionInfo description#>
+ * @param sectionIndex <#sectionIndex description#>
+ * @param type         <#type description#>
+ */
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
+{
+  LOG(@"コンテキストを更新");
+  switch(type) {
+    case NSFetchedResultsChangeInsert:
+      LOG(@"挿入");
+      [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                    withRowAnimation:UITableViewRowAnimationFade];
+      break;
+
+    case NSFetchedResultsChangeDelete:
+      LOG(@"削除");
+      [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                    withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+}
+
+/**
+ * @brief  オブジェクトの変更処理
+ *
+ * @param controller   <#controller description#>
+ * @param anObject     <#anObject description#>
+ * @param indexPath    <#indexPath description#>
+ * @param type         <#type description#>
+ * @param newIndexPath <#newIndexPath description#>
+ */
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+  LOG(@"コンテキストを更新");
+  UITableView *tableView = self.tableView;
+
+  switch(type) {
+    case NSFetchedResultsChangeInsert:
+      LOG(@"挿入");
+      [tableView insertRowsAtIndexPaths:@[newIndexPath]
+                       withRowAnimation:UITableViewRowAnimationLeft];
+      break;
+
+    case NSFetchedResultsChangeDelete:
+    {
+      LOG(@"削除");
+      [tableView deleteRowsAtIndexPaths:@[indexPath]
+                       withRowAnimation:UITableViewRowAnimationLeft];
+      
+      // 他のタグのアイテム数も変更するように更新
+      [self.tableView reloadData];
+      //      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      //      NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
+      //      for (Tag *tag in tags) { // そのセットそれぞれに対して
+      //        if ([tag.items count] == 0) { // タグの関連付けがそのアイテムのみだった場合
+      //          [app.managedObjectContext deleteObject:tag]; // そのタグも削除する
+      //        }
+      //      }
+      break;
+    }
+
+    case NSFetchedResultsChangeUpdate:
+      LOG(@"更新");
+//      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPath]
+//              atIndexPath:indexPath];                                // これであってる？？
+
+      break;
+
+    case NSFetchedResultsChangeMove:
+      LOG(@"移動");
+      [tableView deleteRowsAtIndexPaths:@[indexPath]
+                       withRowAnimation:UITableViewRowAnimationFade];
+      [tableView insertRowsAtIndexPaths:@[newIndexPath]
+                       withRowAnimation:UITableViewRowAnimationFade];
+      break;
+  }
+}
+
+/*
+ // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
+ */
+
+/**
+ *  コンテンツが更新された後処理
+ *
+ *  @param controller リザルトコントローラー
+ */
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+  LOG(@"コンテキストを更新した後の処理");
+  // In the simplest, most efficient, case, reload the table view.
+  [self.tableView endUpdates];
 }
 
 /*
@@ -139,5 +416,24 @@ numberOfRowsInSection:(NSInteger)section
  // Pass the selected object to the new view controller.
  }
  */
+
+#pragma mark - デリゲート
+
+/**
+ * @brief  タグを保存する
+ *
+ * @param tagTitle タグのタイトル
+ */
+-(void)saveTags:(NSString *)tagTitle
+{
+  // 文字列が空欄なら終了
+  if ([tagTitle isEqual:@""]) {
+    return;
+  }
+
+  // 新規タグを保存
+  [CoreDataController insertNewTag:tagTitle];
+}
+
 
 @end

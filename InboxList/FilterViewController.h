@@ -12,17 +12,26 @@
 @protocol FilterViewControllerDelegate <NSObject>
 
 /**
- *  Viewを最前面に表示する
+ *  @brief Viewを最前面に表示する
  *
  *  @param view 指定するビュー
  *  @todo メインには、画面の重なり順だけデリゲートするようにする。viewを渡して。
  */
-- (void)presentInputFilterView;
+//- (void)presentInputFilterView;
+
+-(void)didSelectedFilter:(NSString *)filterTitle
+                    tags:(NSSet *)tags;
 
 @end
 
+/**
+ *  @brief  フィルターリスト
+ */
 @interface FilterViewController : UITableViewController
+<NSFetchedResultsControllerDelegate, InputFilterDelegate>
 
 @property id <FilterViewControllerDelegate> delegate;
+
+@property NSFetchedResultsController *fetchedResultsController;
 
 @end

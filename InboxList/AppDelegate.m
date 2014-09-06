@@ -23,11 +23,12 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 /**
- * アプリケーション開始前？
+ * @brief アプリケーション開始前？
  */
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  LOG(@"アプリケーションを開始");
   /// ウィンドウ初期化
   self.window = [[UIWindow alloc] initWithFrame:SCREEN_BOUNDS];
 
@@ -71,7 +72,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 - (void)saveContext
 {
-  LOG(@"Save");
+  LOG(@"コンテキストを保存");
   NSError *error = nil;
   NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
   if (managedObjectContext != nil) {
@@ -106,7 +107,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 // If the model doesn't already exist, it is created from the application's model.
 - (NSManagedObjectModel *)managedObjectModel
 {
-  NSLog(@"%s", __FUNCTION__);
+  LOG(@"オブジェクトコンテキスト");
   if (_managedObjectModel != nil) {
     return _managedObjectModel;
   }

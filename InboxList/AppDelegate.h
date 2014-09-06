@@ -12,6 +12,9 @@
 #import "TagViewController.h"
 #import "MainViewController.h"
 
+/**
+ * @brief  アプリケーションデリゲート
+ */
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

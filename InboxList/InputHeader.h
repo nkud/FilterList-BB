@@ -11,6 +11,8 @@
 @protocol InputHeaderDelegate <NSObject>
 
 -(void)quickInsertNewItem:(NSString *)itemString;
+-(void)setFrameForInputField;
+-(void)recoverFrameForInputField;
 
 @end
 
@@ -20,6 +22,8 @@
 @property UITextField *inputField;
 
 @property id <InputHeaderDelegate> delegate;
+
+@property int height;
 
 -(void)activateInput;
 -(void)deactivateInput;

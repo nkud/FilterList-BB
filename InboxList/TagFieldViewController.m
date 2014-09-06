@@ -20,15 +20,30 @@
 @implementation TagFieldViewController
 
 /**
+ *  入力された文字列を返す
+ *
+ *  @return 文字列のセット
+ */
+-(NSSet *)getFields
+{
+  NSMutableSet *fields = [[NSMutableSet alloc] init];
+  for (UITextField *field in self.textFieldArray) {
+    [fields addObject:field.text];
+  }
+  return fields;
+}
+
+/**
  *  新しいテキストフィールド作成する
  *
  *  @param rect サイズ
  *
  *  @return テキストフィールド
  */
-- (TagField *)createTextField:(CGRect)rect
+- (TagField *)createTextFieldWithFrame:(CGRect)frame
 {
-  TagField *newTextField = [[TagField alloc] initWithFrame:rect];
+  LOG(@"テキストフィールドを作成");
+  TagField *newTextField = [[TagField alloc] initWithFrame:frame];
   [newTextField setBorderStyle:UITextBorderStyleRoundedRect];
   [newTextField setReturnKeyType:UIReturnKeyDone];
   [newTextField setDelegate:self];
@@ -52,11 +67,20 @@
                            bundle:nibBundleOrNil];
     if (self)
     {
-      self.textFieldArray = [[NSMutableArray alloc] initWithObjects:nil];
-      pointY = 50;
-      field_height = 30;
+
     }
     return self;
+}
+
+/**
+ *  テキストフィールド以外がタッチされた時の処理
+ *
+ *  @param touches <#touches description#>
+ *  @param event   <#event description#>
+ */
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  LOG(@"テキストフィールド以外をタッチ");
 }
 
 /**
@@ -64,23 +88,23 @@
  *
  *  @param rect サイズ
  */
-- (void)addNewTextField:(CGRect)rect
+- (void)addNewTextField
 {
-  rect.origin.y = pointY;
-  TagField *textField = [self createTextField:rect];
+  LOG(@"新しいテキストフィールドを追加");
+  CGRect rect = CGRectMake(0, pointY, SCREEN_BOUNDS.size.width, field_height);
+  TagField *textField = [self createTextFieldWithFrame:rect];
 
   [self.textFieldArray addObject:textField];
 
   [textField becomeFirstResponder];
   [textField stateInput];
-  [UIView animateWithDuration:1.0f
-                   animations:^{
-                     [self.view addSubview:textField];
-                   }
-                   completion:^(BOOL finished) {
-                     NSLog(@"%@", @"adding animation end.");
-                   }];
-//  [self.view addSubview:textField];
+//  [UIView animateWithDuration:1.0f
+//                   animations:^{
+//                     [self.view addSubview:textField];
+//                   }
+//                   completion:^(BOOL finished) {
+//                   }];
+  [self.view addSubview:textField];
   pointY += field_height;
 }
 
@@ -90,7 +114,19 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [self addNewTextField:CGRectMake(0, 100, SCREEN_BOUNDS.size.width, field_height)];
+  CGRect rect = self.view.frame;
+  rect.origin.y += 100;
+  self.view.frame = rect;
+  self.view.backgroundColor = [UIColor grayColor];
+  self.textFieldArray = [[NSMutableArray alloc] initWithObjects:nil];
+  pointY = self.view.frame.origin.y;
+  field_height = 30;
+  LOG(@"初期フィールドを作成・追加");
+//  CGRect view_rect = self.view.frame;
+//  CGRect field_rect = view_rect;
+//  field_rect.size.width = SCREEN_BOUNDS.size.width;
+//  field_rect.size.height = field_height;
+  [self addNewTextField];
 }
 
 /**
@@ -128,16 +164,23 @@
  */
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+  // 空欄の場合
   if ([textField.text isEqual:@""]) {
     [textField removeFromSuperview];
     [self.textFieldArray removeObject:textField];
     pointY -= field_height;
     return YES;
   }
-  for (TagField *textField in self.textFieldArray) {
+  // 追加する場合
+//  [self addNewTextField:CGRectMake(0, 200, SCREEN_BOUNDS.size.width, field_height)];
+  [self addNewTextField];
+  LOG(@"テキストフィールド数: %ul", [self.textFieldArray count]);
+  NSMutableArray *stock = [NSMutableArray arrayWithArray:self.textFieldArray];
+  [stock removeObject:[stock lastObject]];
+  for (TagField *textField in stock) {
     [textField stateFixed];
   }
-  [self addNewTextField:CGRectMake(0, 200, SCREEN_BOUNDS.size.width, field_height)];
+
   return YES;
 }
 
@@ -163,9 +206,7 @@
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string
 {
-  /**
-   *  テキストフィールドの幅を変更する
-   */
+  LOG(@"テキストフィールドの幅を変更");
   CGRect new_rect = textField.frame;
   CGSize bounds = CGSizeMake(400, 200);
   UIFont *font = textField.font;

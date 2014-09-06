@@ -10,6 +10,9 @@
 
 #import "Item.h"
 
+/**
+ * @brief  詳細画面用プロトコル
+ */
 @protocol ItemDetailViewControllerDelegate <NSObject>
 
 - (void)dismissDetailView:(id)sender
@@ -17,20 +20,16 @@
                 itemTitle:(NSString *)itemTitle
                 tagTitles:(NSArray *)tagTitles;
 
-
 @end
 
+/**
+ * @brief  詳細画面
+ */
 @interface ItemDetailViewController : UIViewController
 
 @property (strong, nonatomic) Item * detailItem;
 
-//@property (strong, nonatomic) UILabel *detailDescriptionLabel;
-
 @property id <ItemDetailViewControllerDelegate> delegate;
-
-//@property (strong, nonatomic) UITextField *titleField;
-//@property (strong, nonatomic) UITextField *tagField;
-//@property (strong, nonatomic) UIButton *btn;
 
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
