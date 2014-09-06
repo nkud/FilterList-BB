@@ -15,6 +15,8 @@
   int fetch_batch_size_;
 }
 
++(void)addTagObjecForAllItems;
+
 @end
 
 @implementation CoreDataController
@@ -204,6 +206,9 @@
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
 {
   LOG(@"タグ用のリザルトコントローラー");
+  
+  [self addTagObjecForAllItems];
+  
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   
   // エンティティを設定
@@ -239,6 +244,40 @@
 	}
   return aFetchedResultsController;
 }
+
+/**
+ * @brief  全アイテムタグをコンテキストに追加
+ */
++(void)addTagObjecForAllItems
+{
+  NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Tag"];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.usercreated == true"];
+  [request setPredicate:predicate];
+  NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
+                                                                            error:nil];
+  // 'ALL'タグを追加
+  if ([array count] == 0) {
+    Tag *tag = [self newTagObject];
+    tag.title = @"All Items";
+    tag.usercreated = [NSNumber numberWithBool:true];
+    [self saveContext];
+  }
+}
+
+/**
+ * @brief  タグを挿入
+ *
+ * @param title タイトル
+ */
++(void)insertNewTag:(NSString *)title
+{
+  Tag *tag = [self newTagObject];
+  tag.title = title;
+  tag.usercreated = [NSNumber numberWithBool:false];
+  [self saveContext];
+}
+
+
 
 /**
  *  @brief 全タグの配列を返す

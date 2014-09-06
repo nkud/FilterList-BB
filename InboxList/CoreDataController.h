@@ -36,6 +36,8 @@
 +(NSArray *)fetchTagsForTitle:(NSString *)title;
 +(Tag *)newTagObject;
 
++(void)insertNewTag:(NSString *)title;
+
 // フィルター用
 +(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(void)insertNewFilter:(NSString *)filterTitle
