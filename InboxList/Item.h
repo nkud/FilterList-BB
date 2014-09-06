@@ -11,6 +11,9 @@
 
 @class Tag;
 
+/**
+ * @brief  アイテムオブジェクト
+ */
 @interface Item : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * color;

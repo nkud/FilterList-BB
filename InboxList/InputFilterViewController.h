@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * @brief  入力画面用プロトコル
+ */
 @protocol InputFilterDelegate <NSObject>
 
 -(void)dismissInputFilterView:(NSString *)filterTitle

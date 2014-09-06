@@ -30,7 +30,7 @@ ItemDetailViewControllerDelegate>
 @property CGFloat triggerDragging;
 
 /**
- *  タグのリストを取得する
+ *  @brief タグのリストを取得する
  *
  *  @return タグのリスト
  */

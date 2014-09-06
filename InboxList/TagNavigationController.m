@@ -14,6 +14,16 @@
 
 @implementation TagNavigationController
 
+#pragma mark - 初期化
+
+/**
+ * @brief  初期化
+ *
+ * @param nibNameOrNil   nibNameOrNil description
+ * @param nibBundleOrNil nibBundleOrNil description
+ *
+ * @return インスタンス
+ */
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

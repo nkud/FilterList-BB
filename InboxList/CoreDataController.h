@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "ResultControllerFactory.h"
 #import "Tag.h"
 #import "AppDelegate.h"
 
@@ -25,16 +24,17 @@
 // アイテム用
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
-                                                    controller:(id<NSFetchedResultsControllerDelegate>)controller;
-+(void)insertNewItem:(NSString *)itemTitle
+
+                                                        controller:(id<NSFetchedResultsControllerDelegate>)controller;
++(void)newItemObject:(NSString *)itemTitle
                 tags:(NSSet *)tags
             reminder:(NSDate *)reminder;
-+(Item *)insertNewItem;
++(Item *)newItemObject;
 // タグ用
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSArray *)getAllTagsArray;
 +(NSArray *)fetchTagsForTitle:(NSString *)title;
-+(Tag *)insertNewTag;
++(Tag *)newTagObject;
 
 // フィルター用
 +(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;

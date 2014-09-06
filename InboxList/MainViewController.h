@@ -18,7 +18,7 @@
 #import "TabBar.h"
 
 /**
- *  @brief  メインコンテナ
+ * @brief  メインコンテナ
  */
 @interface MainViewController : UIViewController
 <TagViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate> {
@@ -34,7 +34,7 @@
 @property (strong, nonatomic) TagNavigationController    *tagNavigationController;
 @property (strong, nonatomic) TagViewController          *tagViewController;
 
-@property (strong, nonatomic) TabBar                    *tabBar;
+@property (strong, nonatomic) TabBar                     *tabBar;
 
 
 -(void)toItemListMode;
@@ -43,6 +43,6 @@
 -(void)toCompleteListMode;
 
 -(void)loadItemViewForTag:(NSString *)tag
-     fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
+   fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
 
 @end

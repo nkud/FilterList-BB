@@ -23,7 +23,7 @@
 
 #pragma mark - 初期化
 /**
- *  初期化
+ *  @brief 初期化
  *
  *  @param nibNameOrNil   nibNameOrNil description
  *  @param nibBundleOrNil nibBundleOrNil description
@@ -69,7 +69,7 @@
 #pragma mark - フィルター入力
 
 /**
- *  フィルター入力画面を表示する
+ *  @brief フィルター入力画面を表示する
  */
 -(void)presentInputFilterView
 {
@@ -109,15 +109,6 @@
                            completion:nil];
 }
 
-/**
- *  メモリー警告
- */
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - テーブルビュー
 
 /**
@@ -136,12 +127,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *  セクション内のセル数を返す
+ *  @brief セクション内のセル数を返す
  *
- *  @param tableView <#tableView description#>
- *  @param section   <#section description#>
+ *  @param tableView テーブルビュー
+ *  @param section   セクション
  *
- *  @return <#return value description#>
+ *  @return セル数
  */
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
@@ -152,7 +143,7 @@ numberOfRowsInSection:(NSInteger)section
 }
 
 /**
- *  セクション数を返す
+ *  @brief セクション数を返す
  *
  *  @param tableView テーブルビュー
  *
@@ -173,7 +164,7 @@ numberOfRowsInSection:(NSInteger)section
 }
 
 /**
- *  セルを設定する
+ *  @brief セルを設定する
  *
  *  @param cell      設定するセル
  *  @param indexPath セルのパス
@@ -188,8 +179,11 @@ numberOfRowsInSection:(NSInteger)section
   cell.textLabel.text = filter.title;
   return cell;
 }
+
+#pragma mark - コンテンツの更新
+
 /**
- *  コンテンツを更新する前処理
+ *  @brief コンテンツを更新する前処理
  *
  *  @param controller リザルトコントローラー
  */
@@ -273,7 +267,7 @@ numberOfRowsInSection:(NSInteger)section
  */
 
 /**
- *  コンテンツが更新された後処理
+ *  @brief コンテンツが更新された後処理
  *
  *  @param controller リザルトコントローラー
  */
@@ -282,6 +276,17 @@ numberOfRowsInSection:(NSInteger)section
   LOG(@"アイテムビューが更新されたあとの処理");
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];
+}
+
+#pragma mark - メモリー警告
+
+/**
+ *  @brief メモリー警告
+ */
+- (void)didReceiveMemoryWarning
+{
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 /*

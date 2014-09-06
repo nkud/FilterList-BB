@@ -8,6 +8,9 @@
 
 #import "NavigationController.h"
 
+/**
+ * @brief  フィルターモード用のナビゲーションコントローラ
+ */
 @interface FilterNavigationController : __NavigationController
 
 @end

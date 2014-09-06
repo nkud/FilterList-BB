@@ -36,9 +36,8 @@
 
 #pragma mark - 初期化
 
-
 /**
- *  パラメータを初期化
+ * @brief  パラメータの初期化
  */
 - (void)initParameter
 {
@@ -47,24 +46,6 @@
     self.selectedTagString = @"all";
   }
   app = [[UIApplication sharedApplication] delegate];
-}
-
-/**
- *  初期化
- *
- *  @param style <#style description#>
- *
- *  @return <#return value description#>
- */
-- (id)initWithStyle:(UITableViewStyle)style
-{
-  self = [super initWithStyle:style];
-
-  if (self) {
-    ;
-  }
-
-  return self;
 }
 
 /**
@@ -130,7 +111,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *  指定されたセクションのアイテム数
+ *  @brief 指定されたセクションのアイテム数
  *
  *  @param tableView テーブルビュー
  *  @param section   セクション
@@ -146,7 +127,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *  指定された位置のセル
+ *  @brief 指定された位置のセル
  *
  *  @param tableView テーブルビュー
  *  @param indexPath 指定する位置
@@ -164,7 +145,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *  テーブル編集の可否
+ *  @brief テーブル編集の可否
  *
  *  @param tableView テーブルビュー
  *  @param indexPath 位置
@@ -180,7 +161,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 
 
 /**
- *  スクロール時の処理
+ *  @brief スクロール時の処理
  *
  *  @param scrollView スクロールビュー
  */
@@ -194,7 +175,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  *  @brief スクロールをドラッグした後の処理
  *
  *  @param scrollView スクロールビュー
- *  @param decelerate <#decelerate description#>
+ *  @param decelerate decelerate description
  *
  *  @todo  入力ヘッダを綺麗に出すようにする
  */
@@ -326,7 +307,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     // 空欄なら何もしない
   } else {
     // 新しいアイテムを挿入する
-    [CoreDataController insertNewItem:itemTitle
+    [CoreDataController newItemObject:itemTitle
                                  tags:tagsForSelectedRows
                              reminder:reminder];
   }
@@ -505,7 +486,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     tag.title = title;          // タグを作成して
     [tags addObject:tag];       // 配列に追加
   }
-  [CoreDataController insertNewItem:title
+  [CoreDataController newItemObject:title
                                tags:tags
                            reminder:reminder];
 }
@@ -522,7 +503,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
   if ([self.selectedTagString isEqualToString:@"all"])
   {                             // 全タグ表示中なら
-    [CoreDataController insertNewItem:itemString
+    [CoreDataController newItemObject:itemString
                                  tags:nil
                              reminder:[NSDate date]]; // タグなしで追加して終了
   }
@@ -532,7 +513,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
             insertIntoManagedObjectContext:nil];
     tag.title = self.selectedTagString;
     NSSet *tags = [NSSet setWithObject:tag];
-    [CoreDataController insertNewItem:itemString
+    [CoreDataController newItemObject:itemString
                                  tags:tags
                              reminder:[NSDate date]]; // 新しいアイテムを追加
   }
@@ -541,7 +522,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 #pragma mark - コンテンツの更新
 
 /**
- *  コンテンツを更新する前処理
+ *  @brief コンテンツを更新する前処理
  *
  *  @param controller リザルトコントローラー
  */
@@ -618,7 +599,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 
 /**
- *  コンテンツが更新された後処理
+ *  @brief コンテンツが更新された後処理
  *
  *  @param controller リザルトコントローラー
  */
@@ -632,7 +613,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 #pragma mark - その他
 
 /**
- *  メモリー警告
+ *  @brief メモリー警告
  */
 - (void)didReceiveMemoryWarning
 {

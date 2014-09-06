@@ -11,6 +11,9 @@
 
 @class Filter, Item;
 
+/**
+ * @brief  タグオブジェクト
+ */
 @interface Tag : NSManagedObject
 
 @property (nonatomic, retain) NSString * title;

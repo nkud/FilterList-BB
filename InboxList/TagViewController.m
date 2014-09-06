@@ -15,7 +15,12 @@
 
 #import "Configure.h"
 
-@interface TagViewController ()
+@interface TagViewController () {
+  
+}
+
+- (void)configureCell:(TagCell *)cell
+          atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -56,17 +61,19 @@
        forCellReuseIdentifier:TagModeCellIdentifier];
 
   // 編集ボタンを追加
-  UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"タグ編集"
-                                                                 style:UIBarButtonItemStyleBordered
-                                                                target:self
-                                                                action:@selector(toEdit:)];
+  UIBarButtonItem *editButton
+  = [[UIBarButtonItem alloc] initWithTitle:@"タグ編集"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:self
+                                    action:@selector(toEdit:)];
   self.navigationItem.leftBarButtonItem = editButton;
 
   // 新規入力ボタンを追加
-  UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"新規"
-                                                                style:UIBarButtonItemStyleBordered
-                                                               target:self
-                                                               action:@selector(toAdd:)];
+  UIBarButtonItem *addButton
+  = [[UIBarButtonItem alloc] initWithTitle:@"新規"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:self
+                                    action:@selector(toAdd:)];
   self.navigationItem.rightBarButtonItem = addButton;
 }
 
@@ -79,7 +86,7 @@
  */
 -(void)toAdd:(id)sender
 {
-  LOG(@"新規入力画面をプッシュ");
+  // 新規入力画面をプッシュ
   NSString *inputTagNibName = @"InputTagViewController";
   
   // タグ入力画面
@@ -95,24 +102,6 @@
                                        animated:YES];
 }
 
-/**
- * @brief  タグを保存する
- *
- * @param tagStrings <#tagStrings description#>
- */
--(void)saveTags:(NSString *)tagTitle
-{
-  // 文字列が空欄なら終了
-  if ([tagTitle isEqual:@""]) {
-    return;
-  }
-  LOG(@"新規タグを保存");
-  Tag *newTag;
-  newTag = [CoreDataController insertNewTag];
-  newTag.title = tagTitle;
-  [CoreDataController saveContext];
-}
-
 #pragma mark - テーブルビュー
 
 /**
@@ -124,34 +113,12 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  LOG(@"タグが選択された時の処理");
-  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath]; // 選択された位置のタグを取得して
-  LOG(@"選択されたタグ：%@", tag.title);
-  [self.delegate didSelectedTag:tag];                                        // 選択されたタグを渡す
+  // 選択された位置のタグを取得して
+  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  
+  // 選択されたタグを渡す
+  [self.delegate didSelectedTag:tag];
 }
-
-/**
- *  セクションのタイトルを設定
- *
- *  @param tableView テーブルビュー
- *  @param section   セクション
- *
- *  @return タイトルの文字列
- */
-//-(NSString *)tableView:(UITableView *)tableView
-//titleForHeaderInSection:(NSInteger)section
-//{
-//  LOG(@"セクションのタイトルを設定");
-//  switch (section) {
-//    case 0:
-//      return @"Default";
-//      break;
-//    case 1:
-//      return @"Tag";
-//      break;
-//  }
-//  return nil;
-//}
 
 /**
  * @brief  編集モード切り替え
@@ -161,9 +128,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)toEdit:(id)sender
 {
   if (self.tableView.isEditing) {
-    [self setEditing:false animated:YES];
+    [self setEditing:false
+            animated:YES];
   } else {
-    [self setEditing:true animated:YES];
+    [self setEditing:true
+            animated:YES];
   }
 }
 
@@ -172,7 +141,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [[NSNumber numberWithInt:1] integerValue];
+  return [[self.fetchedResultsController sections] count];
 }
 
 /**
@@ -181,11 +150,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-//  if (section == 0) {
-//    return 1;
-//  }
-  NSInteger num = [[self.fetchedResultsController fetchedObjects] count];
-  return num;
+  id <NSFetchedResultsSectionInfo> sectionInfo
+  = [[self.fetchedResultsController sections] objectAtIndex:section];
+  return [sectionInfo numberOfObjects];
 }
 
 /**
@@ -197,12 +164,25 @@ numberOfRowsInSection:(NSInteger)section
   // セルを作成する
   TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
   
-  // 位置のタグを取得する
+  // セルを設定
+  [self configureCell:cell
+          atIndexPath:indexPath];
+  
+  return cell;
+}
+
+/**
+ * @brief  セルを設定する
+ *
+ * @param cell      設定するセル
+ * @param indexPath セルの位置
+ */
+- (void)configureCell:(TagCell *)cell
+          atIndexPath:(NSIndexPath *)indexPath
+{
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.tagTitle.text = tag.title;
-  LOG(@"%@", tag.items);
   cell.numOfItemsTextLabel.text = [NSString stringWithFormat:@"%u", [tag.items count]];
-  return cell;
 }
 
 /**
@@ -230,7 +210,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *  テーブル編集の可否
+ *  @brief テーブル編集の可否
  *
  *  @param tableView テーブルビュー
  *  @param indexPath インデックス
@@ -276,6 +256,30 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+/**
+ * @brief  セクション名
+ *
+ * @param tableView テーブルビュー
+ * @param section   指定するセクション
+ *
+ * @return セクション名
+ */
+-(NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section
+{
+  switch (section) {
+    case 0:
+      return @"MENU";
+      break;
+      
+    case 1:
+      return @"TAG";
+    default:
+      break;
+  }
+  return @"";
+}
+
 #pragma mark - コンテンツの更新
 
 /**
@@ -289,6 +293,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   [self.tableView beginUpdates];
 }
 
+/**
+ * @brief  セクションの変更処理
+ *
+ * @param controller   <#controller description#>
+ * @param sectionInfo  <#sectionInfo description#>
+ * @param sectionIndex <#sectionIndex description#>
+ * @param type         <#type description#>
+ */
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
@@ -310,6 +322,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+/**
+ * @brief  オブジェクトの変更処理
+ *
+ * @param controller   <#controller description#>
+ * @param anObject     <#anObject description#>
+ * @param indexPath    <#indexPath description#>
+ * @param type         <#type description#>
+ * @param newIndexPath <#newIndexPath description#>
+ */
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath
@@ -346,7 +367,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-//      [self configureCell:(ItemCell *)[tableView cellForRowAtIndexPath:indexPath]
+//      [self configureCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPath]
 //              atIndexPath:indexPath];                                // これであってる？？
 
       break;
@@ -387,5 +408,28 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
  // Pass the selected object to the new view controller.
  }
  */
+
+#pragma mark - デリゲート
+
+/**
+ * @brief  タグを保存する
+ *
+ * @param tagTitle タグのタイトル
+ */
+-(void)saveTags:(NSString *)tagTitle
+{
+  // 文字列が空欄なら終了
+  if ([tagTitle isEqual:@""]) {
+    return;
+  }
+
+  // 新規タグを保存
+  Tag *newTag = [CoreDataController newTagObject];
+  
+  newTag.title = tagTitle;
+  
+  [CoreDataController saveContext];
+}
+
 
 @end

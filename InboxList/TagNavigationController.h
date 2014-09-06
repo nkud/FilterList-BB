@@ -8,6 +8,9 @@
 
 #import "NavigationController.h"
 
+/**
+ * @brief  タグモード用のナビゲーションコントローラ
+ */
 @interface TagNavigationController : __NavigationController
 
 @end

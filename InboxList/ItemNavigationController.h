@@ -8,6 +8,9 @@
 
 #import "NavigationController.h"
 
+/**
+ * @brief  アイテムモード用ナビゲーションコントローラ
+ */
 @interface ItemNavigationController : __NavigationController
 
 @end

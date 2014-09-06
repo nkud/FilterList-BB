@@ -135,13 +135,13 @@
  *  @param tags      関連付けるタグのセット
  *  @param reminder  リマインダー
  */
-+(void)insertNewItem:(NSString *)itemTitle
++(void)newItemObject:(NSString *)itemTitle
                 tags:(NSSet *)tags
             reminder:(NSDate *)reminder
 {
   LOG(@"アイテムを新規挿入");
   // アイテムを作成
-  Item *newItem = [self insertNewItem];
+  Item *newItem = [self newItemObject];
   
   // タイトルを設定
   newItem.title = itemTitle;
@@ -183,7 +183,7 @@
  *
  * @return アイテムのポインタ
  */
-+(Item *)insertNewItem
++(Item *)newItemObject
 {
   return [NSEntityDescription insertNewObjectForEntityForName:@"Item"
                                        inManagedObjectContext:[self app].managedObjectContext];
@@ -215,15 +215,15 @@
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
   fetchRequest.sortDescriptors = sortDescriptors;
-  
-  // Edit the section name key path and cache name if appropriate.
-  // nil for section name key path means "no sections".
+
+  // コントローラーを作成
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:[self managedObjectContext]
-                                          sectionNameKeyPath:nil
-                                                   cacheName:nil];   //< タグをキャッシュネームにする
-  aFetchedResultsController.delegate = controller; //< デリゲートを設定
+                                          sectionNameKeyPath:@"usercreated"
+                                                   cacheName:nil];
+  // デリゲートを設定
+  aFetchedResultsController.delegate = controller;
   
 	/**
 	 *  フェッチを実行
@@ -231,8 +231,6 @@
   LOG(@"フェッチを実行");
 	NSError *error = nil;
 	if (![aFetchedResultsController performFetch:&error]) {
-    // Replace this implementation with code to handle the error appropriately.
-    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     abort();
 	}
@@ -247,9 +245,9 @@
  */
 +(NSArray *)getAllTagsArray
 {
-  NSFetchRequest *request = [[NSFetchRequest alloc] init]; // リクエスト
-  NSEntityDescription *entity = [self entityDescriptionForName:@"Tag"]; // エンティティディスクリプションを取得
-  request.entity = entity; // エンティティディスクリプションをリクエストに設定
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [self entityDescriptionForName:@"Tag"];
+  request.entity = entity;
 
   NSArray *tags_array = [[self managedObjectContext] executeFetchRequest:request
                                                                    error:nil];
@@ -263,10 +261,13 @@
  
  * @return タグのポインタ
  */
-+(Tag *)insertNewTag
++(Tag *)newTagObject
 {
-  return [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                       inManagedObjectContext:[self app].managedObjectContext];
+  Tag* tag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+                                           inManagedObjectContext:[self app].managedObjectContext];
+  // ユーザー定義のタグに設定
+  [tag setUsercreated:[NSNumber numberWithBool:false]];
+  return tag;
 }
 
 /**

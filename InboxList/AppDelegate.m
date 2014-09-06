@@ -23,7 +23,7 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 /**
- * アプリケーション開始前？
+ * @brief アプリケーション開始前？
  */
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
