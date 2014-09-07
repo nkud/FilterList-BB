@@ -27,10 +27,119 @@ enum __LIST_MODE__ {
 @interface MainViewController () {
   enum __LIST_MODE__ currentListMode_;
 }
+
+-(void)setLeft:(UIView *)view;
+-(void)setCenter:(UIView *)view;
+-(void)setRight:(UIView *)view;
+
 @end
 
 
 @implementation MainViewController
+
+#pragma mark - ビュー移動関数
+
+-(void)setLeft:(UIView *)view
+{
+  CGRect rect = view.frame;
+  rect.origin.x = 0 - view.frame.size.width;
+  view.frame = rect;
+}
+
+-(void)setCenter:(UIView *)view
+{
+  CGRect rect = view.frame;
+  rect.origin.x = 0;
+  view.frame = rect;
+}
+
+-(void)setRight:(UIView *)view
+{
+  CGRect rect = view.frame;
+  rect.origin.x = view.frame.size.width;
+  view.frame = rect;
+}
+
+/**
+ * @brief  指定方向からアイテムリストを呼び出し
+ *
+ * @param direction 呼び出す方向
+ */
+-(void)bringItemListFrom:(enum __LIST_DIRECTION__)direction
+{
+  UIView *view = self.itemNavigationController.view;
+  if (direction == __FROM_RIGHT__) {
+    [self setRight:view];
+  } else {
+    [self setLeft:view];
+  }
+  [self.view bringSubviewToFront:view];
+  [self.view bringSubviewToFront:self.tabBar];
+  [UIView animateWithDuration:SWIPE_DURATION
+                   animations:^{
+                     [self setCenter:view];
+                   }];
+}
+/**
+ * @brief  指定方向からタグリストを呼び出し
+ *
+ * @param direction 呼び出す方向
+ */
+-(void)bringTagListFrom:(enum __LIST_DIRECTION__)direction
+{
+  UIView *view = self.tagNavigationController.view;
+  if (direction == __FROM_RIGHT__) {
+    [self setRight:view];
+  } else {
+    [self setLeft:view];
+  }
+  [self.view bringSubviewToFront:view];
+  [self.view bringSubviewToFront:self.tabBar];
+  [UIView animateWithDuration:SWIPE_DURATION
+                   animations:^{
+                     [self setCenter:view];
+                   }];
+}
+/**
+ * @brief  指定方向からフィルターリストを呼び出し
+ *
+ * @param direction 呼び出す方向
+ */
+-(void)bringFilterListFrom:(enum __LIST_DIRECTION__)direction
+{
+  UIView *view = self.filterNavigationController.view;
+  if (direction == __FROM_RIGHT__) {
+    [self setRight:view];
+  } else {
+    [self setLeft:view];
+  }
+  [self.view bringSubviewToFront:view];
+  [self.view bringSubviewToFront:self.tabBar];
+  [UIView animateWithDuration:SWIPE_DURATION
+                   animations:^{
+                     [self setCenter:view];
+                   }];
+}
+/**
+ * @brief  指定方向からコンプリートリストを呼び出し
+ *
+ * @param direction 呼び出す方向
+ */
+-(void)bringCompleteListFrom:(enum __LIST_DIRECTION__)direction
+{
+  UIView *view = self.filterNavigationController.view;
+  if (direction == __FROM_RIGHT__) {
+    [self setRight:view];
+  } else {
+    [self setLeft:view];
+  }
+  [self.view bringSubviewToFront:view];
+  [self.view bringSubviewToFront:self.tabBar];
+  [UIView animateWithDuration:SWIPE_DURATION
+                   animations:^{
+                     [self setCenter:view];
+                   }];
+}
 
 #pragma mark - 初期化
 
@@ -181,6 +290,8 @@ enum __LIST_MODE__ {
  */
 -(void)toItemListMode
 {
+  [self bringItemListFrom:__FROM_RIGHT__];
+  return;
 //  CGRect left_frame = CGRectMake(-SCREEN_BOUNDS.size.width,
 //                                 0,
 //                                 SCREEN_BOUNDS.size.width,

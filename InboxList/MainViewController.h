@@ -18,6 +18,14 @@
 #import "TabBar.h"
 
 /**
+ リストモード変更の方向
+ */
+enum __LIST_DIRECTION__ {
+  __FROM_LEFT__,
+  __FROM_RIGHT__
+};
+
+/**
  * @brief  メインコンテナ
  */
 @interface MainViewController : UIViewController
@@ -41,6 +49,11 @@
 -(void)toTagListMode;
 -(void)toFilterListMode;
 -(void)toCompleteListMode;
+
+-(void)bringItemListFrom:(enum __LIST_DIRECTION__)direction;
+-(void)bringTagListFrom:(enum __LIST_DIRECTION__)direction;
+-(void)bringFilterListFrom:(enum __LIST_DIRECTION__)direction;
+-(void)bringCompleteListFrom:(enum __LIST_DIRECTION__)direction;
 
 -(void)loadItemViewForTag:(NSString *)tag
    fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
