@@ -1,12 +1,34 @@
 #+TITLE: FilterList
 #+AUTHOR: Naoki Ueda
-#+OPTIONS: \n:t H:1 toc:t creator:nil num:nil
+#+OPTIONS: \n:t H:1 toc:t author:nil email:nil timestamp:nil creator:nil num:t
 #+LANGUAGE: ja
-#+LaTeX_CLASS: jsarticle
+#+LaTeX_CLASS: normal
 #+STARTUP: content
-#+HTML_HEAD: <style type="text/css">body {font-family:"menlo";font-size:1em;}</style>
+#+HTML_HEAD: <style type="text/css">body {font-family:"andale mono";font-size:0.7em;}</style>
+#+STYLE: <link rel="stylesheet" type="text/css" href="" />
 
-* 作業工程 [31%]
+
+* 必要リソース
+** アイコン
+
+** タブバーアイコン
+
+*** アイテム
+
+*** タグ
+
+*** フィルター
+
+*** 完了
+** アイテムセルチェックボックス
+
+*** オン
+
+*** オフ
+
+** COMMENT 背景
+
+* 作業工程 [52%]
 
 ** DONE スライドで新規入力するようにする
 CLOSED: [2014-08-02 Sat 21:46]
@@ -20,32 +42,28 @@ CLOSED: [2014-08-10 Sun 18:20]
 ** DONE タグの横にアイテム数を表示
 CLOSED: [2014-08-10 Sun 18:21]
 
-** TODO all用のタグを作成する
+** DONE all用のタグを作成する
+CLOSED: [2014-09-09 Tue 15:31]
 
 ** TODO 縦モードのみにする
-** TODO 複数タグのデータの渡し方を統一する
+** DONE 複数タグのデータの渡し方を統一する
+CLOSED: [2014-09-09 Tue 15:31]
 
 ** DONE アイテムを削除できるようにする
 CLOSED: [2014-08-09 Sat 19:07]
-** TODO フィルターを削除できるようにする
+** DONE フィルターを削除できるようにする
+CLOSED: [2014-09-09 Tue 15:31]
 
-** TODO スワイプ機能を削除する
+** DONE スワイプ機能を削除する
+CLOSED: [2014-09-09 Tue 15:31]
 
 ** TODO アイテムセルを完成形にする
 
 ** TODO タグモードに検索窓出す
 
-** TODO タブバーのアイコンを作成する
-
-*** TODO アイテムタブ
-
-*** TODO タグタブ
-
-*** TODO フィルタータブ
 ** TODO 完了済みのタグを見るコントローラーを作成する
 ** TODO ゴミ箱を作る
 
-** TODO アプリのアイコンを作成する
 
 ** DONE 完了済みのタグをアイテムモードから自動的に消す
 CLOSED: [2014-08-14 Thu 15:03]
@@ -69,19 +87,6 @@ CLOSED: [2014-08-14 Thu 15:03]
 **** 全て削除
 
 **** 元に戻す
-
-* 必要リソース
-** アイコン
-
-** タブバーアイコン
-
-** アイテムセルチェックボックス
-
-*** オン
-
-*** オフ
-
-** COMMENT 背景
 
 * オブジェクトモデル
 
