@@ -139,7 +139,6 @@ enum __LIST_MODE__ {
 -(void)bringItemListFrom:(enum __LIST_DIRECTION__)direction
 {
   [self setItemMode];
-  LOG(@"アイテムリスト呼び出し");
   UIView *view = self.itemNavigationController.view;
   if (direction == __FROM_RIGHT__) {
     [self setRight:view];
@@ -149,9 +148,17 @@ enum __LIST_MODE__ {
   [self.view bringSubviewToFront:view];
   [self.view bringSubviewToFront:self.tabBar];
   [UIView animateWithDuration:SWIPE_DURATION
+                        delay:0
+                      options:UIViewAnimationOptionCurveEaseOut
                    animations:^{
                      [self setCenter:view];
+                   } completion:^(BOOL finished) {
+                     ;
                    }];
+//  [UIView animateWithDuration:SWIPE_DURATION
+//                   animations:^{
+//                     [self setCenter:view];
+//                   }];
 }
 /**
  * @brief  指定方向からタグリストを呼び出し
@@ -160,7 +167,6 @@ enum __LIST_MODE__ {
  */
 -(void)bringTagListFrom:(enum __LIST_DIRECTION__)direction
 {
-  LOG(@"タグリスト呼び出し");
   [self setTagMode];
   UIView *view = self.tagNavigationController.view;
   if (direction == __FROM_RIGHT__) {
@@ -373,7 +379,7 @@ didSelectItem:(UITabBarItem *)item
     result_controller = [CoreDataController itemFetchedResultsControllerForTags:[NSSet setWithObject:tag]
                                                                      controller:self.itemViewController];
   }
-  [self loadItemViewForTag:tag.title
+  [self loadItemViewForTitle:tag.title
     fetcheResultController:result_controller];
   
 }
@@ -390,7 +396,7 @@ didSelectItem:(UITabBarItem *)item
   LOG(@"フィルターが選択された時の処理");
   NSFetchedResultsController *resultController = [CoreDataController itemFetchedResultsControllerForTags:tags
                                                                                              controller:self.itemViewController];
-  [self loadItemViewForTag:filterTitle
+  [self loadItemViewForTitle:filterTitle
       fetcheResultController:resultController];
 }
 
@@ -400,17 +406,17 @@ didSelectItem:(UITabBarItem *)item
  *  @param tag                     選択されたタグ
  *  @param fetchedResultController リザルトコントローラー
  */
-- (void)loadItemViewForTag:(NSString *)tagTitle
+- (void)loadItemViewForTitle:(NSString *)title
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
   LOG(@"アイテムビューをロードする");
   // 選択されたタグを渡して
-  self.itemViewController.selectedTagString = tagTitle;
+  self.itemViewController.selectedTagString = title;
   self.itemViewController.fetchedResultsController = fetchedResultController;
   // テーブルを更新
   [self.itemViewController updateTableView];
   // タグの名前に変える
-  [self.itemViewController setTitle:tagTitle];
+  [self.itemViewController setTitle:title];
 
   // タブバーのモードを変更する
   [self.tabBar setItemMode];

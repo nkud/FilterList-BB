@@ -14,7 +14,7 @@
 /**
  * @brief  スワイプする時間
  */
-#define SWIPE_DURATION 0.1
+#define SWIPE_DURATION 0.2
 
 #define SWIPE_DISTANCE SCREEN_BOUNDS.size.width
 
