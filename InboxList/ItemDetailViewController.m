@@ -8,12 +8,14 @@
 
 #import "ItemDetailViewController.h"
 #import "ItemDetailTitleCell.h"
+#import "ItemDetailTagCell.h"
 #import "Header.h"
 #import "Tag.h"
 
 #define kPickerAnimationDuration 0.4
 
 static NSString *kTitleCellID = @"titleCell";
+static NSString *kTagCellID = @"tagCell";
 
 #pragma mark -
 
@@ -59,6 +61,9 @@ static NSString *kTitleCellID = @"titleCell";
   [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTitleCell"
                                              bundle:nil]
        forCellReuseIdentifier:kTitleCellID];
+  [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTagCell"
+                                             bundle:nil]
+       forCellReuseIdentifier:kTagCellID];
   
   // セーブボタン
   UIBarButtonItem *saveButton
@@ -155,7 +160,16 @@ static NSString *kTitleCellID = @"titleCell";
   return 2;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+/**
+ * @brief  セクションのタイトル
+ *
+ * @param tableView テーブルビュー
+ * @param section   セクション
+ *
+ * @return タイトル
+ */
+-(NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section
 {
   if (section == 0) {
     return @"TITLE";
@@ -164,6 +178,14 @@ static NSString *kTitleCellID = @"titleCell";
   }
 }
 
+/**
+ * @brief  セクション内のセル数
+ *
+ * @param tableView テーブルビュー
+ * @param section   セクション
+ *
+ * @return セル数
+ */
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
@@ -174,12 +196,53 @@ numberOfRowsInSection:(NSInteger)section
   }
 }
 
+/**
+ * @brief  タイトルセルか評価
+ *
+ * @param indexPath 位置
+ *
+ * @return 評価値
+ */
+-(BOOL)isTitleCell:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 0 && indexPath.row == 0) {
+    return YES;
+  }
+  return NO;
+}
+
+/**
+ * @brief  セルを作成
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return セル
+ */
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
-  cell.titleField.text = self.detailItem.title;
+  if ([self isTitleCell:indexPath]) {
+    ItemDetailTitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTitleCellID];
+    cell.titleField.text = self.detailItem.title;
+    return cell;
+  }
+  ItemDetailTagCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
   return cell;
+}
+
+/**
+ * @brief  タグが選択された時の処理
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ */
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // タグセルの処理
+  if (indexPath.row == 0 && indexPath.section == 1) {
+    ;
+  }
 }
 
 #pragma mark - その他
