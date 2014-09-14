@@ -22,7 +22,12 @@ static NSString *kTagCellID = @"tagCell";
 
 @interface ItemDetailViewController ()
 
+@property NSString *textForSelectedTags;
+@property NSSet *tagsForItems; // アイテムに感染するタグの配列
+@property NSSet *tagsForSelected; // 選択されたタグの配列
+
 - (void)initItem;
+-(NSString *)createStringForSet:(NSSet *)set;
 
 @end
 
@@ -83,15 +88,29 @@ static NSString *kTagCellID = @"tagCell";
     NSString *title = self.detailItem.title;
     NSSet *tags     = self.detailItem.tags;
 
-    NSMutableString *field = [[NSMutableString alloc] init];
+//    NSMutableString *field = [[NSMutableString alloc] init];
+    NSString *field = [self createStringForSet:tags];
     [self.titleField setText:title]; //< タイトル設置
-    for( Tag *tag in tags )
-    { //< すべてのタグに対して
-      [field appendString:tag.title]; //< フィールドに足していく
-      [field appendString:@" "];
-    }
+
+//    for( Tag *tag in tags )
+//    { //< すべてのタグに対して
+//      [field appendString:tag.title]; //< フィールドに足していく
+//      [field appendString:@" "];
+//    }
     self.tagField.text = field; //< タグを設置
   }
+}
+
+-(NSString *)createStringForSet:(NSSet *)set
+{
+  NSMutableString *string = [[NSMutableString alloc] init];
+  for( Tag *tag in set )
+  { //< すべてのタグに対して
+    [string appendString:tag.title]; //< フィールドに足していく
+    [string appendString:@" "];
+  }
+  LOG(@"%@", string);
+  return string;
 }
 
 /**
@@ -147,6 +166,23 @@ static NSString *kTagCellID = @"tagCell";
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+#pragma mark - ユーティリティ
+
+/**
+ * @brief  タイトルセルか評価
+ *
+ * @param indexPath 位置
+ *
+ * @return 評価値
+ */
+-(BOOL)isTitleCell:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 0 && indexPath.row == 0) {
+    return YES;
+  }
+  return NO;
+}
+
 #pragma mark - テーブルビュー
 
 /**
@@ -198,21 +234,6 @@ numberOfRowsInSection:(NSInteger)section
 }
 
 /**
- * @brief  タイトルセルか評価
- *
- * @param indexPath 位置
- *
- * @return 評価値
- */
--(BOOL)isTitleCell:(NSIndexPath *)indexPath
-{
-  if (indexPath.section == 0 && indexPath.row == 0) {
-    return YES;
-  }
-  return NO;
-}
-
-/**
  * @brief  セルを作成
  *
  * @param tableView テーブルビュー
@@ -229,6 +250,7 @@ numberOfRowsInSection:(NSInteger)section
     return cell;
   }
   ItemDetailTagCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
+  cell.textLabel.text = self.textForSelectedTags;
   return cell;
 }
 
@@ -247,11 +269,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   {
     // タグ選択画面を作成
     TagSelectViewController *tagSelectViewController
-    = [[TagSelectViewController alloc] initWithNibName:nil bundle:nil];
+    = [[TagSelectViewController alloc] initWithNibName:nil
+                                                bundle:nil];
+    tagSelectViewController.delegate = self;
     // タグ選択画面をプッシュ
     [self.navigationController pushViewController:tagSelectViewController
                                          animated:YES];
   }
+}
+
+#pragma mark - タグ選択画面デリゲート
+
+/**
+ * @brief  タグ選択画面を終了する
+ *
+ * @param tagsForSelectedRows 選択されたタグ
+ */
+-(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
+{
+  self.tagsForSelected = tagsForSelectedRows;
 }
 
 #pragma mark - その他

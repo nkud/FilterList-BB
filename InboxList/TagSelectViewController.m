@@ -38,7 +38,8 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
+  // ナビゲーションバーを非表示
+  self.navigationController.navigationBar.hidden = YES;
 //  [self.tagTableView registerClass:[UITableViewCell class]
 //            forCellReuseIdentifier:cell_identifier_];
   [self.tagTableView registerNib:[UINib nibWithNibName:@"TagSelectCell"
@@ -77,7 +78,11 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   // 選択されたタグを渡す
   [self.delegate dismissTagSelectView:selected_tags];
   // 入力画面をポップ
-  [self.navigationController popToRootViewControllerAnimated:YES];
+//  [self.navigationController popToRootViewControllerAnimated:YES];
+  [self.navigationController popViewControllerAnimated:YES];
+  
+  // ナビゲーションバーを表示
+  [self.navigationController.navigationBar setHidden:NO];
 }
 
 #pragma mark - テーブルビュー

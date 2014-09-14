@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "Item.h"
+#import "TagSelectViewController.h"
 
 /**
  * @brief  詳細画面用プロトコル
@@ -26,7 +27,7 @@
  * @brief  詳細画面
  */
 @interface ItemDetailViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource>
+<UITableViewDelegate, UITableViewDataSource, TagSelectViewControllerDelegate>
 
 @property (strong, nonatomic) Item * detailItem;
 
