@@ -9,6 +9,7 @@
 #import "ItemDetailViewController.h"
 #import "ItemDetailTitleCell.h"
 #import "ItemDetailTagCell.h"
+#import "TagSelectViewController.h"
 #import "Header.h"
 #import "Tag.h"
 
@@ -237,11 +238,19 @@ numberOfRowsInSection:(NSInteger)section
  * @param tableView テーブルビュー
  * @param indexPath 位置
  */
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
   // タグセルの処理
-  if (indexPath.row == 0 && indexPath.section == 1) {
-    ;
+  if ([cell.reuseIdentifier isEqualToString:kTagCellID])
+  {
+    // タグ選択画面を作成
+    TagSelectViewController *tagSelectViewController
+    = [[TagSelectViewController alloc] initWithNibName:nil bundle:nil];
+    // タグ選択画面をプッシュ
+    [self.navigationController pushViewController:tagSelectViewController
+                                         animated:YES];
   }
 }
 
