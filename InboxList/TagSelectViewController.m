@@ -77,7 +77,7 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   }
   // 選択されたタグを渡す
   [self.delegate dismissTagSelectView:selected_tags];
-  // 入力画面をポップ
+  // 入力画面をポップして、１つ前の画面に戻る
 //  [self.navigationController popToRootViewControllerAnimated:YES];
   [self.navigationController popViewControllerAnimated:YES];
   

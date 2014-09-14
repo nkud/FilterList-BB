@@ -22,7 +22,7 @@ static NSString *kTagCellID = @"tagCell";
 
 @interface ItemDetailViewController ()
 
-@property NSString *textForSelectedTags;
+//@property NSString *textForSelectedTags;
 @property NSSet *tagsForItems; // アイテムに感染するタグの配列
 @property NSSet *tagsForSelected; // 選択されたタグの配列
 
@@ -250,7 +250,7 @@ numberOfRowsInSection:(NSInteger)section
     return cell;
   }
   ItemDetailTagCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
-  cell.textLabel.text = self.textForSelectedTags;
+  cell.textLabel.text = [self createStringForSet:self.tagsForSelected];
   return cell;
 }
 
@@ -287,7 +287,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
+  // 選択されたタグを取得する
   self.tagsForSelected = tagsForSelectedRows;
+  /// @todo 効率悪い
+  [self.tableView reloadData];
 }
 
 #pragma mark - その他
