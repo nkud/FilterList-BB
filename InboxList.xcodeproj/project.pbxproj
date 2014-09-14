@@ -382,7 +382,6 @@
 		B07D582D198E07B300688F98 /* InputItemViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B07D582E198E081300688F98 /* InputItemViewController.xib */,
 				B087077319AB73BE00EE3141 /* ReminderCell.xib */,
 				B0BC6A7819A9916700E53AEF /* InputItemViewController.h */,
@@ -558,6 +557,7 @@
 			children = (
 				B072C8CD198CF80D00F95B83 /* InputHeader */,
 				B0E7571219499D98004C6344 /* ItemCell */,
+				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B0E7571319499E95004C6344 /* ItemDetailView */,
 				B07D582D198E07B300688F98 /* InputItemViewController */,
 				B00AD6A418C45E470005A552 /* ItemViewController.h */,

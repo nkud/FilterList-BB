@@ -11,6 +11,10 @@
 #import "Tag.h"
 #import "Header.h"
 
+static NSString *kTagForSelectedCellID = @"TagSelectCell";
+
+#pragma mark -
+
 @interface TagSelectViewController () {
   NSString *cell_identifier_;
 }
@@ -18,6 +22,8 @@
 @end
 
 @implementation TagSelectViewController
+
+#pragma mark - 初期化
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
@@ -33,12 +39,11 @@
 {
   [super viewDidLoad];
   
-  cell_identifier_ = @"TagSelectCell";
 //  [self.tagTableView registerClass:[UITableViewCell class]
 //            forCellReuseIdentifier:cell_identifier_];
   [self.tagTableView registerNib:[UINib nibWithNibName:@"TagSelectCell"
                                                 bundle:nil]
-          forCellReuseIdentifier:cell_identifier_];
+          forCellReuseIdentifier:kTagForSelectedCellID];
   
   // ボタンの設定
   [self.saveButton addTarget:self
@@ -54,22 +59,28 @@
   [self.tagTableView setEditing:YES];
 }
 
+#pragma mark - 終了処理
+
 /**
  * @brief  入力画面を終了
  */
 -(void)dismissTagSelectView
 {
-  LOG(@"入力画面を終了");
+  // 選択されたタグを取得
   NSArray *selected_rows = [self.tagTableView indexPathsForSelectedRows];
-  NSMutableSet *tags_for_selected = [[NSMutableSet alloc] init];
+  NSMutableSet *selected_tags = [[NSMutableSet alloc] init];
+  
   for (NSIndexPath *index in selected_rows) {
     Tag *tag = [self.fetchedResultsController objectAtIndexPath:index];
-    [tags_for_selected addObject:tag];
+    [selected_tags addObject:tag];
   }
-  [self.delegate dismissTagSelectView:tags_for_selected]; // 選択されたタグを渡す
-  
+  // 選択されたタグを渡す
+  [self.delegate dismissTagSelectView:selected_tags];
+  // 入力画面をポップ
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+#pragma mark - テーブルビュー
 
 /**
  * @brief  セクション内のセル数
@@ -127,12 +138,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-  UITableViewCell *cell = [self.tagTableView dequeueReusableCellWithIdentifier:cell_identifier_];
+  UITableViewCell *cell = [self.tagTableView dequeueReusableCellWithIdentifier:kTagForSelectedCellID];
 
   cell.textLabel.text = tag.title;
   return cell;
 }
 
+#pragma mark - その他
 
 - (void)didReceiveMemoryWarning
 {

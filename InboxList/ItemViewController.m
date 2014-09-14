@@ -328,15 +328,17 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 -(void)pushDetailView:(NSIndexPath *)indexPath
 {
+  // アイテムを取得
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  // 詳細画面を作成
   ItemDetailViewController *detailViewController =
   [[ItemDetailViewController alloc] initWithNibName:@"ItemDetailViewController"
                                              bundle:nil];
-  
+  // 詳細画面を設定
   [detailViewController setDetailItem:item];
   [detailViewController setIndex:indexPath];
   [detailViewController setDelegate:self];
-  
+  // 詳細画面をプッシュ
   [self.navigationController pushViewController:detailViewController
                                        animated:NO];
 }

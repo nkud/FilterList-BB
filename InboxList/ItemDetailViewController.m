@@ -98,15 +98,15 @@ static NSString *kTagCellID = @"tagCell";
  *
  *  @param newDetailItem アイテム
  */
-- (void)setDetailItem:(id)newDetailItem
-{
-  if (_detailItem != newDetailItem) {
-    _detailItem = newDetailItem;
-
-    // Update the view.
-    [self initItem];
-  }
-}
+//- (void)setDetailItem:(id)newDetailItem
+//{
+//  if (_detailItem != newDetailItem) {
+//    _detailItem = newDetailItem;
+//
+//    // Update the view.
+//    [self initItem];
+//  }
+//}
 
 /**
  *  @brief テキストフィールドを作成する
