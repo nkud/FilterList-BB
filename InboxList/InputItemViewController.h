@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TagFieldViewController.h"
 #import "TagSelectViewController.h"
 
 /**
