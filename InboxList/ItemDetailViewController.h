@@ -26,15 +26,17 @@
  * @brief  詳細画面
  */
 @interface ItemDetailViewController : UIViewController
+<UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) Item * detailItem;
 
 @property id <ItemDetailViewControllerDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *tagField;
 
 @property (strong, nonatomic) NSIndexPath *index;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

@@ -7,8 +7,15 @@
 //
 
 #import "ItemDetailViewController.h"
+#import "ItemDetailTitleCell.h"
 #import "Header.h"
 #import "Tag.h"
+
+#define kPickerAnimationDuration 0.4
+
+static NSString *kTitleCellID = @"titleCell";
+
+#pragma mark -
 
 @interface ItemDetailViewController ()
 
@@ -47,19 +54,18 @@
   
   // アイテムを更新
   [self initItem];
-  // インターフェイスを初期化
-  [self initInterface];
-}
-
-/**
- *  @brief インターフェイスを初期化する
- */
-- (void)initInterface
-{
-  // ボタンを設定
-  [self.saveButton addTarget:self
-                      action:@selector(save)
-            forControlEvents:UIControlEventTouchUpInside];
+  
+  // セル登録
+  [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTitleCell"
+                                             bundle:nil]
+       forCellReuseIdentifier:kTitleCellID];
+  
+  // セーブボタン
+  UIBarButtonItem *saveButton
+  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+                                                  target:self
+                                                  action:@selector(save)];
+  self.navigationItem.rightBarButtonItem = saveButton;
 }
 
 /**
@@ -105,15 +111,17 @@
  *
  *  @return インスタンス
  */
-- (UITextField *)createTextField:(int)x y:(int)y
-{
-  UITextField *_newTextField;
-  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
-  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
-  [_newTextField setReturnKeyType:UIReturnKeyDone];
-  [_newTextField setText:nil];
-  return _newTextField;
-}
+//- (UITextField *)createTextField:(int)x y:(int)y
+//{
+//  UITextField *_newTextField;
+//  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
+//  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
+//  [_newTextField setReturnKeyType:UIReturnKeyDone];
+//  [_newTextField setText:nil];
+//  return _newTextField;
+//}
+
+#pragma mark - 保存・終了処理
 
 /**
  *  @brief 保存して戻る
@@ -133,6 +141,46 @@
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+#pragma mark - テーブルビュー
+
+/**
+ * @brief  セクション数を返す
+ *
+ * @param tableView テーブルビュー
+ *
+ * @return セクション数
+ */
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return 2;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+  if (section == 0) {
+    return @"TITLE";
+  } else {
+    return @"OPTION";
+  }
+}
+
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
+{
+  if (section == 0) {
+    return  1;
+  } else {
+    return 2;
+  }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
+  cell.titleField.text = @"teset";
+  return cell;
+}
 
 #pragma mark - その他
 /**
