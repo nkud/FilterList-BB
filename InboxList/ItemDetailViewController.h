@@ -19,7 +19,7 @@
 - (void)dismissDetailView:(id)sender
                     index:(NSIndexPath *)indexPath
                 itemTitle:(NSString *)itemTitle
-                tagTitles:(NSArray *)tagTitles;
+          tagsForSelected:(NSSet *)tagForSelected;
 
 @end
 

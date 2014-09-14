@@ -154,13 +154,13 @@ static NSString *kTagCellID = @"tagCell";
 {
   //    [self dismissViewControllerAnimated:YES completion:nil];
 
-  NSArray *tag_titles = [self.tagField.text componentsSeparatedByString:@" "]; //< タグの配列を生成
+//  NSArray *tag_titles = [self.tagField.text componentsSeparatedByString:@" "]; //< タグの配列を生成
 
   /// デリゲートに変更後を渡す
   [self.delegate dismissDetailView:self
                              index:self.index
                          itemTitle:self.titleField.text
-                         tagTitles:tag_titles];
+                   tagsForSelected:self.tagsForSelected];
   /// ビューを削除する
   [self.navigationController popToRootViewControllerAnimated:YES];
 }

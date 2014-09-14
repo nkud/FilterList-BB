@@ -354,27 +354,28 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 -(void)dismissDetailView:(id)sender
                    index:(NSIndexPath *)indexPath
                itemTitle:(NSString *)itemTitle
-               tagTitles:(NSArray *)tagTitles
+         tagsForSelected:(NSSet *)tagsForSelected
 {
   NSLog(@"%s", __FUNCTION__);
   // アイテムを取得
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
   item.title = itemTitle;
+  item.tags = tagsForSelected;
 
-  for (NSString *title in tagTitles) {
-    NSArray *tags = [CoreDataController fetchTagsForTitle:title];
-    if ([tags count] > 0) {
-      Tag *tag = [tags objectAtIndex:0];
-      [tag addItemsObject:item];
-      [item addTagsObject:tag];
-    } else {
-      Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-                                                  inManagedObjectContext:[CoreDataController managedObjectContext]];
-      newTag.title = title;
-      [newTag addItemsObject:item];
-      [item addTagsObject:newTag];
-    }
-  }
+//  for (NSString *title in tagTitles) {
+//    NSArray *tags = [CoreDataController fetchTagsForTitle:title];
+//    if ([tags count] > 0) {
+//      Tag *tag = [tags objectAtIndex:0];
+//      [tag addItemsObject:item];
+//      [item addTagsObject:tag];
+//    } else {
+//      Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
+//                                                  inManagedObjectContext:[CoreDataController managedObjectContext]];
+//      newTag.title = title;
+//      [newTag addItemsObject:item];
+//      [item addTagsObject:newTag];
+//    }
+//  }
   // モデルを保存する
   [CoreDataController saveContext];
 }
