@@ -23,7 +23,6 @@ static NSString *kTagCellID = @"tagCell";
 @interface ItemDetailViewController ()
 
 //@property NSString *textForSelectedTags;
-@property NSSet *tagsForItems; // アイテムに感染するタグの配列
 @property NSSet *tagsForSelected; // 選択されたタグの配列
 
 - (void)initItem;
@@ -250,8 +249,24 @@ numberOfRowsInSection:(NSInteger)section
     return cell;
   }
   ItemDetailTagCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
-  cell.textLabel.text = [self createStringForSet:self.tagsForSelected];
+
+  [self configureTagCell:cell
+             atIndexPath:indexPath];
   return cell;
+}
+
+-(void)configureTagCell:(ItemDetailTagCell *)cell
+            atIndexPath:(NSIndexPath *)atIndexPath
+{
+  NSString *string;
+  // まだ未選択の時
+  if (self.tagsForSelected == nil) {
+    string = [self createStringForSet:self.detailItem.tags];
+  } else {
+    // 選択された時
+    string = [self createStringForSet:self.tagsForSelected];
+  }
+  cell.textLabel.text = string;
 }
 
 /**
