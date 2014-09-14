@@ -178,7 +178,7 @@ numberOfRowsInSection:(NSInteger)section
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
-  cell.titleField.text = @"teset";
+  cell.titleField.text = self.detailItem.title;
   return cell;
 }
 

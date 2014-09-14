@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ItemDetailTitleCell : UITableViewCell
+<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 
