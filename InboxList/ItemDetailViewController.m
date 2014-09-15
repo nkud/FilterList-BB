@@ -177,7 +177,8 @@ static NSString *kTagCellID = @"tagCell";
  */
 -(BOOL)isTagCell:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 1 && indexPath.row == 0) {
+  if (indexPath.section == 1 && indexPath.row == 0)
+  {
     return YES;
   }
   return NO;
@@ -218,9 +219,11 @@ static NSString *kTagCellID = @"tagCell";
 -(NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section
 {
-  if (section == 0) {
+  if (section == 0)
+  {
     return @"TITLE";
-  } else {
+  } else
+  {
     return @"OPTION";
   }
 }
@@ -238,7 +241,8 @@ numberOfRowsInSection:(NSInteger)section
 {
   if (section == 0) {
     return 1;
-  } else {
+  } else
+  {
     return 2;
   }
 }

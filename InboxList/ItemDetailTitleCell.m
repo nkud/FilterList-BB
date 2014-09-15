@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/09/14.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "ItemDetailTitleCell.h"
@@ -17,7 +17,7 @@
  */
 - (void)awakeFromNib
 {
-    // Initialization code
+  // Initialization code
   self.titleField.delegate = self;
 }
 
@@ -27,15 +27,15 @@
  * @brief  選択された時のアニメーション？
  *
  * @param selected <#selected description#>
- * @param animated <#animated description#>
+ * @param animated アニメーション
  */
 - (void)setSelected:(BOOL)selected
            animated:(BOOL)animated
 {
-    [super setSelected:selected
-              animated:animated];
-
-    // Configure the view for the selected state
+  [super setSelected:selected
+            animated:animated];
+  
+  // Configure the view for the selected state
 }
 
 #pragma mark - テキストフィールドの処理
