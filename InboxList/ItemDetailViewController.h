@@ -29,11 +29,10 @@
 <UITableViewDelegate, UITableViewDataSource, TagSelectViewControllerDelegate>
 
 @property (strong, nonatomic) Item * detailItem;
-
-@property id <ItemDetailViewControllerDelegate> delegate;
-
 @property (strong, nonatomic) NSIndexPath *indexPathForItem;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property id <ItemDetailViewControllerDelegate> delegate;
 
 @end

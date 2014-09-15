@@ -53,25 +53,6 @@ static NSString *kTagCellID = @"tagCell";
   self.navigationItem.rightBarButtonItem = saveButton;
 }
 
-/**
- * @brief  タグのセットから文字列を作成
- *
- * @param set タグのセット
- *
- * @return 文字列
- */
--(NSString *)createStringForSet:(NSSet *)set
-{
-  NSMutableString *string = [[NSMutableString alloc] init];
-  for( Tag *tag in set )
-  { //< すべてのタグに対して
-    [string appendString:tag.title]; //< フィールドに足していく
-    [string appendString:@" "];
-  }
-  LOG(@"%@", string);
-  return string;
-}
-
 #pragma mark - 保存・終了処理
 
 -(void)updateItem
@@ -98,6 +79,25 @@ static NSString *kTagCellID = @"tagCell";
 #pragma mark - ユーティリティ
 
 /**
+ * @brief  タグのセットから文字列を作成
+ *
+ * @param set タグのセット
+ *
+ * @return 文字列
+ */
+-(NSString *)createStringForSet:(NSSet *)set
+{
+  NSMutableString *string = [[NSMutableString alloc] init];
+  for( Tag *tag in set )
+  { //< すべてのタグに対して
+    [string appendString:tag.title]; //< フィールドに足していく
+    [string appendString:@" "];
+  }
+  LOG(@"%@", string);
+  return string;
+}
+
+/**
  * @brief  タイトルセルか評価
  *
  * @param indexPath 位置
@@ -111,9 +111,22 @@ static NSString *kTagCellID = @"tagCell";
   }
   return NO;
 }
-
 /**
- * @brief  変更後のタイトルを取得
+ * @brief  タグセルか評価
+ *
+ * @param indexPath 位置
+ *
+ * @return 評価値
+ */
+-(BOOL)isTagCell:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 1 && indexPath.row == 0) {
+    return YES;
+  }
+  return NO;
+}
+/**
+ * @brief  現在入力されているタイトルを取得
  *
  * @return 文字列
  */
@@ -186,19 +199,38 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // タイトルセルを作成
   if ([self isTitleCell:indexPath])
   {
     ItemDetailTitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTitleCellID];
-    cell.titleField.text = self.detailItem.title;
+    [self configureTitleCell:cell atIndexPath:indexPath];
     return cell;
   }
-  ItemDetailTagCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
-
-  [self configureTagCell:cell
-             atIndexPath:indexPath];
+  // タグセルを作成
+  if ([self isTagCell:indexPath]) {
+    ItemDetailTagCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
+    
+    [self configureTagCell:cell
+               atIndexPath:indexPath];
+    return cell;
+  }
+  UITableViewCell *cell = [[UITableViewCell alloc] init];
   return cell;
 }
 
+/**
+ * @brief  タイトルセルを設定
+ *
+ * @param cell        セル
+ * @param atIndexPath 位置
+ */
+-(void)configureTitleCell:(ItemDetailTitleCell *)cell
+              atIndexPath:(NSIndexPath *)atIndexPath
+{
+  if (self.detailItem) {
+    cell.titleField.text = self.detailItem.title;
+  }
+}
 /**
  * @brief  タグセルを設定
  *
@@ -208,9 +240,12 @@ numberOfRowsInSection:(NSInteger)section
 -(void)configureTagCell:(ItemDetailTagCell *)cell
             atIndexPath:(NSIndexPath *)atIndexPath
 {
-  NSString *string;
-  string = [self createStringForSet:self.detailItem.tags];
-  cell.textLabel.text = string;
+  if (self.detailItem)
+  {
+    NSString *string;
+    string = [self createStringForSet:self.detailItem.tags];
+    cell.textLabel.text = string;
+  }
 }
 
 /**
