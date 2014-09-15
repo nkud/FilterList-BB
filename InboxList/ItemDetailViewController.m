@@ -9,14 +9,19 @@
 #import "ItemDetailViewController.h"
 #import "ItemDetailTitleCell.h"
 #import "ItemDetailTagCell.h"
+#import "ItemDetailDateCell.h"
+#import "ItemDetailDatePickerCell.h"
 #import "TagSelectViewController.h"
 #import "Header.h"
 #import "Tag.h"
 
 #define kPickerAnimationDuration 0.4
 
+// セルID
 static NSString *kTitleCellID = @"titleCell";
 static NSString *kTagCellID = @"tagCell";
+static NSString *kDateCellID = @"dateCell";
+static NSString *kDatePickerCellID = @"datePickerCell";
 
 #pragma mark -
 
@@ -81,7 +86,13 @@ static NSString *kTagCellID = @"tagCell";
   [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTagCell"
                                              bundle:nil]
        forCellReuseIdentifier:kTagCellID];
-  
+  [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailDateCell"
+                                             bundle:nil]
+       forCellReuseIdentifier:kDateCellID];
+  [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailDatePickerCell"
+                                             bundle:nil]
+       forCellReuseIdentifier:kDatePickerCellID];
+
   // セーブボタン
   UIBarButtonItem *saveButton
   = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
@@ -178,6 +189,22 @@ static NSString *kTagCellID = @"tagCell";
   }
   return NO;
 }
+-(BOOL)isDateCell:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 1 && indexPath.row == 1) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+-(BOOL)isDatePickerCell:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 1 && indexPath.row == 2) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
 /**
  * @brief  現在入力されているタイトルを取得
  *
@@ -266,6 +293,11 @@ numberOfRowsInSection:(NSInteger)section
     
     [self configureTagCell:cell
                atIndexPath:indexPath];
+    return cell;
+  }
+  if ([self isDateCell:indexPath]) {
+    ItemDetailDateCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    cell.textLabel.text = @"date";
     return cell;
   }
   UITableViewCell *cell = [[UITableViewCell alloc] init];
