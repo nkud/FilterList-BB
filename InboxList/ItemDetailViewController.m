@@ -285,12 +285,9 @@ numberOfRowsInSection:(NSInteger)section
 -(void)configureTagCell:(ItemDetailTagCell *)cell
             atIndexPath:(NSIndexPath *)atIndexPath
 {
-  if (self.titleForItem)
-  {
-    NSString *string;
-    string = [self createStringForSet:self.tagsForItem];
-    cell.textLabel.text = string;
-  }
+  NSString *string;
+  string = [self createStringForSet:self.tagsForItem];
+  cell.textLabel.text = string;
 }
 
 /**

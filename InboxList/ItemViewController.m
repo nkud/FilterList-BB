@@ -281,17 +281,25 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 -(void)presentInputItemView
 {
   LOG(@"入力画面を表示");
-  InputItemViewController *inputView = [[InputItemViewController alloc] initWithNibName:@"InputItemViewController"
-                                                                                 bundle:nil];
-  inputView.delegate = self;
-  [inputView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-  
-  InputItemNavigationController *inputItemNavigationController
-  = [[InputItemNavigationController alloc] initWithRootViewController:inputView];
-  
-  [self presentViewController:inputItemNavigationController
-                     animated:YES
-                   completion:nil];
+//  InputItemViewController *inputView = [[InputItemViewController alloc] initWithNibName:@"InputItemViewController"
+//                                                                                 bundle:nil];
+//  inputView.delegate = self;
+//  [inputView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+//  
+//  InputItemNavigationController *inputItemNavigationController
+//  = [[InputItemNavigationController alloc] initWithRootViewController:inputView];
+//  
+//  [self presentViewController:inputItemNavigationController
+//                     animated:YES
+//                   completion:nil];
+  ItemDetailViewController *detailViewController
+  = [[ItemDetailViewController alloc] initWithTitle:nil
+                                               tags:nil
+                                           reminder:nil
+                                          indexPath:nil
+                                           delegate:self];
+  [self.navigationController pushViewController:detailViewController
+                                       animated:YES];
 }
 
 /**
@@ -364,6 +372,11 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   Item *item;
   if (isNewItem) {
     // 新規にアイテムを作成
+    if ([title isEqualToString:@""])
+    {
+      // タイトルが空白なら終了
+      return;
+    }
     item = [CoreDataController newItemObject];
   } else
   {
