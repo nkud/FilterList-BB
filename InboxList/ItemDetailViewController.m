@@ -22,9 +22,6 @@ static NSString *kTagCellID = @"tagCell";
 
 @interface ItemDetailViewController ()
 
-//@property NSString *textForSelectedTags;
-@property NSSet *tagsForSelected; // 選択されたタグの配列
-
 -(NSString *)createStringForSet:(NSSet *)set;
 
 @end
@@ -34,32 +31,11 @@ static NSString *kTagCellID = @"tagCell";
 #pragma mark - 初期化
 
 /**
- *  @brief Nibファイルで初期化
- *
- *  @param nibNameOrNil   Nibファイル名
- *  @param nibBundleOrNil バンドル
- *
- *  @return インスタンス
- */
--(id)initWithNibName:(NSString *)nibNameOrNil
-              bundle:(NSBundle *)nibBundleOrNil
-{
-  LOG(@"詳細ビューを初期化");
-  self = [super initWithNibName:nibNameOrNil
-                         bundle:nibBundleOrNil];
-
-  return self;
-}
-
-/**
  * @brief  ビューがロードされた後の処理
  */
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  // アイテムを更新
-//  [self initItem];
   
   // セル登録
   [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTitleCell"
@@ -73,32 +49,17 @@ static NSString *kTagCellID = @"tagCell";
   UIBarButtonItem *saveButton
   = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                   target:self
-                                                  action:@selector(save)];
+                                                  action:@selector(saveAndDismiss)];
   self.navigationItem.rightBarButtonItem = saveButton;
 }
 
 /**
- *  @brief アイテムを更新する
+ * @brief  タグのセットから文字列を作成
+ *
+ * @param set タグのセット
+ *
+ * @return 文字列
  */
-//- (void)initItem
-//{
-//  if (self.detailItem) {
-//    NSString *title = self.detailItem.title;
-//    NSSet *tags     = self.detailItem.tags;
-//
-////    NSMutableString *field = [[NSMutableString alloc] init];
-//    NSString *field = [self createStringForSet:tags];
-//    [self.titleField setText:title]; //< タイトル設置
-//
-////    for( Tag *tag in tags )
-////    { //< すべてのタグに対して
-////      [field appendString:tag.title]; //< フィールドに足していく
-////      [field appendString:@" "];
-////    }
-//    self.tagField.text = field; //< タグを設置
-//  }
-//}
-
 -(NSString *)createStringForSet:(NSSet *)set
 {
   NSMutableString *string = [[NSMutableString alloc] init];
@@ -111,55 +72,25 @@ static NSString *kTagCellID = @"tagCell";
   return string;
 }
 
-/**
- *  @brief アイテムを設定する
- *
- *  @param newDetailItem アイテム
- */
-//- (void)setDetailItem:(id)newDetailItem
-//{
-//  if (_detailItem != newDetailItem) {
-//    _detailItem = newDetailItem;
-//
-//    // Update the view.
-//    [self initItem];
-//  }
-//}
-
-/**
- *  @brief テキストフィールドを作成する
- *
- *  @param x x座標
- *  @param y y座標
- *
- *  @return インスタンス
- */
-//- (UITextField *)createTextField:(int)x y:(int)y
-//{
-//  UITextField *_newTextField;
-//  _newTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 100, 40)];
-//  [_newTextField setBorderStyle:UITextBorderStyleRoundedRect];
-//  [_newTextField setReturnKeyType:UIReturnKeyDone];
-//  [_newTextField setText:nil];
-//  return _newTextField;
-//}
-
 #pragma mark - 保存・終了処理
+
+-(void)updateItem
+{
+  self.detailItem.title = [self getTextOfTitleCell];
+}
 
 /**
  *  @brief 保存して戻る
  */
-- (void)save
+- (void)saveAndDismiss
 {
-  //    [self dismissViewControllerAnimated:YES completion:nil];
-
-//  NSArray *tag_titles = [self.tagField.text componentsSeparatedByString:@" "]; //< タグの配列を生成
-
-  /// デリゲートに変更後を渡す
+  // アイテムを更新
+  [self updateItem];
+  
+  // デリゲートに更新後アイテムを渡す
   [self.delegate dismissDetailView:self
-                             index:self.index
-                         itemTitle:[self getTextOfTitleCell]
-                   tagsForSelected:self.tagsForSelected];
+                         indexPath:self.index
+                       updatedItem:self.detailItem];
   /// ビューを削除する
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -267,17 +198,17 @@ numberOfRowsInSection:(NSInteger)section
   return cell;
 }
 
+/**
+ * @brief  タグセルを設定
+ *
+ * @param cell        セル
+ * @param atIndexPath 位置
+ */
 -(void)configureTagCell:(ItemDetailTagCell *)cell
             atIndexPath:(NSIndexPath *)atIndexPath
 {
   NSString *string;
-  // まだ未選択の時
-  if (self.tagsForSelected == nil) {
-    string = [self createStringForSet:self.detailItem.tags];
-  } else {
-    // 選択された時
-    string = [self createStringForSet:self.tagsForSelected];
-  }
+  string = [self createStringForSet:self.detailItem.tags];
   cell.textLabel.text = string;
 }
 
@@ -316,7 +247,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
   // 選択されたタグを取得する
-  self.tagsForSelected = tagsForSelectedRows;
+  self.detailItem.tags = tagsForSelectedRows;
   /// @todo 効率悪い
   [self.tableView reloadData];
 }

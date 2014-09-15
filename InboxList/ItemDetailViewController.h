@@ -16,10 +16,9 @@
  */
 @protocol ItemDetailViewControllerDelegate <NSObject>
 
-- (void)dismissDetailView:(id)sender
-                    index:(NSIndexPath *)indexPath
-                itemTitle:(NSString *)itemTitle
-          tagsForSelected:(NSSet *)tagForSelected;
+-(void)dismissDetailView:(id)sender
+               indexPath:(NSIndexPath *)indexPath
+             updatedItem:(Item *)updateditem;
 
 @end
 

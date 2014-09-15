@@ -344,39 +344,18 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 }
 
 /**
- *  @brief 詳細画面を終了させる処理
+ * @brief  詳細画面を終了させる前の処理
  *
- *  @param sender    sender description
- *  @param indexPath 詳細を表示したセルの位置
- *  @param itemTitle 更新されたアイテムのタイトル
- *  @param tagTitles 更新されたタグ
+ * @param sender      詳細画面
+ * @param indexPath   詳細を表示したセルの位置
+ * @param updateditem 更新されたアイテム
  */
 -(void)dismissDetailView:(id)sender
-                   index:(NSIndexPath *)indexPath
-               itemTitle:(NSString *)itemTitle
-         tagsForSelected:(NSSet *)tagsForSelected
+               indexPath:(NSIndexPath *)indexPath
+             updatedItem:(Item *)updateditem
 {
-  NSLog(@"%s", __FUNCTION__);
-  // アイテムを取得
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  item.title = itemTitle;
-  item.tags = tagsForSelected;
-
-//  for (NSString *title in tagTitles) {
-//    NSArray *tags = [CoreDataController fetchTagsForTitle:title];
-//    if ([tags count] > 0) {
-//      Tag *tag = [tags objectAtIndex:0];
-//      [tag addItemsObject:item];
-//      [item addTagsObject:tag];
-//    } else {
-//      Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-//                                                  inManagedObjectContext:[CoreDataController managedObjectContext]];
-//      newTag.title = title;
-//      [newTag addItemsObject:item];
-//      [item addTagsObject:newTag];
-//    }
-//  }
-  // モデルを保存する
+  item = updateditem;
   [CoreDataController saveContext];
 }
 
