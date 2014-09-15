@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import <CoreData/CoreData.h>
-#import "InputItemViewController.h"
 #import "ItemDetailViewController.h"
 #import "Item.h"
 #import "ItemCell.h"
@@ -18,8 +17,7 @@
  * @brief  アイテムリスト
  */
 @interface ItemViewController : UITableViewController
-<NSFetchedResultsControllerDelegate, InputItemViewControllerDelegate,
-ItemDetailViewControllerDelegate>
+<NSFetchedResultsControllerDelegate, ItemDetailViewControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 

@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "ItemViewController.h"
 #import "ItemDetailViewController.h"
-#import "InputItemViewController.h"
 #import "Tag.h"
 #import "Item.h"
 #import "ItemCell.h"
@@ -17,9 +16,6 @@
 #import "Header.h"
 #import "Configure.h"
 #import "CoreDataController.h"
-
-#import "InputItemNavigationController.h"
-
 
 @interface ItemViewController () {
   int location_center_x;
@@ -300,31 +296,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                                            delegate:self];
   [self.navigationController pushViewController:detailViewController
                                        animated:YES];
-}
-
-/**
- * @brief  入力画面を終了させる処理
- *
- * @param title               タイトル
- * @param tagsForSelectedRows 選択されたタグ
- * @param reminder            リマインダー
- */
--(void)dismissInputItemView:(NSString *)itemTitle
-        tagsForSelectedRows:(NSSet *)tagsForSelectedRows
-                   reminder:(NSDate *)reminder
-{
-  if ([itemTitle isEqual:@""]) {
-    // 空欄なら何もしない
-  } else {
-    // 新しいアイテムを挿入する
-    [CoreDataController insertNewItem:itemTitle
-                                 tags:tagsForSelectedRows
-                             reminder:reminder];
-  }
-  
-  // 画面を終了する
-  [self dismissViewControllerAnimated:YES
-                           completion:nil];
 }
 
 #pragma mark - 詳細画面処理
