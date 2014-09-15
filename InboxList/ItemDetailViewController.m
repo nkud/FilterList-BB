@@ -89,7 +89,7 @@ static NSString *kTagCellID = @"tagCell";
   
   // デリゲートに更新後アイテムを渡す
   [self.delegate dismissDetailView:self
-                         indexPath:self.index
+                         indexPath:self.indexPathForItem
                        updatedItem:self.detailItem];
   /// ビューを削除する
   [self.navigationController popToRootViewControllerAnimated:YES];
@@ -169,7 +169,7 @@ titleForHeaderInSection:(NSInteger)section
 numberOfRowsInSection:(NSInteger)section
 {
   if (section == 0) {
-    return  1;
+    return 1;
   } else {
     return 2;
   }
@@ -186,7 +186,8 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([self isTitleCell:indexPath]) {
+  if ([self isTitleCell:indexPath])
+  {
     ItemDetailTitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTitleCellID];
     cell.titleField.text = self.detailItem.title;
     return cell;

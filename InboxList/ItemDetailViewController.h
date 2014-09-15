@@ -32,7 +32,7 @@
 
 @property id <ItemDetailViewControllerDelegate> delegate;
 
-@property (strong, nonatomic) NSIndexPath *index;
+@property (strong, nonatomic) NSIndexPath *indexPathForItem;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

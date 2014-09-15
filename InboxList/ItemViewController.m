@@ -336,7 +336,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                                              bundle:nil];
   // 詳細画面を設定
   [detailViewController setDetailItem:item];
-  [detailViewController setIndex:indexPath];
+  [detailViewController setIndexPathForItem:indexPath];
   [detailViewController setDelegate:self];
   // 詳細画面をプッシュ
   [self.navigationController pushViewController:detailViewController
