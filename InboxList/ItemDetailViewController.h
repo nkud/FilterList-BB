@@ -18,7 +18,8 @@
 
 -(void)dismissDetailView:(id)sender
                indexPath:(NSIndexPath *)indexPath
-             updatedItem:(Item *)updateditem;
+             updatedItem:(Item *)updateditem
+               isNewItem:(BOOL)isNewItem;
 
 @end
 
@@ -34,5 +35,12 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property id <ItemDetailViewControllerDelegate> delegate;
+
+@property BOOL isNewItem;
+
+-(ItemDetailViewController *)initWithItem:(Item *)item
+                         indexPathForItem:(NSIndexPath *)indexPathForItem
+                                 delegate:(id<ItemDetailViewControllerDelegate>)delegate;
+
 
 @end

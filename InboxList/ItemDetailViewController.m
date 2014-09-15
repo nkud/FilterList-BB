@@ -31,6 +31,35 @@ static NSString *kTagCellID = @"tagCell";
 #pragma mark - 初期化
 
 /**
+ * @brief  初期化
+ *
+ * @param item             アイテム
+ * @param indexPathForItem アイテムの位置
+ * @param delegate         デリゲート
+ *
+ * @return インスタンス
+ */
+-(ItemDetailViewController *)initWithItem:(Item *)item
+   indexPathForItem:(NSIndexPath *)indexPathForItem
+           delegate:(id<ItemDetailViewControllerDelegate>)delegate
+{
+  self = [super initWithNibName:@"ItemDetailViewController"
+                  bundle:nil];
+  if (self)
+  {
+    self.detailItem = item;
+    self.indexPathForItem = indexPathForItem;
+    self.delegate = delegate;
+    if (item == nil) {
+      self.isNewItem = YES;
+    } else {
+      self.isNewItem = NO;
+    }
+  }
+  return self;
+}
+
+/**
  * @brief  ビューがロードされた後の処理
  */
 - (void)viewDidLoad
@@ -74,7 +103,8 @@ static NSString *kTagCellID = @"tagCell";
   // デリゲートに更新後アイテムを渡す
   [self.delegate dismissDetailView:self
                          indexPath:self.indexPathForItem
-                       updatedItem:self.detailItem];
+                       updatedItem:self.detailItem
+                         isNewItem:self.isNewItem];
   /// ビューを削除する
   [self.navigationController popToRootViewControllerAnimated:YES];
 }

@@ -331,13 +331,18 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   // アイテムを取得
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
   // 詳細画面を作成
-  ItemDetailViewController *detailViewController =
-  [[ItemDetailViewController alloc] initWithNibName:@"ItemDetailViewController"
-                                             bundle:nil];
+//  ItemDetailViewController *detailViewController =
+//  [[ItemDetailViewController alloc] initWithNibName:@"ItemDetailViewController"
+//                                             bundle:nil];
+  ItemDetailViewController *detailViewController
+  = [[ItemDetailViewController alloc] initWithItem:item
+                                  indexPathForItem:indexPath
+                                          delegate:self];
   // 詳細画面を設定
-  [detailViewController setDetailItem:item];
-  [detailViewController setIndexPathForItem:indexPath];
-  [detailViewController setDelegate:self];
+//  [detailViewController setDetailItem:item];
+//  [detailViewController setIndexPathForItem:indexPath];
+//  [detailViewController setDelegate:self];
+//  [detailViewController setIsNewItem:NO];
   // 詳細画面をプッシュ
   [self.navigationController pushViewController:detailViewController
                                        animated:NO];
@@ -353,8 +358,14 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 -(void)dismissDetailView:(id)sender
                indexPath:(NSIndexPath *)indexPath
              updatedItem:(Item *)updateditem
+               isNewItem:(BOOL)isNewItem
 {
-  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  Item *item;
+  if (isNewItem) {
+    item = [CoreDataController newItemObject];
+  } else {
+    item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  }
   item = updateditem;
   [CoreDataController saveContext];
 }
