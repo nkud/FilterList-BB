@@ -95,18 +95,13 @@ static NSString *kTagCellID = @"tagCell";
 
 #pragma mark - 保存・終了処理
 
--(void)updateItem
-{
-  self.titleForItem = [self getTextOfTitleCell];
-}
-
 /**
  *  @brief 保存して戻る
  */
 - (void)saveAndDismiss
 {
   // アイテムを更新
-  [self updateItem];
+  self.titleForItem = [self getTextOfTitleCell];
   
   // デリゲートに更新後アイテムを渡す
   [self.delegate dismissDetailView:self
