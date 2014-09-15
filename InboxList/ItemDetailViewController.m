@@ -51,6 +51,9 @@ static NSString *kTagCellID = @"tagCell";
                                                   target:self
                                                   action:@selector(saveAndDismiss)];
   self.navigationItem.rightBarButtonItem = saveButton;
+  
+  // スクロールを停止
+  self.tableView.scrollEnabled = NO;
 }
 
 #pragma mark - 保存・終了処理
