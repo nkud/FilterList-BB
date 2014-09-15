@@ -25,7 +25,6 @@ static NSString *kTagCellID = @"tagCell";
 //@property NSString *textForSelectedTags;
 @property NSSet *tagsForSelected; // 選択されたタグの配列
 
-- (void)initItem;
 -(NSString *)createStringForSet:(NSSet *)set;
 
 @end
@@ -60,7 +59,7 @@ static NSString *kTagCellID = @"tagCell";
   [super viewDidLoad];
   
   // アイテムを更新
-  [self initItem];
+//  [self initItem];
   
   // セル登録
   [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTitleCell"
@@ -81,24 +80,24 @@ static NSString *kTagCellID = @"tagCell";
 /**
  *  @brief アイテムを更新する
  */
-- (void)initItem
-{
-  if (self.detailItem) {
-    NSString *title = self.detailItem.title;
-    NSSet *tags     = self.detailItem.tags;
-
-//    NSMutableString *field = [[NSMutableString alloc] init];
-    NSString *field = [self createStringForSet:tags];
-    [self.titleField setText:title]; //< タイトル設置
-
-//    for( Tag *tag in tags )
-//    { //< すべてのタグに対して
-//      [field appendString:tag.title]; //< フィールドに足していく
-//      [field appendString:@" "];
-//    }
-    self.tagField.text = field; //< タグを設置
-  }
-}
+//- (void)initItem
+//{
+//  if (self.detailItem) {
+//    NSString *title = self.detailItem.title;
+//    NSSet *tags     = self.detailItem.tags;
+//
+////    NSMutableString *field = [[NSMutableString alloc] init];
+//    NSString *field = [self createStringForSet:tags];
+//    [self.titleField setText:title]; //< タイトル設置
+//
+////    for( Tag *tag in tags )
+////    { //< すべてのタグに対して
+////      [field appendString:tag.title]; //< フィールドに足していく
+////      [field appendString:@" "];
+////    }
+//    self.tagField.text = field; //< タグを設置
+//  }
+//}
 
 -(NSString *)createStringForSet:(NSSet *)set
 {
@@ -159,7 +158,7 @@ static NSString *kTagCellID = @"tagCell";
   /// デリゲートに変更後を渡す
   [self.delegate dismissDetailView:self
                              index:self.index
-                         itemTitle:self.titleField.text
+                         itemTitle:[self getTextOfTitleCell]
                    tagsForSelected:self.tagsForSelected];
   /// ビューを削除する
   [self.navigationController popToRootViewControllerAnimated:YES];
@@ -180,6 +179,19 @@ static NSString *kTagCellID = @"tagCell";
     return YES;
   }
   return NO;
+}
+
+/**
+ * @brief  変更後のタイトルを取得
+ *
+ * @return 文字列
+ */
+-(NSString *)getTextOfTitleCell
+{
+  NSIndexPath *titleCellIndex = [NSIndexPath indexPathForRow:0
+                                                   inSection:0];
+  ItemDetailTitleCell *cell = (ItemDetailTitleCell *)[self.tableView cellForRowAtIndexPath:titleCellIndex];
+  return cell.titleField.text;
 }
 
 #pragma mark - テーブルビュー

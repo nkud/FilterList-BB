@@ -33,9 +33,6 @@
 
 @property id <ItemDetailViewControllerDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet UITextField *titleField;
-@property (weak, nonatomic) IBOutlet UITextField *tagField;
-
 @property (strong, nonatomic) NSIndexPath *index;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
