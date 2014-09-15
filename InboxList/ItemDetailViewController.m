@@ -29,6 +29,8 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 -(NSString *)createStringForSet:(NSSet *)set;
 
+@property (assign) NSInteger heightForPickerCell;
+
 @end
 
 @implementation ItemDetailViewController
@@ -102,6 +104,9 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   
   // スクロールを停止
   self.tableView.scrollEnabled = NO;
+  
+  self.heightForPickerCell = CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID] frame]);
+  LOG(@"%d", self.heightForPickerCell);
 }
 
 #pragma mark - 保存・終了処理
@@ -331,7 +336,7 @@ numberOfRowsInSection:(NSInteger)section
 heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if ([self isDatePickerCell:indexPath]) {
-    return 216;
+    return self.heightForPickerCell;
   } else {
     return 44;
   }
