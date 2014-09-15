@@ -319,6 +319,10 @@ numberOfRowsInSection:(NSInteger)section
     cell.textLabel.text = @"date";
     return cell;
   }
+  if ([self hasInlineDatePicker] && [self isDatePickerCell:indexPath]) {
+    ItemDetailDatePickerCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    return cell;
+  }
   UITableViewCell *cell = [[UITableViewCell alloc] init];
   return cell;
 }
@@ -376,7 +380,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [self.navigationController pushViewController:tagSelectViewController
                                          animated:YES];
   } else if ([cell.reuseIdentifier isEqualToString:kDateCellID])
-  {
+  { // リマインダーセルの処理
     NSArray *indexPaths;
     
     [self.tableView beginUpdates];
