@@ -327,6 +327,16 @@ numberOfRowsInSection:(NSInteger)section
   return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if ([self isDatePickerCell:indexPath]) {
+    return 216;
+  } else {
+    return 44;
+  }
+}
+
 /**
  * @brief  タイトルセルを設定
  *
