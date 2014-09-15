@@ -328,45 +328,52 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 -(void)pushDetailView:(NSIndexPath *)indexPath
 {
-  // アイテムを取得
+  // セルの位置のアイテムを取得
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
   // 詳細画面を作成
-//  ItemDetailViewController *detailViewController =
-//  [[ItemDetailViewController alloc] initWithNibName:@"ItemDetailViewController"
-//                                             bundle:nil];
   ItemDetailViewController *detailViewController
-  = [[ItemDetailViewController alloc] initWithItem:item
-                                  indexPathForItem:indexPath
-                                          delegate:self];
-  // 詳細画面を設定
-//  [detailViewController setDetailItem:item];
-//  [detailViewController setIndexPathForItem:indexPath];
-//  [detailViewController setDelegate:self];
-//  [detailViewController setIsNewItem:NO];
+  = [[ItemDetailViewController alloc] initWithTitle:item.title
+                                               tags:item.tags
+                                           reminder:item.reminder
+                                          indexPath:indexPath
+                                           delegate:self];
+
   // 詳細画面をプッシュ
   [self.navigationController pushViewController:detailViewController
                                        animated:NO];
 }
 
 /**
- * @brief  詳細画面を終了させる前の処理
+ * @brief  詳細ビューを削除する前の処理
  *
- * @param sender      詳細画面
- * @param indexPath   詳細を表示したセルの位置
- * @param updateditem 更新されたアイテム
+ * @param sender    詳細ビュー
+ * @param title     タイトル
+ * @param tags      タグ
+ * @param reminder  リマインダー
+ * @param indexPath 位置
+ * @param isNewItem 新規かどうか
  */
 -(void)dismissDetailView:(id)sender
+                   title:(NSString *)title
+                    tags:(NSSet *)tags
+                reminder:(NSDate *)reminder
                indexPath:(NSIndexPath *)indexPath
-             updatedItem:(Item *)updateditem
                isNewItem:(BOOL)isNewItem
 {
+  LOG(@"%@", title);
   Item *item;
   if (isNewItem) {
+    // 新規にアイテムを作成
     item = [CoreDataController newItemObject];
-  } else {
+  } else
+  {
+    // 更新するアイテムを取得
     item = [self.fetchedResultsController objectAtIndexPath:indexPath];
   }
-  item = updateditem;
+  item.title = title;
+  item.tags = tags;
+  item.reminder = reminder;
+  
   [CoreDataController saveContext];
 }
 

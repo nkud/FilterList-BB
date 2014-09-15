@@ -33,28 +33,36 @@ static NSString *kTagCellID = @"tagCell";
 /**
  * @brief  初期化
  *
- * @param item             アイテム
- * @param indexPathForItem アイテムの位置
- * @param delegate         デリゲート
+ * @param title     タイトル
+ * @param tags      関連するタグ
+ * @param reminder  リマインダー
+ * @param indexPath 位置
+ * @param delegate  デリゲート
  *
  * @return インスタンス
  */
--(ItemDetailViewController *)initWithItem:(Item *)item
-   indexPathForItem:(NSIndexPath *)indexPathForItem
-           delegate:(id<ItemDetailViewControllerDelegate>)delegate
+-(ItemDetailViewController *)initWithTitle:(NSString *)title
+                                      tags:(NSSet *)tags
+                                  reminder:(NSDate *)reminder
+                                 indexPath:(NSIndexPath *)indexPath
+                                  delegate:(id<ItemDetailViewControllerDelegate>)delegate
 {
   self = [super initWithNibName:@"ItemDetailViewController"
-                  bundle:nil];
+                         bundle:nil];
   if (self)
   {
-    self.detailItem = item;
-    self.indexPathForItem = indexPathForItem;
-    self.delegate = delegate;
-    if (item == nil) {
-      self.isNewItem = YES;
-    } else {
+    if (title)
+    {
+      self.titleForItem= title;
+      self.tagsForItem = tags;
+      self.indexPathForItem = indexPath;
+      self.reminderForItem = reminder;
       self.isNewItem = NO;
+    } else
+    {
+      self.isNewItem = YES;
     }
+    self.delegate = delegate;
   }
   return self;
 }
@@ -89,7 +97,7 @@ static NSString *kTagCellID = @"tagCell";
 
 -(void)updateItem
 {
-  self.detailItem.title = [self getTextOfTitleCell];
+  self.titleForItem = [self getTextOfTitleCell];
 }
 
 /**
@@ -102,10 +110,12 @@ static NSString *kTagCellID = @"tagCell";
   
   // デリゲートに更新後アイテムを渡す
   [self.delegate dismissDetailView:self
+                             title:self.titleForItem
+                              tags:self.tagsForItem
+                          reminder:self.reminderForItem
                          indexPath:self.indexPathForItem
-                       updatedItem:self.detailItem
                          isNewItem:self.isNewItem];
-  /// ビューを削除する
+  // ビューを削除する
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -260,10 +270,12 @@ numberOfRowsInSection:(NSInteger)section
 -(void)configureTitleCell:(ItemDetailTitleCell *)cell
               atIndexPath:(NSIndexPath *)atIndexPath
 {
-  if (self.detailItem) {
-    cell.titleField.text = self.detailItem.title;
+  if (self.titleForItem)
+  {
+    cell.titleField.text = self.titleForItem;
   }
 }
+
 /**
  * @brief  タグセルを設定
  *
@@ -273,10 +285,10 @@ numberOfRowsInSection:(NSInteger)section
 -(void)configureTagCell:(ItemDetailTagCell *)cell
             atIndexPath:(NSIndexPath *)atIndexPath
 {
-  if (self.detailItem)
+  if (self.titleForItem)
   {
     NSString *string;
-    string = [self createStringForSet:self.detailItem.tags];
+    string = [self createStringForSet:self.tagsForItem];
     cell.textLabel.text = string;
   }
 }
@@ -299,7 +311,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     = [[TagSelectViewController alloc] initWithNibName:nil
                                                 bundle:nil];
     tagSelectViewController.delegate = self;
-    tagSelectViewController.tagsForAlreadySaved = self.detailItem.tags;
+    tagSelectViewController.tagsForAlreadySaved = self.tagsForItem;
     // タグ選択画面をプッシュ
     [self.navigationController pushViewController:tagSelectViewController
                                          animated:YES];
@@ -316,7 +328,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
   // 選択されたタグを取得する
-  self.detailItem.tags = tagsForSelectedRows;
+  self.tagsForItem = tagsForSelectedRows;
   /// @todo 効率悪い
   [self.tableView reloadData];
 }

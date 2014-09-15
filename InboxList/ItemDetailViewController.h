@@ -17,8 +17,10 @@
 @protocol ItemDetailViewControllerDelegate <NSObject>
 
 -(void)dismissDetailView:(id)sender
+                   title:(NSString *)title
+                    tags:(NSSet *)tags
+                reminder:(NSDate *)reminder
                indexPath:(NSIndexPath *)indexPath
-             updatedItem:(Item *)updateditem
                isNewItem:(BOOL)isNewItem;
 
 @end
@@ -29,7 +31,9 @@
 @interface ItemDetailViewController : UIViewController
 <UITableViewDelegate, UITableViewDataSource, TagSelectViewControllerDelegate>
 
-@property (strong, nonatomic) Item * detailItem;
+@property (strong, nonatomic) NSString *titleForItem;
+@property (strong, nonatomic) NSSet *tagsForItem;
+@property (strong, nonatomic) NSDate *reminderForItem;
 @property (strong, nonatomic) NSIndexPath *indexPathForItem;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -38,9 +42,11 @@
 
 @property BOOL isNewItem;
 
--(ItemDetailViewController *)initWithItem:(Item *)item
-                         indexPathForItem:(NSIndexPath *)indexPathForItem
-                                 delegate:(id<ItemDetailViewControllerDelegate>)delegate;
+-(ItemDetailViewController *)initWithTitle:(NSString *)title
+                                      tags:(NSSet *)tags
+                                  reminder:(NSDate *)reminder
+                                 indexPath:(NSIndexPath *)indexPath
+                                  delegate:(id<ItemDetailViewControllerDelegate>)delegate;
 
 
 @end
