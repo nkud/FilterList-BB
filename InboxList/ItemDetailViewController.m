@@ -122,6 +122,20 @@ static NSString *kTagCellID = @"tagCell";
 #pragma mark - ユーティリティ
 
 /**
+ * @brief  タイトルセルを取得
+ *
+ * @return タイトルセル
+ */
+-(ItemDetailTitleCell *)getTitleCell
+{
+  NSIndexPath *indexPathForTitleCell = [NSIndexPath indexPathForRow:0
+                                                          inSection:0];
+  ItemDetailTitleCell *cell
+  = (ItemDetailTitleCell *)[self.tableView cellForRowAtIndexPath:indexPathForTitleCell];
+  return cell;
+}
+
+/**
  * @brief  タグのセットから文字列を作成
  *
  * @param set タグのセット
@@ -175,9 +189,7 @@ static NSString *kTagCellID = @"tagCell";
  */
 -(NSString *)getTextOfTitleCell
 {
-  NSIndexPath *titleCellIndex = [NSIndexPath indexPathForRow:0
-                                                   inSection:0];
-  ItemDetailTitleCell *cell = (ItemDetailTitleCell *)[self.tableView cellForRowAtIndexPath:titleCellIndex];
+  ItemDetailTitleCell *cell = [self getTitleCell];
   return cell.titleField.text;
 }
 
