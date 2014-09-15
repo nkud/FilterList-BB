@@ -36,6 +36,8 @@
 @property (strong, nonatomic) NSDate *reminderForItem;
 @property (strong, nonatomic) NSIndexPath *indexPathForItem;
 
+@property NSIndexPath *indexPathForDatePickerCell;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property id <ItemDetailViewControllerDelegate> delegate;

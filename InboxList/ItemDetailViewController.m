@@ -216,6 +216,20 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   return cell.titleField.text;
 }
 
+/**
+ * @brief  ピッカーが表示されているか
+ *
+ * @return 真偽値
+ */
+-(BOOL)hasInlineDatePicker
+{
+  if (self.indexPathForDatePickerCell) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 #pragma mark - テーブルビュー
 
 /**
@@ -261,10 +275,15 @@ titleForHeaderInSection:(NSInteger)section
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  if (section == 0) {
+  if (section == 0)
+  {
     return 1;
   } else
   {
+    if ([self hasInlineDatePicker])
+    {
+      return 2+1;
+    }
     return 2;
   }
 }
@@ -296,7 +315,7 @@ numberOfRowsInSection:(NSInteger)section
     return cell;
   }
   if ([self isDateCell:indexPath]) {
-    ItemDetailDateCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    ItemDetailDateCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
     cell.textLabel.text = @"date";
     return cell;
   }
@@ -343,6 +362,7 @@ numberOfRowsInSection:(NSInteger)section
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+  LOG(@"%@", cell.reuseIdentifier);
   // タグセルの処理
   if ([cell.reuseIdentifier isEqualToString:kTagCellID])
   {
@@ -355,6 +375,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     // タグ選択画面をプッシュ
     [self.navigationController pushViewController:tagSelectViewController
                                          animated:YES];
+  } else if ([cell.reuseIdentifier isEqualToString:kDateCellID])
+  {
+    NSArray *indexPaths;
+    
+    [self.tableView beginUpdates];
+    if ([self hasInlineDatePicker]) {
+      self.indexPathForDatePickerCell = nil;
+      indexPaths = @[[NSIndexPath indexPathForRow:2 inSection:1]];
+      [self.tableView deleteRowsAtIndexPaths:indexPaths
+                            withRowAnimation:UITableViewRowAnimationFade];
+    } else {
+      self.indexPathForDatePickerCell = [NSIndexPath indexPathForRow:2 inSection:1];
+      indexPaths = @[self.indexPathForDatePickerCell];
+      [self.tableView insertRowsAtIndexPaths:indexPaths
+                            withRowAnimation:UITableViewRowAnimationFade];
+    }
+    [self.tableView endUpdates];
   }
 }
 
