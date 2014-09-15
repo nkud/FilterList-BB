@@ -25,6 +25,8 @@
 
 @property NSFetchedResultsController *fetchedResultsController;
 
+@property NSSet *tagsForAlreadySaved;
+
 @property id <TagSelectViewControllerDelegate> delegate;
 
 @end
