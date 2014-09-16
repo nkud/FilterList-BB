@@ -172,7 +172,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
  *
  * @return 評価値
  */
--(BOOL)isTitleCell:(NSIndexPath *)indexPath
+-(BOOL)isTitleCellAtIndexPath:(NSIndexPath *)indexPath
 {
   if (indexPath.section == 0 && indexPath.row == 0) {
     return YES;
@@ -186,7 +186,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
  *
  * @return 評価値
  */
--(BOOL)isTagCell:(NSIndexPath *)indexPath
+-(BOOL)isTagCelAtIndexPath:(NSIndexPath *)indexPath
 {
   if (indexPath.section == 1 && indexPath.row == 0)
   {
@@ -194,7 +194,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   }
   return NO;
 }
--(BOOL)isDateCell:(NSIndexPath *)indexPath
+-(BOOL)isDateCellAtIndexPath:(NSIndexPath *)indexPath
 {
   if (indexPath.section == 1 && indexPath.row == 1) {
     return YES;
@@ -202,7 +202,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     return NO;
   }
 }
--(BOOL)isDatePickerCell:(NSIndexPath *)indexPath
+-(BOOL)isDatePickerCellAtIndexPath:(NSIndexPath *)indexPath
 {
   if (indexPath.section == 1 && indexPath.row == 2) {
     return YES;
@@ -305,26 +305,26 @@ numberOfRowsInSection:(NSInteger)section
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   // タイトルセルを作成
-  if ([self isTitleCell:indexPath])
+  if ([self isTitleCellAtIndexPath:indexPath])
   {
     ItemDetailTitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTitleCellID];
     [self configureTitleCell:cell atIndexPath:indexPath];
     return cell;
   }
   // タグセルを作成
-  if ([self isTagCell:indexPath]) {
+  if ([self isTagCelAtIndexPath:indexPath]) {
     ItemDetailTagCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
     
     [self configureTagCell:cell
                atIndexPath:indexPath];
     return cell;
   }
-  if ([self isDateCell:indexPath]) {
+  if ([self isDateCellAtIndexPath:indexPath]) {
     ItemDetailDateCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
     cell.textLabel.text = @"date";
     return cell;
   }
-  if ([self hasInlineDatePicker] && [self isDatePickerCell:indexPath]) {
+  if ([self hasInlineDatePicker] && [self isDatePickerCellAtIndexPath:indexPath]) {
     ItemDetailDatePickerCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
     return cell;
   }
@@ -335,42 +335,12 @@ numberOfRowsInSection:(NSInteger)section
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([self isDatePickerCell:indexPath]) {
+  if ([self isDatePickerCellAtIndexPath:indexPath]) {
     return self.heightForPickerCell;
   } else {
     return 44;
   }
 }
-
-/**
- * @brief  タイトルセルを設定
- *
- * @param cell        セル
- * @param atIndexPath 位置
- */
--(void)configureTitleCell:(ItemDetailTitleCell *)cell
-              atIndexPath:(NSIndexPath *)atIndexPath
-{
-  if (self.titleForItem)
-  {
-    cell.titleField.text = self.titleForItem;
-  }
-}
-
-/**
- * @brief  タグセルを設定
- *
- * @param cell        セル
- * @param atIndexPath 位置
- */
--(void)configureTagCell:(ItemDetailTagCell *)cell
-            atIndexPath:(NSIndexPath *)atIndexPath
-{
-  NSString *string;
-  string = [self createStringForSet:self.tagsForItem];
-  cell.textLabel.text = string;
-}
-
 /**
  * @brief  タグが選択された時の処理
  *
@@ -416,6 +386,38 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [self.tableView endUpdates];
   }
 }
+#pragma mark - セルの設定
+
+/**
+ * @brief  タイトルセルを設定
+ *
+ * @param cell        セル
+ * @param atIndexPath 位置
+ */
+-(void)configureTitleCell:(ItemDetailTitleCell *)cell
+              atIndexPath:(NSIndexPath *)atIndexPath
+{
+  if (self.titleForItem)
+  {
+    cell.titleField.text = self.titleForItem;
+  }
+}
+
+/**
+ * @brief  タグセルを設定
+ *
+ * @param cell        セル
+ * @param atIndexPath 位置
+ */
+-(void)configureTagCell:(ItemDetailTagCell *)cell
+            atIndexPath:(NSIndexPath *)atIndexPath
+{
+  NSString *string;
+  string = [self createStringForSet:self.tagsForItem];
+  cell.textLabel.text = string;
+}
+
+
 
 #pragma mark - タグ選択画面デリゲート
 
