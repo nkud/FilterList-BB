@@ -396,8 +396,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                          animated:YES];
   } else if ([cell.reuseIdentifier isEqualToString:kDateCellID])
   { // リマインダーセルの処理
+    // キーボードは閉じる
+    ItemDetailTitleCell *tcell = [self getTitleCell];
+    [tcell.titleField resignFirstResponder];
+    // ピッカーの表示・非表示
     NSArray *indexPaths;
-    
     [self.tableView beginUpdates];
     if ([self hasInlineDatePicker]) {
       self.indexPathForDatePickerCell = nil;
