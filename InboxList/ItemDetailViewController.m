@@ -147,6 +147,15 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   return cell;
 }
 
+-(ItemDetailDateCell *)dateCell
+{
+  NSIndexPath *indexPathForDateCell = [NSIndexPath indexPathForRow:1
+                                                         inSection:1];
+  ItemDetailDateCell *cell
+  = (ItemDetailDateCell *)[self.tableView cellForRowAtIndexPath:indexPathForDateCell];
+  return cell;
+}
+
 /**
  * @brief  タグのセットから文字列を作成
  *
@@ -341,9 +350,21 @@ numberOfRowsInSection:(NSInteger)section
  */
 -(void)didChangedDate:(NSDate *)date
 {
-  NSLog(@"%s %@", __FUNCTION__, date);
+  // 日時を設定
+  self.reminderForItem = date;
+  // セルに反映させる
+  ItemDetailDateCell *cell = [self dateCell];
+  [self configureDateCell:cell];
 }
 
+/**
+ * @brief  ピッカーの高さを取得
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return 高さ
+ */
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -458,6 +479,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   NSString *string;
   string = [self createStringForSet:self.tagsForItem];
   cell.textLabel.text = string;
+}
+-(void)configureDateCell:(ItemDetailDateCell *)cell
+{
+  if (self.reminderForItem) {
+    cell.textLabel.text = [NSDateFormatter localizedStringFromDate:self.reminderForItem
+                                                         dateStyle:NSDateFormatterShortStyle
+                                                         timeStyle:NSDateFormatterShortStyle];
+  }
 }
 
 
