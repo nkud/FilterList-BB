@@ -12,7 +12,10 @@
 
 - (void)awakeFromNib
 {
-    // Initialization code
+  // Initialization code
+  
+  // ピッカーの時間間隔を指定
+  self.datePicker.minuteInterval = 10;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
