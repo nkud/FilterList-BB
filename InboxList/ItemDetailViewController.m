@@ -105,8 +105,9 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   // スクロールを停止
   self.tableView.scrollEnabled = NO;
   
-  self.heightForPickerCell = CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID] frame]);
-  LOG(@"%d", self.heightForPickerCell);
+  // ピッカーセルの高さを取得
+  self.heightForPickerCell
+  = CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID] frame]);
 }
 
 #pragma mark - 保存・終了処理
@@ -353,7 +354,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
   LOG(@"%@", cell.reuseIdentifier);
   // タグセルの処理
-  if ([cell.reuseIdentifier isEqualToString:kTagCellID])
+  if ([cell.reuseIdentifier isEqualToString:kTitleCellID]) {
+    LOG(@"タイトルセルを選択");
+  } else if ([cell.reuseIdentifier isEqualToString:kTagCellID])
   {
     // タグ選択画面を作成
     TagSelectViewController *tagSelectViewController
@@ -370,22 +373,51 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     ItemDetailTitleCell *tcell = [self getTitleCell];
     [tcell.titleField resignFirstResponder];
     // ピッカーの表示・非表示
-    NSArray *indexPaths;
-    [self.tableView beginUpdates];
-    if ([self hasInlineDatePicker]) {
-      self.indexPathForDatePickerCell = nil;
-      indexPaths = @[[NSIndexPath indexPathForRow:2 inSection:1]];
-      [self.tableView deleteRowsAtIndexPaths:indexPaths
-                            withRowAnimation:UITableViewRowAnimationFade];
-    } else {
-      self.indexPathForDatePickerCell = [NSIndexPath indexPathForRow:2 inSection:1];
-      indexPaths = @[self.indexPathForDatePickerCell];
-      [self.tableView insertRowsAtIndexPaths:indexPaths
-                            withRowAnimation:UITableViewRowAnimationFade];
-    }
-    [self.tableView endUpdates];
+    [self toggleDatePickerCell];
   }
 }
+
+/**
+ * @brief  ピッカーセルを閉じる
+ */
+-(void)closeDatePickerCell
+{
+  if ([self hasInlineDatePicker]) {
+    self.indexPathForDatePickerCell = nil;
+    NSArray *indexPaths = @[[NSIndexPath indexPathForRow:2 inSection:1]];
+    [self.tableView deleteRowsAtIndexPaths:indexPaths
+                          withRowAnimation:UITableViewRowAnimationFade];
+  }
+}
+/**
+ * @brief  ピッカーセルを開ける
+ */
+-(void)openDatePickerCell
+{
+  if ( ! [self hasInlineDatePicker]) {
+    self.indexPathForDatePickerCell = [NSIndexPath indexPathForRow:2 inSection:1];
+    NSArray *indexPaths = @[self.indexPathForDatePickerCell];
+    [self.tableView insertRowsAtIndexPaths:indexPaths
+                          withRowAnimation:UITableViewRowAnimationFade];
+  }
+}
+/**
+ * @brief  ピッカーセルを表示・非表示にする
+ */
+-(void)toggleDatePickerCell
+{
+  // ピッカーの表示・非表示
+  [self.tableView beginUpdates];
+  
+  if ([self hasInlineDatePicker]) {
+    [self closeDatePickerCell];
+  } else {
+    [self openDatePickerCell];
+  }
+  
+  [self.tableView endUpdates];
+}
+
 #pragma mark - セルの設定
 
 /**
