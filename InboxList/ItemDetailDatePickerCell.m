@@ -30,10 +30,12 @@
  */
 -(void)pickerDidChangedValue:(UIDatePicker *)datePicker
 {
+  [self.delegate didChangedDate:datePicker.date];
+  
   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
   [dateFormatter setDateFormat:@"yyyy/MM/dd hh:mm"];
   NSString *dateString = [dateFormatter stringFromDate:datePicker.date];
-  
+
   NSLog(@"%s %@", __FUNCTION__, dateString);
 }
 

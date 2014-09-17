@@ -10,6 +10,7 @@
 
 #import "Item.h"
 #import "TagSelectViewController.h"
+#import "ItemDetailDatePickerCell.h"
 
 /**
  * @brief  詳細画面用プロトコル
@@ -29,7 +30,8 @@
  * @brief  詳細画面
  */
 @interface ItemDetailViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource, TagSelectViewControllerDelegate>
+<UITableViewDelegate, UITableViewDataSource,
+ItemDetailDatePickerCellDelegate, TagSelectViewControllerDelegate>
 
 @property (strong, nonatomic) NSString *titleForItem;
 @property (strong, nonatomic) NSSet *tagsForItem;

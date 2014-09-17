@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ItemDetailDatePickerCellDelegate <NSObject>
+
+-(void)didChangedDate:(NSDate *)date;
+
+@end
+
+/// ピッカーを持つセル
 @interface ItemDetailDatePickerCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+@property id <ItemDetailDatePickerCellDelegate> delegate;
 
 @end

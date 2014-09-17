@@ -327,10 +327,21 @@ numberOfRowsInSection:(NSInteger)section
   }
   if ([self hasInlineDatePicker] && [self isDatePickerCellAtIndexPath:indexPath]) {
     ItemDetailDatePickerCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    cell.delegate = self;
     return cell;
   }
   UITableViewCell *cell = [[UITableViewCell alloc] init];
   return cell;
+}
+
+/**
+ * @brief  ピッカーが変更された時の処理
+ *
+ * @param date 日時
+ */
+-(void)didChangedDate:(NSDate *)date
+{
+  NSLog(@"%s %@", __FUNCTION__, date);
 }
 
 -(CGFloat)tableView:(UITableView *)tableView
