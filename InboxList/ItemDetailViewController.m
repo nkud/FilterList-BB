@@ -329,11 +329,13 @@ numberOfRowsInSection:(NSInteger)section
                atIndexPath:indexPath];
     return cell;
   }
+  // 日時セルを作成
   if ([self isDateCellAtIndexPath:indexPath]) {
     ItemDetailDateCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
-    cell.textLabel.text = @"date";
+    [self configureDateCell:cell];
     return cell;
   }
+  // ピッカーセルを作成
   if ([self hasInlineDatePicker] && [self isDatePickerCellAtIndexPath:indexPath]) {
     ItemDetailDatePickerCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
     cell.delegate = self;
@@ -482,11 +484,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 -(void)configureDateCell:(ItemDetailDateCell *)cell
 {
-  if (self.reminderForItem) {
-    cell.textLabel.text = [NSDateFormatter localizedStringFromDate:self.reminderForItem
-                                                         dateStyle:NSDateFormatterShortStyle
-                                                         timeStyle:NSDateFormatterShortStyle];
+  NSString *stringForDate;
+  if (self.reminderForItem)
+  { // リマインダーが設定されている時
+    stringForDate = [NSDateFormatter localizedStringFromDate:self.reminderForItem
+                                                   dateStyle:NSDateFormatterShortStyle
+                                                   timeStyle:NSDateFormatterShortStyle];
+  } else
+  { // リマインダーが設定されていない時
+    stringForDate = @"reminder";
   }
+  cell.textLabel.text = stringForDate;
 }
 
 
