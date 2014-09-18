@@ -332,7 +332,8 @@ numberOfRowsInSection:(NSInteger)section
   // 日時セルを作成
   if ([self isDateCellAtIndexPath:indexPath]) {
     ItemDetailDateCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
-    [self configureDateCell:cell];
+    [self configureDateCell:cell
+                atIndexPath:indexPath];
     return cell;
   }
   // ピッカーセルを作成
@@ -356,7 +357,8 @@ numberOfRowsInSection:(NSInteger)section
   self.reminderForItem = date;
   // セルに反映させる
   ItemDetailDateCell *cell = [self dateCell];
-  [self configureDateCell:cell];
+  [self configureDateCell:cell
+              atIndexPath:nil];
 }
 
 /**
@@ -478,11 +480,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)configureTagCell:(ItemDetailTagCell *)cell
             atIndexPath:(NSIndexPath *)atIndexPath
 {
-  NSString *string;
-  string = [self createStringForSet:self.tagsForItem];
-  cell.textLabel.text = string;
+  NSString *stringForTags;
+  if (self.tagsForItem && [self.tagsForItem count] > 0) {
+    stringForTags = [self createStringForSet:self.tagsForItem];
+  } else {
+    stringForTags = @"tags";
+  }
+  cell.textLabel.text = stringForTags;
 }
+
+/**
+ * @brief  日時セルの設定
+ *
+ * @param cell        セル
+ * @param atIndexPath 位置
+ */
 -(void)configureDateCell:(ItemDetailDateCell *)cell
+             atIndexPath:(NSIndexPath *)atIndexPath
 {
   NSString *stringForDate;
   if (self.reminderForItem)
