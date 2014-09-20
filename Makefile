@@ -1,15 +1,15 @@
 
-SDK=iphoneos7.1
+SDK=iphoneos8.0
 
 CONFIGURATION=AdHoc
 
 # Xcodeのプロジェクト名
-PROJ_FILE_PATH=InboxList.xcodeproj
+PROJ_FILE_PATH=FilterList.xcodeproj
 
-TARGET_NAME=InboxList
+TARGET_NAME=FilterList
 
 #「Build Settings」にある、プロダクト名
-PRODUCT_NAME=InboxList
+PRODUCT_NAME=FilterList
 
 OUT_APP_DIR=out_app
 OUT_IPA_DIR=out_ipa
