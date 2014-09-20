@@ -12,6 +12,7 @@
 #import "ItemDetailViewController.h"
 #import "Item.h"
 #import "ItemCell.h"
+#import "InputHeaderCell.h"
 
 /**
  * @brief  アイテムリスト
@@ -20,12 +21,11 @@
 <NSFetchedResultsControllerDelegate, ItemDetailViewControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-
 @property (strong, nonatomic) NSString *selectedTagString;
-
 @property (strong, nonatomic) NSString *title;
-
 @property CGFloat triggerDragging;
+
+@property InputHeaderCell *inputHeaderCell;
 
 /**
  *  @brief タグのリストを取得する
@@ -35,5 +35,6 @@
 //-(NSArray *)getTagList;
 
 -(void)updateTableView;
+
 
 @end

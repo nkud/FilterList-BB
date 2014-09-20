@@ -41,6 +41,8 @@
 		B06D719D198D43A8001A9F91 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06D719C198D43A8001A9F91 /* ItemCell.xib */; };
 		B0808049195825A3007D21E4 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0808048195825A3007D21E4 /* TagViewController.m */; };
 		B080804C19582CF6007D21E4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B080804B19582CF6007D21E4 /* MainViewController.m */; };
+		B083521419CD59EC00071EE0 /* InputHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B083521219CD59EC00071EE0 /* InputHeaderCell.m */; };
+		B083521519CD59EC00071EE0 /* InputHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B083521319CD59EC00071EE0 /* InputHeaderCell.xib */; };
 		B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */; };
 		B08CDBB019C553CC008263AC /* ItemDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B08CDBAE19C553CC008263AC /* ItemDetailTitleCell.m */; };
 		B08CDBB119C553CC008263AC /* ItemDetailTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08CDBAF19C553CC008263AC /* ItemDetailTitleCell.xib */; };
@@ -126,6 +128,9 @@
 		B0808048195825A3007D21E4 /* TagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
 		B080804A19582CF6007D21E4 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		B080804B19582CF6007D21E4 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		B083521119CD59EC00071EE0 /* InputHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputHeaderCell.h; sourceTree = "<group>"; };
+		B083521219CD59EC00071EE0 /* InputHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputHeaderCell.m; sourceTree = "<group>"; };
+		B083521319CD59EC00071EE0 /* InputHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputHeaderCell.xib; sourceTree = "<group>"; };
 		B08C33A319A84E4F00AB5F25 /* ItemNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemNavigationController.h; sourceTree = "<group>"; };
 		B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemNavigationController.m; sourceTree = "<group>"; };
 		B08CDBAD19C553CC008263AC /* ItemDetailTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailTitleCell.h; sourceTree = "<group>"; };
@@ -354,6 +359,16 @@
 			name = TagCell;
 			sourceTree = "<group>";
 		};
+		B083521619CD59EF00071EE0 /* InputHeaderCell */ = {
+			isa = PBXGroup;
+			children = (
+				B083521119CD59EC00071EE0 /* InputHeaderCell.h */,
+				B083521219CD59EC00071EE0 /* InputHeaderCell.m */,
+				B083521319CD59EC00071EE0 /* InputHeaderCell.xib */,
+			);
+			name = InputHeaderCell;
+			sourceTree = "<group>";
+		};
 		B08CDBB219C553D1008263AC /* TitleCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,6 +527,7 @@
 				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B0E7571319499E95004C6344 /* ItemDetailView */,
 				B00AD6A418C45E470005A552 /* ItemViewController.h */,
+				B083521619CD59EF00071EE0 /* InputHeaderCell */,
 				B00AD6A518C45E470005A552 /* ItemViewController.m */,
 			);
 			name = ItemMode;
@@ -615,6 +631,7 @@
 				B053199A199FC92C00F63783 /* filtertab.png in Resources */,
 				B08CDBB119C553CC008263AC /* ItemDetailTitleCell.xib in Resources */,
 				B0BC6A9319A9FA9800E53AEF /* TagSelectCell.xib in Resources */,
+				B083521519CD59EC00071EE0 /* InputHeaderCell.xib in Resources */,
 				B00AD69718C45E470005A552 /* InfoPlist.strings in Resources */,
 				B06894E7198D544F000A4DCB /* ItemDetailViewController.xib in Resources */,
 			);
@@ -636,6 +653,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B08FA11319BAF47B005B34BE /* Item.m in Sources */,
+				B083521419CD59EC00071EE0 /* InputHeaderCell.m in Sources */,
 				B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */,
 				B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */,
 				B00AD6A918C45E470005A552 /* ItemDetailViewController.m in Sources */,

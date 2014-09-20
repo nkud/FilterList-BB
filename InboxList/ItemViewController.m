@@ -12,10 +12,13 @@
 #import "Tag.h"
 #import "Item.h"
 #import "ItemCell.h"
+#import "InputHeaderCell.h"
 
 #import "Header.h"
 #import "Configure.h"
 #import "CoreDataController.h"
+
+#pragma mark -
 
 @interface ItemViewController () {
   int location_center_x;
@@ -75,6 +78,17 @@
                                 target:self
                                 action:@selector(presentInputItemView)];
   self.navigationItem.rightBarButtonItem = addButton;
+  
+  // クイック入力セル
+  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
+                                             bundle:nil
+                               ] forCellReuseIdentifier:@"InputHeaderCell"];
+  self.inputHeaderCell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
+  self.inputHeaderCell.textLabel.text = @"new item";
+  CGRect rect = self.inputHeaderCell.frame;
+  rect.origin.y -= self.inputHeaderCell.frame.size.height;
+  self.inputHeaderCell.frame = rect;
+  [self.tableView addSubview:self.inputHeaderCell];
 }
 
 #pragma mark - テーブルビュー
@@ -179,15 +193,13 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
                  willDecelerate:(BOOL)decelerate
 {
   LOG(@"スクロールをドラッグした時の処理");
-  int activate_quick_distance = -120;
-  if (self.triggerDragging < activate_quick_distance) { // 規定値よりもドラッグすると
-    
-    LOG(@"クイック入力開始");
-//    [self.inputHeader activateInput]; // クイック入力を作動させる
+//  int activate_quick_distance = -120;
+  // 規定値よりもドラッグするとクイック入力開始
+  if (self.triggerDragging < self.inputHeaderCell.frame.size.height)
+  {
+    [self toggleQuickInputActivation];
   }
 }
-
-
 /**
  * @brief テーブルビューを更新する
  *
@@ -198,6 +210,42 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"テーブルビューの全てを更新");
   [self.tableView reloadData];
 }
+
+#pragma mark - クイック入力処理
+
+/**
+ * @brief  クイック入力用のインセットなら真
+ *
+ * @return 真偽値
+ */
+-(BOOL)isContentInsetForQuickInputHeader
+{
+  UIEdgeInsets inset = self.tableView.contentInset;
+  if (inset.top == self.inputHeaderCell.frame.size.height) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
+/**
+ * @brief  クイック入力が表示されているか評価
+ *
+ * @return 真偽値
+ */
+-(BOOL)hasInlineQuickInputHeader
+{
+  return YES;
+}
+
+/**
+ * @brief  クイック入力を開始・終了する
+ */
+-(void)toggleQuickInputActivation
+{
+  ;
+}
+
 
 #pragma mark - 編集時処理
 
@@ -277,17 +325,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 -(void)presentInputItemView
 {
   LOG(@"入力画面を表示");
-//  InputItemViewController *inputView = [[InputItemViewController alloc] initWithNibName:@"InputItemViewController"
-//                                                                                 bundle:nil];
-//  inputView.delegate = self;
-//  [inputView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-//  
-//  InputItemNavigationController *inputItemNavigationController
-//  = [[InputItemNavigationController alloc] initWithRootViewController:inputView];
-//  
-//  [self presentViewController:inputItemNavigationController
-//                     animated:YES
-//                   completion:nil];
   ItemDetailViewController *detailViewController
   = [[ItemDetailViewController alloc] initWithTitle:nil
                                                tags:nil
