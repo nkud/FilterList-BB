@@ -118,9 +118,13 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"アイテムが選択された時の処理");
-  
-  // インデックスの詳細画面をプッシュする
-  [self pushDetailView:indexPath];
+  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+    ;
+  } else {
+    indexPath = [self mapIndexPathToFetchResultsController:indexPath];
+    // インデックスの詳細画面をプッシュする
+    [self pushDetailView:indexPath];
+  }
 }
 
 /**
@@ -148,7 +152,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   id <NSFetchedResultsSectionInfo> sectionInfo
   = [self.fetchedResultsController sections][section];
-  return [sectionInfo numberOfObjects];
+  return [sectionInfo numberOfObjects] + 1;
 }
 
 /**
@@ -163,9 +167,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"指定されたセルを返す");
+  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+    ItemCell *cell = [[ItemCell alloc] init];
+    cell.textLabel.text = @"input";
+    return cell;
+  }
   static NSString *CellIdentifier = @"ItemCell";
   ItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  [self configureItemCell:cell atIndexPath:indexPath];
+  [self configureItemCell:cell
+              atIndexPath:indexPath];
   return cell;
 }
 
@@ -317,7 +327,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     NSManagedObjectContext *context = [[self fetchedResultsController] managedObjectContext];
-    [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    [context deleteObject:[self.fetchedResultsController
+                           objectAtIndexPath:[self mapIndexPathFromFetchResultsController:indexPath]]];
     [app saveContext];
   }
 }
@@ -387,7 +398,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   = [[ItemDetailViewController alloc] initWithTitle:item.title
                                                tags:item.tags
                                            reminder:item.reminder
-                                          indexPath:indexPath
+                                          indexPath:[self mapIndexPathToFetchResultsController:indexPath]
                                            delegate:self];
 
   // 詳細画面をプッシュ
@@ -425,7 +436,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   } else
   {
     // 更新するアイテムを取得
-    item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    item = [self.fetchedResultsController
+            objectAtIndexPath:indexPath];
   }
   item.title = title;
   item.tags = tags;
@@ -448,7 +460,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
           atIndexPath:(NSIndexPath *)indexPath
 {
   /// セルを作成
-  Item *item                 = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  Item *item = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
   
   // タイトル
   cell.titleLabel.text       = item.title;
@@ -487,6 +499,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
       
       // その位置のセルのデータをモデルから取得する
+      indexPath = [self mapIndexPathToFetchResultsController:indexPath];
       Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
       
       if ([item.state boolValue]) { // 完了済みなら
@@ -507,6 +520,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
       
       // その位置のセルのデータをモデルから取得する
+      indexPath = [self mapIndexPathToFetchResultsController:indexPath];
       Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
       if ( flag ) {
         LOG(@"アイテムを削除する");
@@ -578,6 +592,49 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
 }
 
+#pragma mark - ユーティリティ
+
+-(BOOL)isInputHeaderCellAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (indexPath.row == 0 && indexPath.section == 0 ) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
+/**
+ * @brief  リザルトコントローラー -> インデックス
+ *
+ * @param indexPath インデックス
+ *
+ * @return インデックス
+ */
+- (NSIndexPath *)mapIndexPathFromFetchResultsController:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 0)
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row + 1
+                                   inSection:indexPath.section];
+  
+  return indexPath;
+}
+
+/**
+ * @brief  インデックス -> リザルトコントローラー
+ *
+ * @param indexPath インデックス
+ *
+ * @return インデックス
+ */
+- (NSIndexPath *)mapIndexPathToFetchResultsController:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 0)
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row - 1
+                                   inSection:indexPath.section];
+  
+  return indexPath;
+}
+
 #pragma mark - コンテンツの更新
 
 /**
@@ -624,6 +681,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
+  indexPath = [self mapIndexPathFromFetchResultsController:indexPath];
+  newIndexPath = [self mapIndexPathFromFetchResultsController:newIndexPath];
   LOG(@"アイテムビューを更新する処理");
   UITableView *tableView = self.tableView;
 
