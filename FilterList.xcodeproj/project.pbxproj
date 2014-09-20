@@ -81,15 +81,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B00AD68718C45E470005A552 /* InboxList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InboxList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B00AD68718C45E470005A552 /* FilterList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilterList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00AD68A18C45E470005A552 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B00AD68C18C45E470005A552 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B00AD68E18C45E470005A552 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B00AD69018C45E470005A552 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		B00AD69418C45E470005A552 /* InboxList-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InboxList-Info.plist"; sourceTree = "<group>"; };
+		B00AD69418C45E470005A552 /* FilterList-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FilterList-Info.plist"; sourceTree = "<group>"; };
 		B00AD69618C45E470005A552 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B00AD69818C45E470005A552 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B00AD69A18C45E470005A552 /* InboxList-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InboxList-Prefix.pch"; sourceTree = "<group>"; };
+		B00AD69A18C45E470005A552 /* FilterList-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FilterList-Prefix.pch"; sourceTree = "<group>"; };
 		B00AD69B18C45E470005A552 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B00AD69C18C45E470005A552 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B00AD6A218C45E470005A552 /* InboxList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InboxList.xcdatamodel; sourceTree = "<group>"; };
@@ -98,9 +98,9 @@
 		B00AD6A718C45E470005A552 /* ItemDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemDetailViewController.h; sourceTree = "<group>"; };
 		B00AD6A818C45E470005A552 /* ItemDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemDetailViewController.m; sourceTree = "<group>"; };
 		B00AD6AA18C45E470005A552 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		B00AD6B018C45E480005A552 /* InboxListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InboxListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B00AD6B018C45E480005A552 /* FilterListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FilterListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00AD6B118C45E480005A552 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		B00AD6BA18C45E480005A552 /* InboxListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InboxListTests-Info.plist"; sourceTree = "<group>"; };
+		B00AD6BA18C45E480005A552 /* FilterListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FilterListTests-Info.plist"; sourceTree = "<group>"; };
 		B00AD6BC18C45E480005A552 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B00AD6BE18C45E480005A552 /* InboxListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InboxListTests.m; sourceTree = "<group>"; };
 		B03F2BD3194D76460037AE2C /* CheckBox_True.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_True.png; path = resource/CheckBox_True.png; sourceTree = SOURCE_ROOT; };
@@ -215,8 +215,8 @@
 		B00AD68818C45E470005A552 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B00AD68718C45E470005A552 /* InboxList.app */,
-				B00AD6B018C45E480005A552 /* InboxListTests.xctest */,
+				B00AD68718C45E470005A552 /* FilterList.app */,
+				B00AD6B018C45E480005A552 /* FilterListTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,10 +256,10 @@
 		B00AD69318C45E470005A552 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B00AD69418C45E470005A552 /* InboxList-Info.plist */,
+				B00AD69418C45E470005A552 /* FilterList-Info.plist */,
 				B00AD69518C45E470005A552 /* InfoPlist.strings */,
 				B00AD69818C45E470005A552 /* main.m */,
-				B00AD69A18C45E470005A552 /* InboxList-Prefix.pch */,
+				B00AD69A18C45E470005A552 /* FilterList-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 		B00AD6B918C45E480005A552 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B00AD6BA18C45E480005A552 /* InboxListTests-Info.plist */,
+				B00AD6BA18C45E480005A552 /* FilterListTests-Info.plist */,
 				B00AD6BB18C45E480005A552 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -536,9 +536,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B00AD68618C45E470005A552 /* InboxList */ = {
+		B00AD68618C45E470005A552 /* FilterList */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B00AD6C218C45E480005A552 /* Build configuration list for PBXNativeTarget "InboxList" */;
+			buildConfigurationList = B00AD6C218C45E480005A552 /* Build configuration list for PBXNativeTarget "FilterList" */;
 			buildPhases = (
 				B00AD68318C45E470005A552 /* Sources */,
 				B00AD68418C45E470005A552 /* Frameworks */,
@@ -548,14 +548,14 @@
 			);
 			dependencies = (
 			);
-			name = InboxList;
+			name = FilterList;
 			productName = InboxList;
-			productReference = B00AD68718C45E470005A552 /* InboxList.app */;
+			productReference = B00AD68718C45E470005A552 /* FilterList.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B00AD6AF18C45E480005A552 /* InboxListTests */ = {
+		B00AD6AF18C45E480005A552 /* FilterListTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B00AD6C518C45E480005A552 /* Build configuration list for PBXNativeTarget "InboxListTests" */;
+			buildConfigurationList = B00AD6C518C45E480005A552 /* Build configuration list for PBXNativeTarget "FilterListTests" */;
 			buildPhases = (
 				B00AD6AC18C45E480005A552 /* Sources */,
 				B00AD6AD18C45E480005A552 /* Frameworks */,
@@ -566,9 +566,9 @@
 			dependencies = (
 				B00AD6B718C45E480005A552 /* PBXTargetDependency */,
 			);
-			name = InboxListTests;
+			name = FilterListTests;
 			productName = InboxListTests;
-			productReference = B00AD6B018C45E480005A552 /* InboxListTests.xctest */;
+			productReference = B00AD6B018C45E480005A552 /* FilterListTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -588,7 +588,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B00AD68218C45E470005A552 /* Build configuration list for PBXProject "InboxList" */;
+			buildConfigurationList = B00AD68218C45E470005A552 /* Build configuration list for PBXProject "FilterList" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -601,8 +601,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B00AD68618C45E470005A552 /* InboxList */,
-				B00AD6AF18C45E480005A552 /* InboxListTests */,
+				B00AD68618C45E470005A552 /* FilterList */,
+				B00AD6AF18C45E480005A552 /* FilterListTests */,
 			);
 		};
 /* End PBXProject section */
@@ -697,7 +697,7 @@
 /* Begin PBXTargetDependency section */
 		B00AD6B718C45E480005A552 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B00AD68618C45E470005A552 /* InboxList */;
+			target = B00AD68618C45E470005A552 /* FilterList */;
 			targetProxy = B00AD6B618C45E480005A552 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -806,14 +806,14 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "InboxList/InboxList-Prefix.pch";
-				INFOPLIST_FILE = "InboxList/InboxList-Info.plist";
+				GCC_PREFIX_HEADER = "InboxList/FilterList-Prefix.pch";
+				INFOPLIST_FILE = "InboxList/FilterList-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Versions/C",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FilterList;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -831,14 +831,14 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "InboxList/InboxList-Prefix.pch";
-				INFOPLIST_FILE = "InboxList/InboxList-Info.plist";
+				GCC_PREFIX_HEADER = "InboxList/FilterList-Prefix.pch";
+				INFOPLIST_FILE = "InboxList/FilterList-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Versions/C",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FilterList;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -859,8 +859,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "InboxListTests/InboxListTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "InboxListTests/FilterListTests-Info.plist";
+				PRODUCT_NAME = FilterListTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -877,8 +877,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InboxList/InboxList-Prefix.pch";
-				INFOPLIST_FILE = "InboxListTests/InboxListTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "InboxListTests/FilterListTests-Info.plist";
+				PRODUCT_NAME = FilterListTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -887,7 +887,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B00AD68218C45E470005A552 /* Build configuration list for PBXProject "InboxList" */ = {
+		B00AD68218C45E470005A552 /* Build configuration list for PBXProject "FilterList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B00AD6C018C45E480005A552 /* Debug */,
@@ -896,7 +896,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B00AD6C218C45E480005A552 /* Build configuration list for PBXNativeTarget "InboxList" */ = {
+		B00AD6C218C45E480005A552 /* Build configuration list for PBXNativeTarget "FilterList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B00AD6C318C45E480005A552 /* Debug */,
@@ -905,7 +905,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B00AD6C518C45E480005A552 /* Build configuration list for PBXNativeTarget "InboxListTests" */ = {
+		B00AD6C518C45E480005A552 /* Build configuration list for PBXNativeTarget "FilterListTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B00AD6C618C45E480005A552 /* Debug */,

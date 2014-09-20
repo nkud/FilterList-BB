@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B00AD68618C45E470005A552"
-               BuildableName = "InboxList.app"
-               BlueprintName = "InboxList"
-               ReferencedContainer = "container:InboxList.xcodeproj">
+               BuildableName = "FilterList.app"
+               BlueprintName = "FilterList"
+               ReferencedContainer = "container:FilterList.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B00AD6AF18C45E480005A552"
-               BuildableName = "InboxListTests.xctest"
-               BlueprintName = "InboxListTests"
-               ReferencedContainer = "container:InboxList.xcodeproj">
+               BuildableName = "FilterListTests.xctest"
+               BlueprintName = "FilterListTests"
+               ReferencedContainer = "container:FilterList.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B00AD68618C45E470005A552"
-            BuildableName = "InboxList.app"
-            BlueprintName = "InboxList"
-            ReferencedContainer = "container:InboxList.xcodeproj">
+            BuildableName = "FilterList.app"
+            BlueprintName = "FilterList"
+            ReferencedContainer = "container:FilterList.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B00AD68618C45E470005A552"
-            BuildableName = "InboxList.app"
-            BlueprintName = "InboxList"
-            ReferencedContainer = "container:InboxList.xcodeproj">
+            BuildableName = "FilterList.app"
+            BlueprintName = "FilterList"
+            ReferencedContainer = "container:FilterList.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B00AD68618C45E470005A552"
-            BuildableName = "InboxList.app"
-            BlueprintName = "InboxList"
-            ReferencedContainer = "container:InboxList.xcodeproj">
+            BuildableName = "FilterList.app"
+            BlueprintName = "FilterList"
+            ReferencedContainer = "container:FilterList.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
