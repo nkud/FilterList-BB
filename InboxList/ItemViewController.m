@@ -364,6 +364,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
 {
   LOG(@"移動");
+  sourceIndexPath = [self mapIndexPathToFetchResultsController:sourceIndexPath];
+  destinationIndexPath = [self mapIndexPathToFetchResultsController:destinationIndexPath];
 }
 
 #pragma mark - 入力画面処理
