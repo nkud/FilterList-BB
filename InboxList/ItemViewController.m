@@ -190,7 +190,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  // Return NO if you do not want the specified item to be editable.
+  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+    return NO;
+  }
   return YES;
 }
 
@@ -327,8 +329,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     NSManagedObjectContext *context = [[self fetchedResultsController] managedObjectContext];
+    indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     [context deleteObject:[self.fetchedResultsController
-                           objectAtIndexPath:[self mapIndexPathFromFetchResultsController:indexPath]]];
+                           objectAtIndexPath:indexPath]];
     [app saveContext];
   }
 }
@@ -345,6 +348,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
   // The table view should not be re-orderable.
+  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+    return NO;
+  }
   return YES;
 }
 
@@ -683,6 +689,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 {
   indexPath = [self mapIndexPathFromFetchResultsController:indexPath];
   newIndexPath = [self mapIndexPathFromFetchResultsController:newIndexPath];
+  
   LOG(@"アイテムビューを更新する処理");
   UITableView *tableView = self.tableView;
 
