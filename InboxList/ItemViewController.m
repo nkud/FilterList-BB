@@ -81,9 +81,9 @@
   self.navigationItem.rightBarButtonItem = addButton;
   
   // クイック入力セルを初期化・設定
-//  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
-//                                             bundle:nil]
-//       forCellReuseIdentifier:@"InputHeaderCell"];
+  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
+                                             bundle:nil]
+       forCellReuseIdentifier:@"InputHeaderCell"];
 //  self.inputHeaderCell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
 //  
 //  CGRect rect = CGRectMake(0,
@@ -163,13 +163,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  *
  *  @return セル
  */
-- (ItemCell *)tableView:(UITableView *)tableView
+- (UITableViewCell *)tableView:(UITableView *)tableView
   cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"指定されたセルを返す");
   if ([self isInputHeaderCellAtIndexPath:indexPath]) {
-    ItemCell *cell = [[ItemCell alloc] init];
-    cell.textLabel.text = @"input";
+    InputHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
     return cell;
   }
   static NSString *CellIdentifier = @"ItemCell";
@@ -222,7 +221,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"スクロールをドラッグした時の処理");
 //  int activate_quick_distance = -120;
   // 規定値よりもドラッグするとクイック入力開始
-  if (self.triggerDragging < -self.inputHeaderCell.frame.size.height)
+//  if (self.triggerDragging < -self.inputHeaderCell.frame.size.height)
   {
 //    [self toggleQuickInputActivation];
   }

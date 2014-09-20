@@ -26,8 +26,8 @@
 @property (strong, nonatomic) NSString *title;
 @property CGFloat triggerDragging;
 
-@property InputHeaderCell *inputHeaderCell;
-@property InputHeaderView *inputHeaderView;
+//@property InputHeaderCell *inputHeaderCell;
+//@property InputHeaderView *inputHeaderView;
 
 /**
  *  @brief タグのリストを取得する
