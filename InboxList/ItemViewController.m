@@ -195,7 +195,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"スクロールをドラッグした時の処理");
 //  int activate_quick_distance = -120;
   // 規定値よりもドラッグするとクイック入力開始
-  if (self.triggerDragging < self.inputHeaderCell.frame.size.height)
+  if (self.triggerDragging < -self.inputHeaderCell.frame.size.height)
   {
     [self toggleQuickInputActivation];
   }
@@ -246,23 +246,21 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(void)toggleQuickInputActivation
 {
-  UIEdgeInsets inset;
+  LOG(@"クイック入力を開始・終了する");
+  UIEdgeInsets inset = self.tableView.contentInset;
   int header_height = self.inputHeaderCell.frame.size.height;
-  LOG(@"%d", header_height);
   if ([self hasInlineQuickInputHeader])
   { // クイック入力 -> 通常
-    inset = UIEdgeInsetsMake(0, 0, 0, 0);
+    inset.top -= header_height;
   } else
   { // 通常 -> クイック入力
-    inset = UIEdgeInsetsMake(header_height, 0, 0, 0);
+    inset.top += header_height;
   }
-  NSLog(@"%f", inset.top);
-  [UIView animateWithDuration:0.2
+  [UIView animateWithDuration:0.1
                    animations:^{
-                     self.tableView.contentInset = inset;
-                     self.tableView.scrollIndicatorInsets = inset;
+                     [self.tableView setContentInset:inset];
+                     [self.tableView setScrollIndicatorInsets:inset];
                    }];
-
 }
 
 
