@@ -39,6 +39,7 @@
 		B06894E7198D544F000A4DCB /* ItemDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06894E6198D544F000A4DCB /* ItemDetailViewController.xib */; };
 		B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06D7199198D3BDA001A9F91 /* TagCell.m */; };
 		B06D719D198D43A8001A9F91 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06D719C198D43A8001A9F91 /* ItemCell.xib */; };
+		B078E38619CDC32E00B07690 /* InputHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B078E38519CDC32E00B07690 /* InputHeaderView.m */; };
 		B0808049195825A3007D21E4 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0808048195825A3007D21E4 /* TagViewController.m */; };
 		B080804C19582CF6007D21E4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B080804B19582CF6007D21E4 /* MainViewController.m */; };
 		B083521419CD59EC00071EE0 /* InputHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B083521219CD59EC00071EE0 /* InputHeaderCell.m */; };
@@ -124,6 +125,8 @@
 		B06D7198198D3BDA001A9F91 /* TagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagCell.h; sourceTree = "<group>"; };
 		B06D7199198D3BDA001A9F91 /* TagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagCell.m; sourceTree = "<group>"; };
 		B06D719C198D43A8001A9F91 /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
+		B078E38419CDC32E00B07690 /* InputHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputHeaderView.h; sourceTree = "<group>"; };
+		B078E38519CDC32E00B07690 /* InputHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputHeaderView.m; sourceTree = "<group>"; };
 		B0808047195825A3007D21E4 /* TagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagViewController.h; sourceTree = "<group>"; };
 		B0808048195825A3007D21E4 /* TagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
 		B080804A19582CF6007D21E4 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -359,6 +362,15 @@
 			name = TagCell;
 			sourceTree = "<group>";
 		};
+		B078E38719CDC33100B07690 /* InputHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				B078E38419CDC32E00B07690 /* InputHeaderView.h */,
+				B078E38519CDC32E00B07690 /* InputHeaderView.m */,
+			);
+			name = InputHeaderView;
+			sourceTree = "<group>";
+		};
 		B083521619CD59EF00071EE0 /* InputHeaderCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,6 +540,7 @@
 				B0E7571319499E95004C6344 /* ItemDetailView */,
 				B083521619CD59EF00071EE0 /* InputHeaderCell */,
 				B00AD6A418C45E470005A552 /* ItemViewController.h */,
+				B078E38719CDC33100B07690 /* InputHeaderView */,
 				B00AD6A518C45E470005A552 /* ItemViewController.m */,
 			);
 			name = ItemMode;
@@ -680,6 +693,7 @@
 				B05FA8231982B20C00E25FAF /* TabBar.m in Sources */,
 				B060917C19ACBD7A003E6D87 /* InputFilterViewController.m in Sources */,
 				B08FA11619BAF47B005B34BE /* Tag.m in Sources */,
+				B078E38619CDC32E00B07690 /* InputHeaderView.m in Sources */,
 				B08CDBC219C55BED008263AC /* ItemDetailDatePickerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

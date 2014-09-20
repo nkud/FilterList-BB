@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol InputHeaderCellDelegate <NSObject>
+
+-(void)didInputtedNewItem:(NSString *)titleForItem;
+
+@end
+
+/// クイック入力用のセル
 @interface InputHeaderCell : UITableViewCell
 <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
+
+@property id<InputHeaderCellDelegate> delegate;
 
 @end

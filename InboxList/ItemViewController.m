@@ -17,6 +17,7 @@
 #import "Header.h"
 #import "Configure.h"
 #import "CoreDataController.h"
+#import "InputHeaderView.h"
 
 #pragma mark -
 
@@ -80,15 +81,29 @@
   self.navigationItem.rightBarButtonItem = addButton;
   
   // クイック入力セルを初期化・設定
-  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
-                                             bundle:nil
-                               ] forCellReuseIdentifier:@"InputHeaderCell"];
-  self.inputHeaderCell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
-  CGRect rect = self.inputHeaderCell.frame;
-  rect.origin.y -= self.inputHeaderCell.frame.size.height;
-  self.inputHeaderCell.frame = rect;
-  [self.tableView addSubview:self.inputHeaderCell];
-  [self.tableView setContentInset:UIEdgeInsetsMake(self.inputHeaderCell.frame.size.height, 0, 0, 0)];
+//  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
+//                                             bundle:nil]
+//       forCellReuseIdentifier:@"InputHeaderCell"];
+//  self.inputHeaderCell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
+//  
+//  CGRect rect = CGRectMake(0,
+//                           -44,
+//                           self.inputHeaderCell.bounds.size.width,
+//                           self.inputHeaderCell.bounds.size.height
+//                           );
+////  rect.origin.y -= self.inputHeaderCell.frame.size.height;
+//  LOG(@"%f", rect.origin.y);
+//  
+//  self.inputHeaderCell.frame = rect;
+//  self.inputHeaderCell.delegate = self;
+//
+//  [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
+//  [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(44, 0, 0, 0)];
+//  [self.tableView addSubview:self.inputHeaderCell];
+  self.inputHeaderView = [[InputHeaderView alloc] initWithTable:self.tableView];
+  [self.tableView addSubview:self.inputHeaderView];
+  [self.tableView setContentInset:UIEdgeInsetsMake(55, 0, 0, 0)];
+  [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(55, 0, 0, 0)];
 }
 
 #pragma mark - テーブルビュー
@@ -213,6 +228,10 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 
 #pragma mark - クイック入力処理
 
+-(void)didInputtedNewItem:(NSString *)titleForItem
+{
+  NSLog(@"%s %@", __FUNCTION__, titleForItem);
+}
 /**
  * @brief  クイック入力用のインセットなら真
  *
