@@ -218,9 +218,8 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  *
  * @return 真偽値
  */
--(BOOL)isContentInsetForQuickInputHeader
+-(BOOL)isQuickInputHeaderAtContentInset:(UIEdgeInsets)inset
 {
-  UIEdgeInsets inset = self.tableView.contentInset;
   if (inset.top == self.inputHeaderCell.frame.size.height) {
     return YES;
   } else {
@@ -235,7 +234,11 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(BOOL)hasInlineQuickInputHeader
 {
-  return YES;
+  UIEdgeInsets inset = self.tableView.contentInset;
+  if ([self isQuickInputHeaderAtContentInset:inset]) {
+    return YES;
+  }
+  return NO;
 }
 
 /**
@@ -243,7 +246,23 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(void)toggleQuickInputActivation
 {
-  ;
+  UIEdgeInsets inset;
+  int header_height = self.inputHeaderCell.frame.size.height;
+  LOG(@"%d", header_height);
+  if ([self hasInlineQuickInputHeader])
+  { // クイック入力 -> 通常
+    inset = UIEdgeInsetsMake(0, 0, 0, 0);
+  } else
+  { // 通常 -> クイック入力
+    inset = UIEdgeInsetsMake(header_height, 0, 0, 0);
+  }
+  NSLog(@"%f", inset.top);
+  [UIView animateWithDuration:0.2
+                   animations:^{
+                     self.tableView.contentInset = inset;
+                     self.tableView.scrollIndicatorInsets = inset;
+                   }];
+
 }
 
 
