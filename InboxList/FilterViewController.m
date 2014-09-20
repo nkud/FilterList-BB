@@ -214,6 +214,12 @@ numberOfRowsInSection:(NSInteger)section
       [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
+    case NSFetchedResultsChangeMove: // by ios8
+      NSLog(@"A table item was moved");
+      break;
+    case NSFetchedResultsChangeUpdate:
+      NSLog(@"A table item was updated");
+      break;
   }
 }
 

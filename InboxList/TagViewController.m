@@ -184,9 +184,9 @@ numberOfRowsInSection:(NSInteger)section
   cell.tagTitle.text = tag.title;
   NSString *itemCountString;
   if ([tag.section isEqualToNumber:[NSNumber numberWithInt:0]]) {
-    itemCountString = [NSString stringWithFormat:@"%u", [CoreDataController countItems]];
+    itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
   } else {
-    itemCountString = [NSString stringWithFormat:@"%u", [tag.items count]];
+    itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
   }
   cell.numOfItemsTextLabel.text = itemCountString;
 }
@@ -252,7 +252,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
       LOG(@"タグを削除");
       [[CoreDataController managedObjectContext] deleteObject:tag];
-      LOG(@"削除されるオブジェクト数：%u", [[[CoreDataController managedObjectContext] deletedObjects] count]);
+      LOG(@"削除されるオブジェクト数：%lu", (unsigned long)[[[CoreDataController managedObjectContext] deletedObjects] count]);
 
       [CoreDataController saveContext];
       break;
@@ -326,6 +326,12 @@ titleForHeaderInSection:(NSInteger)section
       LOG(@"削除");
       [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
+      break;
+    case NSFetchedResultsChangeMove: // by ios8
+      NSLog(@"A table item was moved");
+      break;
+    case NSFetchedResultsChangeUpdate:
+      NSLog(@"A table item was updated");
       break;
   }
 }
