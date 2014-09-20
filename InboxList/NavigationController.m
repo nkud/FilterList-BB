@@ -26,7 +26,14 @@
   return self;
 }
 
+-(void)viewDidLoad
+{
+  [super viewDidLoad];
+  // バーを不透明に設定
+  [self.navigationBar setTranslucent:NO];
+}
 
+/// @todo アニメーションも設定できるようにする
 /**
  * @brief  ビューを表示させる
  * @param viewController 表示させるビュー

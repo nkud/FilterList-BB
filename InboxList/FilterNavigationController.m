@@ -40,10 +40,9 @@
  */
 -(void)viewDidLoad
 {
+  [super viewDidLoad];
   LOG(@"ナビゲーションバーの色を設定");
-  [self.navigationBar setBarTintColor:ITEM_NAVBAR_COLOR];
-  [self.navigationBar setTintColor:RGB(0, 0, 0)];
-  [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: RGB(0, 0, 0)}];
+  [self.navigationBar setBarTintColor:[UIColor yellowColor]];
 }
 
 - (void)didReceiveMemoryWarning

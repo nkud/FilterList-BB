@@ -7,6 +7,8 @@
 //
 
 #import "ItemNavigationController.h"
+#import "Header.h"
+#import "Configure.h"
 
 @interface ItemNavigationController ()
 
@@ -35,8 +37,7 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning
