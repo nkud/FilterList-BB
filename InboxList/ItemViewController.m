@@ -121,7 +121,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   if ([self isInputHeaderCellAtIndexPath:indexPath]) {
     ;
   } else {
-    indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     // インデックスの詳細画面をプッシュする
     [self pushDetailView:indexPath];
   }
@@ -397,13 +396,14 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 -(void)pushDetailView:(NSIndexPath *)indexPath
 {
   // セルの位置のアイテムを取得
+  indexPath = [self mapIndexPathToFetchResultsController:indexPath];
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
   // 詳細画面を作成
   ItemDetailViewController *detailViewController
   = [[ItemDetailViewController alloc] initWithTitle:item.title
                                                tags:item.tags
                                            reminder:item.reminder
-                                          indexPath:[self mapIndexPathToFetchResultsController:indexPath]
+                                          indexPath:indexPath
                                            delegate:self];
 
   // 詳細画面をプッシュ
