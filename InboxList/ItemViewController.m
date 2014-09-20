@@ -100,10 +100,10 @@
 //  [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
 //  [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(44, 0, 0, 0)];
 //  [self.tableView addSubview:self.inputHeaderCell];
-  self.inputHeaderView = [[InputHeaderView alloc] initWithTable:self.tableView];
-  [self.tableView addSubview:self.inputHeaderView];
-  [self.tableView setContentInset:UIEdgeInsetsMake(55, 0, 0, 0)];
-  [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(55, 0, 0, 0)];
+//  self.inputHeaderView = [[InputHeaderView alloc] initWithTable:self.tableView];
+//  [self.tableView addSubview:self.inputHeaderView];
+//  [self.tableView setContentInset:UIEdgeInsetsMake(55, 0, 0, 0)];
+//  [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(55, 0, 0, 0)];
 }
 
 #pragma mark - テーブルビュー
