@@ -8,16 +8,26 @@
 
 #import "InputHeaderCell.h"
 
+NSString *kPlaceholderForInputFiled = @"new item";
+
 @implementation InputHeaderCell
 
 - (void)awakeFromNib {
   // Initialization code
+  self.inputField.placeholder = kPlaceholderForInputFiled;
+  self.inputField.delegate = self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
   [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  [self.inputField resignFirstResponder];
+  return YES;
 }
 
 @end

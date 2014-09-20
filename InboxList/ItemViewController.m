@@ -79,12 +79,11 @@
                                 action:@selector(presentInputItemView)];
   self.navigationItem.rightBarButtonItem = addButton;
   
-  // クイック入力セル
+  // クイック入力セルを初期化・設定
   [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
                                              bundle:nil
                                ] forCellReuseIdentifier:@"InputHeaderCell"];
   self.inputHeaderCell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
-  self.inputHeaderCell.textLabel.text = @"new item";
   CGRect rect = self.inputHeaderCell.frame;
   rect.origin.y -= self.inputHeaderCell.frame.size.height;
   self.inputHeaderCell.frame = rect;
@@ -251,10 +250,10 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   int header_height = self.inputHeaderCell.frame.size.height;
   if ([self hasInlineQuickInputHeader])
   { // クイック入力 -> 通常
-    inset.top -= header_height;
+    inset.top = 0.0f;
   } else
   { // 通常 -> クイック入力
-    inset.top += header_height;
+    inset.top = header_height;
   }
   [UIView animateWithDuration:0.1
                    animations:^{
