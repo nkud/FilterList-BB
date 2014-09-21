@@ -13,6 +13,11 @@
 #import "CoreDataController.h"
 #import "Configure.h"
 
+#define kMarginRateForTagList 0.1
+#define kMarginRateForFilterList 0.2
+
+#pragma mark -
+
 /**
  リストモード
  */
@@ -110,6 +115,51 @@ enum __LIST_MODE__ {
 
 #pragma mark - ビュー移動関数
 
+/**
+ * @brief  タグリストを表示・非表示させる
+ */
+-(void)toggleTagListMode
+{
+  CGRect rect = self.tagNavigationController.view.frame;
+  if ([self hasActivatedTagListMode]) {
+    rect.origin.x = SCREEN_BOUNDS.size.width + 100;
+  } else {
+    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
+  }
+  self.tagNavigationController.view.frame = rect;
+}
+-(BOOL)hasActivatedTagListMode
+{
+  CGRect rect = self.tagNavigationController.view.frame;
+  if (rect.origin.x >= SCREEN_BOUNDS.size.width) {
+    return NO;
+  } else {
+    return YES;
+  }
+}
+
+/**
+ * @brief  フィルターリストを表示・非表示させる
+ */
+-(void)toggleFilterListMode
+{
+  CGRect rect = self.filterNavigationController.view.frame;
+  if ([self hasActivatedTagListMode]) {
+    rect.origin.x = SCREEN_BOUNDS.size.width + 100;
+  } else {
+    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForFilterList;
+  }
+  self.tagNavigationController.view.frame = rect;
+}
+-(BOOL)hasActivatedFilterListMode
+{
+  CGRect rect = self.filterNavigationController.view.frame;
+  if (rect.origin.x >= SCREEN_BOUNDS.size.width) {
+    return NO;
+  } else {
+    return YES;
+  }
+}
 -(void)setLeft:(UIView *)view
 {
   CGRect rect = view.frame;
@@ -155,10 +205,6 @@ enum __LIST_MODE__ {
                    } completion:^(BOOL finished) {
                      ;
                    }];
-//  [UIView animateWithDuration:SWIPE_DURATION
-//                   animations:^{
-//                     [self setCenter:view];
-//                   }];
 }
 /**
  * @brief  指定方向からタグリストを呼び出し
@@ -178,7 +224,8 @@ enum __LIST_MODE__ {
   [self.view bringSubviewToFront:self.tabBar];
   [UIView animateWithDuration:SWIPE_DURATION
                    animations:^{
-                     [self setCenter:view];
+//                     [self setCenter:view];
+                     [self toggleTagListMode];
                    }];
 }
 /**
