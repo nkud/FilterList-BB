@@ -17,7 +17,6 @@
 #import "Header.h"
 #import "Configure.h"
 #import "CoreDataController.h"
-#import "InputHeaderView.h"
 
 #pragma mark -
 
@@ -42,8 +41,8 @@
 - (void)initParameter
 {
   isOpen = false;
-  if (self.selectedTagString == nil) {
-    self.selectedTagString = @"all";
+  if (self.titleForList == nil) {
+    self.titleForList = @"all";
   }
   app = [[UIApplication sharedApplication] delegate];
 }
@@ -61,11 +60,12 @@
   [self initParameter];
 
   // セルとして使うクラスを登録する
-  //  [self.tableView registerClass:[ItemCell class] forCellReuseIdentifier:@"ItemCell"];
   [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ItemCell class])
                                              bundle:nil]
        forCellReuseIdentifier:@"ItemCell"];
-  //  [self.tableView setRowHeight:100];
+  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
+                                             bundle:nil]
+       forCellReuseIdentifier:@"InputHeaderCell"];
   
   // 編集ボタン
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
@@ -81,9 +81,7 @@
   self.navigationItem.rightBarButtonItem = addButton;
   
   // クイック入力セルを初期化・設定
-  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
-                                             bundle:nil]
-       forCellReuseIdentifier:@"InputHeaderCell"];
+
 //  self.inputHeaderCell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
 //  
 //  CGRect rect = CGRectMake(0,
@@ -241,6 +239,9 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)didInputtedNewItem:(NSString *)titleForItem
 {
   NSLog(@"%s %@", __FUNCTION__, titleForItem);
+//  [CoreDataController insertNewItem:titleForItem
+//                               tags:self.selectedTagString
+//                           reminder:nil];
 }
 /**
  * @brief  クイック入力用のインセットなら真
@@ -581,7 +582,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   if ([itemString isEqualToString:@""]) { // 空欄なら
     return;                               // 終了
   }
-  if ([self.selectedTagString isEqualToString:@"all"])
+  if ([self.titleForList isEqualToString:@"all"])
   {                             // 全タグ表示中なら
     [CoreDataController insertNewItem:itemString
                                  tags:nil
@@ -591,7 +592,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   {
     Tag *tag = [[Tag alloc] initWithEntity:[CoreDataController entityDescriptionForName:@"Tag"]
             insertIntoManagedObjectContext:nil];
-    tag.title = self.selectedTagString;
+    tag.title = self.titleForList;
     NSSet *tags = [NSSet setWithObject:tag];
     [CoreDataController insertNewItem:itemString
                                  tags:tags

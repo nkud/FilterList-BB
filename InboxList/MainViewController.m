@@ -380,8 +380,8 @@ didSelectItem:(UITabBarItem *)item
                                                                      controller:self.itemViewController];
   }
   [self loadItemViewForTitle:tag.title
-    fetcheResultController:result_controller];
-  
+                        tags:[NSSet setWithObject:tag]
+      fetcheResultController:result_controller];
 }
 
 /**
@@ -397,6 +397,7 @@ didSelectItem:(UITabBarItem *)item
   NSFetchedResultsController *resultController = [CoreDataController itemFetchedResultsControllerForTags:tags
                                                                                              controller:self.itemViewController];
   [self loadItemViewForTitle:filterTitle
+                        tags:tags
       fetcheResultController:resultController];
 }
 
@@ -407,16 +408,16 @@ didSelectItem:(UITabBarItem *)item
  *  @param fetchedResultController リザルトコントローラー
  */
 - (void)loadItemViewForTitle:(NSString *)title
+                       tags:(NSSet *)tags
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
   LOG(@"アイテムビューをロードする");
   // 選択されたタグを渡して
-  self.itemViewController.selectedTagString = title;
+  self.itemViewController.tagsForSelected = tags;
+  self.itemViewController.titleForList = title;
   self.itemViewController.fetchedResultsController = fetchedResultController;
   // テーブルを更新
   [self.itemViewController updateTableView];
-  // タグの名前に変える
-  [self.itemViewController setTitle:title];
 
   // タブバーのモードを変更する
   [self.tabBar setItemMode];

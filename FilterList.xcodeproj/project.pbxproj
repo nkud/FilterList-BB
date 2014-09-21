@@ -524,9 +524,9 @@
 			isa = PBXGroup;
 			children = (
 				B0E7571219499D98004C6344 /* ItemCell */,
+				B083521619CD59EF00071EE0 /* InputHeaderCell */,
 				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B0E7571319499E95004C6344 /* ItemDetailView */,
-				B083521619CD59EF00071EE0 /* InputHeaderCell */,
 				B00AD6A418C45E470005A552 /* ItemViewController.h */,
 				B00AD6A518C45E470005A552 /* ItemViewController.m */,
 			);

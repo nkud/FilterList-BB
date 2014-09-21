@@ -13,7 +13,6 @@
 #import "Item.h"
 #import "ItemCell.h"
 #import "InputHeaderCell.h"
-#import "InputHeaderView.h"
 
 /**
  * @brief  アイテムリスト
@@ -22,10 +21,11 @@
 <NSFetchedResultsControllerDelegate, ItemDetailViewControllerDelegate, InputHeaderCellDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSString *selectedTagString;
-@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *titleForList;
+
 @property CGFloat triggerDragging;
 
+@property (strong, nonatomic) NSSet *tagsForSelected;
 //@property InputHeaderCell *inputHeaderCell;
 //@property InputHeaderView *inputHeaderView;
 

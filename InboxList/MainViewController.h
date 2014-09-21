@@ -56,6 +56,7 @@ enum __LIST_DIRECTION__ {
 -(void)bringCompleteListFrom:(enum __LIST_DIRECTION__)direction;
 
 -(void)loadItemViewForTitle:(NSString *)title
+                       tags:(NSSet *)tags
    fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
 
 @end
