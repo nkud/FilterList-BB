@@ -96,6 +96,14 @@
   
   [self closeTagListMode];
   [self closeFilterListMode];
+  
+  // リストのサイズを変更
+  CGRect rect =  self.filterNavigationController.view.frame;
+  rect.size.width = SCREEN_BOUNDS.size.width * ( 1.0 - kMarginRateForTagList );
+  self.tagNavigationController.view.frame = rect;
+  rect =  self.filterNavigationController.view.frame;
+  rect.size.width = SCREEN_BOUNDS.size.width * ( 1.0 - kMarginRateForFilterList );
+  self.filterNavigationController.view.frame = rect;
 }
 
 #pragma mark - ビュー移動関数

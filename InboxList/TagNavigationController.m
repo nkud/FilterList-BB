@@ -7,6 +7,7 @@
 //
 
 #import "TagNavigationController.h"
+#import "Header.h"
 
 #define kShadowOpacity 0.8
 
