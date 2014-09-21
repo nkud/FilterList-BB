@@ -79,29 +79,6 @@
                                 target:self
                                 action:@selector(presentInputItemView)];
   self.navigationItem.rightBarButtonItem = addButton;
-  
-  // クイック入力セルを初期化・設定
-
-//  self.inputHeaderCell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
-//  
-//  CGRect rect = CGRectMake(0,
-//                           -44,
-//                           self.inputHeaderCell.bounds.size.width,
-//                           self.inputHeaderCell.bounds.size.height
-//                           );
-////  rect.origin.y -= self.inputHeaderCell.frame.size.height;
-//  LOG(@"%f", rect.origin.y);
-//  
-//  self.inputHeaderCell.frame = rect;
-//  self.inputHeaderCell.delegate = self;
-//
-//  [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
-//  [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(44, 0, 0, 0)];
-//  [self.tableView addSubview:self.inputHeaderCell];
-//  self.inputHeaderView = [[InputHeaderView alloc] initWithTable:self.tableView];
-//  [self.tableView addSubview:self.inputHeaderView];
-//  [self.tableView setContentInset:UIEdgeInsetsMake(55, 0, 0, 0)];
-//  [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(55, 0, 0, 0)];
 }
 
 #pragma mark - テーブルビュー
@@ -244,56 +221,6 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
                                tags:self.tagsForSelected
                            reminder:nil];
 }
-/**
- * @brief  クイック入力用のインセットなら真
- *
- * @return 真偽値
- */
-//-(BOOL)isQuickInputHeaderAtContentInset:(UIEdgeInsets)inset
-//{
-//  if (inset.top == self.inputHeaderCell.frame.size.height) {
-//    return YES;
-//  } else {
-//    return NO;
-//  }
-//}
-
-/**
- * @brief  クイック入力が表示されているか評価
- *
- * @return 真偽値
- */
-//-(BOOL)hasInlineQuickInputHeader
-//{
-//  UIEdgeInsets inset = self.tableView.contentInset;
-//  if ([self isQuickInputHeaderAtContentInset:inset]) {
-//    return YES;
-//  }
-//  return NO;
-//}
-
-/**
- * @brief  クイック入力を開始・終了する
- */
-//-(void)toggleQuickInputActivation
-//{
-//  LOG(@"クイック入力を開始・終了する");
-//  UIEdgeInsets inset = self.tableView.contentInset;
-//  int header_height = self.inputHeaderCell.frame.size.height;
-//  if ([self hasInlineQuickInputHeader])
-//  { // クイック入力 -> 通常
-//    inset.top = 0.0f;
-//  } else
-//  { // 通常 -> クイック入力
-//    inset.top = header_height;
-//  }
-//  [UIView animateWithDuration:0.1
-//                   animations:^{
-//                     [self.tableView setContentInset:inset];
-//                     [self.tableView setScrollIndicatorInsets:inset];
-//                   }];
-//}
-
 
 #pragma mark - 編集時処理
 
