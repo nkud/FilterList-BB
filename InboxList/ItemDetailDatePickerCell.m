@@ -18,6 +18,7 @@
   // Initialization code
   // ピッカーの時間間隔を指定
   self.datePicker.minuteInterval = 10;
+  self.datePicker.datePickerMode = UIDatePickerModeDate;
   [self.datePicker addTarget:self
                       action:@selector(pickerDidChangedValue:)
             forControlEvents:UIControlEventValueChanged];

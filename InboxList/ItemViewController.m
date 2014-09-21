@@ -408,6 +408,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   formatter.dateFormat       = @"yyyy/MM/dd";
   cell.reminderLabel.text    = [formatter stringFromDate:item.reminder];
+  if ([item isOverDue]) {
+    cell.reminderLabel.textColor = [UIColor redColor];
+  }
 
   // 画像タッチを認識する設定
   UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
