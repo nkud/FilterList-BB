@@ -31,4 +31,7 @@
 - (void)addItems:(NSSet *)values;
 - (void)removeItems:(NSSet *)values;
 
+/// @todo 期限切れのアイテム数を数える
+-(NSInteger)countItemsOfOverDue;
+
 @end
