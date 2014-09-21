@@ -27,4 +27,7 @@
 - (void)addTags:(NSSet *)values;
 - (void)removeTags:(NSSet *)values;
 
+-(BOOL)isOverDue;
+-(BOOL)isDueToToday;
+
 @end

@@ -18,4 +18,24 @@
 @dynamic title;
 @dynamic tags;
 
+/**
+ * @brief  期限を過ぎているか評価
+ *
+ * @return 真偽値
+ */
+-(BOOL)isOverDue
+{
+  return YES;
+}
+
+/**
+ * @brief  期限が今日までなら真
+ *
+ * @return 真偽値
+ */
+-(BOOL)isDueToToday
+{
+  return NO;
+}
+
 @end
