@@ -101,6 +101,48 @@
   [self.navigationController pushViewController:inputTagViewController
                                        animated:YES];
 }
+#pragma mark - ユーティリティ
+
+-(BOOL)isCellForAllItemsAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (indexPath.row == 0 && indexPath.section == 0 ) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
+/**
+ * @brief  リザルトコントローラー -> インデックス
+ *
+ * @param indexPath インデックス
+ *
+ * @return インデックス
+ */
+- (NSIndexPath *)mapIndexPathFromFetchResultsController:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 0)
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row + 1
+                                   inSection:indexPath.section];
+  
+  return indexPath;
+}
+
+/**
+ * @brief  インデックス -> リザルトコントローラー
+ *
+ * @param indexPath インデックス
+ *
+ * @return インデックス
+ */
+- (NSIndexPath *)mapIndexPathToFetchResultsController:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 0)
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row - 1
+                                   inSection:indexPath.section];
+  
+  return indexPath;
+}
 
 #pragma mark - テーブルビュー
 
@@ -113,11 +155,16 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  // 選択された位置のタグを取得して
-  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  
-  // 選択されたタグを渡す
-  [self.delegate didSelectedTag:tag];
+  if ([self isCellForAllItemsAtIndexPath:indexPath]) {
+    [self.delegate didSelectedTag:nil];
+  } else {
+    // 選択された位置のタグを取得して
+    indexPath = [self mapIndexPathToFetchResultsController:indexPath];
+    Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    // 選択されたタグを渡す
+    [self.delegate didSelectedTag:tag];
+  }
 }
 
 /**
@@ -152,7 +199,7 @@ numberOfRowsInSection:(NSInteger)section
 {
   id <NSFetchedResultsSectionInfo> sectionInfo
   = [[self.fetchedResultsController sections] objectAtIndex:section];
-  return [sectionInfo numberOfObjects];
+  return [sectionInfo numberOfObjects] + 1;
 }
 
 /**
@@ -180,12 +227,15 @@ numberOfRowsInSection:(NSInteger)section
 - (void)configureTagCell:(TagCell *)cell
           atIndexPath:(NSIndexPath *)indexPath
 {
-  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.tagTitle.text = tag.title;
+  Tag *tag;
   NSString *itemCountString;
-  if ([tag.section isEqualToNumber:[NSNumber numberWithInt:0]]) {
+  if ([self isCellForAllItemsAtIndexPath:indexPath]) {
+    cell.tagTitle.text = @"for all items";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
   } else {
+    indexPath = [self mapIndexPathToFetchResultsController:indexPath];
+    tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.tagTitle.text = tag.title;
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
   }
   cell.numOfItemsTextLabel.text = itemCountString;
@@ -226,7 +276,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 -(BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 0) { // セクション０なら
+  if ([self isCellForAllItemsAtIndexPath:indexPath]) {
     return NO;                  // 編集不可
   }                             // タグセクションなら
   return YES;                   // 編集可
@@ -243,7 +293,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 //      [[CoreDataController managedObjectContext] deleteObject:self.tagArray_[indexPath.row]];
 //      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
 //                                              inSection:0];
-      Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      Tag *tag = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
       LOG(@"関連アイテム：%@", tag.items);
       LOG(@"アイテムを削除");
       for (Item *item in tag.items) {
@@ -270,23 +320,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
  *
  * @return セクション名
  */
--(NSString *)tableView:(UITableView *)tableView
-titleForHeaderInSection:(NSInteger)section
-{
-  switch (section) {
-    case 0:
-      return @"MENU";
-      break;
-      
-    case 1:
-      return @"TAG";
-      break;
-      
-    default:
-      break;
-  }
-  return @"";
-}
+//-(NSString *)tableView:(UITableView *)tableView
+//titleForHeaderInSection:(NSInteger)section
+//{
+//  switch (section) {
+//    case 0:
+//      return @"MENU";
+//      break;
+//      
+//    case 1:
+//      return @"TAG";
+//      break;
+//      
+//    default:
+//      break;
+//  }
+//  return @"";
+//}
 
 #pragma mark - コンテンツの更新
 
@@ -351,6 +401,8 @@ titleForHeaderInSection:(NSInteger)section
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
+  indexPath = [self mapIndexPathFromFetchResultsController:indexPath];
+  newIndexPath = [self mapIndexPathFromFetchResultsController:newIndexPath];
   LOG(@"コンテキストを更新");
   UITableView *tableView = self.tableView;
 

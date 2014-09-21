@@ -16,11 +16,12 @@ enum __SECTION__ {
   __TAG_SECTTION__ = 1
 };
 
+#pragma mark -
+
 @interface CoreDataController () {
   int fetch_batch_size_;
 }
-
-+(void)addTagObjecForAllItems;
+//+(void)addTagObjecForAllItems;
 
 @end
 
@@ -222,7 +223,7 @@ enum __SECTION__ {
 {
   LOG(@"タグ用のリザルトコントローラー");
   
-  [self addTagObjecForAllItems];
+//  [self addTagObjecForAllItems];
   
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   
@@ -244,7 +245,7 @@ enum __SECTION__ {
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:[self managedObjectContext]
-                                          sectionNameKeyPath:@"section"
+                                          sectionNameKeyPath:nil
                                                    cacheName:nil];
   // デリゲートを設定
   aFetchedResultsController.delegate = controller;
@@ -271,7 +272,7 @@ enum __SECTION__ {
 {
   LOG(@"タグ用のリザルトコントローラー");
   
-  [self addTagObjecForAllItems];
+//  [self addTagObjecForAllItems];
   
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   
@@ -296,7 +297,7 @@ enum __SECTION__ {
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:[self managedObjectContext]
-                                          sectionNameKeyPath:@"section"
+                                          sectionNameKeyPath:nil
                                                    cacheName:nil];
   // デリゲートを設定
   aFetchedResultsController.delegate = controller;
@@ -313,21 +314,21 @@ enum __SECTION__ {
 /**
  * @brief  全アイテムタグをコンテキストに追加
  */
-+(void)addTagObjecForAllItems
-{
-  NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Tag"];
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.section == %d", __MENU_SECTION__];
-  [request setPredicate:predicate];
-  NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
-                                                                            error:nil];
-  // 'ALL'タグを追加
-  if ([array count] == 0) {
-    Tag *tag = [self newTagObject];
-    tag.title = @"All Items";
-    tag.section = [NSNumber numberWithInt:__MENU_SECTION__];
-    [self saveContext];
-  }
-}
+//+(void)addTagObjecForAllItems
+//{
+//  NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Tag"];
+//  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.section == %d", __MENU_SECTION__];
+//  [request setPredicate:predicate];
+//  NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
+//                                                                            error:nil];
+//  // 'ALL'タグを追加
+//  if ([array count] == 0) {
+//    Tag *tag = [self newTagObject];
+//    tag.title = @"All Items";
+//    tag.section = [NSNumber numberWithInt:__MENU_SECTION__];
+//    [self saveContext];
+//  }
+//}
 
 /**
  * @brief  タグを挿入
