@@ -166,6 +166,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"指定されたセルを返す");
   if ([self isInputHeaderCellAtIndexPath:indexPath]) {
     InputHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
+    cell.delegate = self;
     return cell;
   }
   static NSString *CellIdentifier = @"ItemCell";
@@ -239,9 +240,9 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)didInputtedNewItem:(NSString *)titleForItem
 {
   NSLog(@"%s %@", __FUNCTION__, titleForItem);
-//  [CoreDataController insertNewItem:titleForItem
-//                               tags:self.selectedTagString
-//                           reminder:nil];
+  [CoreDataController insertNewItem:titleForItem
+                               tags:self.tagsForSelected
+                           reminder:nil];
 }
 /**
  * @brief  クイック入力用のインセットなら真

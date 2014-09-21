@@ -415,6 +415,7 @@ didSelectItem:(UITabBarItem *)item
   // 選択されたタグを渡して
   self.itemViewController.tagsForSelected = tags;
   self.itemViewController.titleForList = title;
+  self.itemViewController.title = title;
   self.itemViewController.fetchedResultsController = fetchedResultController;
   // テーブルを更新
   [self.itemViewController updateTableView];

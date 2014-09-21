@@ -33,9 +33,16 @@ NSString *kPlaceholderForInputFiled = @"new item";
  */
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  // キーボードを閉じる
-  [self.delegate didInputtedNewItem:self.inputField.text];
-  [self.inputField resignFirstResponder];
+  if ([textField.text isEqualToString:@""])
+  {
+    // キーボードを閉じる
+    [self.inputField resignFirstResponder];
+  } else
+  {
+    [self.delegate didInputtedNewItem:self.inputField.text];
+    textField.text = @"";
+  }
+
   return YES;
 }
 
