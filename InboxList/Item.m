@@ -25,7 +25,14 @@
  */
 -(BOOL)isOverDue
 {
-  return YES;
+  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  [formatter setDateFormat:@"yyyy-MM-dd"];;
+  NSDate *today = [NSDate date];
+  if ([[self.reminder earlierDate:today] isEqualToDate:today]) {
+    return YES;
+  } else {
+    return NO;
+  }
 }
 
 /**

@@ -410,6 +410,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   cell.reminderLabel.text    = [formatter stringFromDate:item.reminder];
   if ([item isOverDue]) {
     cell.reminderLabel.textColor = [UIColor redColor];
+  } else {
+    cell.reminderLabel.textColor = [UIColor grayColor];
   }
 
   // 画像タッチを認識する設定
