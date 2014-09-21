@@ -499,16 +499,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
              atIndexPath:(NSIndexPath *)atIndexPath
 {
   NSString *stringForDate;
+  UIColor *colorForText;
   if (self.reminderForItem)
   { // リマインダーが設定されている時
-    stringForDate = [NSDateFormatter localizedStringFromDate:self.reminderForItem
-                                                   dateStyle:NSDateFormatterShortStyle
-                                                   timeStyle:NSDateFormatterShortStyle];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+//    stringForDate = [NSDateFormatter localizedStringFromDate:self.reminderForItem
+//                                                   dateStyle:NSDateFormatterShortStyle
+//                                                   timeStyle:NSDateFormatterShortStyle];
+    stringForDate = [formatter stringFromDate:self.reminderForItem];
+    colorForText = [UIColor blackColor];
   } else
   { // リマインダーが設定されていない時
     stringForDate = @"reminder";
+    colorForText = [UIColor grayColor];
   }
+  // 文字を設定
   cell.textLabel.text = stringForDate;
+  // 文字色を設定
+  cell.textLabel.textColor = colorForText;
 }
 
 
