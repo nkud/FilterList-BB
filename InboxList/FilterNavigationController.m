@@ -10,6 +10,10 @@
 #import "Header.h"
 #import "Configure.h"
 
+#define kShadowOpacity 0.8
+
+#pragma mark -
+
 @interface FilterNavigationController ()
 
 @end
@@ -43,6 +47,8 @@
   [super viewDidLoad];
   LOG(@"ナビゲーションバーの色を設定");
   [self.navigationBar setBarTintColor:[UIColor yellowColor]];
+  // 影をつける
+  self.view.layer.shadowOpacity = kShadowOpacity;
 }
 
 - (void)didReceiveMemoryWarning

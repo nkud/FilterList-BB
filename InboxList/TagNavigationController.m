@@ -3,10 +3,14 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/08/23.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "TagNavigationController.h"
+
+#define kShadowOpacity 0.8
+
+#pragma mark -
 
 @interface TagNavigationController ()
 
@@ -35,8 +39,9 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
+  // 影をつける
+  self.view.layer.shadowOpacity = kShadowOpacity;
 }
 
 - (void)didReceiveMemoryWarning
