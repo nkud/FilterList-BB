@@ -50,13 +50,8 @@ enum __LIST_DIRECTION__ {
 -(void)toFilterListMode;
 -(void)toCompleteListMode;
 
--(void)bringItemListFrom:(enum __LIST_DIRECTION__)direction;
--(void)bringTagListFrom:(enum __LIST_DIRECTION__)direction;
--(void)bringFilterListFrom:(enum __LIST_DIRECTION__)direction;
--(void)bringCompleteListFrom:(enum __LIST_DIRECTION__)direction;
-
 -(void)loadItemViewForTitle:(NSString *)title
                        tags:(NSSet *)tags
-   fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
+     fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
 
 @end

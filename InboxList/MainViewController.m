@@ -18,24 +18,9 @@
 
 #pragma mark -
 
-/**
- リストモード
- */
-enum __LIST_MODE__ {
-  __ITEM_MODE__,    ///< アイテムモード
-  __TAG_MODE__,     ///< タグモード
-  __FILTER_MODE__,  ///< フィルターモード
-  __COMPLETE_MODE__ ///< コンプリートモード
-};
+@interface MainViewController () {
 
-@interface MainViewController ()
-{
-  enum __LIST_MODE__ currentListMode_;
 }
-
--(void)setLeft:(UIView *)view;
--(void)setCenter:(UIView *)view;
--(void)setRight:(UIView *)view;
 
 @end
 
@@ -104,29 +89,45 @@ enum __LIST_MODE__ {
   self.tagNavigationController = [[TagNavigationController alloc] initWithRootViewController:self.tagViewController];
   
   // コントローラーを配置
+  [self.view addSubview:self.itemNavigationController.view];
   [self.view addSubview:self.tagNavigationController.view];
   [self.view addSubview:self.filterNavigationController.view];
-  [self.view addSubview:self.itemNavigationController.view];
   [self.view addSubview:self.tabBar];
   
-  // アイテムモードにする
-  [self setItemMode];
+  [self closeTagListMode];
+  [self closeFilterListMode];
 }
 
 #pragma mark - ビュー移動関数
 
+
+-(void)closeTagListMode
+{
+  if ([self hasActivatedTagListMode]) {
+    CGRect rect = self.tagNavigationController.view.frame;
+    rect.origin.x = SCREEN_BOUNDS.size.width + 100;
+    self.tagNavigationController.view.frame = rect;
+  }
+
+}
+-(void)openTagListMode
+{
+  if ( ! [self hasActivatedTagListMode]) {
+    CGRect rect = self.tagNavigationController.view.frame;
+    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
+    self.tagNavigationController.view.frame = rect;
+  }
+}
 /**
  * @brief  タグリストを表示・非表示させる
  */
 -(void)toggleTagListMode
 {
-  CGRect rect = self.tagNavigationController.view.frame;
   if ([self hasActivatedTagListMode]) {
-    rect.origin.x = SCREEN_BOUNDS.size.width + 100;
+    [self closeTagListMode];
   } else {
-    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
+    [self openTagListMode];
   }
-  self.tagNavigationController.view.frame = rect;
 }
 -(BOOL)hasActivatedTagListMode
 {
@@ -137,19 +138,32 @@ enum __LIST_MODE__ {
     return YES;
   }
 }
-
+-(void)closeFilterListMode
+{
+  if ([self hasActivatedFilterListMode]) {
+    CGRect rect = self.filterNavigationController.view.frame;
+    rect.origin.x = SCREEN_BOUNDS.size.width + 100;
+    self.filterNavigationController.view.frame = rect;
+  }
+}
+-(void)openFilterListMode
+{
+  if ( ! [self hasActivatedFilterListMode]) {
+    CGRect rect = self.filterNavigationController.view.frame;
+    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForFilterList;
+    self.filterNavigationController.view.frame = rect;
+  }
+}
 /**
  * @brief  フィルターリストを表示・非表示させる
  */
 -(void)toggleFilterListMode
 {
-  CGRect rect = self.filterNavigationController.view.frame;
-  if ([self hasActivatedTagListMode]) {
-    rect.origin.x = SCREEN_BOUNDS.size.width + 100;
+  if ([self hasActivatedFilterListMode]) {
+    [self closeFilterListMode];
   } else {
-    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForFilterList;
+    [self openFilterListMode];
   }
-  self.tagNavigationController.view.frame = rect;
 }
 -(BOOL)hasActivatedFilterListMode
 {
@@ -160,220 +174,39 @@ enum __LIST_MODE__ {
     return YES;
   }
 }
--(void)setLeft:(UIView *)view
-{
-  CGRect rect = view.frame;
-  rect.origin.x = 0 - view.frame.size.width;
-  view.frame = rect;
-}
-
--(void)setCenter:(UIView *)view
-{
-  CGRect rect = view.frame;
-  rect.origin.x = 0;
-  view.frame = rect;
-}
-
--(void)setRight:(UIView *)view
-{
-  CGRect rect = view.frame;
-  rect.origin.x = view.frame.size.width;
-  view.frame = rect;
-}
-
-/**
- * @brief  指定方向からアイテムリストを呼び出し
- *
- * @param direction 呼び出す方向
- */
--(void)bringItemListFrom:(enum __LIST_DIRECTION__)direction
-{
-  [self setItemMode];
-  UIView *view = self.itemNavigationController.view;
-  if (direction == __FROM_RIGHT__) {
-    [self setRight:view];
-  } else {
-    [self setLeft:view];
-  }
-  [self.view bringSubviewToFront:view];
-  [self.view bringSubviewToFront:self.tabBar];
-  [UIView animateWithDuration:SWIPE_DURATION
-                        delay:0
-                      options:UIViewAnimationOptionCurveEaseOut
-                   animations:^{
-                     [self setCenter:view];
-                   } completion:^(BOOL finished) {
-                     ;
-                   }];
-}
-/**
- * @brief  指定方向からタグリストを呼び出し
- *
- * @param direction 呼び出す方向
- */
--(void)bringTagListFrom:(enum __LIST_DIRECTION__)direction
-{
-  [self setTagMode];
-  UIView *view = self.tagNavigationController.view;
-  if (direction == __FROM_RIGHT__) {
-    [self setRight:view];
-  } else {
-    [self setLeft:view];
-  }
-  [self.view bringSubviewToFront:view];
-  [self.view bringSubviewToFront:self.tabBar];
-  [UIView animateWithDuration:SWIPE_DURATION
-                   animations:^{
-//                     [self setCenter:view];
-                     [self toggleTagListMode];
-                   }];
-}
-/**
- * @brief  指定方向からフィルターリストを呼び出し
- *
- * @param direction 呼び出す方向
- */
--(void)bringFilterListFrom:(enum __LIST_DIRECTION__)direction
-{
-  [self setFilterMode];
-  UIView *view = self.filterNavigationController.view;
-  if (direction == __FROM_RIGHT__) {
-    [self setRight:view];
-  } else {
-    [self setLeft:view];
-  }
-  [self.view bringSubviewToFront:view];
-  [self.view bringSubviewToFront:self.tabBar];
-  [UIView animateWithDuration:SWIPE_DURATION
-                   animations:^{
-                     [self setCenter:view];
-                   }];
-}
-/**
- * @brief  指定方向からコンプリートリストを呼び出し
- *
- * @param direction 呼び出す方向
- */
--(void)bringCompleteListFrom:(enum __LIST_DIRECTION__)direction
-{
-  /// @todo 要変更
-  return;
-  [self setCompleteMode];
-  UIView *view = self.filterNavigationController.view;
-  if (direction == __FROM_RIGHT__) {
-    [self setRight:view];
-  } else {
-    [self setLeft:view];
-  }
-  [self.view bringSubviewToFront:view];
-  [self.view bringSubviewToFront:self.tabBar];
-  [UIView animateWithDuration:SWIPE_DURATION
-                   animations:^{
-                     [self setCenter:view];
-                   }];
-}
-
-#pragma mark - リスト変更関数
-
--(void)setItemMode
-{
-  LOG(@"アイテムモードに設定");
-  currentListMode_ = __ITEM_MODE__;
-  [self.tabBar setItemMode];
-}
--(void)setTagMode
-{
-  LOG(@"タグモードに設定");
-  currentListMode_ = __TAG_MODE__;
-  [self.tabBar setTagMode];
-}
--(void)setFilterMode
-{
-  LOG(@"フィルターモードに設定");
-  currentListMode_ = __FILTER_MODE__;
-  [self.tabBar setFilterMode];
-}
--(void)setCompleteMode
-{
-  currentListMode_ = __COMPLETE_MODE__;
-  [self.tabBar setCompletedMode];
-}
 
 #pragma mark - リスト表示モード関数
-
--(void)changeMode:(enum __LIST_MODE__)from
-               to:(enum __LIST_MODE__)to
-{
-  // 同じ場合は処理しない
-  if (from == to) {
-    return;
-  }
-  LOG(@"%u", currentListMode_);
-  
-  enum __LIST_DIRECTION__ direction;
-  switch (from) {
-    case __ITEM_MODE__:
-      direction = __FROM_RIGHT__;
-      break;
-    case __TAG_MODE__:
-      if (to == __ITEM_MODE__) {
-        direction = __FROM_LEFT__;
-      } else {
-        direction = __FROM_RIGHT__;
-      }
-      break;
-    case __FILTER_MODE__:
-      if (to == __COMPLETE_MODE__) {
-        direction = __FROM_RIGHT__;
-      } else {
-        direction = __FROM_LEFT__;
-      }
-      break;
-    case __COMPLETE_MODE__:
-      direction = __FROM_LEFT__;
-      break;
-    default:
-      break;
-  }
-  switch (to) {
-    case __ITEM_MODE__:
-      [self bringItemListFrom:direction];
-      break;
-    case __TAG_MODE__:
-      [self bringTagListFrom:direction];
-      break;
-    case __FILTER_MODE__:
-      [self bringFilterListFrom:direction];
-      break;
-    case __COMPLETE_MODE__:
-      [self bringCompleteListFrom:direction];
-      break;
-      
-    default:
-      break;
-  }
-}
 
 -(void)toItemListMode
 {
   LOG(@"アイテムリストモード");
-  [self changeMode:currentListMode_
-                to:__ITEM_MODE__];
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:0.2];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [self closeTagListMode];
+  [self closeFilterListMode];
+  [UIView commitAnimations];
 }
 -(void)toTagListMode
 {
-  [self changeMode:currentListMode_
-                to:__TAG_MODE__];
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:0.2];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [self openTagListMode];
+  [self closeFilterListMode];
+  [UIView commitAnimations];
 }
 -(void)toFilterListMode
 {
-  [self changeMode:currentListMode_
-                to:__FILTER_MODE__];
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:0.2];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [self openTagListMode];
+  [self openFilterListMode];
+  [UIView commitAnimations];
 }
 -(void)toCompleteListMode
 {
-  [self changeMode:currentListMode_
-                to:__COMPLETE_MODE__];
 }
 
 
