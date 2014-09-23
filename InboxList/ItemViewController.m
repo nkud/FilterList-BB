@@ -150,6 +150,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   } else {
     // インデックスの詳細画面をプッシュする
     [self pushDetailView:indexPath];
+    // 選択状態を消す
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   }
 }
 
@@ -194,12 +196,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"指定されたセルを返す");
   if ([self isInputHeaderCellAtIndexPath:indexPath]) {
-    InputHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
+    InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
     cell.delegate = self;
     return cell;
   }
   static NSString *CellIdentifier = @"ItemCell";
-  ItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  ItemCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   [self configureItemCell:cell
               atIndexPath:indexPath];
   return cell;
