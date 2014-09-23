@@ -82,7 +82,7 @@
   self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
   
   // タグビューコントローラを初期化
-  self.tagViewController = [[TagViewController alloc] initWithNibName:nil
+  self.tagViewController = [[TagViewController alloc] initWithNibName:@"ListViewController"
                                                                bundle:nil];
   self.tagViewController.delegate = self;
   self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
