@@ -183,6 +183,45 @@
   }
 }
 
+#pragma mark - タブバー
+-(BOOL)hasTabBar
+{
+  CGFloat y = self.tabBar.frame.origin.y;
+  if (y <= SCREEN_BOUNDS.size.height) {
+    return NO;
+  } else {
+    return YES;
+  }
+}
+
+-(void)openTabBar
+{
+  if ( ! [self hasTabBar]) {
+    CGRect rect = CGRectMake(0,
+                             SCREEN_BOUNDS.size.height-TABBAR_H,
+                             SCREEN_BOUNDS.size.width,
+                             TABBAR_H);
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                       self.tabBar.frame = rect;
+                     }];
+  }
+}
+
+-(void)closeTabBar
+{
+  if ([self hasTabBar]) {
+    CGRect rect = CGRectMake(0,
+                             SCREEN_BOUNDS.size.height,
+                             SCREEN_BOUNDS.size.width,
+                             TABBAR_H);
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                       self.tabBar.frame = rect;
+                     }];
+  }
+}
+
 #pragma mark - リスト表示モード関数
 
 -(void)toItemListMode
