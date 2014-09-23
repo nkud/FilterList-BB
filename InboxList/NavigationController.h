@@ -13,7 +13,7 @@
  */
 @interface __NavigationController : UINavigationController
 
-@property UIView *titleView;
+@property (strong, nonatomic) UIView *titleView;
 @property UILabel *titleLabel;
 @property UILabel *miniLabel;
 

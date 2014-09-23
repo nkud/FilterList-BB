@@ -69,11 +69,8 @@
   self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
 
   self.itemViewController.fetchedResultsController = [CoreDataController itemFethcedResultsController:self.itemViewController];
-    
-  // ナビゲーションコントローラを初期化
   
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
- 
 
   // フィルターコントローラを初期化
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
