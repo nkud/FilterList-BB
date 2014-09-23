@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ListViewController : UIViewController
+<UITableViewDelegate, UITableViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

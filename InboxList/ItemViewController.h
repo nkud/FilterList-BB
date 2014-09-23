@@ -13,11 +13,13 @@
 #import "Item.h"
 #import "ItemCell.h"
 #import "InputHeaderCell.h"
+#import "ListViewController.h"
 
 /**
  * @brief  アイテムリスト
  */
-@interface ItemViewController : UITableViewController
+//@interface ItemViewController : UITableViewController
+@interface ItemViewController : ListViewController
 <NSFetchedResultsControllerDelegate, ItemDetailViewControllerDelegate, InputHeaderCellDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;

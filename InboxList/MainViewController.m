@@ -12,6 +12,7 @@
 #import "InputFilterViewController.h"
 #import "CoreDataController.h"
 #import "Configure.h"
+#import "ListViewController.h"
 
 #define kMarginRateForTagList 0
 #define kMarginRateForFilterList 0
@@ -66,7 +67,9 @@
   self.tabBar.delegate = self;
 
   // アイテムビューコントローラを初期化
-  self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
+//  self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
+  self.itemViewController = [[ItemViewController alloc] initWithNibName:@"ListViewController"
+                                                                 bundle:nil];
 
   self.itemViewController.fetchedResultsController = [CoreDataController itemFethcedResultsController:self.itemViewController];
   
