@@ -13,8 +13,8 @@
 #import "CoreDataController.h"
 #import "Configure.h"
 
-#define kMarginRateForTagList 0.1
-#define kMarginRateForFilterList 0.2
+#define kMarginRateForTagList 0
+#define kMarginRateForFilterList 0
 
 #pragma mark -
 
