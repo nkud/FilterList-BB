@@ -27,13 +27,7 @@
 
 @property CGFloat triggerDragging;
 
-@property (strong, nonatomic) NSSet *tagsForSelected;
-
-// ビューのタイトル
-@property NSString *stringForTitle;
-@property NSString *stringForMiniTitle;
--(void)configureTitleWithString:(NSString *)title
-                      miniTitle:(NSString *)miniTitle;
+@property (strong, nonatomic) NSSet *tagsForSelected;n
 
 -(void)updateTableView;
 

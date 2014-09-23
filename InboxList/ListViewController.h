@@ -13,4 +13,9 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+// ビューのタイトル
+@property UIView *titleView;
+-(void)configureTitleWithString:(NSString *)title
+                      miniTitle:(NSString *)miniTitle;
+
 @end
