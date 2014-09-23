@@ -40,8 +40,10 @@
                            bundle:nibBundleOrNil];
     if (self)
     {
-      [self.tableView registerClass:[FilterCell class]
-             forCellReuseIdentifier:@"FilterCell"]; // セルを登録
+      [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
+                                                 bundle:nil]
+           forCellReuseIdentifier:@"FilterCell"];
+      
     }
     return self;
 }

@@ -1,8 +1,8 @@
 //
 //  FilterCell.h
-//  InboxList
+//  FilterList
 //
-//  Created by Naoki Ueda on 2014/08/15.
+//  Created by Naoki Ueda on 2014/09/23.
 //  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
 //
 
