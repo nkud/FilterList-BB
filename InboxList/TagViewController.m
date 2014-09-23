@@ -15,6 +15,10 @@
 
 #import "Configure.h"
 
+#define kHeightForTagCell 44
+
+#pragma mark -
+
 @interface TagViewController () {
   
 }
@@ -144,6 +148,11 @@
   return indexPath;
 }
 
+-(NSInteger)heightForTagCell
+{
+  return kHeightForTagCell;
+}
+
 #pragma mark - テーブルビュー
 
 /**
@@ -252,7 +261,7 @@ numberOfRowsInSection:(NSInteger)section
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return TAG_CELL_HEIGHT;
+  return [self heightForTagCell];
 }
 
 /**

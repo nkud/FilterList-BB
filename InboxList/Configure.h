@@ -30,7 +30,7 @@
 /**
  * @brief セルの高さ
  */
-#define TAG_CELL_HEIGHT 50
+//#define TAG_CELL_HEIGHT 50
 
 
 #endif
