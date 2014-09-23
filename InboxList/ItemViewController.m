@@ -74,14 +74,14 @@
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                  style:UIBarButtonItemStyleBordered
                                                                 target:self action:@selector(toEdit:)];
-//  self.navigationItem.leftBarButtonItem = editButton;
+  self.navigationItem.leftBarButtonItem = editButton;
 
   // 新規ボタン
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                 target:self
                                 action:@selector(presentInputItemView)];
-//  self.navigationItem.rightBarButtonItem = addButton;
+  self.navigationItem.rightBarButtonItem = addButton;
 }
 
 #pragma mark - テーブルビュー
