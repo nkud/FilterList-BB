@@ -99,6 +99,11 @@
   [self closeTagListMode];
   [self closeFilterListMode];
   
+  // デリゲートを設定
+  self.itemViewController.delegateForList = self;
+  self.tagViewController.delegateForList = self;
+  self.filterViewController.delegateForList = self;
+  
   // リストのサイズを変更
   CGRect rect =  self.filterNavigationController.view.frame;
   rect.size.width = SCREEN_BOUNDS.size.width * ( 1.0 - kMarginRateForTagList );
@@ -189,7 +194,7 @@
 -(BOOL)hasTabBar
 {
   CGFloat y = self.tabBar.frame.origin.y;
-  if (y <= SCREEN_BOUNDS.size.height) {
+  if (y < SCREEN_BOUNDS.size.height) {
     return YES;
   } else {
     return NO;
@@ -244,7 +249,6 @@
   [self openTagListMode];
   [self closeFilterListMode];
   [UIView commitAnimations];
-  [self closeTabBar];
 }
 -(void)toFilterListMode
 {

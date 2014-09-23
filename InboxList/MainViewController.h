@@ -16,6 +16,7 @@
 #import "FilterViewController.h"
 #import "InputFilterViewController.h"
 #import "TabBar.h"
+#import "ListViewController.h"
 
 /**
  リストモード変更の方向
@@ -29,7 +30,7 @@ enum __LIST_DIRECTION__ {
  * @brief  メインコンテナ
  */
 @interface MainViewController : UIViewController
-<TagViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate> {
+<TagViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate, ListViewControllerDelegate> {
   int swipe_distance;
 }
 

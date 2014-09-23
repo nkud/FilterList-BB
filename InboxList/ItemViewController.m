@@ -321,6 +321,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 -(void)presentInputItemView
 {
+  // タブバーを閉じる
+  [self.delegateForList closeTabBar];
+  
   LOG(@"入力画面を表示");
   ItemDetailViewController *detailViewController
   = [[ItemDetailViewController alloc] initWithTitle:nil
@@ -341,6 +344,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 -(void)pushDetailView:(NSIndexPath *)indexPath
 {
+  // タブバーを閉じる
+  [self.delegateForList closeTabBar];
+  
   // セルの位置のアイテムを取得
   indexPath = [self mapIndexPathToFetchResultsController:indexPath];
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -374,6 +380,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                indexPath:(NSIndexPath *)indexPath
                isNewItem:(BOOL)isNewItem
 {
+  // タブバーを開ける
   LOG(@"%@", title);
   Item *item;
   if (isNewItem) {
@@ -397,7 +404,11 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [CoreDataController saveContext];
 }
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  [self.delegateForList openTabBar];
+}
 
 #pragma mark - セル関連
 

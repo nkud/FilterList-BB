@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ListViewControllerDelegate <NSObject>
+
+-(void)openTabBar;
+-(void)closeTabBar;
+
+@end
+
 @interface ListViewController : UIViewController
 <UITableViewDelegate, UITableViewDataSource>
 
@@ -17,5 +24,7 @@
 @property UIView *titleView;
 -(void)configureTitleWithString:(NSString *)title
                       miniTitle:(NSString *)miniTitle;
+
+@property id<ListViewControllerDelegate> delegateForList;
 
 @end

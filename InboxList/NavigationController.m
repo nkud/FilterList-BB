@@ -47,6 +47,7 @@
 -(void)pushViewController:(UIViewController *)viewController
                  animated:(BOOL)animated
 {
+  NSLog(@"%s %@", __FUNCTION__, @"プッシュ");
   CATransition *transition = [CATransition animation];
   transition.duration = 0.3f;
   transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -63,6 +64,7 @@
  */
 -(NSArray *)popToRootViewControllerAnimated:(BOOL)animated
 {
+  NSLog(@"%s %@", __FUNCTION__, @"ポップ");
   CATransition *transition = [CATransition animation];
   transition.duration = 0.3f;
   transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
