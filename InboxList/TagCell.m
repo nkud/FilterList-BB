@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/08/03.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "TagCell.h"
@@ -22,7 +22,6 @@
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
 {
-  LOG(@"タグセルを初期化");
   self = [super initWithStyle:style
               reuseIdentifier:reuseIdentifier];
   if (self)

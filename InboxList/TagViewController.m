@@ -238,16 +238,18 @@ numberOfRowsInSection:(NSInteger)section
 {
   Tag *tag;
   NSString *itemCountString;
-  if ([self isCellForAllItemsAtIndexPath:indexPath]) {
-    cell.tagTitle.text = @"for all items";
+  if ([self isCellForAllItemsAtIndexPath:indexPath])
+  { // 全アイテム表示用タグの設定
+    cell.labelForTitle.text = @"all items";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
-  } else {
+  } else
+  { // 通常のタグの設定
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.tagTitle.text = tag.title;
+    cell.labelForTitle.text = tag.title;
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
   }
-  cell.numOfItemsTextLabel.text = itemCountString;
+  cell.labelForItemSize.text = itemCountString;
 }
 
 /**
