@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ItemViewController.h"
+#import "ItemNavigationController.h"
 #import "ItemDetailViewController.h"
 #import "Tag.h"
 #import "Item.h"
@@ -48,6 +49,15 @@
   app = [[UIApplication sharedApplication] delegate];
 }
 
+
+
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  self = [super initWithNibName:nibNameOrNil
+                         bundle:nibBundleOrNil];
+  return self;
+}
+
 /**
  * @brief  ビューのロード後処理
  */
@@ -55,9 +65,11 @@
 {
   LOG(@"アイテムビューがロードされた後の処理");
   [super viewDidLoad];
-  
+
+  // タイトルを設定
+  [self configureTitleWithString:ITEM_LIST_TITLE
+                       miniTitle:@"mini title"];
   // 変数を初期化
-  [self setTitle:ITEM_LIST_TITLE];
   [self initParameter];
 
   // セルとして使うクラスを登録する
@@ -99,6 +111,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   } else {
     // インデックスの詳細画面をプッシュする
     [self pushDetailView:indexPath];
+    // 選択状態を消す
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   }
 }
 
@@ -143,12 +157,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"指定されたセルを返す");
   if ([self isInputHeaderCellAtIndexPath:indexPath]) {
-    InputHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
+    InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
     cell.delegate = self;
     return cell;
   }
   static NSString *CellIdentifier = @"ItemCell";
-  ItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  ItemCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   [self configureItemCell:cell
               atIndexPath:indexPath];
   return cell;

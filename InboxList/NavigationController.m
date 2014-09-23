@@ -10,6 +10,10 @@
 #import "Header.h"
 #import "Configure.h"
 
+@interface __NavigationController ()
+
+@end
+
 @implementation __NavigationController
 
 /**
@@ -20,7 +24,8 @@
 -(id)initWithRootViewController:(UIViewController *)rootViewController
 {
   self = [super initWithRootViewController:rootViewController];
-  if (self) {
+  if (self)
+  {
     ;
   }
   return self;

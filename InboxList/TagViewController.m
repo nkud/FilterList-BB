@@ -40,9 +40,6 @@
 {
   self = [super initWithNibName:nibNameOrNil
                          bundle:nibBundleOrNil];
-  if (self) {
-    ;
-  }
   return self;
 }
 
@@ -57,7 +54,8 @@
   [super viewDidLoad];
   
   // タイトルを設定
-  [self setTitle:TAG_LIST_TITLE];
+  [self configureTitleWithString:TAG_LIST_TITLE
+                       miniTitle:@"mini title"];
   
   // 使用するセルを登録
   [self.tableView registerNib:[UINib nibWithNibName:@"TagCell"
@@ -66,7 +64,7 @@
 
   // 編集ボタンを追加
   UIBarButtonItem *editButton
-  = [[UIBarButtonItem alloc] initWithTitle:@"タグ編集"
+  = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                      style:UIBarButtonItemStyleBordered
                                     target:self
                                     action:@selector(toEdit:)];

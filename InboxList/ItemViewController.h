@@ -13,11 +13,13 @@
 #import "Item.h"
 #import "ItemCell.h"
 #import "InputHeaderCell.h"
+#import "ListViewController.h"
 
 /**
  * @brief  アイテムリスト
  */
-@interface ItemViewController : UITableViewController
+//@interface ItemViewController : UITableViewController
+@interface ItemViewController : ListViewController
 <NSFetchedResultsControllerDelegate, ItemDetailViewControllerDelegate, InputHeaderCellDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
@@ -26,17 +28,7 @@
 @property CGFloat triggerDragging;
 
 @property (strong, nonatomic) NSSet *tagsForSelected;
-//@property InputHeaderCell *inputHeaderCell;
-//@property InputHeaderView *inputHeaderView;
-
-/**
- *  @brief タグのリストを取得する
- *
- *  @return タグのリスト
- */
-//-(NSArray *)getTagList;
 
 -(void)updateTableView;
-
 
 @end

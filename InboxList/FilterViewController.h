@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "InputFilterViewController.h"
+#import "ListViewController.h"
 
 @protocol FilterViewControllerDelegate <NSObject>
 
@@ -27,7 +28,7 @@
 /**
  *  @brief  フィルターリスト
  */
-@interface FilterViewController : UITableViewController
+@interface FilterViewController : ListViewController
 <NSFetchedResultsControllerDelegate, InputFilterDelegate>
 
 @property id <FilterViewControllerDelegate> delegate;
