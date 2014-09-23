@@ -62,6 +62,7 @@
 		B0AD8C6A19D12A2C0069B29D /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0AD8C6819D12A2C0069B29D /* FilterCell.xib */; };
 		B0AD8C7419D12B2A0069B29D /* CompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AD8C7219D12B2A0069B29D /* CompleteViewController.m */; };
 		B0AD8C7519D12B2A0069B29D /* CompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0AD8C7319D12B2A0069B29D /* CompleteViewController.xib */; };
+		B0AD8C7919D12C070069B29D /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AD8C7819D12C070069B29D /* TagLabel.m */; };
 		B0BC6A8C19A9CDC700E53AEF /* TagSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A8A19A9CDC700E53AEF /* TagSelectViewController.m */; };
 		B0BC6A8D19A9CDC700E53AEF /* TagSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BC6A8B19A9CDC700E53AEF /* TagSelectViewController.xib */; };
 		B0BC6A9219A9FA9800E53AEF /* TagSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A9019A9FA9800E53AEF /* TagSelectCell.m */; };
@@ -166,6 +167,8 @@
 		B0AD8C7119D12B2A0069B29D /* CompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompleteViewController.h; sourceTree = "<group>"; };
 		B0AD8C7219D12B2A0069B29D /* CompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompleteViewController.m; sourceTree = "<group>"; };
 		B0AD8C7319D12B2A0069B29D /* CompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompleteViewController.xib; sourceTree = "<group>"; };
+		B0AD8C7719D12C070069B29D /* TagLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLabel.h; sourceTree = "<group>"; };
+		B0AD8C7819D12C070069B29D /* TagLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagLabel.m; sourceTree = "<group>"; };
 		B0BC6A8919A9CDC700E53AEF /* TagSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSelectViewController.h; sourceTree = "<group>"; };
 		B0BC6A8A19A9CDC700E53AEF /* TagSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSelectViewController.m; sourceTree = "<group>"; };
 		B0BC6A8B19A9CDC700E53AEF /* TagSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagSelectViewController.xib; sourceTree = "<group>"; };
@@ -250,7 +253,8 @@
 				B0BDA8821996563C003AA40B /* CoreData */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
 				B0C93A1A194C4AB600733BE7 /* NavigationController */,
-				B0A0914E19CD322E005CDCF8 /* Mode */,
+				B0A0914E19CD322E005CDCF8 /* ListMode */,
+				B0AD8C7619D12BDC0069B29D /* Utility */,
 				B05FA8201982AE8900E25FAF /* TabBar */,
 				B03F2BD2194D75F40037AE2C /* Resource */,
 				B00AD6AA18C45E470005A552 /* Images.xcassets */,
@@ -448,7 +452,7 @@
 			name = AppDelegate;
 			sourceTree = "<group>";
 		};
-		B0A0914E19CD322E005CDCF8 /* Mode */ = {
+		B0A0914E19CD322E005CDCF8 /* ListMode */ = {
 			isa = PBXGroup;
 			children = (
 				B0AD8C7019D12AFA0069B29D /* CompleteMode */,
@@ -456,7 +460,7 @@
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
 			);
-			name = Mode;
+			name = ListMode;
 			sourceTree = "<group>";
 		};
 		B0AD8C7019D12AFA0069B29D /* CompleteMode */ = {
@@ -467,6 +471,15 @@
 				B0AD8C7319D12B2A0069B29D /* CompleteViewController.xib */,
 			);
 			name = CompleteMode;
+			sourceTree = "<group>";
+		};
+		B0AD8C7619D12BDC0069B29D /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B0AD8C7719D12C070069B29D /* TagLabel.h */,
+				B0AD8C7819D12C070069B29D /* TagLabel.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 		B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */ = {
@@ -688,6 +701,7 @@
 				B08CDBB619C559B8008263AC /* ItemDetailTagCell.m in Sources */,
 				B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
+				B0AD8C7919D12C070069B29D /* TagLabel.m in Sources */,
 				B0808049195825A3007D21E4 /* TagViewController.m in Sources */,
 				B08CDBB019C553CC008263AC /* ItemDetailTitleCell.m in Sources */,
 				B05319A0199FD46F00F63783 /* InputTagViewController.m in Sources */,
