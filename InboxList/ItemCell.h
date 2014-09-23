@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
 @property (weak, nonatomic) IBOutlet UILabel *reminderLabel; // リマインダーラベル
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;    // タイトルラベル
+@property (weak, nonatomic) IBOutlet UILabel *tagLabel;
 
 //+ (CGFloat)cellHeight;
 
