@@ -26,15 +26,6 @@
 @property CGFloat triggerDragging;
 
 @property (strong, nonatomic) NSSet *tagsForSelected;
-//@property InputHeaderCell *inputHeaderCell;
-//@property InputHeaderView *inputHeaderView;
-
-/**
- *  @brief タグのリストを取得する
- *
- *  @return タグのリスト
- */
-//-(NSArray *)getTagList;
 
 -(void)updateTableView;
 
