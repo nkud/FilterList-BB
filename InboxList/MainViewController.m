@@ -17,6 +17,8 @@
 #define kMarginRateForTagList 0
 #define kMarginRateForFilterList 0
 
+#define kDurationForHiddenTabBar 0.2
+
 #pragma mark -
 
 @interface MainViewController () {
@@ -188,9 +190,9 @@
 {
   CGFloat y = self.tabBar.frame.origin.y;
   if (y <= SCREEN_BOUNDS.size.height) {
-    return NO;
-  } else {
     return YES;
+  } else {
+    return NO;
   }
 }
 
@@ -201,7 +203,7 @@
                              SCREEN_BOUNDS.size.height-TABBAR_H,
                              SCREEN_BOUNDS.size.width,
                              TABBAR_H);
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:kDurationForHiddenTabBar
                      animations:^{
                        self.tabBar.frame = rect;
                      }];
@@ -215,7 +217,7 @@
                              SCREEN_BOUNDS.size.height,
                              SCREEN_BOUNDS.size.width,
                              TABBAR_H);
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:kDurationForHiddenTabBar
                      animations:^{
                        self.tabBar.frame = rect;
                      }];
@@ -242,6 +244,7 @@
   [self openTagListMode];
   [self closeFilterListMode];
   [UIView commitAnimations];
+  [self closeTabBar];
 }
 -(void)toFilterListMode
 {
