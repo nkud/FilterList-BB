@@ -50,6 +50,44 @@
 }
 
 /**
+ * @brief  タイトルを設定
+ *
+ * @param title     メインタイトル
+ * @param miniTitle サブタイトル
+ */
+-(void)configureTitleWithString:(NSString *)title
+                      miniTitle:(NSString *)miniTitle
+{
+  UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+  titleView.backgroundColor = [UIColor clearColor];
+  titleView.opaque = NO;
+  // ☆☆ポイントはここ！！
+  // 以下のように代入して、タイトルに独自Viewを表示します。
+  self.navigationItem.titleView = titleView;
+  
+  // 1行目に表示するラベルを作成して、
+  // 上記で作成した独自Viewに追加します。
+  UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 195, 20)];
+  titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+  titleLabel.text = title;
+  titleLabel.textColor = [UIColor blackColor];
+  titleLabel.textAlignment = NSTextAlignmentCenter;
+  titleLabel.backgroundColor = [UIColor clearColor];
+  [titleView addSubview:titleLabel];
+  
+  // 2行目に表示するラベルを作成して、
+  // 上記で作成した独自Viewに追加します。
+  UILabel *miniTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
+  miniTitleLabel.font = [UIFont boldSystemFontOfSize:10.0f];
+  miniTitleLabel.textColor = [UIColor grayColor];
+  miniTitleLabel.textAlignment = NSTextAlignmentCenter;
+  miniTitleLabel.backgroundColor = [UIColor clearColor];
+  miniTitleLabel.adjustsFontSizeToFitWidth = YES;
+  miniTitleLabel.text = miniTitle;
+  [titleView addSubview:miniTitleLabel];
+}
+
+/**
  * @brief  ビューのロード後処理
  */
 - (void)viewDidLoad
@@ -57,9 +95,13 @@
   LOG(@"アイテムビューがロードされた後の処理");
   [super viewDidLoad];
   
+
+  // タイトルを設定
+  self.stringForTitle = ITEM_LIST_TITLE;
+  self.stringForMiniTitle = @"mini title";
+  [self configureTitleWithString:self.stringForTitle
+                       miniTitle:self.stringForMiniTitle];
   // 変数を初期化
-//  [self setTitle:ITEM_LIST_TITLE];
-  
   [self initParameter];
 
   // セルとして使うクラスを登録する

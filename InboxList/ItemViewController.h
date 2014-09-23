@@ -27,6 +27,12 @@
 
 @property (strong, nonatomic) NSSet *tagsForSelected;
 
+// ビューのタイトル
+@property NSString *stringForTitle;
+@property NSString *stringForMiniTitle;
+-(void)configureTitleWithString:(NSString *)title
+                      miniTitle:(NSString *)miniTitle;
+
 -(void)updateTableView;
 
 
