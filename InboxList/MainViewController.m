@@ -76,7 +76,7 @@
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
 
   // フィルターコントローラを初期化
-  self.filterViewController = [[FilterViewController alloc] initWithNibName:nil bundle:nil];
+  self.filterViewController = [[FilterViewController alloc] initWithNibName:@"ListViewController" bundle:nil];
   self.filterViewController.delegate = self;
   self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
   self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];

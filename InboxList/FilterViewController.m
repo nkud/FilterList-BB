@@ -36,16 +36,9 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil
-                           bundle:nibBundleOrNil];
-    if (self)
-    {
-      [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
-                                                 bundle:nil]
-           forCellReuseIdentifier:@"FilterCell"];
-      
-    }
-    return self;
+  self = [super initWithNibName:nibNameOrNil
+                         bundle:nibBundleOrNil];
+  return self;
 }
 
 
@@ -55,12 +48,17 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  [self setTitle:FILTER_LIST_TITLE];
+
+  // タイトルを設定
+  [self configureTitleWithString:FILTER_LIST_TITLE
+                       miniTitle:@"mini title"];
   
   [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
   
-  
+  // セルを登録
+  [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
+                                             bundle:nil]
+       forCellReuseIdentifier:@"FilterCell"];
   LOG(@"編集ボタンを追加");
   UIBarButtonItem *newFilterButton
   = [[UIBarButtonItem alloc] initWithTitle:@"新規"
