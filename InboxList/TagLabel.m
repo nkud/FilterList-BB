@@ -22,12 +22,15 @@
 */
 -(instancetype)initWithTagStrings:(NSSet *)tags
 {
-  self = [super init];
+  self = [super initWithFrame:CGRectMake(0, 0, 100, 10)];
   if (self)
   {
     for (NSString *stringForTag in tags)
     {
-      CGSize size = [stringForTag sizeWithAttributes:@{NSFontAttributeName:stringForTag}];
+      UILabel *label = [[UILabel alloc] init];
+      CGSize size = [stringForTag sizeWithAttributes:@{NSFontAttributeName:label.font}];
+      label.frame = CGRectMake(0, 0, size.width, size.height);
+      [self addSubview:label];
       NSLog(@"%f", size.width);
     }
   }

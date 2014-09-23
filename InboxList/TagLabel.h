@@ -12,4 +12,6 @@
 
 @property NSSet *setForTagStrings;
 
+-(instancetype)initWithTagStrings:(NSSet *)tags;
+
 @end

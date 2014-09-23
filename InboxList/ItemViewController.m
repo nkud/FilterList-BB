@@ -13,6 +13,7 @@
 #import "Item.h"
 #import "ItemCell.h"
 #import "InputHeaderCell.h"
+#import "TagLabel.h"
 
 #import "Header.h"
 #import "Configure.h"
@@ -399,15 +400,23 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   Item *item = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
   
   // タイトル
-  cell.titleLabel.text       = item.title;
+  cell.titleLabel.text = item.title;
+  
+  // タグの設定
+//  cell.tagLabel = [[TagLabel alloc] initWithTagStrings:[NSSet setWithObjects:@"test", @"testt", nil]];
+  NSMutableString *tags_string = [NSMutableString stringWithString:@""];
+  for (Tag *tag in item.tags) {
+    [tags_string appendFormat:@"%@ ", tag.title];
+  }
+  cell.tagLabel.text = tags_string;
   
   // 状態
   [cell updateCheckBox:item.state.boolValue];
 
   // リマインダー
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-  formatter.dateFormat       = @"yyyy/MM/dd";
-  cell.reminderLabel.text    = [formatter stringFromDate:item.reminder];
+  formatter.dateFormat = @"yyyy/MM/dd";
+  cell.reminderLabel.text = [formatter stringFromDate:item.reminder];
   if ([item isOverDue]) {
     cell.reminderLabel.textColor = [UIColor redColor];
   } else {
