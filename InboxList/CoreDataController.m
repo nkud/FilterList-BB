@@ -166,21 +166,6 @@ enum __SECTION__ {
   // アイテムとタグを関連付ける
   [newItem setTag:tag];
 
-//  for (Tag *tag in tags) {
-//    NSArray *tags = [self fetchTagsForTitle:tag.title];
-//    if ([tags count] > 0) {
-//      Tag *tag = [tags objectAtIndex:0];
-//      [tag addItemsObject:newItem];
-//      [newItem addTagsObject:tag];
-//    } else {
-//      Tag *newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag"
-//                                                  inManagedObjectContext:[self managedObjectContext]];
-//      newTag.title = tag.title;
-//      [newTag addItemsObject:newItem];
-//      [newItem addTagsObject:newTag];
-//    }
-//  }
-
   [self saveContext];
 }
 

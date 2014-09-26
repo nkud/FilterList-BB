@@ -24,7 +24,6 @@
 // アイテム用
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
-
                                                         controller:(id<NSFetchedResultsControllerDelegate>)controller;
 +(void)insertNewItem:(NSString *)itemTitle
                  tag:(Tag *)tag
