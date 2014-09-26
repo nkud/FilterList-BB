@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/08/24.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -25,7 +25,7 @@
 
 @property NSFetchedResultsController *fetchedResultsController;
 
-@property NSSet *tagsForAlreadySaved;
+@property NSSet *tagsForAlreadySelected;
 
 @property id <TagSelectViewControllerDelegate> delegate;
 

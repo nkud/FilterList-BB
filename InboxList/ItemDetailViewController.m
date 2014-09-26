@@ -399,7 +399,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     = [[TagSelectViewController alloc] initWithNibName:nil
                                                 bundle:nil];
     tagSelectViewController.delegate = self;
-    tagSelectViewController.tagsForAlreadySaved = self.tagsForItem;
+    tagSelectViewController.tagsForAlreadySelected = self.tagsForItem;
     // タグ選択画面をプッシュ
     [self.navigationController pushViewController:tagSelectViewController
                                          animated:YES];

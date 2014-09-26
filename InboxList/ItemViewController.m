@@ -233,7 +233,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSLog(@"%s %@", __FUNCTION__, titleForItem);
   [CoreDataController insertNewItem:titleForItem
-                               tags:self.tagsForSelected
+                                tag:self.tagForSelected
                            reminder:nil];
 }
 
@@ -353,7 +353,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   // 詳細画面を作成
   ItemDetailViewController *detailViewController
   = [[ItemDetailViewController alloc] initWithTitle:item.title
-                                               tags:item.tags
+                                               tags:[NSSet setWithObject:item.tag]
                                            reminder:item.reminder
                                           indexPath:indexPath
                                            delegate:self];
@@ -398,7 +398,11 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
             objectAtIndexPath:indexPath];
   }
   item.title = title;
-  item.tags = tags;
+  for (Tag *tag in tags) {
+    // １個だけ挿入する
+    item.tag = tag;
+    break;
+  }
   item.reminder = reminder;
   
   [CoreDataController saveContext];
@@ -426,14 +430,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   
   // タイトル
   cell.titleLabel.text = item.title;
-  
-  // タグの設定
-//  cell.tagLabel = [[TagLabel alloc] initWithTagStrings:[NSSet setWithObjects:@"test", @"testt", nil]];
-  NSMutableString *tags_string = [NSMutableString stringWithString:@""];
-  for (Tag *tag in item.tags) {
-    [tags_string appendFormat:@"%@ ", tag.title];
-  }
-  cell.tagLabel.text = tags_string;
+  cell.tagLabel.text = item.tag.title;
   
   // 状態
   [cell updateCheckBox:item.state.boolValue];

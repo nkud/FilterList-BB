@@ -156,15 +156,12 @@ enum __SECTION__ {
   
   // タイトルを設定
   newItem.title = itemTitle;
-  
   // 状態を設定
   newItem.state = [NSNumber numberWithBool:false];
-  
   // リマインダーを設定
   newItem.reminder = reminder;
-  
   // アイテムとタグを関連付ける
-  [newItem setTag:tag];
+  newItem.tag = tag;
 
   [self saveContext];
 }

@@ -59,10 +59,11 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
  */
 -(void)initializeForAlreadySavedTags
 {
-  if (self.tagsForAlreadySaved)
+  if (self.tagsForAlreadySelected) // 設定されていれば
   {
-    for (Tag *tag in self.tagsForAlreadySaved) {
-      NSIndexPath *index = [self.fetchedResultsController indexPathForObject:tag];
+    for (Tag *tag in self.tagsForAlreadySelected) { // それぞれに対して
+      NSIndexPath *index
+      = [self.fetchedResultsController indexPathForObject:tag]; // 位置を取得
       [self addIndexPathForSelectedRows:index];
     }
   }

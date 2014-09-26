@@ -27,7 +27,8 @@
 
 @property CGFloat triggerDragging;
 
-@property (strong, nonatomic) NSSet *tagsForSelected;
+//@property (strong, nonatomic) NSSet *tagsForSelected;
+@property (strong, nonatomic) Tag *tagForSelected;
 
 -(void)updateTableView;
 
