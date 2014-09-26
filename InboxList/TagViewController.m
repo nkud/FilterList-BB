@@ -163,14 +163,14 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if ([self isCellForAllItemsAtIndexPath:indexPath]) {
-    [self.delegate didSelectedTag:nil];
+    [self.delegate didSelectTag:nil];
   } else {
     // 選択された位置のタグを取得して
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // 選択されたタグを渡す
-    [self.delegate didSelectedTag:tag];
+    [self.delegate didSelectTag:tag];
   }
 }
 

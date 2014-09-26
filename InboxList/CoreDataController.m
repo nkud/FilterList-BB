@@ -108,7 +108,7 @@ enum __SECTION__ {
   NSMutableArray *predicate_array = [[NSMutableArray alloc] init];  // 条件を格納する配列
   NSPredicate *predicate;                                           // 条件
   for (Tag *tag in tags) { // それぞれのタグに対して
-    predicate = [NSPredicate predicateWithFormat:@"%@ IN SELF.tags", tag]; // 条件を作成
+    predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.tag", tag]; // 条件を作成
     [predicate_array addObject:predicate];                          // 条件を配列に追加
   }
   // 条件の配列から条件を合成する

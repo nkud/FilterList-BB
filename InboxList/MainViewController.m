@@ -301,7 +301,7 @@ didSelectItem:(UITabBarItem *)item
  *
  * @param tagString 選択されたタグの文字列
  */
--(void)didSelectedTag:(Tag *)tag
+-(void)didSelectTag:(Tag *)tag
 {
   NSFetchedResultsController *result_controller;
   NSString *titleForItemList;
@@ -355,7 +355,11 @@ didSelectItem:(UITabBarItem *)item
 {
   LOG(@"アイテムビューをロードする");
   // 選択されたタグを渡して
-  self.itemViewController.tagsForSelected = tags;
+  for (Tag *tag in tags) {
+    // １個だけ渡す
+    self.itemViewController.tagForSelected = tag;
+    break;
+  }
   self.itemViewController.titleForList = title;
   self.itemViewController.title = title;
   self.itemViewController.fetchedResultsController = fetchedResultController;
