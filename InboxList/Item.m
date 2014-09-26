@@ -1,8 +1,8 @@
 //
 //  Item.m
-//  InboxList
+//  FilterList
 //
-//  Created by Naoki Ueda on 2014/09/06.
+//  Created by Naoki Ueda on 2014/09/26.
 //  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
 //
 
@@ -16,7 +16,8 @@
 @dynamic reminder;
 @dynamic state;
 @dynamic title;
-@dynamic tags;
+@dynamic tag;
+
 
 /**
  * @brief  期限を過ぎているか評価

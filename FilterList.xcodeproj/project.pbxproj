@@ -53,9 +53,6 @@
 		B08CDBC319C55BED008263AC /* ItemDetailDatePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08CDBC119C55BED008263AC /* ItemDetailDatePickerCell.xib */; };
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
-		B08FA11319BAF47B005B34BE /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B08FA11219BAF47B005B34BE /* Item.m */; };
-		B08FA11619BAF47B005B34BE /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B08FA11519BAF47B005B34BE /* Tag.m */; };
-		B08FA11919BAF47B005B34BE /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = B08FA11819BAF47B005B34BE /* Filter.m */; };
 		B0A0915719CD3777005CDCF8 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A0915519CD3777005CDCF8 /* checked.png */; };
 		B0A0915819CD3777005CDCF8 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A0915619CD3777005CDCF8 /* unchecked.png */; };
 		B0A5574B19D1A17B00C4A9E7 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A5574919D1A17B00C4A9E7 /* ListViewController.m */; };
@@ -70,6 +67,9 @@
 		B0BC6A9219A9FA9800E53AEF /* TagSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A9019A9FA9800E53AEF /* TagSelectCell.m */; };
 		B0BC6A9319A9FA9800E53AEF /* TagSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BC6A9119A9FA9800E53AEF /* TagSelectCell.xib */; };
 		B0BDA88119965639003AA40B /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA88019965639003AA40B /* CoreDataController.m */; };
+		B0C95D6719D5661C00F32F6C /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C95D6619D5661C00F32F6C /* Tag.m */; };
+		B0C95D6A19D5667700F32F6C /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C95D6919D5667700F32F6C /* Item.m */; };
+		B0C95D6D19D5667800F32F6C /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C95D6C19D5667800F32F6C /* Filter.m */; };
 		B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* ItemCell.m */; };
 		B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DC58D8194DAD770089E8FA /* CheckBox_False.png */; };
 		B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4690D19A84B99008B3150 /* TagNavigationController.m */; };
@@ -154,12 +154,6 @@
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B08F791B19A8286900145F75 /* Configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
-		B08FA11119BAF47B005B34BE /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		B08FA11219BAF47B005B34BE /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
-		B08FA11419BAF47B005B34BE /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
-		B08FA11519BAF47B005B34BE /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
-		B08FA11719BAF47B005B34BE /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
-		B08FA11819BAF47B005B34BE /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
 		B0A0915519CD3777005CDCF8 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checked.png; path = Icon/checked.png; sourceTree = SOURCE_ROOT; };
 		B0A0915619CD3777005CDCF8 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unchecked.png; path = Icon/unchecked.png; sourceTree = SOURCE_ROOT; };
@@ -182,6 +176,12 @@
 		B0BC6A9119A9FA9800E53AEF /* TagSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagSelectCell.xib; sourceTree = "<group>"; };
 		B0BDA87F19965639003AA40B /* CoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataController.h; sourceTree = "<group>"; };
 		B0BDA88019965639003AA40B /* CoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataController.m; sourceTree = "<group>"; };
+		B0C95D6519D5661C00F32F6C /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		B0C95D6619D5661C00F32F6C /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
+		B0C95D6819D5667700F32F6C /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		B0C95D6919D5667700F32F6C /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		B0C95D6B19D5667800F32F6C /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		B0C95D6C19D5667800F32F6C /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		B0DABFAB1914CC50007597E3 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
 		B0DC58D8194DAD770089E8FA /* CheckBox_False.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_False.png; path = resource/CheckBox_False.png; sourceTree = SOURCE_ROOT; };
@@ -302,12 +302,12 @@
 		B03E6C1B18CAA383007703B8 /* ManagedObject */ = {
 			isa = PBXGroup;
 			children = (
-				B08FA11719BAF47B005B34BE /* Filter.h */,
-				B08FA11819BAF47B005B34BE /* Filter.m */,
-				B08FA11419BAF47B005B34BE /* Tag.h */,
-				B08FA11519BAF47B005B34BE /* Tag.m */,
-				B08FA11119BAF47B005B34BE /* Item.h */,
-				B08FA11219BAF47B005B34BE /* Item.m */,
+				B0C95D6B19D5667800F32F6C /* Filter.h */,
+				B0C95D6C19D5667800F32F6C /* Filter.m */,
+				B0C95D6819D5667700F32F6C /* Item.h */,
+				B0C95D6919D5667700F32F6C /* Item.m */,
+				B0C95D6519D5661C00F32F6C /* Tag.h */,
+				B0C95D6619D5661C00F32F6C /* Tag.m */,
 			);
 			name = ManagedObject;
 			sourceTree = "<group>";
@@ -695,16 +695,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B08FA11319BAF47B005B34BE /* Item.m in Sources */,
 				B083521419CD59EC00071EE0 /* InputHeaderCell.m in Sources */,
 				B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */,
+				B0C95D6A19D5667700F32F6C /* Item.m in Sources */,
 				B0AD8C6919D12A2C0069B29D /* FilterCell.m in Sources */,
 				B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */,
 				B00AD6A918C45E470005A552 /* ItemDetailViewController.m in Sources */,
 				B0BC6A8C19A9CDC700E53AEF /* TagSelectViewController.m in Sources */,
 				B0BDA88119965639003AA40B /* CoreDataController.m in Sources */,
 				B0BC6A9219A9FA9800E53AEF /* TagSelectCell.m in Sources */,
-				B08FA11919BAF47B005B34BE /* Filter.m in Sources */,
+				B0C95D6D19D5667800F32F6C /* Filter.m in Sources */,
 				B0A5574B19D1A17B00C4A9E7 /* ListViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
@@ -723,9 +723,9 @@
 				B0AD8C7419D12B2A0069B29D /* CompleteViewController.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */,
 				B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */,
+				B0C95D6719D5661C00F32F6C /* Tag.m in Sources */,
 				B05FA8231982B20C00E25FAF /* TabBar.m in Sources */,
 				B060917C19ACBD7A003E6D87 /* InputFilterViewController.m in Sources */,
-				B08FA11619BAF47B005B34BE /* Tag.m in Sources */,
 				B08CDBC219C55BED008263AC /* ItemDetailDatePickerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,8 +1,8 @@
 //
 //  Tag.m
-//  InboxList
+//  FilterList
 //
-//  Created by Naoki Ueda on 2014/09/06.
+//  Created by Naoki Ueda on 2014/09/26.
 //  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 
 @implementation Tag
 
-@dynamic title;
 @dynamic section;
-@dynamic filters;
+@dynamic title;
+@dynamic filter;
 @dynamic items;
 
 @end
