@@ -147,7 +147,7 @@ enum __SECTION__ {
  *  @param reminder  リマインダー
  */
 +(void)insertNewItem:(NSString *)itemTitle
-                tags:(NSSet *)tags
+                 tag:(Tag *)tag
             reminder:(NSDate *)reminder
 {
   LOG(@"アイテムを新規挿入");
@@ -164,12 +164,7 @@ enum __SECTION__ {
   newItem.reminder = reminder;
   
   // アイテムとタグを関連付ける
-  for (Tag *tag in tags) {
-    // タグにアイテムを追加
-    [tag addItemsObject:newItem];
-  }
-  // アイテムに全タグを追加
-  [newItem addTags:tags];
+  [newItem setTag:tag];
 
 //  for (Tag *tag in tags) {
 //    NSArray *tags = [self fetchTagsForTitle:tag.title];

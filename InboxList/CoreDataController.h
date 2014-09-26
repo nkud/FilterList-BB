@@ -27,7 +27,7 @@
 
                                                         controller:(id<NSFetchedResultsControllerDelegate>)controller;
 +(void)insertNewItem:(NSString *)itemTitle
-                tags:(NSSet *)tags
+                 tag:(Tag *)tag
             reminder:(NSDate *)reminder;
 +(Item *)newItemObject;
 +(NSInteger)countItems;
