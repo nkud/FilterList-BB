@@ -29,4 +29,6 @@
 
 @property id <TagSelectViewControllerDelegate> delegate;
 
+@property NSInteger maxCapacityRowsForSelected;
+
 @end

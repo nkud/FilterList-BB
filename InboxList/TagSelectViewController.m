@@ -180,6 +180,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [self addIndexPathForSelectedRows:indexPath];
   }
   [self toggleCheckmark:cell];
+  if ([self.kIndexPathsForSelectedRows count] >= self.maxCapacityRowsForSelected) {
+    [self dismissTagSelectView];
+  }
 }
 
 
