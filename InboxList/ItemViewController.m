@@ -112,7 +112,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     // インデックスの詳細画面をプッシュする
     [self pushDetailView:indexPath];
     // 選択状態を消す
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath
+                                  animated:YES];
   }
 }
 
@@ -351,12 +352,25 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   indexPath = [self mapIndexPathToFetchResultsController:indexPath];
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
   // 詳細画面を作成
-  ItemDetailViewController *detailViewController
-  = [[ItemDetailViewController alloc] initWithTitle:item.title
-                                               tags:[NSSet setWithObject:item.tag]
-                                           reminder:item.reminder
-                                          indexPath:indexPath
-                                           delegate:self];
+  ItemDetailViewController *detailViewController;
+  if (item.tag) {
+    NSSet *tags;
+    tags = [NSSet setWithObject:item.tag];
+    detailViewController
+    = [[ItemDetailViewController alloc] initWithTitle:item.title
+                                                 tags:[NSSet setWithObject:item.tag]
+                                             reminder:item.reminder
+                                            indexPath:indexPath
+                                             delegate:self];
+  } else {
+    detailViewController
+    = [[ItemDetailViewController alloc] initWithTitle:item.title
+                                                 tags:nil
+                                             reminder:item.reminder
+                                            indexPath:indexPath
+                                             delegate:self];
+  }
+
 
   // 詳細画面をプッシュ
   [self.navigationController pushViewController:detailViewController
