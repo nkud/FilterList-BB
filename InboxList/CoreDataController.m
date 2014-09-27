@@ -83,7 +83,6 @@ enum __SECTION__ {
  *
  * @return リザルトコントローラー
  */
-
 + (NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
                                                      controller:(id<NSFetchedResultsControllerDelegate>)controller
 {
@@ -287,25 +286,6 @@ enum __SECTION__ {
 	}
   return aFetchedResultsController;
 }
-
-/**
- * @brief  全アイテムタグをコンテキストに追加
- */
-//+(void)addTagObjecForAllItems
-//{
-//  NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Tag"];
-//  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.section == %d", __MENU_SECTION__];
-//  [request setPredicate:predicate];
-//  NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
-//                                                                            error:nil];
-//  // 'ALL'タグを追加
-//  if ([array count] == 0) {
-//    Tag *tag = [self newTagObject];
-//    tag.title = @"All Items";
-//    tag.section = [NSNumber numberWithInt:__MENU_SECTION__];
-//    [self saveContext];
-//  }
-//}
 
 /**
  * @brief  タグを挿入
