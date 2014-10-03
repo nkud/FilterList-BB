@@ -35,7 +35,7 @@
 
 @implementation ItemViewController
 
-#pragma mark - 初期化
+#pragma mark - 初期化 -
 
 /**
  * @brief  パラメータの初期化
@@ -94,7 +94,52 @@
   self.navigationItem.rightBarButtonItem = addButton;
 }
 
-#pragma mark - テーブルビュー
+#pragma mark - テーブルビュー -
+
+#pragma mark セクション
+
+/**
+ * @brief  セクションの高さ
+ *
+ * @param tableView テーブルビュー
+ * @param section   セクション
+ *
+ * @return 高さ
+ */
+-(CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section
+{
+  return 18;
+}
+
+/**
+ * @brief  セクションのタイトル
+ *
+ * @param tableView テーブルビュー
+ * @param section   セクション
+ *
+ * @return タイトル
+ */
+-(NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section
+{
+  return [NSString stringWithFormat:@"section %ld", (long)section];
+}
+
+/**
+ *  @brief セクション数を返す
+ *
+ *  @param tableView テーブルビュー
+ *
+ *  @return セクション数
+ */
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  // クイック入力セルを足している
+  return [[self.fetchedResultsController sections] count] + 1;
+}
+
+#pragma mark セル
 
 /**
  *  @brief セルが選択された時の処理
@@ -118,18 +163,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- *  @brief セクション数を返す
- *
- *  @param tableView テーブルビュー
- *
- *  @return セクション数
- */
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-  return [[self.fetchedResultsController sections] count];
-}
-
-/**
  *  @brief 指定されたセクションのアイテム数
  *
  *  @param tableView テーブルビュー
@@ -140,9 +173,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
+  if (section == 0) {
+    return 1;
+  }
+  section--;
   id <NSFetchedResultsSectionInfo> sectionInfo
   = [self.fetchedResultsController sections][section];
-  return [sectionInfo numberOfObjects] + 1;
+  return [sectionInfo numberOfObjects];
 }
 
 /**
@@ -526,7 +563,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
 -(BOOL)isInputHeaderCellAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.row == 0 && indexPath.section == 0 ) {
+//  if (indexPath.row == 0 && indexPath.section == 0 ) {
+  if ( indexPath.section == 0) {
     return YES;
   } else {
     return NO;
@@ -542,9 +580,12 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (NSIndexPath *)mapIndexPathFromFetchResultsController:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 0)
-    indexPath = [NSIndexPath indexPathForRow:indexPath.row + 1
-                                   inSection:indexPath.section];
+//  if (indexPath.section = 0)
+//  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+//    return indexPath;
+//  }
+  indexPath = [NSIndexPath indexPathForRow:indexPath.row
+                                 inSection:indexPath.section + 1];
   
   return indexPath;
 }
@@ -558,9 +599,12 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (NSIndexPath *)mapIndexPathToFetchResultsController:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 0)
-    indexPath = [NSIndexPath indexPathForRow:indexPath.row - 1
-                                   inSection:indexPath.section];
+//  if (indexPath.section == 0)
+//  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+//    return indexPath;
+//  }
+  indexPath = [NSIndexPath indexPathForRow:indexPath.row
+                                 inSection:indexPath.section - 1];
   
   return indexPath;
 }

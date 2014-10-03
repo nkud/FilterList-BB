@@ -61,7 +61,7 @@ enum __SECTION__ {
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:app.managedObjectContext
-                                          sectionNameKeyPath:nil
+                                          sectionNameKeyPath:@"tag"
                                                    cacheName:nil]; //< 元は@"Master"
   
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
@@ -120,7 +120,7 @@ enum __SECTION__ {
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:app.managedObjectContext
-                                          sectionNameKeyPath:nil
+                                          sectionNameKeyPath:@"tag"
                                                    cacheName:nil];   //< タグをキャッシュネームにする
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
   
