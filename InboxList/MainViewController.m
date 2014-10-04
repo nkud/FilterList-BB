@@ -74,8 +74,10 @@
                                                                  bundle:nil];
 
   self.itemViewController.fetchedResultsController = [CoreDataController itemFethcedResultsController:self.itemViewController];
+  self.itemViewController.titleForList = @"All Items";
   
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
+
 
   // フィルターコントローラを初期化
   self.filterViewController = [[FilterViewController alloc] initWithNibName:@"ListViewController" bundle:nil];
@@ -318,7 +320,7 @@ didSelectItem:(UITabBarItem *)item
   } else {
     // 全アイテムを表示
     result_controller = [CoreDataController itemFethcedResultsController:self.itemViewController];
-    titleForItemList = @"all item";
+    titleForItemList = @"all items";
     [self loadItemViewForTitle:titleForItemList
                           tags:nil
         fetcheResultController:result_controller];
@@ -355,13 +357,17 @@ didSelectItem:(UITabBarItem *)item
 {
   LOG(@"アイテムビューをロードする");
   // 選択されたタグを渡して
-  for (Tag *tag in tags) {
-    // １個だけ渡す
-    self.itemViewController.tagForSelected = tag;
-    break;
+  if (tags) {
+    for (Tag *tag in tags) {
+      // １個だけ渡す
+      self.itemViewController.tagForSelected = tag;
+      break;
+    }
+  } else {
+    self.itemViewController.tagForSelected = nil;
   }
   self.itemViewController.titleForList = title;
-  self.itemViewController.title = title;
+//  self.itemViewController.title = title;
   self.itemViewController.fetchedResultsController = fetchedResultController;
   // テーブルを更新
   [self.itemViewController updateTableView];

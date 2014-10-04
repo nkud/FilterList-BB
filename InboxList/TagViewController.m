@@ -321,32 +321,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
-/**
- * @brief  セクション名
- *
- * @param tableView テーブルビュー
- * @param section   指定するセクション
- *
- * @return セクション名
- */
-//-(NSString *)tableView:(UITableView *)tableView
-//titleForHeaderInSection:(NSInteger)section
-//{
-//  switch (section) {
-//    case 0:
-//      return @"MENU";
-//      break;
-//      
-//    case 1:
-//      return @"TAG";
-//      break;
-//      
-//    default:
-//      break;
-//  }
-//  return @"";
-//}
-
 #pragma mark - コンテンツの更新
 
 /**

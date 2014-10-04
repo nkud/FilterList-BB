@@ -49,9 +49,8 @@
   app = [[UIApplication sharedApplication] delegate];
 }
 
-
-
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil
+                        bundle:(NSBundle *)nibBundleOrNil
 {
   self = [super initWithNibName:nibNameOrNil
                          bundle:nibBundleOrNil];
@@ -68,7 +67,7 @@
 
   // タイトルを設定
   [self configureTitleWithString:ITEM_LIST_TITLE
-                       miniTitle:@"mini title"];
+                       miniTitle:self.titleForList];
   // 変数を初期化
   [self initParameter];
 
@@ -126,6 +125,11 @@ heightForHeaderInSection:(NSInteger)section
 -(NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section
 {
+  if (section == 0) {
+    return @"! input header";
+  }
+  id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section-1];
+  return [sectionInfo name];
   return [NSString stringWithFormat:@"section %ld", (long)section];
 }
 
@@ -289,6 +293,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   [CoreDataController insertNewItem:titleForItem
                                 tag:self.tagForSelected
                            reminder:nil];
+  [self updateTableView];
 }
 
 #pragma mark - 編集時処理
