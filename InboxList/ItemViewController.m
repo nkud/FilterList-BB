@@ -135,6 +135,7 @@ titleForHeaderInSection:(NSInteger)section
  */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+  NSLog(@"%s %@", __FUNCTION__, @"セクション数を返す");
   // クイック入力セルを足している
   return [[self.fetchedResultsController sections] count] + 1;
 }
@@ -155,7 +156,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     ;
   } else {
     // インデックスの詳細画面をプッシュする
-    [self pushDetailView:indexPath];
+    [self pushDetailViewAtIndexPathInTableView:indexPath];
     // 選択状態を消す
     [self.tableView deselectRowAtIndexPath:indexPath
                                   animated:YES];
@@ -173,13 +174,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
+  NSInteger number = 0;
   if (section == 0) {
-    return 1;
+    number = 1;
+  } else {
+    section--;
+    id <NSFetchedResultsSectionInfo> sectionInfo
+    = [self.fetchedResultsController sections][section];
+    number = [sectionInfo numberOfObjects];
   }
-  section--;
-  id <NSFetchedResultsSectionInfo> sectionInfo
-  = [self.fetchedResultsController sections][section];
-  return [sectionInfo numberOfObjects];
+  NSLog(@"%ld", (long)number);
+  return number;
 }
 
 /**
@@ -229,11 +234,11 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  *
  *  @param scrollView スクロールビュー
  */
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-  CGRect rect = scrollView.bounds; // 現在のスクロールビューの位置を取得して
-  self.triggerDragging = rect.origin.y; // ドラッグしている距離を更新
-}
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//  CGRect rect = scrollView.bounds; // 現在のスクロールビューの位置を取得して
+//  self.triggerDragging = rect.origin.y; // ドラッグしている距離を更新
+//}
 
 /**
  *  @brief スクロールをドラッグした後の処理
@@ -243,17 +248,17 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  *
  *  @todo  入力ヘッダを綺麗に出すようにする
  */
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView
-                 willDecelerate:(BOOL)decelerate
-{
-  LOG(@"スクロールをドラッグした時の処理");
-//  int activate_quick_distance = -120;
-  // 規定値よりもドラッグするとクイック入力開始
-//  if (self.triggerDragging < -self.inputHeaderCell.frame.size.height)
-  {
-//    [self toggleQuickInputActivation];
-  }
-}
+//-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView
+//                 willDecelerate:(BOOL)decelerate
+//{
+//  LOG(@"スクロールをドラッグした時の処理");
+////  int activate_quick_distance = -120;
+//  // 規定値よりもドラッグするとクイック入力開始
+////  if (self.triggerDragging < -self.inputHeaderCell.frame.size.height)
+//  {
+////    [self toggleQuickInputActivation];
+//  }
+//}
 /**
  * @brief テーブルビューを更新する
  *
@@ -270,6 +275,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)didInputtedNewItem:(NSString *)titleForItem
 {
   NSLog(@"%s %@", __FUNCTION__, titleForItem);
+
   [CoreDataController insertNewItem:titleForItem
                                 tag:self.tagForSelected
                            reminder:nil];
@@ -380,14 +386,16 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  *
  * @param indexPath 作成する詳細のセルの位置
  */
--(void)pushDetailView:(NSIndexPath *)indexPath
+-(void)pushDetailViewAtIndexPathInTableView:(NSIndexPath *)indexPathInTableView
 {
   // タブバーを閉じる
   [self.delegateForList closeTabBar];
   
   // セルの位置のアイテムを取得
-  indexPath = [self mapIndexPathToFetchResultsController:indexPath];
+  NSIndexPath *indexPath
+  = [self mapIndexPathToFetchResultsController:indexPathInTableView];
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  
   // 詳細画面を作成
   ItemDetailViewController *detailViewController;
   if (item.tag) {
@@ -445,8 +453,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   } else
   {
     // 更新するアイテムを取得
-    item = [self.fetchedResultsController
-            objectAtIndexPath:indexPath];
+    item = [self.fetchedResultsController objectAtIndexPath:indexPath];
   }
   item.title = title;
   for (Tag *tag in tags) {
@@ -477,7 +484,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
           atIndexPath:(NSIndexPath *)indexPath
 {
   /// セルを作成
-  Item *item = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
+  Item *item = [self itemAtIndexPathInTableView:indexPath];
   
   // タイトル
   cell.titleLabel.text = item.title;
@@ -535,7 +542,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       }
     }
       break;
-      
+
     case UIGestureRecognizerStateEnded:
     {
       LOG(@"チェックボックスのタッチ終了");
@@ -559,7 +566,14 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
 }
 
-#pragma mark - ユーティリティ
+#pragma mark - ユーティリティ -
+
+-(Item *)itemAtIndexPathInTableView:(NSIndexPath *)atIndexPath
+{
+  NSIndexPath *indexPath = [self mapIndexPathToFetchResultsController:atIndexPath];
+  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  return item;
+}
 
 -(BOOL)isInputHeaderCellAtIndexPath:(NSIndexPath *)indexPath
 {

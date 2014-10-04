@@ -14,6 +14,8 @@
 
 @implementation ListViewController
 
+#pragma mark - 初期化 -
+
 /**
  * @brief  タイトルを設定
  *
@@ -52,7 +54,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view from its nib.
-  // タイトルビューを初期化
+  [self.tableView setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,13 +62,17 @@
     // Dispose of any resources that can be recreated.
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - テーブル -
+
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell;
   return cell;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
 {
   return 0;
 }
