@@ -109,6 +109,9 @@
 -(CGFloat)tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section
 {
+  if (section == 0) {
+    return 0;
+  }
   return 18;
 }
 
@@ -136,6 +139,7 @@ titleForHeaderInSection:(NSInteger)section
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   NSLog(@"%s %@", __FUNCTION__, @"セクション数を返す");
+  NSLog(@"%lu", [[self.fetchedResultsController sections] count] + 1);
   // クイック入力セルを足している
   return [[self.fetchedResultsController sections] count] + 1;
 }
@@ -151,14 +155,15 @@ titleForHeaderInSection:(NSInteger)section
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  LOG(@"アイテムが選択された時の処理");
-  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+  NSIndexPath *indexPathInTableView = indexPath;
+  if ([self isInputHeaderCellAtIndexPath:indexPathInTableView]) {
     ;
   } else {
+    LOG(@"アイテムセルが選択された時の処理");
     // インデックスの詳細画面をプッシュする
-    [self pushDetailViewAtIndexPathInTableView:indexPath];
+    [self pushDetailViewAtIndexPathInTableView:indexPathInTableView];
     // 選択状態を消す
-    [self.tableView deselectRowAtIndexPath:indexPath
+    [self.tableView deselectRowAtIndexPath:indexPathInTableView
                                   animated:YES];
   }
 }
@@ -174,6 +179,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
+  NSLog(@"%s section: %ld", __FUNCTION__, (long)section);
   NSInteger number = 0;
   if (section == 0) {
     number = 1;
@@ -198,8 +204,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (UITableViewCell *)tableView:(UITableView *)tableView
   cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  NSIndexPath *indexPathInTableView = indexPath;
+  
   LOG(@"指定されたセルを返す");
-  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+  if ([self isInputHeaderCellAtIndexPath:indexPathInTableView]) {
     InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
     cell.delegate = self;
     return cell;
@@ -207,7 +215,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   static NSString *CellIdentifier = @"ItemCell";
   ItemCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   [self configureItemCell:cell
-              atIndexPath:indexPath];
+              atIndexPath:indexPathInTableView];
   return cell;
 }
 
@@ -222,7 +230,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+  NSIndexPath *indexPathInTableView = indexPath;
+  if ([self isInputHeaderCellAtIndexPath:indexPathInTableView]) {
     return NO;
   }
   return YES;
@@ -264,6 +273,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  *
  * @todo 効率のいい更新方法にする
  */
+
 - (void)updateTableView
 {
   LOG(@"テーブルビューの全てを更新");
@@ -311,13 +321,15 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  NSIndexPath *indexPathInTableView = indexPath;
+  NSIndexPath *indexPathInController
+  = [self mapIndexPathToFetchResultsController:indexPathInTableView];
   LOG(@"テーブル編集時の処理");
   /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     NSManagedObjectContext *context = [[self fetchedResultsController] managedObjectContext];
-    indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     [context deleteObject:[self.fetchedResultsController
-                           objectAtIndexPath:indexPath]];
+                           objectAtIndexPath:indexPathInController]];
     [app saveContext];
   }
 }
@@ -333,8 +345,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (BOOL)tableView:(UITableView *)tableView
 canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  NSIndexPath *indexPathInTableView = [self mapIndexPathToFetchResultsController:indexPath];
   // The table view should not be re-orderable.
-  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
+  if ([self isInputHeaderCellAtIndexPath:indexPathInTableView]) {
     return NO;
   }
   return YES;
@@ -392,9 +405,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [self.delegateForList closeTabBar];
   
   // セルの位置のアイテムを取得
-  NSIndexPath *indexPath
+  NSIndexPath *indexPathInController
   = [self mapIndexPathToFetchResultsController:indexPathInTableView];
-  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
   
   // 詳細画面を作成
   ItemDetailViewController *detailViewController;
@@ -405,14 +418,14 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     = [[ItemDetailViewController alloc] initWithTitle:item.title
                                                  tags:[NSSet setWithObject:item.tag]
                                              reminder:item.reminder
-                                            indexPath:indexPath
+                                            indexPath:indexPathInController
                                              delegate:self];
   } else {
     detailViewController
     = [[ItemDetailViewController alloc] initWithTitle:item.title
                                                  tags:nil
                                              reminder:item.reminder
-                                            indexPath:indexPath
+                                            indexPath:indexPathInController
                                              delegate:self];
   }
 
@@ -520,6 +533,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 - (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
 {
   static bool flag = false;
+  
   switch (sender.state) {
     case UIGestureRecognizerStateBegan:
       //    case UIGestureRecognizerStateChanged:
@@ -547,10 +561,14 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     {
       LOG(@"チェックボックスのタッチ終了");
       CGPoint point = [sender locationInView:self.tableView];
-      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+      NSIndexPath *indexPathInTableView = [self.tableView indexPathForRowAtPoint:point];
       
       // その位置のセルのデータをモデルから取得する
-      indexPath = [self mapIndexPathToFetchResultsController:indexPath];
+
+      NSIndexPath *indexPath = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+      NSLog(@"%s %@", __FUNCTION__, @"モデルを取得");
+      NSLog(@"%s %ld", __FUNCTION__, (long)indexPathInTableView.section);
+      NSLog(@"%s %ld", __FUNCTION__, (long)indexPathInTableView.row);
       Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
       if ( flag ) {
         LOG(@"アイテムを削除する");

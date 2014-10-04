@@ -19,8 +19,6 @@
 
 +(BOOL)hasTagForTitle:(NSString *)title;
 
-
-
 // アイテム用
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
