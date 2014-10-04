@@ -50,7 +50,7 @@ enum __SECTION__ {
   [fetchRequest setFetchBatchSize:20];
   
   // Edit the sort key as appropriate.
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag.title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
   

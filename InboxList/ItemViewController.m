@@ -20,6 +20,8 @@
 #import "Configure.h"
 #import "CoreDataController.h"
 
+#define kHeightForSection 22
+
 #pragma mark -
 
 @interface ItemViewController () {
@@ -49,6 +51,14 @@
   app = [[UIApplication sharedApplication] delegate];
 }
 
+/**
+ * @brief  初期化
+ *
+ * @param nibNameOrNil   nibNameOrNil description
+ * @param nibBundleOrNil nibBundleOrNil description
+ *
+ * @return インスタンス
+ */
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil
                         bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,6 +73,7 @@
 - (void)viewDidLoad
 {
   LOG(@"アイテムビューがロードされた後の処理");
+  // 継承元のロード
   [super viewDidLoad];
 
   // タイトルを設定
@@ -108,10 +119,12 @@
 -(CGFloat)tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section
 {
+  // クイック入力セル用
   if (section == 0) {
     return 0;
   }
-  return 18;
+  // 通常のアイテムセル用
+  return kHeightForSection;
 }
 
 /**
@@ -126,11 +139,21 @@ heightForHeaderInSection:(NSInteger)section
 titleForHeaderInSection:(NSInteger)section
 {
   if (section == 0) {
+    // クイック入力用のセルのセクションはなし
     return @"! input header";
   }
-  id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section-1];
-  return [sectionInfo name];
-  return [NSString stringWithFormat:@"section %ld", (long)section];
+  // セクション名を取得
+  NSInteger sectionForController = section - 1;
+  id <NSFetchedResultsSectionInfo> sectionInfo
+  = [[self.fetchedResultsController sections] objectAtIndex:sectionForController];
+
+  NSString *sectionTitle = [sectionInfo name];
+  if ([sectionTitle isEqualToString:@""]) {
+    sectionTitle = @"no tag";
+  }
+  
+  LOG(@"section:%ld - %@ (count: %ld)", (long)sectionForController, sectionTitle, [sectionInfo numberOfObjects]);
+  return sectionTitle;
 }
 
 /**
