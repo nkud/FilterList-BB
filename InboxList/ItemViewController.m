@@ -183,7 +183,7 @@ titleForHeaderInSection:(NSInteger)section
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSIndexPath *indexPathInTableView = indexPath;
-  if ([self isInputHeaderCellAtIndexPath:indexPathInTableView]) {
+  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
     ;
   } else {
     LOG(@"アイテムセルが選択された時の処理");
@@ -209,11 +209,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   NSLog(@"%s section: %ld", __FUNCTION__, (long)section);
   NSInteger number = 0;
   if (section == 0) {
+    // クイック入力セルの場合
     number = 1;
   } else {
-    section--;
+    // 通常アイテムセルの場合
+    NSInteger sectionInController = [self mapSectionToFetchedResultsController:section];
     id <NSFetchedResultsSectionInfo> sectionInfo
-    = [self.fetchedResultsController sections][section];
+    = [self.fetchedResultsController sections][sectionInController];
     number = [sectionInfo numberOfObjects];
   }
   NSLog(@"%ld", (long)number);
@@ -234,7 +236,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   NSIndexPath *indexPathInTableView = indexPath;
   
   LOG(@"指定されたセルを返す");
-  if ([self isInputHeaderCellAtIndexPath:indexPathInTableView]) {
+  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
     InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
     cell.delegate = self;
     return cell;
@@ -258,7 +260,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSIndexPath *indexPathInTableView = indexPath;
-  if ([self isInputHeaderCellAtIndexPath:indexPathInTableView]) {
+  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
     return NO;
   }
   return YES;
@@ -316,7 +318,6 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   [CoreDataController insertNewItem:titleForItem
                                 tag:self.tagForSelected
                            reminder:nil];
-  [self updateTableView];
 }
 
 #pragma mark - 編集時処理
@@ -375,7 +376,7 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSIndexPath *indexPathInTableView = [self mapIndexPathToFetchResultsController:indexPath];
   // The table view should not be re-orderable.
-  if ([self isInputHeaderCellAtIndexPath:indexPathInTableView]) {
+  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
     return NO;
   }
   return YES;
@@ -614,6 +615,13 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
 #pragma mark - ユーティリティ -
 
+/**
+ * @brief  テーブルビューでの位置からアイテムを取得する
+ *
+ * @param atIndexPath 位置
+ *
+ * @return アイテムオブジェクト
+ */
 -(Item *)itemAtIndexPathInTableView:(NSIndexPath *)atIndexPath
 {
   NSIndexPath *indexPath = [self mapIndexPathToFetchResultsController:atIndexPath];
@@ -621,10 +629,16 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   return item;
 }
 
--(BOOL)isInputHeaderCellAtIndexPath:(NSIndexPath *)indexPath
+/**
+ * @brief  クイック入力セルなら真を返す
+ *
+ * @param indexPath 位置
+ *
+ * @return 真偽値
+ */
+-(BOOL)isInputHeaderCellAtIndexPathInTableView:(NSIndexPath *)indexPathInTableView
 {
-//  if (indexPath.row == 0 && indexPath.section == 0 ) {
-  if ( indexPath.section == 0) {
+  if ( indexPathInTableView.section == 0) {
     return YES;
   } else {
     return NO;
@@ -644,10 +658,22 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 //  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
 //    return indexPath;
 //  }
+  NSInteger section = [self mapSectionFromFetchedResultsController:indexPath.section];
   indexPath = [NSIndexPath indexPathForRow:indexPath.row
-                                 inSection:indexPath.section + 1];
+                                 inSection:section];
   
   return indexPath;
+}
+
+-(NSInteger)mapSectionFromFetchedResultsController:(NSInteger)section
+{
+  section = section + 1;
+  return section;
+}
+-(NSInteger)mapSectionToFetchedResultsController:(NSInteger)section
+{
+  section = section - 1;
+  return section;
 }
 
 /**
@@ -663,8 +689,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 //  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
 //    return indexPath;
 //  }
+  NSInteger section = [self mapSectionToFetchedResultsController:indexPath.section];
   indexPath = [NSIndexPath indexPathForRow:indexPath.row
-                                 inSection:indexPath.section - 1];
+                                 inSection:section];
   
   return indexPath;
 }
@@ -688,6 +715,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      forChangeType:(NSFetchedResultsChangeType)type
 {
   LOG(@"アイテムビューを更新する処理");
+  sectionIndex = [self mapSectionFromFetchedResultsController:sectionIndex];
   switch(type) {
     case NSFetchedResultsChangeInsert:
       NSLog(@"%@", @"Insert");
