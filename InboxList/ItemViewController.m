@@ -717,13 +717,13 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     case NSFetchedResultsChangeInsert:
       LOG(@"セクション挿入");
       [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-                    withRowAnimation:UITableViewRowAnimationFade];
+                    withRowAnimation:UITableViewRowAnimationLeft];
       break;
 
     case NSFetchedResultsChangeDelete:
       LOG(@"セクション削除");
       [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-                    withRowAnimation:UITableViewRowAnimationFade];
+                    withRowAnimation:UITableViewRowAnimationLeft];
       break;
     case NSFetchedResultsChangeMove: // by ios8
       LOG(@"セクション移動");
