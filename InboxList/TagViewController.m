@@ -359,10 +359,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
     case NSFetchedResultsChangeMove: // by ios8
-      NSLog(@"A table item was moved");
+      LOG(@"移動");
       break;
     case NSFetchedResultsChangeUpdate:
-      NSLog(@"A table item was updated");
+      LOG(@"更新");
       break;
   }
 }
