@@ -185,11 +185,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)toEdit:(id)sender
 {
   if (self.tableView.isEditing) {
-    [self setEditing:false
-            animated:YES];
+    [self.tableView setEditing:false
+                      animated:YES];
   } else {
-    [self setEditing:true
-            animated:YES];
+    [self.tableView setEditing:true
+                      animated:YES];
   }
 }
 
