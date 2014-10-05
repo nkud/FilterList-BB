@@ -165,8 +165,7 @@ titleForHeaderInSection:(NSInteger)section
  */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  NSLog(@"%s %@", __FUNCTION__, @"セクション数を返す");
-  NSLog(@"%lu", [[self.fetchedResultsController sections] count] + 1);
+  LOG(@"セクション数を返す");
   // クイック入力セルを足している
   return [[self.fetchedResultsController sections] count] + 1;
 }
@@ -206,7 +205,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
-  NSLog(@"%s section: %ld", __FUNCTION__, (long)section);
   NSInteger number = 0;
   if (section == 0) {
     // クイック入力セルの場合
@@ -218,7 +216,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     = [self.fetchedResultsController sections][sectionInController];
     number = [sectionInfo numberOfObjects];
   }
-  NSLog(@"%ld", (long)number);
   return number;
 }
 
@@ -313,7 +310,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(void)didInputtedNewItem:(NSString *)titleForItem
 {
-  NSLog(@"%s %@", __FUNCTION__, titleForItem);
+  LOG(@"クイック入力タイトル:%@", titleForItem);
 
   [CoreDataController insertNewItem:titleForItem
                                 tag:self.tagForSelected
@@ -595,9 +592,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       // その位置のセルのデータをモデルから取得する
 
       NSIndexPath *indexPath = [self mapIndexPathToFetchResultsController:indexPathInTableView];
-      NSLog(@"%s %@", __FUNCTION__, @"モデルを取得");
-      NSLog(@"%s %ld", __FUNCTION__, (long)indexPathInTableView.section);
-      NSLog(@"%s %ld", __FUNCTION__, (long)indexPathInTableView.row);
+      LOG(@"モデルを取得");
       Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
       if ( flag ) {
         LOG(@"アイテムを削除する");
@@ -718,21 +713,21 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   sectionIndex = [self mapSectionFromFetchedResultsController:sectionIndex];
   switch(type) {
     case NSFetchedResultsChangeInsert:
-      NSLog(@"%@", @"Insert");
+      LOG(@"セクション挿入");
       [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
 
     case NSFetchedResultsChangeDelete:
-      NSLog(@"%@", @"Delete");
+      LOG(@"セクション削除");
       [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
     case NSFetchedResultsChangeMove: // by ios8
-      NSLog(@"A table item was moved");
+      LOG(@"セクション移動");
       break;
     case NSFetchedResultsChangeUpdate:
-      NSLog(@"A table item was updated");
+      LOG(@"セクション更新");
       break;
   }
 }
