@@ -53,7 +53,7 @@
   
   // タイトルを設定
   [self configureTitleWithString:TAG_LIST_TITLE
-                       miniTitle:@"mini title"];
+                        subTitle:@"mini title"];
   
   // 使用するセルを登録
   [self.tableView registerNib:[UINib nibWithNibName:@"TagCell"

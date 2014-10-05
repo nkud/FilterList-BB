@@ -23,7 +23,7 @@
  * @param miniTitle サブタイトル
  */
 -(void)configureTitleWithString:(NSString *)title
-                      miniTitle:(NSString *)miniTitle
+                       subTitle:(NSString *)subTitle
 {
   // タイトルビューを再設定
   self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
@@ -41,14 +41,14 @@
   [self.titleView addSubview:titleLabel];
 
   // サブタイトルを作成・設定
-  UILabel *miniTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
-  miniTitleLabel.font = [UIFont boldSystemFontOfSize:10.0f];
-  miniTitleLabel.textColor = [UIColor grayColor];
-  miniTitleLabel.textAlignment = NSTextAlignmentCenter;
-  miniTitleLabel.backgroundColor = [UIColor clearColor];
-  miniTitleLabel.adjustsFontSizeToFitWidth = YES;
-  miniTitleLabel.text = miniTitle;
-  [self.titleView addSubview:miniTitleLabel];
+  UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
+  subTitleLabel.font = [UIFont boldSystemFontOfSize:10.0f];
+  subTitleLabel.textColor = [UIColor grayColor];
+  subTitleLabel.textAlignment = NSTextAlignmentCenter;
+  subTitleLabel.backgroundColor = [UIColor clearColor];
+  subTitleLabel.adjustsFontSizeToFitWidth = YES;
+  subTitleLabel.text = subTitle;
+  [self.titleView addSubview:subTitleLabel];
 }
 
 - (void)viewDidLoad {

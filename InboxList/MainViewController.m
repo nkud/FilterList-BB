@@ -58,23 +58,24 @@
 {
   [super viewDidLoad];
   
-  // パラメータを初期化
+  LOG(@"パラメータ初期化");
   [self initParameter];
 
-  // タブバー初期化
+  LOG(@"タブバー初期化");
   self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
                                                          SCREEN_BOUNDS.size.height-TABBAR_H,
                                                          SCREEN_BOUNDS.size.width,
                                                          TABBAR_H)];
   self.tabBar.delegate = self;
 
-  // アイテムビューコントローラを初期化
+  LOG(@"アイテムリストを初期化・設定");
 //  self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
   self.itemViewController = [[ItemViewController alloc] initWithNibName:@"ListViewController"
                                                                  bundle:nil];
 
   self.itemViewController.fetchedResultsController = [CoreDataController itemFethcedResultsController:self.itemViewController];
-  self.itemViewController.titleForList = @"All Items";
+  [self.itemViewController configureTitleWithString:@"ITEMS"
+                                           subTitle:@"All Items"];
   
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
 
@@ -366,11 +367,15 @@ didSelectItem:(UITabBarItem *)item
   } else {
     self.itemViewController.tagForSelected = nil;
   }
-  self.itemViewController.titleForList = title;
+//  self.itemViewController.titleForList = title;
 //  self.itemViewController.title = title;
   self.itemViewController.fetchedResultsController = fetchedResultController;
   // テーブルを更新
   [self.itemViewController updateTableView];
+  
+  LOG(@"ナビゲーションバーのタイトルを更新");
+  [self.itemViewController configureTitleWithString:@"ITEM"
+                                           subTitle:title];
 
   // タブバーのモードを変更する
   [self.tabBar setItemMode];

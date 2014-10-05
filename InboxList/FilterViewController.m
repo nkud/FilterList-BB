@@ -51,7 +51,7 @@
 
   // タイトルを設定
   [self configureTitleWithString:FILTER_LIST_TITLE
-                       miniTitle:@"mini title"];
+                        subTitle:@"mini title"];
   
   [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
   

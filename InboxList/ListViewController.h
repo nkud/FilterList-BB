@@ -23,7 +23,7 @@
 // ビューのタイトル
 @property UIView *titleView;
 -(void)configureTitleWithString:(NSString *)title
-                      miniTitle:(NSString *)miniTitle;
+                       subTitle:(NSString *)subTitle;
 
 @property id<ListViewControllerDelegate> delegateForList;
 

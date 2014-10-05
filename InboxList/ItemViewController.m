@@ -45,9 +45,9 @@
 - (void)initParameter
 {
   isOpen = false;
-  if (self.titleForList == nil) {
-    self.titleForList = @"all";
-  }
+//  if (self.titleForList == nil) {
+//    self.titleForList = @"all";
+//  }
   app = [[UIApplication sharedApplication] delegate];
 }
 
@@ -77,8 +77,10 @@
   [super viewDidLoad];
 
   // タイトルを設定
-  [self configureTitleWithString:ITEM_LIST_TITLE
-                       miniTitle:self.titleForList];
+//  [self configureTitleWithString:ITEM_LIST_TITLE
+//                        subTitle:@"default subtitle"];
+  //                        subTitle:self.titleForList];
+  
   // 変数を初期化
   [self initParameter];
 
