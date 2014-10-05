@@ -15,6 +15,7 @@
 
 @end
 
+/// リストビューコントローラーインターフェイス
 @interface ListViewController : UIViewController
 <UITableViewDelegate, UITableViewDataSource>
 
@@ -22,6 +23,13 @@
 
 // ビューのタイトル
 @property UIView *titleView;
+
+/**
+ * @brief  ナビゲーションバーを設定
+ *
+ * @param title    メインタイトル
+ * @param subTitle サブタイトル
+ */
 -(void)configureTitleWithString:(NSString *)title
                        subTitle:(NSString *)subTitle;
 

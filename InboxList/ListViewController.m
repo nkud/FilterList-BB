@@ -7,6 +7,7 @@
 //
 
 #import "ListViewController.h"
+#import "Header.h"
 
 @interface ListViewController ()
 
@@ -51,11 +52,17 @@
   [self.titleView addSubview:subTitleLabel];
 }
 
+/**
+ * @brief  ビュー読込後の処理
+ */
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view from its nib.
+  LOG(@"デリゲートを自身に設定");
   [self.tableView setDelegate:self];
 }
+
+#pragma mark - その他 -
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

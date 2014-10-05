@@ -18,16 +18,11 @@
 /**
  * @brief  アイテムリスト
  */
-//@interface ItemViewController : UITableViewController
 @interface ItemViewController : ListViewController
 <NSFetchedResultsControllerDelegate, ItemDetailViewControllerDelegate, InputHeaderCellDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-//@property (strong, nonatomic) NSString *titleForList;
 
-//@property CGFloat triggerDragging;
-
-//@property (strong, nonatomic) NSSet *tagsForSelected;
 @property (strong, nonatomic) Tag *tagForSelected;
 
 -(void)updateTableView;

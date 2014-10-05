@@ -47,11 +47,7 @@
 - (void)initParameter
 {
   isOpen = false;
-//  if (self.titleForList == nil) {
-//    self.titleForList = @"all";
-//  }
   app = [[UIApplication sharedApplication] delegate];
-  
   heightForSection_ = kHeightForSection;
 }
 
@@ -66,6 +62,7 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil
                         bundle:(NSBundle *)nibBundleOrNil
 {
+  LOG(@"アイテムリスト初期化");
   self = [super initWithNibName:nibNameOrNil
                          bundle:nibBundleOrNil];
   return self;
@@ -80,11 +77,6 @@
   // 継承元のロード
   [super viewDidLoad];
 
-  // タイトルを設定
-//  [self configureTitleWithString:ITEM_LIST_TITLE
-//                        subTitle:@"default subtitle"];
-  //                        subTitle:self.titleForList];
-  
   // 変数を初期化
   [self initParameter];
 
@@ -269,37 +261,6 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
-
-/**
- *  @brief スクロール時の処理
- *
- *  @param scrollView スクロールビュー
- */
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//  CGRect rect = scrollView.bounds; // 現在のスクロールビューの位置を取得して
-//  self.triggerDragging = rect.origin.y; // ドラッグしている距離を更新
-//}
-
-/**
- *  @brief スクロールをドラッグした後の処理
- *
- *  @param scrollView スクロールビュー
- *  @param decelerate decelerate description
- *
- *  @todo  入力ヘッダを綺麗に出すようにする
- */
-//-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView
-//                 willDecelerate:(BOOL)decelerate
-//{
-//  LOG(@"スクロールをドラッグした時の処理");
-////  int activate_quick_distance = -120;
-//  // 規定値よりもドラッグするとクイック入力開始
-////  if (self.triggerDragging < -self.inputHeaderCell.frame.size.height)
-//  {
-////    [self toggleQuickInputActivation];
-//  }
-//}
 /**
  * @brief テーブルビューを更新する
  *
@@ -666,10 +627,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (NSIndexPath *)mapIndexPathFromFetchResultsController:(NSIndexPath *)indexPath
 {
-//  if (indexPath.section = 0)
-//  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
-//    return indexPath;
-//  }
   NSInteger section = [self mapSectionFromFetchedResultsController:indexPath.section];
   indexPath = [NSIndexPath indexPathForRow:indexPath.row
                                  inSection:section];
@@ -697,10 +654,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (NSIndexPath *)mapIndexPathToFetchResultsController:(NSIndexPath *)indexPath
 {
-//  if (indexPath.section == 0)
-//  if ([self isInputHeaderCellAtIndexPath:indexPath]) {
-//    return indexPath;
-//  }
   NSInteger section = [self mapSectionToFetchedResultsController:indexPath.section];
   indexPath = [NSIndexPath indexPathForRow:indexPath.row
                                  inSection:section];

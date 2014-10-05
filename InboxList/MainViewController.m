@@ -69,7 +69,6 @@
   self.tabBar.delegate = self;
 
   LOG(@"アイテムリストを初期化・設定");
-//  self.itemViewController = [[ItemViewController alloc] initWithStyle:UITableViewStylePlain];
   self.itemViewController = [[ItemViewController alloc] initWithNibName:@"ListViewController"
                                                                  bundle:nil];
 
@@ -308,8 +307,7 @@ didSelectItem:(UITabBarItem *)item
 {
   NSFetchedResultsController *result_controller;
   NSString *titleForItemList;
-//  LOG(@"%@", tag.section);
-//  if ([tag.section isEqualToNumber:[NSNumber numberWithInt:0]]) {
+
   if(tag) {
     // 指定されたタグでアイテムビューをロード
     result_controller = [CoreDataController itemFetchedResultsControllerForTags:[NSSet setWithObject:tag]
@@ -369,8 +367,6 @@ didSelectItem:(UITabBarItem *)item
     self.itemViewController.tagForSelected = nil;
     [self. itemViewController showSectionHeader];
   }
-//  self.itemViewController.titleForList = title;
-//  self.itemViewController.title = title;
   self.itemViewController.fetchedResultsController = fetchedResultController;
   // テーブルを更新
   [self.itemViewController updateTableView];
