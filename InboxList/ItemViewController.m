@@ -28,6 +28,8 @@
   int location_center_x;
   BOOL isOpen;
   AppDelegate *app;
+  
+  NSInteger heightForSection_;
 }
 
 - (void)configureItemCell:(ItemCell *)cell
@@ -49,6 +51,8 @@
 //    self.titleForList = @"all";
 //  }
   app = [[UIApplication sharedApplication] delegate];
+  
+  heightForSection_ = kHeightForSection;
 }
 
 /**
@@ -126,7 +130,7 @@ heightForHeaderInSection:(NSInteger)section
     return 0;
   }
   // 通常のアイテムセル用
-  return kHeightForSection;
+  return heightForSection_;
 }
 
 /**
@@ -612,6 +616,15 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
 #pragma mark - ユーティリティ -
 
+-(void)showSectionHeader
+{
+  heightForSection_ = kHeightForSection;
+}
+-(void)hideSectionHeader
+{
+  heightForSection_ = 0;
+}
+
 /**
  * @brief  テーブルビューでの位置からアイテムを取得する
  *
@@ -641,6 +654,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     return NO;
   }
 }
+
+#pragma mark - コントローラー用のマップ関数
 
 /**
  * @brief  リザルトコントローラー -> インデックス

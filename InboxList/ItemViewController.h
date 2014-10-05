@@ -32,4 +32,7 @@
 
 -(void)updateTableView;
 
+-(void)showSectionHeader;
+-(void)hideSectionHeader;
+
 @end

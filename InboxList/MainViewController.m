@@ -364,8 +364,10 @@ didSelectItem:(UITabBarItem *)item
       self.itemViewController.tagForSelected = tag;
       break;
     }
+    [self.itemViewController hideSectionHeader];
   } else {
     self.itemViewController.tagForSelected = nil;
+    [self. itemViewController showSectionHeader];
   }
 //  self.itemViewController.titleForList = title;
 //  self.itemViewController.title = title;
