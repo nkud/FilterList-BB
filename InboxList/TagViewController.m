@@ -160,16 +160,21 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([self isCellForAllItemsAtIndexPath:indexPath]) {
+  NSIndexPath *indexPathInTableView = indexPath;
+  LOG(@"タグセルが選択された");
+  if ([self isCellForAllItemsAtIndexPath:indexPathInTableView]) {
     [self.delegate didSelectTag:nil];
   } else {
     // 選択された位置のタグを取得して
-    indexPath = [self mapIndexPathToFetchResultsController:indexPath];
-    Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+    Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
     
     // 選択されたタグを渡す
     [self.delegate didSelectTag:tag];
   }
+  LOG(@"タグセルの選択を解除");
+  [tableView deselectRowAtIndexPath:indexPathInTableView
+                           animated:YES];
 }
 
 /**
