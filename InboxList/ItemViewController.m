@@ -91,7 +91,8 @@
   // 編集ボタン
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
                                                                  style:UIBarButtonItemStyleBordered
-                                                                target:self action:@selector(toEdit:)];
+                                                                target:self
+                                                                action:@selector(toEdit:)];
   self.navigationItem.leftBarButtonItem = editButton;
 
   // 新規ボタン
@@ -295,11 +296,13 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"編集モード");
   if (self.tableView.isEditing) {
-    [self setEditing:false
-            animated:YES];
+    LOG(@"編集モードの場合");
+    [self.tableView setEditing:false
+                      animated:YES];
   } else {
-    [self setEditing:true
-            animated:YES];
+    LOG(@"編集モードでない場合");
+    [self.tableView setEditing:true
+                      animated:YES];
   }
 }
 
@@ -320,7 +323,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"テーブル編集時の処理");
   /// 削除時
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSManagedObjectContext *context = [[self fetchedResultsController] managedObjectContext];
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     [context deleteObject:[self.fetchedResultsController
                            objectAtIndexPath:indexPathInController]];
     [app saveContext];
