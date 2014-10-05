@@ -25,4 +25,6 @@
 -(BOOL)isOverDue;
 -(BOOL)isDueToToday;
 
+-(NSString *)tagName;
+
 @end

@@ -46,4 +46,9 @@
   return NO;
 }
 
+-(NSString *)tagName
+{
+  return self.tag ? self.tag.title : @"";
+}
+
 @end

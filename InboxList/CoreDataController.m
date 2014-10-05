@@ -61,7 +61,7 @@ enum __SECTION__ {
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:app.managedObjectContext
-                                          sectionNameKeyPath:@"tag.title"
+                                          sectionNameKeyPath:@"tagName"
                                                    cacheName:nil]; //< 元は@"Master"
   
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
@@ -120,7 +120,7 @@ enum __SECTION__ {
   NSFetchedResultsController *aFetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:app.managedObjectContext
-                                          sectionNameKeyPath:@"tag.title"
+                                          sectionNameKeyPath:@"tagName"
                                                    cacheName:nil];   //< タグをキャッシュネームにする
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
   
@@ -160,9 +160,24 @@ enum __SECTION__ {
   // リマインダーを設定
   newItem.reminder = reminder;
   // アイテムとタグを関連付ける
-  newItem.tag = tag;
+  if (tag) {
+    newItem.tag = tag;
+  } else {
+    
+  }
 
   [self saveContext];
+}
+
+/**
+ * @brief  空のタグ
+ *
+ * @return インスタンス
+ */
++(Tag *)emptyTag
+{
+  Tag *tag = [self newTagObject];
+  return tag;
 }
 
 /**
