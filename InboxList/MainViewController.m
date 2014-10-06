@@ -69,7 +69,9 @@
   self.tabBar.delegate = self;
 
   LOG(@"アイテムリストを初期化・設定");
-  self.itemViewController = [[ItemViewController alloc] initWithNibName:@"ListViewController"
+//  self.itemViewController = [[ItemViewController alloc] initWithNibName:@"ListViewController"
+//                                                                 bundle:nil];
+  self.itemViewController = [[ItemViewController alloc] initWithNibName:nil
                                                                  bundle:nil];
 
   self.itemViewController.fetchedResultsController = [CoreDataController itemFethcedResultsController:self.itemViewController];
@@ -80,13 +82,14 @@
 
 
   // フィルターコントローラを初期化
-  self.filterViewController = [[FilterViewController alloc] initWithNibName:@"ListViewController" bundle:nil];
+  self.filterViewController = [[FilterViewController alloc] initWithNibName:nil
+                                                                     bundle:nil];
   self.filterViewController.delegate = self;
   self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
   self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
   
   // タグビューコントローラを初期化
-  self.tagViewController = [[TagViewController alloc] initWithNibName:@"ListViewController"
+  self.tagViewController = [[TagViewController alloc] initWithNibName:nil
                                                                bundle:nil];
   self.tagViewController.delegate = self;
   self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];

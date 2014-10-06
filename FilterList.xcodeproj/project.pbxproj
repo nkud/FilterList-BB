@@ -55,8 +55,6 @@
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
 		B0A0915719CD3777005CDCF8 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A0915519CD3777005CDCF8 /* checked.png */; };
 		B0A0915819CD3777005CDCF8 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A0915619CD3777005CDCF8 /* unchecked.png */; };
-		B0A5574B19D1A17B00C4A9E7 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A5574919D1A17B00C4A9E7 /* ListViewController.m */; };
-		B0A5574C19D1A17B00C4A9E7 /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0A5574A19D1A17B00C4A9E7 /* ListViewController.xib */; };
 		B0AD8C6919D12A2C0069B29D /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AD8C6719D12A2C0069B29D /* FilterCell.m */; };
 		B0AD8C6A19D12A2C0069B29D /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0AD8C6819D12A2C0069B29D /* FilterCell.xib */; };
 		B0AD8C7419D12B2A0069B29D /* CompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AD8C7219D12B2A0069B29D /* CompleteViewController.m */; };
@@ -67,6 +65,7 @@
 		B0BC6A9219A9FA9800E53AEF /* TagSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A9019A9FA9800E53AEF /* TagSelectCell.m */; };
 		B0BC6A9319A9FA9800E53AEF /* TagSelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BC6A9119A9FA9800E53AEF /* TagSelectCell.xib */; };
 		B0BDA88119965639003AA40B /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA88019965639003AA40B /* CoreDataController.m */; };
+		B0BE423A19E2E62C0033F169 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BE423919E2E62C0033F169 /* ListViewController.m */; };
 		B0C95D6719D5661C00F32F6C /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C95D6619D5661C00F32F6C /* Tag.m */; };
 		B0C95D6A19D5667700F32F6C /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C95D6919D5667700F32F6C /* Item.m */; };
 		B0C95D6D19D5667800F32F6C /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C95D6C19D5667800F32F6C /* Filter.m */; };
@@ -157,9 +156,6 @@
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
 		B0A0915519CD3777005CDCF8 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checked.png; path = Icon/checked.png; sourceTree = SOURCE_ROOT; };
 		B0A0915619CD3777005CDCF8 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unchecked.png; path = Icon/unchecked.png; sourceTree = SOURCE_ROOT; };
-		B0A5574819D1A17B00C4A9E7 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
-		B0A5574919D1A17B00C4A9E7 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
-		B0A5574A19D1A17B00C4A9E7 /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
 		B0AD8C6619D12A2C0069B29D /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
 		B0AD8C6719D12A2C0069B29D /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
 		B0AD8C6819D12A2C0069B29D /* FilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
@@ -176,6 +172,8 @@
 		B0BC6A9119A9FA9800E53AEF /* TagSelectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagSelectCell.xib; sourceTree = "<group>"; };
 		B0BDA87F19965639003AA40B /* CoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataController.h; sourceTree = "<group>"; };
 		B0BDA88019965639003AA40B /* CoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataController.m; sourceTree = "<group>"; };
+		B0BE423819E2E62C0033F169 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		B0BE423919E2E62C0033F169 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		B0C95D6519D5661C00F32F6C /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
 		B0C95D6619D5661C00F32F6C /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		B0C95D6819D5667700F32F6C /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
@@ -464,9 +462,8 @@
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
-				B0A5574819D1A17B00C4A9E7 /* ListViewController.h */,
-				B0A5574919D1A17B00C4A9E7 /* ListViewController.m */,
-				B0A5574A19D1A17B00C4A9E7 /* ListViewController.xib */,
+				B0BE423819E2E62C0033F169 /* ListViewController.h */,
+				B0BE423919E2E62C0033F169 /* ListViewController.m */,
 			);
 			name = ListMode;
 			sourceTree = "<group>";
@@ -654,7 +651,6 @@
 			files = (
 				B056F7CA198D394800768E8E /* TagCell.xib in Resources */,
 				B0531996199FC79C00F63783 /* completedtab.png in Resources */,
-				B0A5574C19D1A17B00C4A9E7 /* ListViewController.xib in Resources */,
 				B00AD6AB18C45E470005A552 /* Images.xcassets in Resources */,
 				B08CDBB719C559B8008263AC /* ItemDetailTagCell.xib in Resources */,
 				B053199C199FC92C00F63783 /* tagtab.png in Resources */,
@@ -697,6 +693,7 @@
 			files = (
 				B083521419CD59EC00071EE0 /* InputHeaderCell.m in Sources */,
 				B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */,
+				B0BE423A19E2E62C0033F169 /* ListViewController.m in Sources */,
 				B0C95D6A19D5667700F32F6C /* Item.m in Sources */,
 				B0AD8C6919D12A2C0069B29D /* FilterCell.m in Sources */,
 				B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */,
@@ -705,7 +702,6 @@
 				B0BDA88119965639003AA40B /* CoreDataController.m in Sources */,
 				B0BC6A9219A9FA9800E53AEF /* TagSelectCell.m in Sources */,
 				B0C95D6D19D5667800F32F6C /* Filter.m in Sources */,
-				B0A5574B19D1A17B00C4A9E7 /* ListViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
 				B08CDBB619C559B8008263AC /* ItemDetailTagCell.m in Sources */,

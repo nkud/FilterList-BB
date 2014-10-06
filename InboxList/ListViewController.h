@@ -2,7 +2,7 @@
 //  ListViewController.h
 //  FilterList
 //
-//  Created by Naoki Ueda on 2014/09/23.
+//  Created by Naoki Ueda on 2014/10/07.
 //  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
 //
 
@@ -15,11 +15,7 @@
 
 @end
 
-/// リストビューコントローラーインターフェイス
-@interface ListViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource>
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface ListViewController : UITableViewController
 
 // ビューのタイトル
 @property UIView *titleView;
