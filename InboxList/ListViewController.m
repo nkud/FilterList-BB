@@ -22,11 +22,6 @@
  */
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  CGRect rect = self.tableView.frame;
-  rect.size.height = 100;
-  self.tableView.frame = rect;
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
