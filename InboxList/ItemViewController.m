@@ -346,8 +346,8 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       NSIndexPath *indexPathInTableView = [self.tableView indexPathForRowAtPoint:point];
       
       // その位置のセルのデータをモデルから取得する
-      NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
-      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+//      NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+//      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
       ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
 
       selected_cell = cell;

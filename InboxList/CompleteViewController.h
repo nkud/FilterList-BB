@@ -11,4 +11,6 @@
 @interface CompleteViewController : ListViewController
 <NSFetchedResultsControllerDelegate>
 
+@property NSFetchedResultsController *fetchedResultsController;
+
 @end

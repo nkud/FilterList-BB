@@ -457,6 +457,54 @@ enum __SECTION__ {
   [self saveContext];
 }
 
+#pragma mark - 完了リスト
+
++(NSFetchedResultsController *)completeFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
+{
+  // アプリケーションデリゲートを取得
+  AppDelegate *app = [[UIApplication sharedApplication] delegate];
+  
+  static NSString *item_entity_name = @"Item";
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:item_entity_name
+                                            inManagedObjectContext:app.managedObjectContext];
+  [fetchRequest setEntity:entity];
+  
+  // Set the batch size to a suitable number.
+  [fetchRequest setFetchBatchSize:20];
+  
+  // ソート設定
+  // (タグのタイトル)でソート
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+                                                                 ascending:NO];
+  NSArray *sortDescriptors = @[sortDescriptor];
+  
+  [fetchRequest setSortDescriptors:sortDescriptors];
+  
+  // 検索条件
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:true]];
+  
+  [fetchRequest setPredicate:predicate]; // 作成した条件を設定
+  
+  // Edit the section name key path and cache name if appropriate.
+  // nil for section name key path means "no sections".
+  NSFetchedResultsController *aFetchedResultsController
+  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:app.managedObjectContext
+                                          sectionNameKeyPath:nil
+                                                   cacheName:nil]; //< 元は@"Master"
+  
+  aFetchedResultsController.delegate = controller; //< デリゲートを設定
+  
+  NSError *error = nil;
+  LOG(@"フェッチを実行");
+  if (![aFetchedResultsController performFetch:&error]) {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }
+  return aFetchedResultsController; // 作成したリザルトコントローラーを返す
+}
+
 #pragma mark - エンティティ
 
 /**
