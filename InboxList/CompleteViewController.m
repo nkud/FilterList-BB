@@ -18,13 +18,17 @@
 @implementation CompleteViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
+  
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:@"Cell"];
+   
+  // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 /**
@@ -41,10 +45,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(void)updateTableView
 {
-  // データをフェッチ
-  self.fetchedResultsController = [CoreDataController completeFetchedResultsController:self];
-  // テーブルを更新
-  [self.tableView reloadData];
+  LOG(@"ナビゲーションバーを更新");
+  [self configureTitleWithString:@"COMPLETE"
+                        subTitle:[NSString stringWithFormat:@"%ld items are completed.",
+                                  (long)[self.tableView numberOfRowsInSection:0]]];
+  
 }
 
 /**
@@ -86,8 +91,7 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                 reuseIdentifier:@"Cell"];
+  UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
   [self configureCompleteCell:cell
        atIndexPathInTableView:indexPath];
   return cell;
@@ -107,16 +111,6 @@ numberOfRowsInSection:(NSInteger)section
 }
 
 #pragma mark - コンテンツの更新
-
--(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-  LOG(@"コンテンツが変化した時の処理");
-  
-  [self configureTitleWithString:@"COMPLETE"
-                        subTitle:[NSString stringWithFormat:@"%ld items are completed.",
-                                  (long)[self.tableView numberOfRowsInSection:0]]];
-  [self.tableView reloadData];
-}
 
 /**
  *  @brief コンテンツを更新する前処理
@@ -196,6 +190,24 @@ numberOfRowsInSection:(NSInteger)section
       break;
   }
 }
+
+/**
+ *  @brief コンテンツが更新された後処理
+ *
+ *  @param controller リザルトコントローラー
+ */
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+  LOG(@"アイテムビューが更新されたあとの処理");
+  
+    [self configureTitleWithString:@"COMPLETE"
+                          subTitle:[NSString stringWithFormat:@"%ld items are completed.",
+                                    (long)[self.tableView numberOfRowsInSection:0]]];
+  
+  // In the simplest, most efficient, case, reload the table view.
+  [self.tableView endUpdates];
+}
+
 /*
 #pragma mark - Navigation
 
