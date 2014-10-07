@@ -115,6 +115,7 @@ numberOfRowsInSection:(NSInteger)section
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInTableView];
   cell.titleLabel.text = item.title;
   cell.tagLabel.text = item.tag.title;
+  [cell updateCheckBox:item.state];
 }
 
 #pragma mark - コンテンツの更新

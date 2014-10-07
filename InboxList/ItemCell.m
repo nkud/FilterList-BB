@@ -9,14 +9,6 @@
 #import "ItemCell.h"
 #import "Header.h"
 
-
-@interface ItemCell ()
-
--(void)setChecked;
--(void)setUnChecked;
-
-@end
-
 @implementation ItemCell
 
 

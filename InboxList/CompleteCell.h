@@ -13,4 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *tagLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
 
+-(BOOL)updateCheckBox:(BOOL)isChecked;
+-(void)setChecked;
+-(void)setUnChecked;
+
 @end
