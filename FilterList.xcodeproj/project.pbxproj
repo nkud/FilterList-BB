@@ -219,7 +219,7 @@
 		B00AD67E18C45E470005A552 = {
 			isa = PBXGroup;
 			children = (
-				B00AD69218C45E470005A552 /* InboxList */,
+				B00AD69218C45E470005A552 /* FilterList */,
 				B00AD6B818C45E480005A552 /* InboxListTests */,
 				B00AD68918C45E470005A552 /* Frameworks */,
 				B00AD68818C45E470005A552 /* Products */,
@@ -247,7 +247,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B00AD69218C45E470005A552 /* InboxList */ = {
+		B00AD69218C45E470005A552 /* FilterList */ = {
 			isa = PBXGroup;
 			children = (
 				B053C91B19557C1600C51AA1 /* Header.h */,
@@ -265,6 +265,7 @@
 				B00AD6A118C45E470005A552 /* InboxList.xcdatamodeld */,
 				B00AD69318C45E470005A552 /* Supporting Files */,
 			);
+			name = FilterList;
 			path = InboxList;
 			sourceTree = "<group>";
 		};
