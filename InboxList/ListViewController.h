@@ -15,10 +15,14 @@
 
 @end
 
-@interface ListViewController : UITableViewController
+@interface ListViewController : UIViewController
+<UITableViewDelegate, UITableViewDataSource>
 
 // ビューのタイトル
 @property UIView *titleView;
+
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UITabBar *tabBar;
 
 /**
  * @brief  ナビゲーションバーを設定

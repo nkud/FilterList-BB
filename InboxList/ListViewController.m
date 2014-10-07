@@ -17,6 +17,55 @@
 
 #pragma mark - 初期化 -
 
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  if (self) {
+    CGRect frame = CGRectMake(0,
+                              0,
+                              SCREEN_BOUNDS.size.width,
+                              SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H);
+    self.tableView = [[UITableView alloc] initWithFrame:frame];
+    self.tableView.delegate = self;
+    [self.view addSubview:self.tableView];
+    
+    frame = CGRectMake(0,
+                       SCREEN_BOUNDS.size.height - TABBAR_H,
+                       SCREEN_BOUNDS.size.width,
+                       TABBAR_H);
+    
+    self.tabBar = [[UITabBar alloc] initWithFrame:frame];
+    [self.view addSubview:self.tabBar];
+    self.tabBar.backgroundColor = [UIColor redColor];
+  }
+  return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  // クリア
+  [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]
+                                animated:YES];
+  [self.tableView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  
+  // スクロールバーを点滅させる
+  [self.tableView flashScrollIndicators];
+}
+
+- (void)setEditing:(BOOL)flag
+          animated:(BOOL)animated {
+  
+  [super setEditing:flag
+           animated:animated];
+
+  [self.tableView setEditing:flag
+                    animated:animated];
+}
 /**
  * @brief  ビューロード後
  */
@@ -27,18 +76,6 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-/**
- * @brief  ビュー表示された後
- *
- * @param animated アニメーション
- */
--(void)viewDidAppear:(BOOL)animated
-{
-  CGRect frame = self.tableView.frame;
-  frame.size.height -= TABBAR_H;
-  [self.tableView setFrame:frame];
 }
 
 /**
@@ -90,20 +127,23 @@
     return 0;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     return 0;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"
+                                                          forIndexPath:indexPath];
+  
+  // Configure the cell...
+  
+  return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
