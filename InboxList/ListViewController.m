@@ -19,24 +19,11 @@
 
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  self = [super initWithNibName:nibNameOrNil
+                         bundle:nibBundleOrNil];
+
   if (self) {
-    CGRect frame = CGRectMake(0,
-                              0,
-                              SCREEN_BOUNDS.size.width,
-                              SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H);
-    self.tableView = [[UITableView alloc] initWithFrame:frame];
-    self.tableView.delegate = self;
-    [self.view addSubview:self.tableView];
-    
-    frame = CGRectMake(0,
-                       SCREEN_BOUNDS.size.height - TABBAR_H,
-                       SCREEN_BOUNDS.size.width,
-                       TABBAR_H);
-    
-    self.tabBar = [[UITabBar alloc] initWithFrame:frame];
-    [self.view addSubview:self.tabBar];
-    self.tabBar.backgroundColor = [UIColor redColor];
+
   }
   return self;
 }
@@ -71,6 +58,27 @@
  */
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  LOG(@"テーブルビュー初期化");
+  CGRect frame = CGRectMake(0,
+                            0,
+                            SCREEN_BOUNDS.size.width,
+                            SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H);
+  self.tableView = [[UITableView alloc] initWithFrame:frame];
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
+  [self.view addSubview:self.tableView];
+  
+  LOG(@"タブバー初期化");
+  frame = CGRectMake(0,
+                     SCREEN_BOUNDS.size.height - TABBAR_H,
+                     SCREEN_BOUNDS.size.width,
+                     TABBAR_H);
+  
+  self.tabBar = [[UITabBar alloc] initWithFrame:frame];
+  [self.view addSubview:self.tabBar];
+  self.tabBar.backgroundColor = [UIColor redColor];
+  
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
