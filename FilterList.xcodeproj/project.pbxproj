@@ -523,16 +523,48 @@
 			children = (
 				B08F4B631915FAC80047E210 /* NavigationController.h */,
 				B08F4B641915FAC80047E210 /* NavigationController.m */,
+				B0E5330119E3C0B3005A53B1 /* ItemListNav */,
+				B0E5330219E3C0BB005A53B1 /* TagListNav */,
+				B0E5330319E3C0C2005A53B1 /* FilterListNav */,
+				B0E5330419E3C0C9005A53B1 /* CompleteListNav */,
+			);
+			name = NavigationController;
+			sourceTree = "<group>";
+		};
+		B0E5330119E3C0B3005A53B1 /* ItemListNav */ = {
+			isa = PBXGroup;
+			children = (
 				B08C33A319A84E4F00AB5F25 /* ItemNavigationController.h */,
 				B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */,
+			);
+			name = ItemListNav;
+			sourceTree = "<group>";
+		};
+		B0E5330219E3C0BB005A53B1 /* TagListNav */ = {
+			isa = PBXGroup;
+			children = (
 				B0E4690C19A84B99008B3150 /* TagNavigationController.h */,
 				B0E4690D19A84B99008B3150 /* TagNavigationController.m */,
+			);
+			name = TagListNav;
+			sourceTree = "<group>";
+		};
+		B0E5330319E3C0C2005A53B1 /* FilterListNav */ = {
+			isa = PBXGroup;
+			children = (
 				B0E4691219A84BC3008B3150 /* FilterNavigationController.h */,
 				B0E4691319A84BC3008B3150 /* FilterNavigationController.m */,
+			);
+			name = FilterListNav;
+			sourceTree = "<group>";
+		};
+		B0E5330419E3C0C9005A53B1 /* CompleteListNav */ = {
+			isa = PBXGroup;
+			children = (
 				B0E532FE19E398ED005A53B1 /* CompleteNavigationController.h */,
 				B0E532FF19E398ED005A53B1 /* CompleteNavigationController.m */,
 			);
-			name = NavigationController;
+			name = CompleteListNav;
 			sourceTree = "<group>";
 		};
 		B0E7571219499D98004C6344 /* ItemCell */ = {
