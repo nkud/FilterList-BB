@@ -2,7 +2,7 @@
 //  CompleteViewController.m
 //  FilterList
 //
-//  Created by Naoki Ueda on 2014/09/23.
+//  Created by Naoki Ueda on 2014/10/07.
 //  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
 //
 
@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

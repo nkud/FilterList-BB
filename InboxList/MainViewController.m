@@ -68,9 +68,8 @@
                                                          TABBAR_H)];
   self.tabBar.delegate = self;
 
+  // アイテムリストを初期化・設定
   LOG(@"アイテムリストを初期化・設定");
-//  self.itemViewController = [[ItemViewController alloc] initWithNibName:@"ListViewController"
-//                                                                 bundle:nil];
   self.itemViewController = [[ItemViewController alloc] initWithNibName:nil
                                                                  bundle:nil];
 
@@ -95,40 +94,53 @@
   self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
   self.tagNavigationController = [[TagNavigationController alloc] initWithRootViewController:self.tagViewController];
   
+  // 完了リストコントローラーを初期化
+  LOG(@"完了リストコントローラーを初期化・設定");
+  self.completeViewController = [[CompleteViewController alloc] initWithNibName:nil
+                                                                         bundle:nil];
+  self.completeNavigationController
+  = [[__NavigationController alloc] initWithRootViewController:self.completeViewController];
+  
   // コントローラーを配置
+  LOG(@"コントローラーを配置");
   [self.view addSubview:self.itemNavigationController.view];
   [self.view addSubview:self.tagNavigationController.view];
   [self.view addSubview:self.filterNavigationController.view];
+  [self.view addSubview:self.completeNavigationController.view];
   [self.view addSubview:self.tabBar];
   
-  [self closeTagListMode];
-  [self closeFilterListMode];
+  // アイテムリストモードで開始
+  [self toItemListModeWithDuration:0.0f];
   
   // デリゲートを設定
   self.itemViewController.delegateForList = self;
   self.tagViewController.delegateForList = self;
   self.filterViewController.delegateForList = self;
+  self.completeViewController.delegateForList = self;
   
   // リストのサイズを変更
-  CGRect rect =  self.filterNavigationController.view.frame;
-  rect.size.width = SCREEN_BOUNDS.size.width * ( 1.0 - kMarginRateForTagList );
-  self.tagNavigationController.view.frame = rect;
-  rect =  self.filterNavigationController.view.frame;
-  rect.size.width = SCREEN_BOUNDS.size.width * ( 1.0 - kMarginRateForFilterList );
-  self.filterNavigationController.view.frame = rect;
+//  CGRect rect =  self.filterNavigationController.view.frame;
+//  rect.size.width = SCREEN_BOUNDS.size.width * ( 1.0 - kMarginRateForTagList );
+//  self.tagNavigationController.view.frame = rect;
+//  rect =  self.filterNavigationController.view.frame;
+//  rect.size.width = SCREEN_BOUNDS.size.width * ( 1.0 - kMarginRateForFilterList );
+//  self.filterNavigationController.view.frame = rect;
 }
 
 #pragma mark - ビュー移動関数
 
-
+#pragma mark タグリスト
+/**
+ * @brief  タグリストを表示・非表示させる
+ */
 -(void)closeTagListMode
 {
+  // TODO: コメントなど
   if ([self hasActivatedTagListMode]) {
     CGRect rect = self.tagNavigationController.view.frame;
     rect.origin.x = SCREEN_BOUNDS.size.width + 100;
     self.tagNavigationController.view.frame = rect;
   }
-
 }
 -(void)openTagListMode
 {
@@ -138,9 +150,7 @@
     self.tagNavigationController.view.frame = rect;
   }
 }
-/**
- * @brief  タグリストを表示・非表示させる
- */
+
 -(void)toggleTagListMode
 {
   if ([self hasActivatedTagListMode]) {
@@ -158,6 +168,11 @@
     return YES;
   }
 }
+
+#pragma mark フィルターリスト
+/**
+ * @brief  フィルターリストを表示・非表示させる
+ */
 -(void)closeFilterListMode
 {
   if ([self hasActivatedFilterListMode]) {
@@ -174,9 +189,7 @@
     self.filterNavigationController.view.frame = rect;
   }
 }
-/**
- * @brief  フィルターリストを表示・非表示させる
- */
+
 -(void)toggleFilterListMode
 {
   if ([self hasActivatedFilterListMode]) {
@@ -195,6 +208,46 @@
   }
 }
 
+#pragma mark 完了リスト
+/**
+ * @brief  完了リストを表示・非表示させる
+ */
+-(void)closeCompleteListMode
+{
+  LOG(@"完了リストを閉じる");
+  if ([self hasActivatedCompleteListMode]) {
+    CGRect rect = self.completeNavigationController.view.frame;
+    rect.origin.x = SCREEN_BOUNDS.size.width + 100;
+    self.completeNavigationController.view.frame = rect;
+  }
+}
+-(void)openCompleteListMode
+{
+  LOG(@"完了リストを開く");
+  if ( ! [self hasActivatedCompleteListMode]) {
+    CGRect rect = self.completeNavigationController.view.frame;
+    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForFilterList;
+    self.completeNavigationController.view.frame = rect;
+  }
+}
+
+-(void)toggleCompleteListMode
+{
+  if ([self hasActivatedCompleteListMode]) {
+    [self closeCompleteListMode];
+  } else {
+    [self openCompleteListMode];
+  }
+}
+-(BOOL)hasActivatedCompleteListMode
+{
+  CGRect rect = self.completeNavigationController.view.frame;
+  if (rect.origin.x >= SCREEN_BOUNDS.size.width) {
+    return NO;
+  } else {
+    return YES;
+  }
+}
 #pragma mark - タブバー
 -(BOOL)hasTabBar
 {
@@ -244,6 +297,18 @@
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self closeTagListMode];
   [self closeFilterListMode];
+  [self closeCompleteListMode];
+  [UIView commitAnimations];
+}
+-(void)toItemListModeWithDuration:(NSTimeInterval)duration
+{
+  LOG(@"アイテムリストモード");
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:duration];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [self closeTagListMode];
+  [self closeFilterListMode];
+  [self closeCompleteListMode];
   [UIView commitAnimations];
 }
 -(void)toTagListMode
@@ -253,6 +318,7 @@
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
   [self closeFilterListMode];
+  [self closeCompleteListMode];
   [UIView commitAnimations];
 }
 -(void)toFilterListMode
@@ -262,15 +328,24 @@
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
   [self openFilterListMode];
+  [self closeCompleteListMode];
   [UIView commitAnimations];
 }
 -(void)toCompleteListMode
 {
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:0.2];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [self openTagListMode];
+  [self openFilterListMode];
+  [self openCompleteListMode];
+  [UIView commitAnimations];
 }
 
 
 
 #pragma mark - デリゲート用
+#pragma mark タブバー
 /**
  *  @brief タブが選択された時の処理
  *
@@ -301,6 +376,8 @@ didSelectItem:(UITabBarItem *)item
       break;
   }
 }
+
+#pragma mark タグリスト
 /**
  * @brief タグが選択された時の処理
  *
@@ -330,6 +407,7 @@ didSelectItem:(UITabBarItem *)item
 
 }
 
+#pragma mark フィルターリスト
 /**
  * @brief  フィルターが選択された時の処理
  *

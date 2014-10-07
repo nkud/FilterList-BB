@@ -2,12 +2,13 @@
 //  CompleteViewController.h
 //  FilterList
 //
-//  Created by Naoki Ueda on 2014/09/23.
+//  Created by Naoki Ueda on 2014/10/07.
 //  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ListViewController.h"
 
-@interface CompleteViewController : UIViewController
+@interface CompleteViewController : ListViewController
+<NSFetchedResultsControllerDelegate>
 
 @end

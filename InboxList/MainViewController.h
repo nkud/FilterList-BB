@@ -14,8 +14,12 @@
 #import "FilterNavigationController.h"
 #import "TagViewController.h"
 #import "FilterViewController.h"
+#import "CompleteViewController.h"
+
 #import "InputFilterViewController.h"
+
 #import "TabBar.h"
+
 #import "ListViewController.h"
 
 /**
@@ -34,15 +38,25 @@ enum __LIST_DIRECTION__ {
   int swipe_distance;
 }
 
+#pragma mark - リストモード -
+#pragma mark - アイテムリスト
 @property (strong, nonatomic) ItemNavigationController   *itemNavigationController;
 @property (strong, nonatomic) ItemViewController         *itemViewController;
 
+#pragma mark - フィルターリスト
 @property (strong, nonatomic) FilterNavigationController *filterNavigationController;
 @property (strong, nonatomic) FilterViewController       *filterViewController;
 
+#pragma mark - タグリスト
 @property (strong, nonatomic) TagNavigationController    *tagNavigationController;
 @property (strong, nonatomic) TagViewController          *tagViewController;
 
+#pragma mark - 完了リスト
+@property (strong, nonatomic) __NavigationController    *completeNavigationController;
+@property (strong, nonatomic) CompleteViewController          *completeViewController;
+
+
+#pragma mark - タブバー
 @property (strong, nonatomic) TabBar                     *tabBar;
 
 
