@@ -23,6 +23,10 @@ static NSString *kCompleteCellID = @"CompleteCell";
 
 @implementation CompleteViewController
 
+#pragma mark - 初期化
+/**
+ * @brief  ビュー読み込み後の処理
+ */
 - (void)viewDidLoad {
   [super viewDidLoad];
   
@@ -32,10 +36,7 @@ static NSString *kCompleteCellID = @"CompleteCell";
   // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
-}
+#pragma mark - テーブルビュー
 
 /**
  * @brief  セルが選択された時の処理
@@ -46,7 +47,7 @@ static NSString *kCompleteCellID = @"CompleteCell";
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  LOG(@"セルが選択された");
+  LOG(@"完了リストセルが選択された");
 }
 
 -(void)updateTableView
@@ -116,6 +117,68 @@ numberOfRowsInSection:(NSInteger)section
   cell.titleLabel.text = item.title;
   cell.tagLabel.text = item.tag.title;
   [cell updateCheckBox:item.state];
+  
+  // 画像タッチを認識する設定
+  UILongPressGestureRecognizer *recognizer
+  = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                  action:@selector(touchedCheckBox:)];
+  /// @todo ここはうまくしたい
+  [recognizer setMinimumPressDuration:0.0];
+  [cell.checkBoxImageView setUserInteractionEnabled:YES];
+  [cell.checkBoxImageView addGestureRecognizer:recognizer];
+}
+
+/**
+ * @brief  チェックボックスがタッチされた時の処理
+ *
+ * @param sender タップリコクナイザー
+ * @todo なんかおかしい
+ */
+- (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
+{
+  //  static bool flag = false;
+  static CompleteCell *selected_cell = nil;
+  
+  switch (sender.state) {
+    case UIGestureRecognizerStateBegan:
+    {
+      LOG(@"チェックボックスのタッチ開始");
+      CGPoint point = [sender locationInView:self.tableView];
+      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+      
+      // その位置のセルのデータをモデルから取得する
+      CompleteCell *cell = (CompleteCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+      
+      selected_cell = cell;
+      [selected_cell setUnChecked];
+    }
+      break;
+      
+    case UIGestureRecognizerStateEnded:
+    {
+      LOG(@"チェックボックスのタッチ終了");
+      CGPoint point = [sender locationInView:self.tableView];
+      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+      
+      // その位置のセルのデータをモデルから取得する
+      
+      LOG(@"モデルを取得");
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      CompleteCell *cell = (CompleteCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+      
+      if (selected_cell == cell) {
+        item.state = [NSNumber numberWithBool:false];
+        [CoreDataController saveContext];
+      } else {
+        [selected_cell setChecked];
+      }
+      [CoreDataController saveContext];
+    }
+      break;
+      
+    default:
+      break;
+  }
 }
 
 #pragma mark - コンテンツの更新
@@ -216,6 +279,12 @@ numberOfRowsInSection:(NSInteger)section
   [self.tableView endUpdates];
 }
 
+#pragma mark - その他
+
+- (void)didReceiveMemoryWarning {
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
+}
 /*
 #pragma mark - Navigation
 

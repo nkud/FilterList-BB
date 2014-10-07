@@ -374,6 +374,10 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       
       NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
       LOG(@"モデルを取得");
+      if (indexPathInController.section < 0) {
+        [selected_cell setUnChecked];
+        return;
+      }
       Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
       ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
       
