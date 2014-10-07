@@ -50,6 +50,7 @@
 -(void)configureTitleWithString:(NSString *)title
                        subTitle:(NSString *)subTitle
 {
+  LOG(@"ナビゲーションバーのタイトル・サブタイトルを設定");
   // タイトルビューを再設定
   self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
   self.titleView.backgroundColor = [UIColor clearColor];

@@ -29,6 +29,8 @@
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   LOG(@"アプリケーションを開始");
+  
+
   /// ウィンドウ初期化
   self.window = [[UIWindow alloc] initWithFrame:SCREEN_BOUNDS];
 
@@ -38,7 +40,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   /// ルートビューを設定
   [self.window setRootViewController:self.mainViewController];
   [self.window makeKeyAndVisible];
-
+  
+  LOG(@"ウインドウの背景を白色に設定");
+  [[[UIApplication sharedApplication] keyWindow] setBackgroundColor:[UIColor whiteColor]];
+  
   return YES;
 }
 
