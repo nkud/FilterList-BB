@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CompleteCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tagLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
 
 @end

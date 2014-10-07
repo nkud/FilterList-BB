@@ -9,7 +9,13 @@
 #import "CompleteViewController.h"
 #import "CoreDataController.h"
 
+#import "CompleteCell.h"
+
 #import "Header.h"
+
+static NSString *kCompleteCellID = @"CompleteCell";
+
+#pragma mark -
 
 @interface CompleteViewController ()
 
@@ -20,9 +26,9 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self.tableView registerClass:[UITableViewCell class]
-         forCellReuseIdentifier:@"Cell"];
-   
+  [self.tableView registerNib:[UINib nibWithNibName:@"CompleteCell" bundle:nil]
+       forCellReuseIdentifier:kCompleteCellID];
+  
   // Do any additional setup after loading the view.
 }
 
@@ -91,7 +97,7 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+  CompleteCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCompleteCellID];
   [self configureCompleteCell:cell
        atIndexPathInTableView:indexPath];
   return cell;
@@ -103,11 +109,12 @@ numberOfRowsInSection:(NSInteger)section
  * @param cell                 セル
  * @param indexPathInTableView 位置
  */
--(void)configureCompleteCell:(UITableViewCell *)cell
+-(void)configureCompleteCell:(CompleteCell *)cell
       atIndexPathInTableView:(NSIndexPath *)indexPathInTableView
 {
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInTableView];
-  cell.textLabel.text = item.title;
+  cell.titleLabel.text = item.title;
+  cell.tagLabel.text = item.tag.title;
 }
 
 #pragma mark - コンテンツの更新
@@ -176,7 +183,7 @@ numberOfRowsInSection:(NSInteger)section
       
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-      [self configureCompleteCell:[tableView cellForRowAtIndexPath:indexPath]
+      [self configureCompleteCell:(CompleteCell *)[tableView cellForRowAtIndexPath:indexPath]
            atIndexPathInTableView:indexPath];
       
       break;
