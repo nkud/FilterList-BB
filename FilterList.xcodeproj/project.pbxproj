@@ -73,6 +73,8 @@
 		B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4691319A84BC3008B3150 /* FilterNavigationController.m */; };
 		B0E532FD19E38C49005A53B1 /* CompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E532FC19E38C49005A53B1 /* CompleteViewController.m */; };
 		B0E5330019E398ED005A53B1 /* CompleteNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E532FF19E398ED005A53B1 /* CompleteNavigationController.m */; };
+		B0E5330819E3EC85005A53B1 /* CompleteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E5330619E3EC85005A53B1 /* CompleteCell.m */; };
+		B0E5330919E3EC85005A53B1 /* CompleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E5330719E3EC85005A53B1 /* CompleteCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +190,9 @@
 		B0E532FC19E38C49005A53B1 /* CompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompleteViewController.m; sourceTree = "<group>"; };
 		B0E532FE19E398ED005A53B1 /* CompleteNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompleteNavigationController.h; sourceTree = "<group>"; };
 		B0E532FF19E398ED005A53B1 /* CompleteNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompleteNavigationController.m; sourceTree = "<group>"; };
+		B0E5330519E3EC85005A53B1 /* CompleteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompleteCell.h; sourceTree = "<group>"; };
+		B0E5330619E3EC85005A53B1 /* CompleteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompleteCell.m; sourceTree = "<group>"; };
+		B0E5330719E3EC85005A53B1 /* CompleteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompleteCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -475,6 +480,7 @@
 			children = (
 				B0E532FB19E38C49005A53B1 /* CompleteViewController.h */,
 				B0E532FC19E38C49005A53B1 /* CompleteViewController.m */,
+				B0E5330A19E3EC8B005A53B1 /* CompleteCell */,
 			);
 			name = CompleteMode;
 			sourceTree = "<group>";
@@ -566,6 +572,16 @@
 				B0E532FF19E398ED005A53B1 /* CompleteNavigationController.m */,
 			);
 			name = CompleteListNav;
+			sourceTree = "<group>";
+		};
+		B0E5330A19E3EC8B005A53B1 /* CompleteCell */ = {
+			isa = PBXGroup;
+			children = (
+				B0E5330519E3EC85005A53B1 /* CompleteCell.h */,
+				B0E5330619E3EC85005A53B1 /* CompleteCell.m */,
+				B0E5330719E3EC85005A53B1 /* CompleteCell.xib */,
+			);
+			name = CompleteCell;
 			sourceTree = "<group>";
 		};
 		B0E7571219499D98004C6344 /* ItemCell */ = {
@@ -702,6 +718,7 @@
 				B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */,
 				B053199A199FC92C00F63783 /* filtertab.png in Resources */,
 				B08CDBB119C553CC008263AC /* ItemDetailTitleCell.xib in Resources */,
+				B0E5330919E3EC85005A53B1 /* CompleteCell.xib in Resources */,
 				B0BC6A9319A9FA9800E53AEF /* TagSelectCell.xib in Resources */,
 				B083521519CD59EC00071EE0 /* InputHeaderCell.xib in Resources */,
 				B00AD69718C45E470005A552 /* InfoPlist.strings in Resources */,
@@ -747,6 +764,7 @@
 				B0808049195825A3007D21E4 /* TagViewController.m in Sources */,
 				B08CDBB019C553CC008263AC /* ItemDetailTitleCell.m in Sources */,
 				B05319A0199FD46F00F63783 /* InputTagViewController.m in Sources */,
+				B0E5330819E3EC85005A53B1 /* CompleteCell.m in Sources */,
 				B00AD69D18C45E470005A552 /* AppDelegate.m in Sources */,
 				B080804C19582CF6007D21E4 /* MainViewController.m in Sources */,
 				B00AD69918C45E470005A552 /* main.m in Sources */,
