@@ -98,6 +98,7 @@
   LOG(@"完了リストコントローラーを初期化・設定");
   self.completeViewController = [[CompleteViewController alloc] initWithNibName:nil
                                                                          bundle:nil];
+  self.completeViewController.fetchedResultsController = [CoreDataController completeFetchedResultsController:self.completeViewController];
   [self.completeViewController configureTitleWithString:@"COMPLETE"
                                                subTitle:@"0 items are completed."];
   self.completeNavigationController
@@ -216,7 +217,6 @@
  */
 -(void)closeCompleteListMode
 {
-  LOG(@"完了リストを閉じる");
   if ([self hasActivatedCompleteListMode]) {
     CGRect rect = self.completeNavigationController.view.frame;
     rect.origin.x = SCREEN_BOUNDS.size.width + 100;
@@ -225,7 +225,6 @@
 }
 -(void)openCompleteListMode
 {
-  LOG(@"完了リストを開く");
   if ( ! [self hasActivatedCompleteListMode]) {
     CGRect rect = self.completeNavigationController.view.frame;
     rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForFilterList;
@@ -315,6 +314,7 @@
 }
 -(void)toTagListMode
 {
+  LOG(@"タグリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.2];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -325,6 +325,7 @@
 }
 -(void)toFilterListMode
 {
+  LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.2];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -335,6 +336,8 @@
 }
 -(void)toCompleteListMode
 {
+  LOG(@"完了リストモード");
+  [self.completeViewController updateTableView];
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.2];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -448,7 +451,7 @@ didSelectItem:(UITabBarItem *)item
     [self.itemViewController hideSectionHeader];
   } else {
     self.itemViewController.tagForSelected = nil;
-    [self. itemViewController showSectionHeader];
+    [self.itemViewController showSectionHeader];
   }
   self.itemViewController.fetchedResultsController = fetchedResultController;
   // テーブルを更新

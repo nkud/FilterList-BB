@@ -335,7 +335,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  */
 - (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
 {
-  static bool flag = false;
+//  static bool flag = false;
   static ItemCell *selected_cell = nil;
   
   switch (sender.state) {
