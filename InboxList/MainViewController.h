@@ -15,6 +15,7 @@
 #import "TagViewController.h"
 #import "FilterViewController.h"
 #import "CompleteViewController.h"
+#import "CompleteNavigationController.h"
 
 #import "InputFilterViewController.h"
 
@@ -52,7 +53,7 @@ enum __LIST_DIRECTION__ {
 @property (strong, nonatomic) TagViewController          *tagViewController;
 
 #pragma mark - 完了リスト
-@property (strong, nonatomic) __NavigationController    *completeNavigationController;
+@property (strong, nonatomic) CompleteNavigationController    *completeNavigationController;
 @property (strong, nonatomic) CompleteViewController          *completeViewController;
 
 

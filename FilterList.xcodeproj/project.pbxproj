@@ -72,6 +72,7 @@
 		B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4690D19A84B99008B3150 /* TagNavigationController.m */; };
 		B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4691319A84BC3008B3150 /* FilterNavigationController.m */; };
 		B0E532FD19E38C49005A53B1 /* CompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E532FC19E38C49005A53B1 /* CompleteViewController.m */; };
+		B0E5330019E398ED005A53B1 /* CompleteNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E532FF19E398ED005A53B1 /* CompleteNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,8 @@
 		B0E4691319A84BC3008B3150 /* FilterNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterNavigationController.m; sourceTree = "<group>"; };
 		B0E532FB19E38C49005A53B1 /* CompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompleteViewController.h; sourceTree = "<group>"; };
 		B0E532FC19E38C49005A53B1 /* CompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompleteViewController.m; sourceTree = "<group>"; };
+		B0E532FE19E398ED005A53B1 /* CompleteNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompleteNavigationController.h; sourceTree = "<group>"; };
+		B0E532FF19E398ED005A53B1 /* CompleteNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompleteNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -526,6 +529,8 @@
 				B0E4690D19A84B99008B3150 /* TagNavigationController.m */,
 				B0E4691219A84BC3008B3150 /* FilterNavigationController.h */,
 				B0E4691319A84BC3008B3150 /* FilterNavigationController.m */,
+				B0E532FE19E398ED005A53B1 /* CompleteNavigationController.h */,
+				B0E532FF19E398ED005A53B1 /* CompleteNavigationController.m */,
 			);
 			name = NavigationController;
 			sourceTree = "<group>";
@@ -691,6 +696,7 @@
 				B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */,
 				B0BE423A19E2E62C0033F169 /* ListViewController.m in Sources */,
 				B0C95D6A19D5667700F32F6C /* Item.m in Sources */,
+				B0E5330019E398ED005A53B1 /* CompleteNavigationController.m in Sources */,
 				B0AD8C6919D12A2C0069B29D /* FilterCell.m in Sources */,
 				B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */,
 				B00AD6A918C45E470005A552 /* ItemDetailViewController.m in Sources */,

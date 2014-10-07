@@ -98,8 +98,10 @@
   LOG(@"完了リストコントローラーを初期化・設定");
   self.completeViewController = [[CompleteViewController alloc] initWithNibName:nil
                                                                          bundle:nil];
+  [self.completeViewController configureTitleWithString:@"COMPLETE"
+                                               subTitle:@"0 items are completed."];
   self.completeNavigationController
-  = [[__NavigationController alloc] initWithRootViewController:self.completeViewController];
+  = [[CompleteNavigationController alloc] initWithRootViewController:self.completeViewController];
   
   // コントローラーを配置
   LOG(@"コントローラーを配置");
