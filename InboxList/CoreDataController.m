@@ -107,19 +107,27 @@ enum __SECTION__ {
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag.title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
-  [fetchRequest setSortDescriptors:sortDescriptors];                // ソートを設定
+  [fetchRequest setSortDescriptors:sortDescriptors];
   
   // 検索条件
-  NSMutableArray *predicate_array = [[NSMutableArray alloc] init];  // 条件を格納する配列
-  NSPredicate *predicate;                                           // 条件
-  for (Tag *tag in tags) { // それぞれのタグに対して
-    predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.tag.title", tag.title]; // 条件を作成
-    [predicate_array addObject:predicate];                          // 条件を配列に追加
+  // 指定されたタグ名で抽出
+  NSMutableArray *predicate_array = [[NSMutableArray alloc] init];
+  NSPredicate *predicate;
+  for (Tag *tag in tags) {
+    predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.tag.title", tag.title];
+    [predicate_array addObject:predicate];
   }
+  // 未完了のアイテムを抽出
+  predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:false]];
+
   // 条件の配列から条件を合成する
-  NSCompoundPredicate *compound_predicate = [[NSCompoundPredicate alloc] initWithType:NSOrPredicateType
-                                                                        subpredicates:predicate_array];
-  [fetchRequest setPredicate:compound_predicate]; // 作成した条件を設定
+  NSCompoundPredicate *tag_predicates
+  = [[NSCompoundPredicate alloc] initWithType:NSOrPredicateType
+                                subpredicates:predicate_array];
+  NSCompoundPredicate *compound_predicate
+  = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType
+                                subpredicates:@[tag_predicates, predicate]];
+  [fetchRequest setPredicate:compound_predicate];
   
   // Edit the section name key path and cache name if appropriate.
   // nil for section name key path means "no sections".
