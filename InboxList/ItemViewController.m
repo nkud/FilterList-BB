@@ -335,7 +335,6 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  */
 - (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
 {
-//  static bool flag = false;
   static ItemCell *selected_cell = nil;
   
   switch (sender.state) {
@@ -346,21 +345,10 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       NSIndexPath *indexPathInTableView = [self.tableView indexPathForRowAtPoint:point];
       
       // その位置のセルのデータをモデルから取得する
-//      NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
-//      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
       ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
 
       selected_cell = cell;
       [selected_cell setChecked];
-      
-//      if ([item.state boolValue]) { // 完了済みなら
-//        LOG(@"未完了に変更");
-//        item.state = [NSNumber numberWithBool:false]; // 未完了にする
-//      } else { // 未完了なら
-//        LOG(@"完了に変更して削除する前処理");
-//        item.state = [NSNumber numberWithBool:true]; // 完了にして
-//        flag = true; // 削除する
-//      }
     }
       break;
       
@@ -387,12 +375,6 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       } else {
         [selected_cell setUnChecked];
       }
-      
-//      if ( flag ) {
-//        LOG(@"アイテムを削除する");
-//        [app.managedObjectContext deleteObject:item]; // アイテムを削除
-//      }
-      
       [CoreDataController saveContext];
     }
       break;

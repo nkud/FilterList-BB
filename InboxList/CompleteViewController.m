@@ -33,10 +33,57 @@ static NSString *kCompleteCellID = @"CompleteCell";
   [self.tableView registerNib:[UINib nibWithNibName:@"CompleteCell" bundle:nil]
        forCellReuseIdentifier:kCompleteCellID];
   
+  
+  // 編集ボタン
+  UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+                                                                 style:UIBarButtonItemStyleBordered
+                                                                target:self
+                                                                action:@selector(toEdit:)];
+  self.navigationItem.leftBarButtonItem = editButton;
   // Do any additional setup after loading the view.
+  
+  self.tableView.allowsMultipleSelectionDuringEditing = YES;
 }
 
 #pragma mark - テーブルビュー
+/**
+ *  @brief 編集時の処理
+ *
+ *  @param tableView    テーブルビュー
+ *  @param editingStyle 編集スタイル
+ *  @param indexPath    選択された位置
+ */
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  LOG(@"テーブル編集時の処理");
+  /// 削除時
+  if (editingStyle == UITableViewCellEditingStyleDelete) {
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    [context deleteObject:[self.fetchedResultsController
+                           objectAtIndexPath:indexPath]];
+    [CoreDataController saveContext];
+  }
+}/**
+ *  @brief 編集
+ *
+ *  @param sender センダー
+ */
+- (void)toEdit:(id)sender
+{
+  if (self.tableView.isEditing) {
+    LOG(@"編集モード終了");
+    [self.tableView setEditing:false
+                      animated:YES];
+    [self.delegateForList openTabBar];
+  } else {
+    LOG(@"編集モード開始");
+    [self.tableView setEditing:true
+                      animated:YES];
+    [self.delegateForList closeTabBar];
+  }
+}
 
 /**
  * @brief  セルが選択された時の処理
