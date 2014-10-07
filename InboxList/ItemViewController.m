@@ -103,7 +103,7 @@
   self.navigationItem.rightBarButtonItem = addButton;
 }
 
-#pragma mark - テーブルビュー -
+#pragma mark - テーブルビュー
 
 #pragma mark セクション
 
@@ -181,7 +181,8 @@ titleForHeaderInSection:(NSInteger)section
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSIndexPath *indexPathInTableView = indexPath;
-  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
+  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView])
+  {
     ;
   } else {
     LOG(@"アイテムセルが選択された時の処理");
@@ -285,6 +286,117 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
                            reminder:nil];
 }
 
+#pragma mark - セル設定
+
+/**
+ *  @brief セルを作成する
+ *
+ *  @param cell      作成するセル
+ *  @param indexPath 作成するセルの位置
+ */
+- (void)configureItemCell:(ItemCell *)cell
+              atIndexPath:(NSIndexPath *)indexPath
+{
+  LOG(@"セルを作成");
+  /// セルを作成
+  Item *item = [self itemAtIndexPathInTableView:indexPath];
+  
+  // タイトル
+  cell.titleLabel.text = item.title;
+  cell.tagLabel.text = item.tag.title;
+  
+  // 状態
+  [cell updateCheckBox:item.state.boolValue];
+  
+  // リマインダー
+  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  formatter.dateFormat = @"yyyy/MM/dd";
+  cell.reminderLabel.text = [formatter stringFromDate:item.reminder];
+  if ([item isOverDue]) {
+    cell.reminderLabel.textColor = [UIColor redColor];
+  } else {
+    cell.reminderLabel.textColor = [UIColor grayColor];
+  }
+  
+  // 画像タッチを認識する設定
+  UILongPressGestureRecognizer *recognizer
+  = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                  action:@selector(touchedCheckBox:)];
+  /// @todo ここはうまくしたい
+  [recognizer setMinimumPressDuration:0.0];
+  [cell.checkBoxImageView setUserInteractionEnabled:YES];
+  [cell.checkBoxImageView addGestureRecognizer:recognizer];
+}
+/**
+ * @brief  チェックボックスがタッチされた時の処理
+ *
+ * @param sender タップリコクナイザー
+ * @todo なんかおかしい
+ */
+- (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
+{
+  static bool flag = false;
+  static ItemCell *selected_cell = nil;
+  
+  switch (sender.state) {
+    case UIGestureRecognizerStateBegan:
+    {
+      LOG(@"チェックボックスのタッチ開始");
+      CGPoint point = [sender locationInView:self.tableView];
+      NSIndexPath *indexPathInTableView = [self.tableView indexPathForRowAtPoint:point];
+      
+      // その位置のセルのデータをモデルから取得する
+      NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+      ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
+
+      selected_cell = cell;
+      [selected_cell setChecked];
+      
+//      if ([item.state boolValue]) { // 完了済みなら
+//        LOG(@"未完了に変更");
+//        item.state = [NSNumber numberWithBool:false]; // 未完了にする
+//      } else { // 未完了なら
+//        LOG(@"完了に変更して削除する前処理");
+//        item.state = [NSNumber numberWithBool:true]; // 完了にして
+//        flag = true; // 削除する
+//      }
+    }
+      break;
+      
+    case UIGestureRecognizerStateEnded:
+    {
+      LOG(@"チェックボックスのタッチ終了");
+      CGPoint point = [sender locationInView:self.tableView];
+      NSIndexPath *indexPathInTableView = [self.tableView indexPathForRowAtPoint:point];
+      
+      // その位置のセルのデータをモデルから取得する
+      
+      NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+      LOG(@"モデルを取得");
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+      ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
+      
+      if (selected_cell == cell) {
+        item.state = [NSNumber numberWithBool:true];
+        [CoreDataController saveContext];
+      } else {
+        [selected_cell setUnChecked];
+      }
+      
+//      if ( flag ) {
+//        LOG(@"アイテムを削除する");
+//        [app.managedObjectContext deleteObject:item]; // アイテムを削除
+//      }
+      
+      [CoreDataController saveContext];
+    }
+      break;
+      
+    default:
+      break;
+  }
+}
 #pragma mark - 編集時処理
 
 /**
@@ -481,104 +593,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [self.delegateForList openTabBar];
 }
 
-#pragma mark - セル関連
 
-/**
- *  @brief セルを作成する
- *
- *  @param cell      作成するセル
- *  @param indexPath 作成するセルの位置
- */
-- (void)configureItemCell:(ItemCell *)cell
-          atIndexPath:(NSIndexPath *)indexPath
-{
-  /// セルを作成
-  Item *item = [self itemAtIndexPathInTableView:indexPath];
-  
-  // タイトル
-  cell.titleLabel.text = item.title;
-  cell.tagLabel.text = item.tag.title;
-  
-  // 状態
-  [cell updateCheckBox:item.state.boolValue];
-
-  // リマインダー
-  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-  formatter.dateFormat = @"yyyy/MM/dd";
-  cell.reminderLabel.text = [formatter stringFromDate:item.reminder];
-  if ([item isOverDue]) {
-    cell.reminderLabel.textColor = [UIColor redColor];
-  } else {
-    cell.reminderLabel.textColor = [UIColor grayColor];
-  }
-
-  // 画像タッチを認識する設定
-  UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(touchedCheckBox:)];
-  /// @todo ここはうまくしたい
-  [recognizer setMinimumPressDuration:0.0];
-  [cell.checkBoxImageView setUserInteractionEnabled:YES];
-  [cell.checkBoxImageView addGestureRecognizer:recognizer];
-}
-/**
- * @brief  チェックボックスがタッチされた時の処理
- *
- * @param sender タップリコクナイザー
- * @todo なんかおかしい
- */
-- (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
-{
-  static bool flag = false;
-  
-  switch (sender.state) {
-    case UIGestureRecognizerStateBegan:
-      //    case UIGestureRecognizerStateChanged:
-    {
-      LOG(@"チェックボックスのタッチ開始");
-      CGPoint point = [sender locationInView:self.tableView];
-      NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-      
-      // その位置のセルのデータをモデルから取得する
-      indexPath = [self mapIndexPathToFetchResultsController:indexPath];
-      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-      
-      if ([item.state boolValue]) { // 完了済みなら
-        LOG(@"未完了に変更");
-        item.state = [NSNumber numberWithBool:false]; // 未完了にする
-      } else { // 未完了なら
-        LOG(@"完了に変更して削除する前処理");
-        item.state = [NSNumber numberWithBool:true]; // 完了にして
-        flag = true; // 削除する
-      }
-    }
-      break;
-
-    case UIGestureRecognizerStateEnded:
-    {
-      LOG(@"チェックボックスのタッチ終了");
-      CGPoint point = [sender locationInView:self.tableView];
-      NSIndexPath *indexPathInTableView = [self.tableView indexPathForRowAtPoint:point];
-      
-      // その位置のセルのデータをモデルから取得する
-
-      NSIndexPath *indexPath = [self mapIndexPathToFetchResultsController:indexPathInTableView];
-      LOG(@"モデルを取得");
-      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-      if ( flag ) {
-        LOG(@"アイテムを削除する");
-        [app.managedObjectContext deleteObject:item]; // アイテムを削除
-      }
-      
-      [CoreDataController saveContext];
-    }
-      break;
-      
-    default:
-      break;
-  }
-}
-
-#pragma mark - ユーティリティ -
+#pragma mark - ユーティリティ
 
 -(void)showSectionHeader
 {

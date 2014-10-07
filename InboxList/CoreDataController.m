@@ -49,12 +49,18 @@ enum __SECTION__ {
   // Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
   
-  // Edit the sort key as appropriate.
+  // ソート設定
+  // (タグのタイトル)でソート
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag.title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
   
-  [fetchRequest setSortDescriptors:sortDescriptors]; // ソート条件
+  [fetchRequest setSortDescriptors:sortDescriptors];
+  
+  // 検索条件
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:false]];
+  
+  [fetchRequest setPredicate:predicate]; // 作成した条件を設定
   
   // Edit the section name key path and cache name if appropriate.
   // nil for section name key path means "no sections".
