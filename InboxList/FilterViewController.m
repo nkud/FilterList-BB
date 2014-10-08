@@ -104,8 +104,12 @@
   LOG(@"フィルターを追加");
   
   // フィルターを新規挿入
-  [CoreDataController insertNewFilter:filterTitle
-                        tagsForFilter:tagsForSelected];
+  if ([filterTitle isEqualToString:@""]) {
+    ;
+  } else {
+    [CoreDataController insertNewFilter:filterTitle
+                          tagsForFilter:tagsForSelected];
+  }
   
   LOG(@"フィルター入力画面を終了");
   [self dismissViewControllerAnimated:YES
