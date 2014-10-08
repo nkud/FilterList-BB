@@ -16,7 +16,7 @@
 @end
 
 @interface ListViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource>
+<UITableViewDelegate, UITableViewDataSource, UITabBarDelegate>
 
 // ビューのタイトル
 @property UIView *titleView;

@@ -59,6 +59,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  // テーブルビュー初期化
   LOG(@"テーブルビュー初期化");
   CGRect frame = CGRectMake(0,
                             0,
@@ -69,15 +70,16 @@
   self.tableView.dataSource = self;
   [self.view addSubview:self.tableView];
   
+  // タブバー初期化
   LOG(@"タブバー初期化");
   frame = CGRectMake(0,
-                     SCREEN_BOUNDS.size.height - TABBAR_H,
+                     SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H,
                      SCREEN_BOUNDS.size.width,
                      TABBAR_H);
   
   self.tabBar = [[UITabBar alloc] initWithFrame:frame];
+  self.tabBar.delegate = self;
   [self.view addSubview:self.tabBar];
-  self.tabBar.backgroundColor = [UIColor redColor];
   
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
