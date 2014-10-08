@@ -127,6 +127,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
   [self.delegate didSelectedFilter:filter.title
                               tags:filter.tags];
+  
+  // セルの選択解除
+  [self.tableView deselectRowAtIndexPath:indexPath
+                                animated:YES];
 }
 
 /**
