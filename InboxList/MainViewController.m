@@ -315,6 +315,7 @@
 -(void)toTagListMode
 {
   LOG(@"タグリストモード");
+  [self.tagViewController updateTableView];
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.2];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];

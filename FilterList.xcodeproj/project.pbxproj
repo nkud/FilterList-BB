@@ -225,7 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				B00AD69218C45E470005A552 /* FilterList */,
-				B00AD6B818C45E480005A552 /* InboxListTests */,
+				B00AD6B818C45E480005A552 /* FilterListTests */,
 				B00AD68918C45E470005A552 /* Frameworks */,
 				B00AD68818C45E470005A552 /* Products */,
 			);
@@ -285,12 +285,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B00AD6B818C45E480005A552 /* InboxListTests */ = {
+		B00AD6B818C45E480005A552 /* FilterListTests */ = {
 			isa = PBXGroup;
 			children = (
 				B00AD6BE18C45E480005A552 /* InboxListTests.m */,
 				B00AD6B918C45E480005A552 /* Supporting Files */,
 			);
+			name = FilterListTests;
 			path = InboxListTests;
 			sourceTree = "<group>";
 		};

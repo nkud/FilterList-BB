@@ -77,6 +77,14 @@
   self.navigationItem.rightBarButtonItem = addButton;
 }
 
+#pragma mark - 遷移
+-(void)viewWillAppear:(BOOL)animated
+{
+  NSIndexPath *indexForAllItems = [NSIndexPath indexPathForRow:0 inSection:0];
+  TagCell *cell = (TagCell *)[self.tableView cellForRowAtIndexPath:indexForAllItems];
+  [self configureTagCell:cell atIndexPath:indexForAllItems];
+}
+
 #pragma mark - 新規入力
 
 /**
@@ -274,6 +282,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  */
 - (void)updateTableView
 {
+  NSIndexPath *indexForAllItems = [NSIndexPath indexPathForRow:0 inSection:0];
+  TagCell *cell = (TagCell *)[self.tableView cellForRowAtIndexPath:indexForAllItems];
+  [self configureTagCell:cell atIndexPath:indexForAllItems];
   [self.tableView reloadData];
 }
 
