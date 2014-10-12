@@ -92,10 +92,10 @@
   
   LOG(@"フィルター入力画面を作成・表示");
   // 初期化
-  InputFilterViewController2 *controller = [[InputFilterViewController2 alloc]
-                                      initWithNibName:nil
-                                      bundle:nil];
-  
+  InputFilterViewController *controller = [[InputFilterViewController alloc]
+                                           initWithNibName:nil
+                                           bundle:nil];
+  controller.delegate = self;
   [self.navigationController pushViewController:controller
                                        animated:YES];
 }
@@ -112,7 +112,6 @@
               tagsForSelected:(NSSet *)tagsForSelected
 {
   LOG(@"フィルターを追加");
-  
   // フィルターを新規挿入
   if ([filterTitle isEqualToString:@""]) {
     ;
@@ -120,10 +119,6 @@
     [CoreDataController insertNewFilter:filterTitle
                           tagsForFilter:tagsForSelected];
   }
-  
-  LOG(@"フィルター入力画面を終了");
-  [self dismissViewControllerAnimated:YES
-                           completion:nil];
 }
 
 #pragma mark - テーブルビュー

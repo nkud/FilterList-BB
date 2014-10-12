@@ -29,7 +29,7 @@
  *  @brief  フィルターリスト
  */
 @interface FilterViewController : ListViewController
-<NSFetchedResultsControllerDelegate, InputFilterDelegate>
+<NSFetchedResultsControllerDelegate, InputFilterViewControllerDelegate>
 
 @property id <FilterViewControllerDelegate> delegate;
 

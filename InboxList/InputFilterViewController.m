@@ -27,14 +27,14 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
 
 #pragma mark -
 
-@interface InputFilterViewController2 ()
+@interface InputFilterViewController ()
 {
   NSArray *dataArray_;
 }
 
 @end
 
-@implementation InputFilterViewController2
+@implementation InputFilterViewController
 
 #pragma mark - 初期化
 
@@ -63,6 +63,9 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
   NSArray *itemThree = @[kDueDateCellID];
   NSArray *itemFour = @[kSearchCellID];
   dataArray_ = @[itemOne, itemTwo, itemThree, itemFour];
+
+  self.titleForFilter = nil;
+  self.tagsForFilter = nil;
 }
 
 - (void)viewDidLoad
@@ -86,10 +89,38 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
   self.tableView.scrollEnabled = NO;
 
-//  // ボタンを設定
-//  [self.saveButton addTarget:self
-//                      action:@selector(dismissView)
-//            forControlEvents:UIControlEventTouchUpInside];
+  // ボタンを設定
+  UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                target:self
+                                action:@selector(saveAndDismissView)];
+  self.navigationItem.rightBarButtonItem = addButton;
+}
+
+-(ItemDetailTitleCell *)titleCell
+{
+  NSIndexPath *indexPathForTitleCell = [NSIndexPath indexPathForRow:0
+                                                          inSection:0];
+  ItemDetailTitleCell *cell = (ItemDetailTitleCell *)[self.tableView cellForRowAtIndexPath:indexPathForTitleCell];
+  return cell;
+}
+-(ItemDetailTagCell *)tagCell
+{
+  NSIndexPath *indexPathForTagCell = [NSIndexPath indexPathForRow:0 inSection:1];
+  ItemDetailTagCell *cell = (ItemDetailTagCell *)[self.tableView cellForRowAtIndexPath:indexPathForTagCell];
+  return cell;
+}
+
+-(void)saveAndDismissView
+{
+  LOG(@"保存してビュー削除");
+  self.titleForFilter = [self titleCell].titleField.text;
+  // デリゲートに入力情報を渡す
+  [self.delegate dismissInputFilterView:self.titleForFilter
+                        tagsForSelected:self.tagsForFilter];
+  
+  // ビューをポップ
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - ユーティリティ
@@ -139,7 +170,8 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
   // タグ選択セル
   if ([self isTagCellAtIndexPath:indexPath]) {
     ItemDetailTagCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagSelectCellID];
-    cell.textLabel.text = @"no tag";
+    [self configureTagCell:cell
+    atIndexPathInTableView:indexPath];
     return cell;
   }
   UITableViewCell *cell;
@@ -183,6 +215,38 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
   LOG(@"タグが選択された");
+  self.tagsForFilter = tagsForSelectedRows;
+  
+  [self.tableView reloadData];
+}
+/**
+ * @brief  タグのセットから文字列を作成
+ *
+ * @param set タグのセット
+ *
+ * @return 文字列
+ */
+-(NSString *)createStringForSet:(NSSet *)set
+{
+  NSMutableString *string = [[NSMutableString alloc] init];
+  for( Tag *tag in set )
+  { //< すべてのタグに対して
+    [string appendString:tag.title]; //< フィールドに足していく
+    [string appendString:@" "];
+  }
+  LOG(@"%@", string);
+  return string;
+}
+-(void)configureTagCell:(ItemDetailTagCell *)cell
+ atIndexPathInTableView:(NSIndexPath *)indexPathInTableView;
+{
+  NSString *stringForTags;
+  if (self.tagsForFilter && [self.tagsForFilter count] > 0) {
+    stringForTags = [self createStringForSet:self.tagsForFilter];
+  } else {
+    stringForTags = @"tags";
+  }
+  cell.textLabel.text = stringForTags;
 }
 
 #pragma mark - その他
