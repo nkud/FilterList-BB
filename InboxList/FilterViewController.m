@@ -8,7 +8,10 @@
 
 #import "FilterViewController.h"
 #import "CoreDataController.h"
+
 #import "InputFilterViewController.h"
+#import "InputFilterViewController2.h"
+
 #import "Header.h"
 #import "FilterCell.h"
 #import "Filter.h"
@@ -84,8 +87,11 @@
   inputFilterView.delegate = self;
   // 入力画面を最前面に表示する
   [self.view bringSubviewToFront:inputFilterView.view];
+  
+  InputFilterViewController2 *test = [[InputFilterViewController2 alloc] initWithNibName:nil bundle:nil];
+  
   // 入力画面を表示する
-  [self presentViewController:inputFilterView
+  [self presentViewController:test
                      animated:YES
                    completion:nil];
 }

@@ -10,6 +10,9 @@
 #import "FilterCell.h"
 #import "CoreDataController.h"
 
+#import "Header.h"
+
+#pragma mark Cell Identifier
 static NSString *kTitleCellID = @"TitleCell";
 static NSString *kTagSelectCellID = @"TagSelectCell";
 static NSString *kDueDateCellID = @"DueDateCell";
@@ -25,14 +28,24 @@ static NSString *kSearchCellID = @"SearchCell";
 
 #pragma mark - 初期化
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
-  // Do any additional setup after loading the view.
+  
+  self.tableView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS];
+  [self.view addSubview:self.tableView];
   
   // セルを登録
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kTitleCellID];
-  self.tagFetchedResultsController = [CoreDataController userTagFetchedResultsController:self];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kTagSelectCellID];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kDueDateCellID];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kSearchCellID];
+  
+  self.tagFetchedResultsController = [CoreDataController tagFetchedResultsController:self];
   
   // テーブルの設定
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
@@ -48,10 +61,13 @@ static NSString *kSearchCellID = @"SearchCell";
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - ユーティリティ
+
 #pragma mark - テーブルビュー
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  
+  UITableViewCell *cell = [[UITableViewCell alloc] init];
+  return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
