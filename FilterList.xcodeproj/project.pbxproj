@@ -446,9 +446,9 @@
 		B08EBBC319703ED000DB9582 /* TagMode */ = {
 			isa = PBXGroup;
 			children = (
-				B06D719B198D3BE1001A9F91 /* TagCell */,
 				B0808047195825A3007D21E4 /* TagViewController.h */,
 				B0808048195825A3007D21E4 /* TagViewController.m */,
+				B06D719B198D3BE1001A9F91 /* TagCell */,
 				B05319A2199FD47700F63783 /* InputTagViewController */,
 			);
 			name = TagMode;

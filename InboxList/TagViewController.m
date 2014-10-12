@@ -185,6 +185,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                            animated:YES];
 }
 
+#pragma mark 編集モード
+
 /**
  * @brief  編集モード切り替え
  *
@@ -200,6 +202,53 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                       animated:YES];
   }
 }
+/**
+ *  @brief テーブル編集の可否
+ *
+ *  @param tableView テーブルビュー
+ *  @param indexPath インデックス
+ *
+ *  @return 可否
+ */
+-(BOOL)tableView:(UITableView *)tableView
+canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if ([self isCellForAllItemsAtIndexPath:indexPath]) {
+    return NO;                  // 編集不可
+  }                             // タグセクションなら
+  return YES;                   // 編集可
+}
+
+-(void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  switch (editingStyle) {
+    case UITableViewCellEditingStyleDelete: // 削除
+    {
+      LOG(@"タグを削除");
+      //      [[CoreDataController managedObjectContext] deleteObject:self.tagArray_[indexPath.row]];
+      //      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
+      //                                              inSection:0];
+      Tag *tag = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
+      LOG(@"関連アイテム：%@", tag.items);
+      LOG(@"アイテムを削除");
+      for (Item *item in tag.items) {
+        [[CoreDataController managedObjectContext] deleteObject:item];
+      }
+      
+      LOG(@"タグを削除");
+      [[CoreDataController managedObjectContext] deleteObject:tag];
+      LOG(@"削除されるオブジェクト数：%lu", (unsigned long)[[[CoreDataController managedObjectContext] deletedObjects] count]);
+      
+      [CoreDataController saveContext];
+      break;
+    }
+    default:
+      break;
+  }
+}
+#pragma mark ビューの設定
 
 /**
  * @brief セクション数を返す
@@ -236,6 +285,7 @@ numberOfRowsInSection:(NSInteger)section
   return cell;
 }
 
+#pragma mark セル関係
 /**
  * @brief  セルを設定する
  *
@@ -259,6 +309,7 @@ numberOfRowsInSection:(NSInteger)section
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
   }
   cell.labelForItemSize.text = itemCountString;
+  cell.labelForOverDueItemsSize.text = @"0";
 }
 
 /**
@@ -275,6 +326,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   return [self heightForTagCell];
 }
 
+#pragma mark 更新
+
 /**
  * @brief  テーブルを更新する
  *
@@ -288,52 +341,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   [self.tableView reloadData];
 }
 
-/**
- *  @brief テーブル編集の可否
- *
- *  @param tableView テーブルビュー
- *  @param indexPath インデックス
- *
- *  @return 可否
- */
--(BOOL)tableView:(UITableView *)tableView
-canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  if ([self isCellForAllItemsAtIndexPath:indexPath]) {
-    return NO;                  // 編集不可
-  }                             // タグセクションなら
-  return YES;                   // 編集可
-}
 
--(void)tableView:(UITableView *)tableView
-commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  switch (editingStyle) {
-    case UITableViewCellEditingStyleDelete: // 削除
-    {
-      LOG(@"タグを削除");
-//      [[CoreDataController managedObjectContext] deleteObject:self.tagArray_[indexPath.row]];
-//      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
-//                                              inSection:0];
-      Tag *tag = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
-      LOG(@"関連アイテム：%@", tag.items);
-      LOG(@"アイテムを削除");
-      for (Item *item in tag.items) {
-        [[CoreDataController managedObjectContext] deleteObject:item];
-      }
-
-      LOG(@"タグを削除");
-      [[CoreDataController managedObjectContext] deleteObject:tag];
-      LOG(@"削除されるオブジェクト数：%lu", (unsigned long)[[[CoreDataController managedObjectContext] deletedObjects] count]);
-
-      [CoreDataController saveContext];
-      break;
-    }
-    default:
-      break;
-  }
-}
 
 #pragma mark - コンテンツの更新
 

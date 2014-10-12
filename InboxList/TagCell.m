@@ -33,14 +33,12 @@
 
 - (void)awakeFromNib
 {
-  LOG(@"Nibファイルから起動");
   // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected
            animated:(BOOL)animated
 {
-  LOG(@"選択された??");
   [super setSelected:selected animated:animated];
   // Configure the view for the selected state
 }
