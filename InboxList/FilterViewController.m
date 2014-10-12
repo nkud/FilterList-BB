@@ -99,9 +99,9 @@ static NSString *kFilterCellID = @"FilterCell";
   
   LOG(@"フィルター入力画面を作成・表示");
   // 初期化
-  InputFilterViewController *controller = [[InputFilterViewController alloc]
-                                           initWithNibName:nil
-                                           bundle:nil];
+  InputFilterViewController *controller
+  = [[InputFilterViewController alloc] initWithNibName:nil
+                                                bundle:nil];
   controller.delegate = self;
   [self.navigationController pushViewController:controller
                                        animated:YES];

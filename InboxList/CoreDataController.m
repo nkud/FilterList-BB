@@ -58,7 +58,7 @@ enum __SECTION__ {
   [fetchRequest setSortDescriptors:sortDescriptors];
   
   // 検索条件
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:false]];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"0 == SELF.state.intValue"];
   
   [fetchRequest setPredicate:predicate]; // 作成した条件を設定
   

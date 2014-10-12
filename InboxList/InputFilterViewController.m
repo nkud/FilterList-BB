@@ -38,6 +38,14 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
 
 #pragma mark - 初期化
 
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil
+                        bundle:(NSBundle *)nibBundleOrNil
+{
+  self = [super initWithNibName:nibNameOrNil
+                         bundle:nibBundleOrNil];
+  return self;
+}
+
 /**
  * @brief  セルを登録
  */

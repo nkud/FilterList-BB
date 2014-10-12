@@ -216,6 +216,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     = [self.fetchedResultsController sections][sectionInController];
     number = [sectionInfo numberOfObjects];
   }
+  LOG(@"%ld", (long)number);
   return number;
 }
 
@@ -568,8 +569,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     item.tag = tag;
     break;
   }
+  item.state = [NSNumber numberWithBool:false];
   item.reminder = reminder;
-  
+  LOG(@"%@", item);
   [CoreDataController saveContext];
 }
 
