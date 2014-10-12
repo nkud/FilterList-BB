@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * @brief  フィルター入力画面
+ */
 @interface InputFilterViewController2 : UIViewController
-<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
+<UITableViewDelegate, UITableViewDataSource>
 
 @property UITableView *tableView;
-
-@property NSFetchedResultsController *tagFetchedResultsController;
 
 @end

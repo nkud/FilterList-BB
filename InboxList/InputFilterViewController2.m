@@ -21,6 +21,9 @@ static NSString *kSearchCellID = @"SearchCell";
 #pragma mark -
 
 @interface InputFilterViewController2 ()
+{
+  NSArray *dataArray_;
+}
 
 @end
 
@@ -28,24 +31,39 @@ static NSString *kSearchCellID = @"SearchCell";
 
 #pragma mark - 初期化
 
-- (void)viewDidLoad
+-(void)registerClassForCells
 {
-  [super viewDidLoad];
-  
-  self.tableView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS];
-  [self.view addSubview:self.tableView];
-  
-  // セルを登録
   [self.tableView registerClass:[UITableViewCell class]
-         forCellReuseIdentifier:kTitleCellID];
+          forCellReuseIdentifier:kTitleCellID];
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kTagSelectCellID];
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kDueDateCellID];
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kSearchCellID];
+}
+
+-(void)initParam
+{
+  dataArray_ = [NSArray arrayWithObjects:kTitleCellID, kTagSelectCellID, kDueDateCellID, kSearchCellID, nil];
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
   
-  self.tagFetchedResultsController = [CoreDataController tagFetchedResultsController:self];
+  // パラメータを初期化・設定
+  [self initParam];
+  
+  // テーブルビュー初期化
+  self.tableView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS
+                                                style:UITableViewStyleGrouped];
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
+  [self.view addSubview:self.tableView];
+  
+  // セルを登録
+  [self registerClassForCells];
   
   // テーブルの設定
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
@@ -56,24 +74,46 @@ static NSString *kSearchCellID = @"SearchCell";
 //            forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - ユーティリティ
 
-#pragma mark - テーブルビュー
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+/**
+ * @brief  指定の位置のセルのIDを返す
+ *
+ * @param indexPath 位置
+ *
+ * @return IDの文字列
+ */
+-(NSString *)cellIdentifierAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [[UITableViewCell alloc] init];
+  NSString *identifier = dataArray_[indexPath.row];
+  return identifier;
+}
+
+#pragma mark - テーブルビュー
+
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[self cellIdentifierAtIndexPath:indexPath]];
   return cell;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  return 1;
+  return [dataArray_ count];
+}
+
+#pragma mark - その他
+
+- (void)didReceiveMemoryWarning {
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 /*

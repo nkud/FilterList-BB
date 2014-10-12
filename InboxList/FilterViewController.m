@@ -88,7 +88,10 @@
   // 入力画面を最前面に表示する
   [self.view bringSubviewToFront:inputFilterView.view];
   
-  InputFilterViewController2 *test = [[InputFilterViewController2 alloc] initWithNibName:nil bundle:nil];
+  InputFilterViewController2 *test = [[InputFilterViewController2 alloc]
+                                      initWithNibName:nil
+                                      bundle:nil];
+  [self.view bringSubviewToFront:test.view];
   
   // 入力画面を表示する
   [self presentViewController:test

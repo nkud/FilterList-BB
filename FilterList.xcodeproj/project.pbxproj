@@ -345,6 +345,15 @@
 			name = FilterCell;
 			sourceTree = "<group>";
 		};
+		B053050219EA601C00E87C64 /* InputFilterView */ = {
+			isa = PBXGroup;
+			children = (
+				B05304FF19EA486D00E87C64 /* InputFilterViewController2.h */,
+				B053050019EA486D00E87C64 /* InputFilterViewController2.m */,
+			);
+			name = InputFilterView;
+			sourceTree = "<group>";
+		};
 		B05319A2199FD47700F63783 /* InputTagViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,14 +374,14 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		B060917E19ACBD82003E6D87 /* InputFilterViewController */ = {
+		B060917E19ACBD82003E6D87 /* InputFilterViewControllerold */ = {
 			isa = PBXGroup;
 			children = (
 				B060917919ACBD7A003E6D87 /* InputFilterViewController.h */,
 				B060917A19ACBD7A003E6D87 /* InputFilterViewController.m */,
 				B060917B19ACBD7A003E6D87 /* InputFilterViewController.xib */,
 			);
-			name = InputFilterViewController;
+			name = InputFilterViewControllerold;
 			sourceTree = "<group>";
 		};
 		B06D719B198D3BE1001A9F91 /* TagCell */ = {
@@ -440,9 +449,8 @@
 			children = (
 				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
 				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
-				B05304FF19EA486D00E87C64 /* InputFilterViewController2.h */,
-				B053050019EA486D00E87C64 /* InputFilterViewController2.m */,
-				B060917E19ACBD82003E6D87 /* InputFilterViewController */,
+				B053050219EA601C00E87C64 /* InputFilterView */,
+				B060917E19ACBD82003E6D87 /* InputFilterViewControllerold */,
 				B0501AEA199E56DC00A58C2D /* FilterCell */,
 			);
 			name = FilterMode;
