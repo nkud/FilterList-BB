@@ -164,7 +164,7 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
   // アイテムセル
   if ([self isTitleCellAtIndexPath:indexPath]) {
     ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
-    cell.titleField.text = @"title";
+    cell.titleField.text = @"";
     return cell;
   }
   // タグ選択セル

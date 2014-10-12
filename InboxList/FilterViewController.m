@@ -186,6 +186,18 @@ numberOfRowsInSection:(NSInteger)section
   return cell;
 }
 
+-(NSString *)createStringForSet:(NSSet *)set
+{
+  NSMutableString *string = [[NSMutableString alloc] init];
+  for( Tag *tag in set )
+  { //< すべてのタグに対して
+    [string appendString:tag.title]; //< フィールドに足していく
+    [string appendString:@" "];
+  }
+  LOG(@"%@", string);
+  return string;
+}
+
 /**
  *  @brief セルを設定する
  *
@@ -200,6 +212,7 @@ numberOfRowsInSection:(NSInteger)section
   LOG(@"セルを設定");
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.titleLabel.text = filter.title;
+  cell.tagLabel.text = [self createStringForSet:filter.tags];
 }
 
 #pragma mark - コンテンツの更新
