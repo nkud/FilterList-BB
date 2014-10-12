@@ -11,6 +11,7 @@
 #import "CoreDataController.h"
 
 #import "ItemDetailTitleCell.h"
+#import "ItemDetailTagCell.h"
 
 #import "Header.h"
 
@@ -35,6 +36,9 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
 
 #pragma mark - 初期化
 
+/**
+ * @brief  セルを登録
+ */
 -(void)registerClassForCells
 {
   [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName bundle:nil]
@@ -47,6 +51,9 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
          forCellReuseIdentifier:kSearchCellID];
 }
 
+/**
+ * @brief  パラメータを初期化・設定
+ */
 -(void)initParam
 {
   NSArray *itemOne = @[kTitleCellID];
@@ -107,14 +114,30 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
   }
 }
 
+-(BOOL)isTagCellAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (kTagSelectCellID == [self cellIdentifierAtIndexPath:indexPath]) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 #pragma mark - テーブルビュー
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // アイテムセル
   if ([self isTitleCellAtIndexPath:indexPath]) {
     ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
     cell.titleField.text = @"title";
+    return cell;
+  }
+  // タグ選択セル
+  if ([self isTagCellAtIndexPath:indexPath]) {
+    ItemDetailTagCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagSelectCellID];
+    cell.textLabel.text = @"no tag";
     return cell;
   }
   UITableViewCell *cell;
