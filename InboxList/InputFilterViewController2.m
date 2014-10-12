@@ -10,13 +10,17 @@
 #import "FilterCell.h"
 #import "CoreDataController.h"
 
+#import "ItemDetailTitleCell.h"
+
 #import "Header.h"
 
 #pragma mark Cell Identifier
-static NSString *kTitleCellID = @"TitleCell";
+static NSString *kTitleCellID = @"titleCell";
 static NSString *kTagSelectCellID = @"TagSelectCell";
 static NSString *kDueDateCellID = @"DueDateCell";
 static NSString *kSearchCellID = @"SearchCell";
+
+static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
 
 #pragma mark -
 
@@ -33,8 +37,8 @@ static NSString *kSearchCellID = @"SearchCell";
 
 -(void)registerClassForCells
 {
-  [self.tableView registerClass:[UITableViewCell class]
-          forCellReuseIdentifier:kTitleCellID];
+  [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName bundle:nil]
+       forCellReuseIdentifier:kTitleCellID];
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kTagSelectCellID];
   [self.tableView registerClass:[UITableViewCell class]
@@ -94,13 +98,27 @@ static NSString *kSearchCellID = @"SearchCell";
   return identifier;
 }
 
+-(BOOL)isTitleCellAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (kTitleCellID == [self cellIdentifierAtIndexPath:indexPath]) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 #pragma mark - テーブルビュー
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[self cellIdentifierAtIndexPath:indexPath]];
-  cell.textLabel.text = [self cellIdentifierAtIndexPath:indexPath];
+  if ([self isTitleCellAtIndexPath:indexPath]) {
+    ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
+    cell.titleField.text = @"title";
+    return cell;
+  }
+  UITableViewCell *cell;
+  cell = [[UITableViewCell alloc] init];
   return cell;
 }
 
