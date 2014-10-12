@@ -300,16 +300,31 @@ numberOfRowsInSection:(NSInteger)section
   if ([self isCellForAllItemsAtIndexPath:indexPath])
   { // 全アイテム表示用タグの設定
     cell.labelForTitle.text = @"all items";
+    cell.labelForOverDueItemsSize.text = @"";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
   } else
   { // 通常のタグの設定
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.labelForTitle.text = tag.title;
+    NSInteger overDueItemsSizeForTag = [[self overDueItemsForTag:tag] count];
+    LOG(@"%ld", (long)overDueItemsSizeForTag);
+    cell.labelForOverDueItemsSize.text = [NSString stringWithFormat:@"%lu", (unsigned long)overDueItemsSizeForTag];
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
+    
   }
   cell.labelForItemSize.text = itemCountString;
-  cell.labelForOverDueItemsSize.text = @"0";
+}
+
+- (NSSet *)overDueItemsForTag:(Tag *)tag
+{
+  NSMutableSet *items = [[NSMutableSet alloc] init];
+  for (Item *item in tag.items) {
+    if ([item isOverDue] && item.state.intValue == 0) {
+      [items addObject:item];
+    }
+  }
+  return items;
 }
 
 /**
