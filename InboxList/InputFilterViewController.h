@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "TagSelectViewController.h"
 
+/**
+ * @brief  フィルター入力画面プロトコル
+ */
 @protocol InputFilterDelegate <NSObject>
 
 - (void)dismissInputFilterView:(NSString *)filterTitle

@@ -394,15 +394,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     LOG(@"タイトルセルを選択");
   } else if ([cell.reuseIdentifier isEqualToString:kTagCellID])
   {
-    // タグ選択画面を作成
-    TagSelectViewController *tagSelectViewController
-    = [[TagSelectViewController alloc] initWithNibName:nil
-                                                bundle:nil];
-    tagSelectViewController.delegate = self;
-    tagSelectViewController.tagsForAlreadySelected = nil;
-    // タグ選択画面をプッシュ
-    [self.navigationController pushViewController:tagSelectViewController
-                                         animated:YES];
+    // タグ入力画面を表示
+    [self presentTagSelectView];
   } else if ([cell.reuseIdentifier isEqualToString:kDateCellID])
   { // リマインダーセルの処理
     // キーボードは閉じる
@@ -411,6 +404,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     // ピッカーの表示・非表示
     [self toggleDatePickerCell];
   }
+}
+
+/**
+ * @brief  タグ入力画面を表示
+ */
+-(void)presentTagSelectView
+{
+  TagSelectViewController *controller
+  = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
+                                              bundle:nil];
+  controller.delegate = self;
+  controller.tagsForAlreadySelected = nil;
+  controller.maxCapacityRowsForSelected = 1;
+  [self.navigationController pushViewController:controller
+                                       animated:YES];
 }
 
 /**

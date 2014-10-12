@@ -163,16 +163,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if ([self isTagCellAtIndexPath:indexPath]) {
     LOG(@"タグセルを選択");
-    TagSelectViewController *controller = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
-                                                                                    bundle:nil];
-    controller.delegate = self;
-    controller.tagsForAlreadySelected = nil;
-    controller.maxCapacityRowsForSelected = 3;
-    [self.navigationController pushViewController:controller
-                                         animated:YES];
+    [self presentTagSelectView];
   }
   [self.tableView deselectRowAtIndexPath:indexPath
                                 animated:YES];
+}
+
+-(void)presentTagSelectView
+{
+  TagSelectViewController *controller = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
+                                                                                  bundle:nil];
+  controller.delegate = self;
+  controller.tagsForAlreadySelected = nil;
+  controller.maxCapacityRowsForSelected = 0;
+  [self.navigationController pushViewController:controller
+                                       animated:YES];
 }
 
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
