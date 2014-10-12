@@ -3,7 +3,7 @@
 //  FilterList
 //
 //  Created by Naoki Ueda on 2014/10/12.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "InputFilterViewController2.h"
@@ -45,7 +45,11 @@ static NSString *kSearchCellID = @"SearchCell";
 
 -(void)initParam
 {
-  dataArray_ = [NSArray arrayWithObjects:kTitleCellID, kTagSelectCellID, kDueDateCellID, kSearchCellID, nil];
+  NSArray *itemOne = @[kTitleCellID];
+  NSArray *itemTwo = @[kTagSelectCellID];
+  NSArray *itemThree = @[kDueDateCellID];
+  NSArray *itemFour = @[kSearchCellID];
+  dataArray_ = @[itemOne, itemTwo, itemThree, itemFour];
 }
 
 - (void)viewDidLoad
@@ -67,7 +71,8 @@ static NSString *kSearchCellID = @"SearchCell";
   
   // テーブルの設定
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
-  
+  self.tableView.scrollEnabled = NO;
+
 //  // ボタンを設定
 //  [self.saveButton addTarget:self
 //                      action:@selector(dismissView)
@@ -85,7 +90,7 @@ static NSString *kSearchCellID = @"SearchCell";
  */
 -(NSString *)cellIdentifierAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString *identifier = dataArray_[indexPath.row];
+  NSString *identifier = dataArray_[indexPath.section][indexPath.row];
   return identifier;
 }
 
@@ -95,18 +100,26 @@ static NSString *kSearchCellID = @"SearchCell";
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[self cellIdentifierAtIndexPath:indexPath]];
+  cell.textLabel.text = [self cellIdentifierAtIndexPath:indexPath];
   return cell;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return 1;
+  return [dataArray_ count];;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  return [dataArray_ count];
+  return [dataArray_[section] count];
+}
+
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  [self.tableView deselectRowAtIndexPath:indexPath
+                                animated:YES];
 }
 
 #pragma mark - その他
