@@ -1,123 +1,200 @@
 //
-//  InputFilterViewController.m
-//  InboxList
+//  InputFilterViewController2.m
+//  FilterList
 //
-//  Created by Naoki Ueda on 2014/08/26.
+//  Created by Naoki Ueda on 2014/10/12.
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "InputFilterViewController.h"
 #import "FilterCell.h"
-#import "Tag.h"
 #import "CoreDataController.h"
 
-static NSString *InputFilterCellIdentifier = @"InputTagCell";
+#import "ItemDetailTitleCell.h"
+#import "ItemDetailTagCell.h"
 
-@interface InputFilterViewController ()
+#import "TagSelectViewController.h"
+
+#import "Header.h"
+
+#pragma mark Cell Identifier
+static NSString *kTitleCellID = @"titleCell";
+static NSString *kTagSelectCellID = @"TagSelectCell";
+static NSString *kDueDateCellID = @"DueDateCell";
+static NSString *kSearchCellID = @"SearchCell";
+
+static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
+
+#pragma mark -
+
+@interface InputFilterViewController2 ()
+{
+  NSArray *dataArray_;
+}
 
 @end
 
-@implementation InputFilterViewController
+@implementation InputFilterViewController2
 
 #pragma mark - 初期化
 
 /**
- * @brief  初期化
- *
- * @param nibNameOrNil   nibNameOrNil description
- * @param nibBundleOrNil nibBundleOrNil description
- *
- * @return インスタンス
+ * @brief  セルを登録
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(void)registerClassForCells
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+  [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName bundle:nil]
+       forCellReuseIdentifier:kTitleCellID];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kTagSelectCellID];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kDueDateCellID];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kSearchCellID];
 }
 
 /**
- * @brief  ロード後の処理
+ * @brief  パラメータを初期化・設定
  */
+-(void)initParam
+{
+  NSArray *itemOne = @[kTitleCellID];
+  NSArray *itemTwo = @[kTagSelectCellID];
+  NSArray *itemThree = @[kDueDateCellID];
+  NSArray *itemFour = @[kSearchCellID];
+  dataArray_ = @[itemOne, itemTwo, itemThree, itemFour];
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
   
+  // パラメータを初期化・設定
+  [self initParam];
+  
+  // テーブルビュー初期化
+  self.tableView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS
+                                                style:UITableViewStyleGrouped];
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
+  [self.view addSubview:self.tableView];
+  
   // セルを登録
-  [self.tagTableView registerClass:[FilterCell class]
-            forCellReuseIdentifier:InputFilterCellIdentifier];
-  self.tagFetchedResultsController = [CoreDataController userTagFetchedResultsController:self];
+  [self registerClassForCells];
   
   // テーブルの設定
-  self.tagTableView.allowsMultipleSelectionDuringEditing = YES;
-  [self.tagTableView setEditing:YES];
-  
-  // ボタンを設定
-  [self.saveButton addTarget:self
-                      action:@selector(dismissView)
-            forControlEvents:UIControlEventTouchUpInside];
+  self.tableView.allowsMultipleSelectionDuringEditing = YES;
+  self.tableView.scrollEnabled = NO;
+
+//  // ボタンを設定
+//  [self.saveButton addTarget:self
+//                      action:@selector(dismissView)
+//            forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark - ユーティリティ
+
+/**
+ * @brief  指定の位置のセルのIDを返す
+ *
+ * @param indexPath 位置
+ *
+ * @return IDの文字列
+ */
+-(NSString *)cellIdentifierAtIndexPath:(NSIndexPath *)indexPath
+{
+  NSString *identifier = dataArray_[indexPath.section][indexPath.row];
+  return identifier;
+}
+
+-(BOOL)isTitleCellAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (kTitleCellID == [self cellIdentifierAtIndexPath:indexPath]) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
+-(BOOL)isTagCellAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (kTagSelectCellID == [self cellIdentifierAtIndexPath:indexPath]) {
+    return YES;
+  } else {
+    return NO;
+  }
 }
 
 #pragma mark - テーブルビュー
 
-/**
- * @brief  セルを表示
- *
- * @param tableView テーブルビュー
- * @param indexPath 位置
- *
- * @return セル
- */
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:InputFilterCellIdentifier];
-  
-  Tag *tag = [self.tagFetchedResultsController objectAtIndexPath:indexPath];
-  cell.textLabel.text = tag.title;
-  
+  // アイテムセル
+  if ([self isTitleCellAtIndexPath:indexPath]) {
+    ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
+    cell.titleField.text = @"title";
+    return cell;
+  }
+  // タグ選択セル
+  if ([self isTagCellAtIndexPath:indexPath]) {
+    ItemDetailTagCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagSelectCellID];
+    cell.textLabel.text = @"no tag";
+    return cell;
+  }
+  UITableViewCell *cell;
+  cell = [[UITableViewCell alloc] init];
   return cell;
 }
 
-/**
- * @brief  セル数
- *
- * @param tableView テーブルビュー
- * @param section   セクション数
- *
- * @return セル数
- */
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return [dataArray_ count];;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  NSInteger num = [[self.tagFetchedResultsController fetchedObjects] count];
-  return num;
+  return [dataArray_[section] count];
 }
 
-/**
- * @brief  入力画面を終了する
- */
--(void)dismissView
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSArray *selected_rows =  [self.tagTableView indexPathsForSelectedRows];
-  NSMutableSet *tags_for_selected = [[NSMutableSet alloc] init];
-  for (NSIndexPath *index in selected_rows) {
-    Tag *tag = [self.tagFetchedResultsController objectAtIndexPath:index];
-    [tags_for_selected addObject:tag];
+  if ([self isTagCellAtIndexPath:indexPath]) {
+    LOG(@"タグセルを選択");
+    TagSelectViewController *controller = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
+                                                                                    bundle:nil];
+    controller.delegate = self;
+    controller.tagsForAlreadySelected = nil;
+    controller.maxCapacityRowsForSelected = 3;
+    [self.navigationController pushViewController:controller
+                                         animated:YES];
   }
+  [self.tableView deselectRowAtIndexPath:indexPath
+                                animated:YES];
+}
 
-  [self.delegate dismissInputFilterView:self.inputTitleField.text
-                        tagsForSelected:tags_for_selected];
+-(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
+{
+  LOG(@"タグが選択された");
 }
 
 #pragma mark - その他
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)didReceiveMemoryWarning {
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

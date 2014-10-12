@@ -25,7 +25,7 @@
 		B00AD6BD18C45E480005A552 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B00AD6BB18C45E480005A552 /* InfoPlist.strings */; };
 		B00AD6BF18C45E480005A552 /* InboxListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AD6BE18C45E480005A552 /* InboxListTests.m */; };
 		B03F2BD4194D76460037AE2C /* CheckBox_True.png in Resources */ = {isa = PBXBuildFile; fileRef = B03F2BD3194D76460037AE2C /* CheckBox_True.png */; };
-		B053050119EA486D00E87C64 /* InputFilterViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = B053050019EA486D00E87C64 /* InputFilterViewController2.m */; };
+		B053050119EA486D00E87C64 /* InputFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B053050019EA486D00E87C64 /* InputFilterViewController.m */; };
 		B0531996199FC79C00F63783 /* completedtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531995199FC79C00F63783 /* completedtab.png */; };
 		B053199A199FC92C00F63783 /* filtertab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531997199FC92C00F63783 /* filtertab.png */; };
 		B053199B199FC92C00F63783 /* itemtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531998199FC92C00F63783 /* itemtab.png */; };
@@ -34,8 +34,6 @@
 		B05319A1199FD46F00F63783 /* InputTagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B053199F199FD46F00F63783 /* InputTagViewController.xib */; };
 		B056F7CA198D394800768E8E /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B056F7C9198D394800768E8E /* TagCell.xib */; };
 		B05FA8231982B20C00E25FAF /* TabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B05FA8221982B20C00E25FAF /* TabBar.m */; };
-		B060917C19ACBD7A003E6D87 /* InputFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B060917A19ACBD7A003E6D87 /* InputFilterViewController.m */; };
-		B060917D19ACBD7A003E6D87 /* InputFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B060917B19ACBD7A003E6D87 /* InputFilterViewController.xib */; };
 		B06894E7198D544F000A4DCB /* ItemDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06894E6198D544F000A4DCB /* ItemDetailViewController.xib */; };
 		B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06D7199198D3BDA001A9F91 /* TagCell.m */; };
 		B06D719D198D43A8001A9F91 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06D719C198D43A8001A9F91 /* ItemCell.xib */; };
@@ -112,8 +110,8 @@
 		B00AD6BC18C45E480005A552 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B00AD6BE18C45E480005A552 /* InboxListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InboxListTests.m; sourceTree = "<group>"; };
 		B03F2BD3194D76460037AE2C /* CheckBox_True.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox_True.png; path = resource/CheckBox_True.png; sourceTree = SOURCE_ROOT; };
-		B05304FF19EA486D00E87C64 /* InputFilterViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputFilterViewController2.h; sourceTree = "<group>"; };
-		B053050019EA486D00E87C64 /* InputFilterViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputFilterViewController2.m; sourceTree = "<group>"; };
+		B05304FF19EA486D00E87C64 /* InputFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputFilterViewController.h; sourceTree = "<group>"; };
+		B053050019EA486D00E87C64 /* InputFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputFilterViewController.m; sourceTree = "<group>"; };
 		B0531995199FC79C00F63783 /* completedtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = completedtab.png; sourceTree = "<group>"; };
 		B0531997199FC92C00F63783 /* filtertab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filtertab.png; sourceTree = "<group>"; };
 		B0531998199FC92C00F63783 /* itemtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemtab.png; sourceTree = "<group>"; };
@@ -125,9 +123,6 @@
 		B056F7C9198D394800768E8E /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		B05FA8211982B20200E25FAF /* TabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBar.h; path = InboxList/TabBar.h; sourceTree = "<group>"; };
 		B05FA8221982B20C00E25FAF /* TabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBar.m; path = InboxList/TabBar.m; sourceTree = "<group>"; };
-		B060917919ACBD7A003E6D87 /* InputFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputFilterViewController.h; sourceTree = "<group>"; };
-		B060917A19ACBD7A003E6D87 /* InputFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputFilterViewController.m; sourceTree = "<group>"; };
-		B060917B19ACBD7A003E6D87 /* InputFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputFilterViewController.xib; sourceTree = "<group>"; };
 		B06894E6198D544F000A4DCB /* ItemDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemDetailViewController.xib; sourceTree = "<group>"; };
 		B06D7198198D3BDA001A9F91 /* TagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagCell.h; sourceTree = "<group>"; };
 		B06D7199198D3BDA001A9F91 /* TagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagCell.m; sourceTree = "<group>"; };
@@ -348,8 +343,8 @@
 		B053050219EA601C00E87C64 /* InputFilterView */ = {
 			isa = PBXGroup;
 			children = (
-				B05304FF19EA486D00E87C64 /* InputFilterViewController2.h */,
-				B053050019EA486D00E87C64 /* InputFilterViewController2.m */,
+				B05304FF19EA486D00E87C64 /* InputFilterViewController.h */,
+				B053050019EA486D00E87C64 /* InputFilterViewController.m */,
 			);
 			name = InputFilterView;
 			sourceTree = "<group>";
@@ -372,16 +367,6 @@
 			);
 			name = TabBar;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		B060917E19ACBD82003E6D87 /* InputFilterViewControllerold */ = {
-			isa = PBXGroup;
-			children = (
-				B060917919ACBD7A003E6D87 /* InputFilterViewController.h */,
-				B060917A19ACBD7A003E6D87 /* InputFilterViewController.m */,
-				B060917B19ACBD7A003E6D87 /* InputFilterViewController.xib */,
-			);
-			name = InputFilterViewControllerold;
 			sourceTree = "<group>";
 		};
 		B06D719B198D3BE1001A9F91 /* TagCell */ = {
@@ -450,7 +435,6 @@
 				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
 				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
 				B053050219EA601C00E87C64 /* InputFilterView */,
-				B060917E19ACBD82003E6D87 /* InputFilterViewControllerold */,
 				B0501AEA199E56DC00A58C2D /* FilterCell */,
 			);
 			name = FilterMode;
@@ -728,7 +712,6 @@
 				B053199B199FC92C00F63783 /* itemtab.png in Resources */,
 				B08CDBC319C55BED008263AC /* ItemDetailDatePickerCell.xib in Resources */,
 				B0A0915819CD3777005CDCF8 /* unchecked.png in Resources */,
-				B060917D19ACBD7A003E6D87 /* InputFilterViewController.xib in Resources */,
 				B0DC58D9194DAD770089E8FA /* CheckBox_False.png in Resources */,
 				B053199A199FC92C00F63783 /* filtertab.png in Resources */,
 				B08CDBB119C553CC008263AC /* ItemDetailTitleCell.xib in Resources */,
@@ -771,7 +754,7 @@
 				B0E532FD19E38C49005A53B1 /* CompleteViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
-				B053050119EA486D00E87C64 /* InputFilterViewController2.m in Sources */,
+				B053050119EA486D00E87C64 /* InputFilterViewController.m in Sources */,
 				B08CDBB619C559B8008263AC /* ItemDetailTagCell.m in Sources */,
 				B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
@@ -789,7 +772,6 @@
 				B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */,
 				B0C95D6719D5661C00F32F6C /* Tag.m in Sources */,
 				B05FA8231982B20C00E25FAF /* TabBar.m in Sources */,
-				B060917C19ACBD7A003E6D87 /* InputFilterViewController.m in Sources */,
 				B08CDBC219C55BED008263AC /* ItemDetailDatePickerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,7 +10,6 @@
 #import "CoreDataController.h"
 
 #import "InputFilterViewController.h"
-#import "InputFilterViewController2.h"
 
 #import "Header.h"
 #import "FilterCell.h"
