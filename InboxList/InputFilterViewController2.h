@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TagSelectViewController.h"
 
 /**
  * @brief  フィルター入力画面
  */
 @interface InputFilterViewController2 : UIViewController
-<UITableViewDelegate, UITableViewDataSource>
+<UITableViewDelegate, UITableViewDataSource, TagSelectViewControllerDelegate>
 
 @property UITableView *tableView;
 

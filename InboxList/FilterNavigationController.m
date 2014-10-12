@@ -48,7 +48,7 @@
   LOG(@"ナビゲーションバーの色を設定");
   [self.navigationBar setBarTintColor:[UIColor yellowColor]];
   // 影をつける
-  self.view.layer.shadowOpacity = kShadowOpacity;
+//  self.view.layer.shadowOpacity = kShadowOpacity;
 }
 
 - (void)didReceiveMemoryWarning

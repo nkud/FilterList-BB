@@ -71,6 +71,16 @@
   self.navigationItem.rightBarButtonItem = newFilterButton;
 }
 
+/**
+ * @brief  ビュー表示前の処理
+ *
+ * @param animated アニメーション
+ */
+-(void)viewWillAppear:(BOOL)animated
+{
+  [self.delegateForList openTabBar];
+  [self.tableView reloadData];
+}
 
 #pragma mark - フィルター入力
 
@@ -79,24 +89,16 @@
  */
 -(void)presentInputFilterView
 {
+  [self.delegateForList closeTabBar];
+  
   LOG(@"フィルター入力画面を作成・表示");
   // 初期化
-  InputFilterViewController *inputFilterView = [[InputFilterViewController alloc]
-                                                initWithNibName:nil
-                                                bundle:nil];
-  inputFilterView.delegate = self;
-  // 入力画面を最前面に表示する
-  [self.view bringSubviewToFront:inputFilterView.view];
-  
-  InputFilterViewController2 *test = [[InputFilterViewController2 alloc]
+  InputFilterViewController2 *controller = [[InputFilterViewController2 alloc]
                                       initWithNibName:nil
                                       bundle:nil];
-  [self.view bringSubviewToFront:test.view];
   
-  // 入力画面を表示する
-  [self presentViewController:test
-                     animated:YES
-                   completion:nil];
+  [self.navigationController pushViewController:controller
+                                       animated:YES];
 }
 
 /**

@@ -180,6 +180,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [self addIndexPathForSelectedRows:indexPath];
   }
   [self toggleCheckmark:cell];
+  // 選択されたセルが、最大選択セルを超えていれば、選択画面を終了
   if ([self.kIndexPathsForSelectedRows count] >= self.maxCapacityRowsForSelected) {
     [self dismissTagSelectView];
   }

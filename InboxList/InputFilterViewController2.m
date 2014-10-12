@@ -13,6 +13,8 @@
 #import "ItemDetailTitleCell.h"
 #import "ItemDetailTagCell.h"
 
+#import "TagSelectViewController.h"
+
 #import "Header.h"
 
 #pragma mark Cell Identifier
@@ -159,8 +161,23 @@ numberOfRowsInSection:(NSInteger)section
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if ([self isTagCellAtIndexPath:indexPath]) {
+    LOG(@"タグセルを選択");
+    TagSelectViewController *controller = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
+                                                                                    bundle:nil];
+    controller.delegate = self;
+    controller.tagsForAlreadySelected = nil;
+    controller.maxCapacityRowsForSelected = 3;
+    [self.navigationController pushViewController:controller
+                                         animated:YES];
+  }
   [self.tableView deselectRowAtIndexPath:indexPath
                                 animated:YES];
+}
+
+-(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
+{
+  LOG(@"タグが選択された");
 }
 
 #pragma mark - その他

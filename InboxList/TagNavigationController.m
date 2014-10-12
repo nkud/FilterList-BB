@@ -42,7 +42,7 @@
 {
   [super viewDidLoad];
   // 影をつける
-  self.view.layer.shadowOpacity = kShadowOpacity;
+//  self.view.layer.shadowOpacity = kShadowOpacity;
 }
 
 - (void)didReceiveMemoryWarning
