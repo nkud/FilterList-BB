@@ -2,8 +2,8 @@
 //  FilterCell.m
 //  FilterList
 //
-//  Created by Naoki Ueda on 2014/09/23.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Created by Naoki Ueda on 2014/10/12.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "FilterCell.h"

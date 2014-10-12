@@ -17,6 +17,10 @@
 
 #import "Configure.h"
 
+static NSString *kFilterCellID = @"FilterCell";
+
+#pragma mark -
+
 @interface FilterViewController ()
 
 - (void)configureFilterCell:(FilterCell *)cell
@@ -55,7 +59,10 @@
   [self configureTitleWithString:FILTER_LIST_TITLE
                         subTitle:@"mini title"];
   
-  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
+//  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
+  [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
+                                             bundle:nil]
+       forCellReuseIdentifier:kFilterCellID];
   
   // セルを登録
   [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
@@ -173,8 +180,7 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  static NSString *CellIdentifier = @"FilterCell";
-  FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:kFilterCellID];
   [self configureFilterCell:cell
                 atIndexPath:indexPath];
   return cell;
@@ -193,7 +199,7 @@ numberOfRowsInSection:(NSInteger)section
 {
   LOG(@"セルを設定");
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.textLabel.text = filter.title;
+  cell.titleLabel.text = filter.title;
 }
 
 #pragma mark - コンテンツの更新
