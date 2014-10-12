@@ -7,6 +7,15 @@
 //
 
 #import "InputFilterViewController2.h"
+#import "FilterCell.h"
+#import "CoreDataController.h"
+
+static NSString *kTitleCellID = @"TitleCell";
+static NSString *kTagSelectCellID = @"TagSelectCell";
+static NSString *kDueDateCellID = @"DueDateCell";
+static NSString *kSearchCellID = @"SearchCell";
+
+#pragma mark -
 
 @interface InputFilterViewController2 ()
 
