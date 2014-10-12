@@ -14,14 +14,41 @@
 
 @implementation InputFilterViewController2
 
+#pragma mark - 初期化
+
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
+  // Do any additional setup after loading the view.
+  
+  // セルを登録
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kTitleCellID];
+  self.tagFetchedResultsController = [CoreDataController userTagFetchedResultsController:self];
+  
+  // テーブルの設定
+  self.tableView.allowsMultipleSelectionDuringEditing = YES;
+  
+//  // ボタンを設定
+//  [self.saveButton addTarget:self
+//                      action:@selector(dismissView)
+//            forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - テーブルビュー
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  
+}
+
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
+{
+  return 1;
 }
 
 /*

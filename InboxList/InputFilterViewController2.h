@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface InputFilterViewController2 : UIViewController
+<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
+
+@property UITableView *tableView;
+
+@property NSFetchedResultsController *tagFetchedResultsController;
 
 @end
