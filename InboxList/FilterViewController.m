@@ -68,13 +68,23 @@ static NSString *kFilterCellID = @"FilterCell";
   [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
                                              bundle:nil]
        forCellReuseIdentifier:@"FilterCell"];
-  LOG(@"編集ボタンを追加");
+  // 編集ボタンを追加
   UIBarButtonItem *newFilterButton
   = [[UIBarButtonItem alloc] initWithTitle:@"新規"
                                      style:UIBarButtonItemStyleBordered
                                     target:self
                                     action:@selector(presentInputFilterView)];
   self.navigationItem.rightBarButtonItem = newFilterButton;
+  UIBarButtonItem *editTableButton
+  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                  target:self
+                                                  action:@selector(toEdit)];
+  self.navigationItem.leftBarButtonItem = editTableButton;
+}
+
+-(void)toEdit
+{
+  LOG(@"編集モード");
 }
 
 /**
