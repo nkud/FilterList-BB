@@ -30,7 +30,7 @@ static NSString *kFilterCellID = @"FilterCell";
 
 @implementation FilterViewController
 
-#pragma mark - 初期化
+#pragma mark - 初期化 -
 /**
  *  @brief 初期化
  *
@@ -88,7 +88,7 @@ static NSString *kFilterCellID = @"FilterCell";
   [self.tableView reloadData];
 }
 
-#pragma mark - フィルター入力
+#pragma mark - フィルター入力 -
 
 /**
  *  @brief フィルター入力画面を表示する
@@ -128,8 +128,8 @@ static NSString *kFilterCellID = @"FilterCell";
   }
 }
 
-#pragma mark - テーブルビュー
-
+#pragma mark - テーブルビュー -
+#pragma mark デリゲート
 /**
  * @brief  セルが選択された時の処理
  *
@@ -148,6 +148,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [self.tableView deselectRowAtIndexPath:indexPath
                                 animated:YES];
 }
+
+#pragma mark データソース
 
 /**
  *  @brief セクション内のセル数を返す
@@ -185,18 +187,7 @@ numberOfRowsInSection:(NSInteger)section
                 atIndexPath:indexPath];
   return cell;
 }
-
--(NSString *)createStringForSet:(NSSet *)set
-{
-  NSMutableString *string = [[NSMutableString alloc] init];
-  for( Tag *tag in set )
-  { //< すべてのタグに対して
-    [string appendString:tag.title]; //< フィールドに足していく
-    [string appendString:@" "];
-  }
-  LOG(@"%@", string);
-  return string;
-}
+#pragma mark セル設定
 
 /**
  *  @brief セルを設定する
@@ -213,9 +204,25 @@ numberOfRowsInSection:(NSInteger)section
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.titleLabel.text = filter.title;
   cell.tagLabel.text = [self createStringForSet:filter.tags];
+  cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
-#pragma mark - コンテンツの更新
+#pragma mark - ユーティリティ -
+
+-(NSString *)createStringForSet:(NSSet *)set
+{
+  NSMutableString *string = [[NSMutableString alloc] init];
+  for( Tag *tag in set )
+  { //< すべてのタグに対して
+    [string appendString:tag.title]; //< フィールドに足していく
+    [string appendString:@" "];
+  }
+  LOG(@"%@", string);
+  return string;
+}
+
+
+#pragma mark - コンテンツの更新 -
 
 /**
  *  @brief コンテンツを更新する前処理

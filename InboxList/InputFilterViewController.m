@@ -199,19 +199,22 @@ numberOfRowsInSection:(NSInteger)section
   return [dataArray_[section] count];
 }
 
+#pragma mark 選択の処理
+
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if ([self isTagCellAtIndexPath:indexPath]) {
     LOG(@"タグセルを選択");
-    [self presentTagSelectView];
+    [self newTagSelectViewAndPush];
   }
   [self.tableView deselectRowAtIndexPath:indexPath
                                 animated:YES];
 }
 
--(void)presentTagSelectView
+-(void)newTagSelectViewAndPush
 {
+  LOG(@"タグ選択画面を作成してプッシュ");
   self.titleForFilter = [self titleCell].titleField.text;
   TagSelectViewController *controller = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
                                                                                   bundle:nil];
@@ -247,6 +250,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"%@", string);
   return string;
 }
+
+#pragma mark セルの設定
+
 -(void)configureTagCell:(ItemDetailTagCell *)cell
  atIndexPathInTableView:(NSIndexPath *)indexPathInTableView;
 {
