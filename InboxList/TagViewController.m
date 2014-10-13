@@ -313,6 +313,7 @@ numberOfRowsInSection:(NSInteger)section
   cell.labelForItemSize.text = itemCountString;
 }
 
+// TODO: tag で処理
 - (NSSet *)overDueItemsForTag:(Tag *)tag
 {
   NSMutableSet *items = [[NSMutableSet alloc] init];
