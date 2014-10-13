@@ -38,6 +38,14 @@ insertIntoManagedObjectContext:context];
   }
   return YES;
 }
+-(void)setComplete
+{
+  self.completionDate = [NSDate date];
+}
+-(void)setIncomplete
+{
+  self.completionDate = nil;
+}
 
 /**
  * @brief  期限を過ぎているか評価

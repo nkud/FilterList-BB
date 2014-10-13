@@ -168,7 +168,7 @@ numberOfRowsInSection:(NSInteger)section
   // 画像タッチを認識する設定
   UILongPressGestureRecognizer *recognizer
   = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(touchedCheckBox:)];
+                                                  action:@selector(didTappedCheckBox:)];
   /// @todo ここはうまくしたい
   [recognizer setMinimumPressDuration:0.0];
   [cell.checkBoxImageView setUserInteractionEnabled:YES];
@@ -181,7 +181,7 @@ numberOfRowsInSection:(NSInteger)section
  * @param sender タップリコクナイザー
  * @todo なんかおかしい
  */
-- (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
+- (void)didTappedCheckBox:(UILongPressGestureRecognizer *)sender
 {
   //  static bool flag = false;
   static CompleteCell *selected_cell = nil;
@@ -214,7 +214,9 @@ numberOfRowsInSection:(NSInteger)section
       CompleteCell *cell = (CompleteCell *)[self.tableView cellForRowAtIndexPath:indexPath];
       
       if (selected_cell == cell) {
+        // チェックを外す
         item.state = [NSNumber numberWithBool:false];
+        [item setIncomplete];
         [CoreDataController saveContext];
       } else {
         [selected_cell setChecked];

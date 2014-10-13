@@ -321,7 +321,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   // 画像タッチを認識する設定
   UILongPressGestureRecognizer *recognizer
   = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                  action:@selector(touchedCheckBox:)];
+                                                  action:@selector(didTappedCheckBox:)];
   /// @todo ここはうまくしたい
   [recognizer setMinimumPressDuration:0.0];
   [cell.checkBoxImageView setUserInteractionEnabled:YES];
@@ -333,7 +333,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
  * @param sender タップリコクナイザー
  * @todo なんかおかしい
  */
-- (void)touchedCheckBox:(UILongPressGestureRecognizer *)sender
+- (void)didTappedCheckBox:(UILongPressGestureRecognizer *)sender
 {
   static ItemCell *selected_cell = nil;
   
@@ -370,7 +370,9 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
       
       if (selected_cell == cell) {
+        // チェックをつける
         item.state = [NSNumber numberWithBool:true];
+        [item setComplete];
         [CoreDataController saveContext];
       } else {
         [selected_cell setUnChecked];

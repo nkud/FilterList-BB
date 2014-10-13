@@ -28,6 +28,8 @@
 -(BOOL)isDueToToday;
 
 -(BOOL)isCompleted;
+-(void)setComplete;
+-(void)setIncomplete;
 
 -(NSString *)tagName;
 
