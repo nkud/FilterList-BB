@@ -125,6 +125,35 @@
 }
 
 #pragma mark - ユーティリティ -
+#pragma mark ナビゲーションバー
+-(UIBarButtonItem *)newInsertObjectButton
+{
+  UIBarButtonItem *insertObjectButton
+  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                  target:self
+                                                  action:@selector(didTappedInsertObjectButton)];
+  return insertObjectButton;
+}
+
+-(UIBarButtonItem *)newEditTableButton
+{
+  UIBarButtonItem *editTableButton
+  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                  target:self
+                                                  action:@selector(didTappedEditTableButton)];
+  return editTableButton;
+}
+
+-(void)didTappedEditTableButton
+{
+  LOG(@"編集ボタン");
+}
+
+-(void)didTappedInsertObjectButton
+{
+  LOG(@"挿入ボタン");
+}
+
 #pragma mark アクセサリー
 -(UIButton *)newDisclosureIndicatorAccessory
 {

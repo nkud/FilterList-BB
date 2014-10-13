@@ -60,21 +60,18 @@
                                              bundle:nil]
        forCellReuseIdentifier:TagModeCellIdentifier];
 
-  // 編集ボタンを追加
-  UIBarButtonItem *editButton
-  = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-                                     style:UIBarButtonItemStyleBordered
-                                    target:self
-                                    action:@selector(toEdit:)];
-  self.navigationItem.leftBarButtonItem = editButton;
+  // 編集・追加ボタンを追加
+  self.navigationItem.leftBarButtonItem = [self newEditTableButton];
+  self.navigationItem.rightBarButtonItem = [self newInsertObjectButton];
+}
 
-  // 新規入力ボタンを追加
-  UIBarButtonItem *addButton
-  = [[UIBarButtonItem alloc] initWithTitle:@"新規"
-                                     style:UIBarButtonItemStyleBordered
-                                    target:self
-                                    action:@selector(toAdd:)];
-  self.navigationItem.rightBarButtonItem = addButton;
+-(void)didTappedEditTableButton
+{
+  [self toEdit:self];
+}
+-(void)didTappedInsertObjectButton
+{
+  [self toAdd:self];
 }
 
 #pragma mark - 遷移

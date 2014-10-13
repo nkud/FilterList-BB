@@ -88,19 +88,18 @@
                                              bundle:nil]
        forCellReuseIdentifier:@"InputHeaderCell"];
   
-  // 編集ボタン
-  UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-                                                                 style:UIBarButtonItemStyleBordered
-                                                                target:self
-                                                                action:@selector(toEdit:)];
-  self.navigationItem.leftBarButtonItem = editButton;
+  // 編集・追加ボタン
+  self.navigationItem.leftBarButtonItem = [self newEditTableButton];
+  self.navigationItem.rightBarButtonItem = [self newInsertObjectButton];
+}
 
-  // 新規ボタン
-  UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
-                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                target:self
-                                action:@selector(presentInputItemView)];
-  self.navigationItem.rightBarButtonItem = addButton;
+-(void)didTappedEditTableButton
+{
+  [self toEdit:self];
+}
+-(void)didTappedInsertObjectButton
+{
+  [self presentInputItemView];
 }
 
 #pragma mark - テーブルビュー

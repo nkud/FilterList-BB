@@ -18,23 +18,27 @@
 @interface ListViewController : UIViewController
 <UITableViewDelegate, UITableViewDataSource, UITabBarDelegate>
 
-// ビューのタイトル
-@property UIView *titleView;
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UITabBar *tabBar;
 
-/**
- * @brief  ナビゲーションバーを設定
- *
- * @param title    メインタイトル
- * @param subTitle サブタイトル
- */
--(void)configureTitleWithString:(NSString *)title
-                       subTitle:(NSString *)subTitle;
-
+#pragma mark - デリゲート
 @property id<ListViewControllerDelegate> delegateForList;
 
+#pragma mark - アクセサリー
 -(UIButton *)newDisclosureIndicatorAccessory;
+
+
+#pragma mark - ナビゲーションバー
+-(void)configureTitleWithString:(NSString *)title
+                       subTitle:(NSString *)subTitle;
+// ビューのタイトル
+@property UIView *titleView;
+
+#pragma mark - ナビゲーションバーボタン
+-(UIBarButtonItem *)newEditTableButton;
+-(UIBarButtonItem *)newInsertObjectButton;
+-(void)didTappedEditTableButton;
+-(void)didTappedInsertObjectButton;
 
 @end

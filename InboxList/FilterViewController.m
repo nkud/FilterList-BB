@@ -69,22 +69,8 @@ static NSString *kFilterCellID = @"FilterCell";
                                              bundle:nil]
        forCellReuseIdentifier:@"FilterCell"];
   // 編集ボタンを追加
-  UIBarButtonItem *newFilterButton
-  = [[UIBarButtonItem alloc] initWithTitle:@"新規"
-                                     style:UIBarButtonItemStyleBordered
-                                    target:self
-                                    action:@selector(presentInputFilterView)];
-  self.navigationItem.rightBarButtonItem = newFilterButton;
-  UIBarButtonItem *editTableButton
-  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
-                                                  target:self
-                                                  action:@selector(toEdit)];
-  self.navigationItem.leftBarButtonItem = editTableButton;
-}
-
--(void)toEdit
-{
-  LOG(@"編集モード");
+  self.navigationItem.rightBarButtonItem = [self newInsertObjectButton];
+  self.navigationItem.leftBarButtonItem = [self newEditTableButton];
 }
 
 /**
@@ -99,6 +85,11 @@ static NSString *kFilterCellID = @"FilterCell";
 }
 
 #pragma mark - フィルター入力 -
+
+-(void)didTappedInsertObjectButton
+{
+  [self presentInputFilterView];
+}
 
 /**
  *  @brief フィルター入力画面を表示する
