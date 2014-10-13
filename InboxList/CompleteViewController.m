@@ -150,7 +150,7 @@ numberOfRowsInSection:(NSInteger)section
        atIndexPathInTableView:indexPath];
   return cell;
 }
-
+#pragma mark セルの設定
 /**
  * @brief  セルを設定
  *
@@ -164,6 +164,10 @@ numberOfRowsInSection:(NSInteger)section
   cell.titleLabel.text = item.title;
   cell.tagLabel.text = item.tag.title;
   [cell updateCheckBox:item.state];
+  
+  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  formatter.dateFormat = @"yyyy/MM/dd";
+  cell.completionDateLabel.text = [formatter stringFromDate:item.completionDate];
   
   // 画像タッチを認識する設定
   UILongPressGestureRecognizer *recognizer
