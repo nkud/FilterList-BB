@@ -445,14 +445,10 @@ didSelectItem:(UITabBarItem *)item
   LOG(@"アイテムビューをロードする");
   // 選択されたタグを渡して
   if (tags) {
-    for (Tag *tag in tags) {
-      // １個だけ渡す
-      self.itemViewController.tagForSelected = tag;
-      break;
-    }
+    self.itemViewController.selectedTags = tags;
     [self.itemViewController hideSectionHeader];
   } else {
-    self.itemViewController.tagForSelected = nil;
+    self.itemViewController.selectedTags = nil;
     [self.itemViewController showSectionHeader];
   }
   self.itemViewController.fetchedResultsController = fetchedResultController;

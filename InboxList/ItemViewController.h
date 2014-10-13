@@ -23,7 +23,9 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
-@property (strong, nonatomic) Tag *tagForSelected;
+//@property (strong, nonatomic) Tag *tagForSelected;
+
+@property (strong, nonatomic) NSSet *selectedTags;
 
 -(void)updateTableView;
 

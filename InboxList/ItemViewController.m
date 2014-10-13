@@ -283,7 +283,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"クイック入力タイトル:%@", titleForItem);
 
   [CoreDataController insertNewItem:titleForItem
-                                tag:self.tagForSelected
+                                tag:[self selectedTag]
                            reminder:nil];
 }
 
@@ -621,6 +621,19 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   } else {
     return NO;
   }
+}
+
+-(Tag *)selectedTag
+{
+  if (self.selectedTags == nil) {
+    return nil;
+  }
+  Tag *selected_tag;
+  for (Tag *tag in self.selectedTags) {
+    selected_tag = tag;
+    break;
+  }
+  return selected_tag;
 }
 
 #pragma mark - コントローラー用のマップ関数

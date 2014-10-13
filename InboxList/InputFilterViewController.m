@@ -19,11 +19,12 @@
 
 #pragma mark Cell Identifier
 static NSString *kTitleCellID = @"titleCell";
-static NSString *kTagSelectCellID = @"TagSelectCell";
+static NSString *kTagSelectCellID = @"tagCell";
 static NSString *kDueDateCellID = @"DueDateCell";
 static NSString *kSearchCellID = @"SearchCell";
 
 static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
+static NSString *kTagCellNibName = @"ItemDetailTagCell";
 
 #pragma mark -
 
@@ -53,8 +54,8 @@ static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
 {
   [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName bundle:nil]
        forCellReuseIdentifier:kTitleCellID];
-  [self.tableView registerClass:[UITableViewCell class]
-         forCellReuseIdentifier:kTagSelectCellID];
+  [self.tableView registerNib:[UINib nibWithNibName:kTagCellNibName bundle:nil]
+       forCellReuseIdentifier:kTagSelectCellID];
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kDueDateCellID];
   [self.tableView registerClass:[UITableViewCell class]
