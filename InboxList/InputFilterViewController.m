@@ -173,7 +173,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   // アイテムセル
   if ([self isTitleCellAtIndexPath:indexPath]) {
     ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
-    cell.titleField.text = @"";
+    cell.titleField.text = self.titleForFilter;
     return cell;
   }
   // タグ選択セル
@@ -212,6 +212,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(void)presentTagSelectView
 {
+  self.titleForFilter = [self titleCell].titleField.text;
   TagSelectViewController *controller = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
                                                                                   bundle:nil];
   controller.delegate = self;
