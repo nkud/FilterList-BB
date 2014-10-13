@@ -167,10 +167,12 @@ numberOfRowsInSection:(NSInteger)section
   cell.tagLabel.text = item.tag.title;
   [cell updateCheckBox:item.state];
   
+  // 完了日を表示
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-  formatter.dateFormat = @"yyyy/MM/dd";
+  formatter.dateFormat = @"MM/dd/hh-mm-ss";
   cell.completionDateLabel.text = [formatter stringFromDate:item.completionDate];
   
+  // TODO: 親リストを継承させる
   // 画像タッチを認識する設定
   UILongPressGestureRecognizer *recognizer
   = [[UILongPressGestureRecognizer alloc] initWithTarget:self

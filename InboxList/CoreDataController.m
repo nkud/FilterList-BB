@@ -483,7 +483,7 @@ enum __SECTION__ {
   
   // ソート設定
   // (タグのタイトル)でソート
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"completionDate"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
   
