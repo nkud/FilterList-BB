@@ -123,14 +123,39 @@
   subTitleLabel.text = subTitle;
   [self.titleView addSubview:subTitleLabel];
 }
-#pragma mark - その他
 
+#pragma mark - ユーティリティ -
+#pragma mark アクセサリー
+-(UIButton *)newDisclosureIndicatorAccessory
+{
+  UIButton *disclosureIndicator = [UIButton buttonWithType:UIButtonTypeCustom];
+  disclosureIndicator.frame = CGRectMake(0, 0, 30, 30);
+  disclosureIndicator.backgroundColor = [UIColor blackColor];
+  [disclosureIndicator addTarget:self
+                          action:@selector(didTappedAccessoryButton)
+                forControlEvents:UIControlEventTouchUpInside];
+  return disclosureIndicator;
+}
+
+/**
+ * @brief  アクセサリーがタップされた時の処理
+ */
+-(void)didTappedAccessoryButton
+{
+  LOG(@"アクセサリーをタップ");
+}
+#pragma mark - その他 -
+#pragma mark メモリー
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source -
+#pragma mark - テーブルビュー -
+
+#pragma mark デリゲート
+
+#pragma mark データソース
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.

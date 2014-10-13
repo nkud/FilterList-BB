@@ -204,8 +204,11 @@ numberOfRowsInSection:(NSInteger)section
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.titleLabel.text = filter.title;
   cell.tagLabel.text = [self createStringForSet:filter.tags];
-  cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  
+  // アクセサリー
+  cell.accessoryView = [self newDisclosureIndicatorAccessory];
 }
+
 
 #pragma mark - ユーティリティ -
 

@@ -35,4 +35,6 @@
 
 @property id<ListViewControllerDelegate> delegateForList;
 
+-(UIButton *)newDisclosureIndicatorAccessory;
+
 @end
