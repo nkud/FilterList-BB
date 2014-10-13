@@ -18,8 +18,10 @@
 
 @property (nonatomic, retain) NSNumber * color;
 @property (nonatomic, retain) NSDate * reminder;
+@property (nonatomic, retain) NSDate * completionDate;
 @property (nonatomic, retain) NSNumber * state;
 @property (nonatomic, retain) NSString * title;
+
 @property (nonatomic, retain) Tag *tag;
 
 -(BOOL)isOverDue;

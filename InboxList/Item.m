@@ -14,6 +14,7 @@
 
 @dynamic color;
 @dynamic reminder;
+@dynamic completionDate;
 @dynamic state;
 @dynamic title;
 @dynamic tag;

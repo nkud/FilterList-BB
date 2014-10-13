@@ -6,6 +6,7 @@
     </entity>
     <entity name="Item" representedClassName="Item">
         <attribute name="color" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="completionDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="reminder" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="state" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,7 +21,7 @@
     </entity>
     <elements>
         <element name="Filter" positionX="-4689" positionY="-1873" width="128" height="73"/>
-        <element name="Item" positionX="-4743" positionY="-1719" width="162" height="118"/>
+        <element name="Item" positionX="-4743" positionY="-1719" width="162" height="135"/>
         <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="103"/>
     </elements>
 </model>
