@@ -19,6 +19,25 @@
 @dynamic title;
 @dynamic tag;
 
+-(instancetype)initWithEntity:(NSEntityDescription *)entity
+insertIntoManagedObjectContext:(NSManagedObjectContext *)context
+{
+  self = [super initWithEntity:entity
+insertIntoManagedObjectContext:context];
+  if (self)
+  {
+    self.completionDate = nil;
+  }
+  return self;
+}
+
+-(BOOL)isCompleted
+{
+  if (self.completionDate == nil) {
+    return NO;
+  }
+  return YES;
+}
 
 /**
  * @brief  期限を過ぎているか評価
