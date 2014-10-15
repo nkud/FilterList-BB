@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
+static NSString *kEditBarItemImageName = @"EditBarItem.png";
+
+#pragma mark -
+
 #import "ListViewController.h"
 #import "Header.h"
 
@@ -138,10 +142,11 @@
 -(UIBarButtonItem *)newEditTableButton
 {
   UIBarButtonItem *editTableButton
-  = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"checked.png"]
+  = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:kEditBarItemImageName]
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(didTappedEditTableButton)];
+  editTableButton.tintColor = RGB(212, 212, 212);
   return editTableButton;
 }
 
