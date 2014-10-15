@@ -138,9 +138,10 @@
 -(UIBarButtonItem *)newEditTableButton
 {
   UIBarButtonItem *editTableButton
-  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
-                                                  target:self
-                                                  action:@selector(didTappedEditTableButton)];
+  = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"checked.png"]
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(didTappedEditTableButton)];
   return editTableButton;
 }
 

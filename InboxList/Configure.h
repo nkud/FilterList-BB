@@ -25,6 +25,10 @@
 #define ITEM_LIST_TITLE @"ITEM"
 #define FILTER_LIST_TITLE @"FILTER"
 
+#define ITEM_COLOR RGB(0, 0, 0)
+#define TAG_COLOR RGB(74, 144, 226);
+#define FILTER_COLOR RGB(255, 166, 35)
+
 #define ITEM_NAVBAR_COLOR RGB(230, 230, 0)
 
 /**

@@ -54,6 +54,7 @@
   // タイトルを設定
   [self configureTitleWithString:TAG_LIST_TITLE
                         subTitle:@"mini title"];
+  self.titleLabel.textColor = TAG_COLOR;
   
   // 使用するセルを登録
   [self.tableView registerNib:[UINib nibWithNibName:@"TagCell"
