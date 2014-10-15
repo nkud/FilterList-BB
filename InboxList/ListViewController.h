@@ -20,6 +20,8 @@
 
 
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *subTitleLabel;
 @property (strong, nonatomic) UITabBar *tabBar;
 
 #pragma mark - デリゲート

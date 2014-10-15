@@ -105,23 +105,23 @@
   self.navigationItem.titleView = self.titleView;
   
   // メインタイトルを作成・設定
-  UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 195, 20)];
-  titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-  titleLabel.text = title;
-  titleLabel.textColor = [UIColor blackColor];
-  titleLabel.textAlignment = NSTextAlignmentCenter;
-  titleLabel.backgroundColor = [UIColor clearColor];
-  [self.titleView addSubview:titleLabel];
+  self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 195, 20)];
+  self.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+  self.titleLabel.text = title;
+  self.titleLabel.textColor = [UIColor blackColor];
+  self.titleLabel.textAlignment = NSTextAlignmentCenter;
+  self.titleLabel.backgroundColor = [UIColor clearColor];
+  [self.titleView addSubview:self.titleLabel];
   
   // サブタイトルを作成・設定
-  UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
-  subTitleLabel.font = [UIFont boldSystemFontOfSize:10.0f];
-  subTitleLabel.textColor = [UIColor grayColor];
-  subTitleLabel.textAlignment = NSTextAlignmentCenter;
-  subTitleLabel.backgroundColor = [UIColor clearColor];
-  subTitleLabel.adjustsFontSizeToFitWidth = YES;
-  subTitleLabel.text = subTitle;
-  [self.titleView addSubview:subTitleLabel];
+  self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
+  self.subTitleLabel.font = [UIFont boldSystemFontOfSize:10.0f];
+  self.subTitleLabel.textColor = [UIColor blackColor];
+  self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
+  self.subTitleLabel.backgroundColor = [UIColor clearColor];
+  self.subTitleLabel.adjustsFontSizeToFitWidth = YES;
+  self.subTitleLabel.text = subTitle;
+  [self.titleView addSubview:self.subTitleLabel];
 }
 
 #pragma mark - ユーティリティ -
