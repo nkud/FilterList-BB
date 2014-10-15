@@ -13,11 +13,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nj2-3a-VnD">
-                        <rect key="frame" x="8" y="11" width="147" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6c-ZE-ARJ">
                         <rect key="frame" x="163" y="11" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -30,6 +25,11 @@
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nj2-3a-VnD">
+                        <rect key="frame" x="8" y="11" width="147" height="21"/>
+                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="16"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -37,7 +37,7 @@
                 <outlet property="labelForOverDueItemsSize" destination="wRn-5M-S9N" id="epc-8x-ZEb"/>
                 <outlet property="labelForTitle" destination="Nj2-3a-VnD" id="9Jj-SS-Qq6"/>
             </connections>
-            <point key="canvasLocation" x="143" y="357"/>
+            <point key="canvasLocation" x="16" y="-41"/>
         </tableViewCell>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
