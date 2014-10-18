@@ -9,6 +9,12 @@
 #import "TabBar.h"
 #import "Header.h"
 
+static NSString *kItemTabBarItemImageName = @"ItemTabBarItem.png";
+static NSString *kTagTabBarItemImageName = @"TagTabBarItem.png";
+static NSString *kFilterTabBarItemImageName = @"FilterTabBarItem.png";
+
+#pragma mark -
+
 @implementation TabBar
 
 /**
@@ -18,13 +24,13 @@
 {
   LOG(@"タブバーを作成");
   self.itemModeTab = [[UITabBarItem alloc] initWithTitle:@"ITEM"
-                                                   image:[UIImage imageNamed:@"itemtab.png"]
+                                                   image:[UIImage imageNamed:kItemTabBarItemImageName]
                                                      tag:0];  
   self.tagModeTab = [[UITabBarItem alloc] initWithTitle:@"TAG"
-                                                  image:[UIImage imageNamed:@"tagtab.png"]
+                                                  image:[UIImage imageNamed:kTagTabBarItemImageName]
                                                     tag:1];
   self.filterModeTab = [[UITabBarItem alloc] initWithTitle:@"FILTER"
-                                                     image:[UIImage imageNamed:@"filtertab.png"]
+                                                     image:[UIImage imageNamed:kFilterTabBarItemImageName]
                                                        tag:2];
   self.completedModeTab = [[UITabBarItem alloc] initWithTitle:@"COMP"
                                                         image:[UIImage imageNamed:@"completedtab.png"]
