@@ -139,6 +139,11 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   return insertObjectButton;
 }
 
+/**
+ * @brief  編集ボタンを作成
+ *
+ * @return インスタンス
+ */
 -(UIBarButtonItem *)newEditTableButton
 {
   UIBarButtonItem *editTableButton

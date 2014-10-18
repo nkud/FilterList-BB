@@ -35,14 +35,15 @@ static NSString *kCompleteCellID = @"CompleteCell";
   
   
   // 編集ボタン
-  UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
-                                                                 style:UIBarButtonItemStyleBordered
-                                                                target:self
-                                                                action:@selector(toEdit:)];
-  self.navigationItem.leftBarButtonItem = editButton;
+  self.navigationItem.leftBarButtonItem = [self newEditTableButton];
   // Do any additional setup after loading the view.
   
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
+}
+
+-(void)didTappedEditTableButton
+{
+  [self toEdit:self];
 }
 
 #pragma mark - テーブルビュー
