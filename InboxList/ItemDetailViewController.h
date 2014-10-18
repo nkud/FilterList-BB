@@ -30,7 +30,7 @@
  * @brief  詳細画面
  */
 @interface ItemDetailViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource,
+<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,
 ItemDetailDatePickerCellDelegate, TagSelectViewControllerDelegate>
 
 @property (strong, nonatomic) NSString *titleForItem;

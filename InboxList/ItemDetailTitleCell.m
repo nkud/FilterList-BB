@@ -18,7 +18,7 @@
 - (void)awakeFromNib
 {
   // Initialization code
-  self.titleField.delegate = self;
+//  self.titleField.delegate = self;
 }
 
 #pragma mark - セルの処理

@@ -110,6 +110,12 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   = CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID] frame]);
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+  ItemDetailTitleCell *cell = [self getTitleCell];
+  [cell.titleField becomeFirstResponder];
+}
+
 #pragma mark - 保存・終了処理
 
 /**
@@ -477,6 +483,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   {
     cell.titleField.text = self.titleForItem;
   }
+  cell.delegate = self;
 }
 
 /**
