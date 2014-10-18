@@ -168,6 +168,17 @@ titleForHeaderInSection:(NSInteger)section
   return [[self.fetchedResultsController sections] count] + 1;
 }
 
+- (void)tableView:(UITableView *)tableView
+willDisplayHeaderView:(UIView *)view
+       forSection:(NSInteger)section {
+  UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+  
+  header.textLabel.textColor = [UIColor grayColor];
+  header.textLabel.font = [UIFont boldSystemFontOfSize:15];
+  CGRect headerFrame = header.frame;
+  header.textLabel.frame = headerFrame;
+}
+
 #pragma mark セル
 
 /**

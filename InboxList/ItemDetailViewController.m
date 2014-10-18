@@ -103,7 +103,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   self.navigationItem.rightBarButtonItem = saveButton;
   
   // スクロールを停止
-  self.tableView.scrollEnabled = NO;
+//  self.tableView.scrollEnabled = NO;
   
   // ピッカーセルの高さを取得
   self.heightForPickerCell
