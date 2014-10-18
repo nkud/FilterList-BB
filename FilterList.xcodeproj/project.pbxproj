@@ -264,7 +264,7 @@
 				B0BDA8821996563C003AA40B /* CoreData */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
 				B0C93A1A194C4AB600733BE7 /* NavigationController */,
-				B0A0914E19CD322E005CDCF8 /* ListMode */,
+				B0A0914E19CD322E005CDCF8 /* ListModeViewController */,
 				B0AD8C7619D12BDC0069B29D /* Utility */,
 				B05FA8201982AE8900E25FAF /* TabBar */,
 				B03F2BD2194D75F40037AE2C /* Resource */,
@@ -463,7 +463,7 @@
 			name = AppDelegate;
 			sourceTree = "<group>";
 		};
-		B0A0914E19CD322E005CDCF8 /* ListMode */ = {
+		B0A0914E19CD322E005CDCF8 /* ListModeViewController */ = {
 			isa = PBXGroup;
 			children = (
 				B0E7571419499EAA004C6344 /* ItemMode */,
@@ -473,7 +473,7 @@
 				B0BE423819E2E62C0033F169 /* ListViewController.h */,
 				B0BE423919E2E62C0033F169 /* ListViewController.m */,
 			);
-			name = ListMode;
+			name = ListModeViewController;
 			sourceTree = "<group>";
 		};
 		B0AD8C7019D12AFA0069B29D /* CompleteMode */ = {

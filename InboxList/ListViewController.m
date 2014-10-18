@@ -8,6 +8,10 @@
 
 static NSString *kEditBarItemImageName = @"EditBarItem.png";
 
+// ナビゲーションバータイトル文字サイズ
+#define kTitleFontSize 18
+#define kSubTitleFontSize 15
+
 #pragma mark -
 
 #import "ListViewController.h"
@@ -92,41 +96,6 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-/**
- * @brief  タイトルを設定
- *
- * @param title     メインタイトル
- * @param miniTitle サブタイトル
- */
--(void)configureTitleWithString:(NSString *)title
-                       subTitle:(NSString *)subTitle
-{
-  LOG(@"ナビゲーションバーのタイトル・サブタイトルを設定");
-  // タイトルビューを再設定
-  self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-  self.titleView.backgroundColor = [UIColor clearColor];
-  self.titleView.opaque = NO;
-  self.navigationItem.titleView = self.titleView;
-  
-  // メインタイトルを作成・設定
-  self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 195, 20)];
-  self.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-  self.titleLabel.text = title;
-  self.titleLabel.textColor = [UIColor blackColor];
-  self.titleLabel.textAlignment = NSTextAlignmentCenter;
-  self.titleLabel.backgroundColor = [UIColor clearColor];
-  [self.titleView addSubview:self.titleLabel];
-  
-  // サブタイトルを作成・設定
-  self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
-  self.subTitleLabel.font = [UIFont boldSystemFontOfSize:10.0f];
-  self.subTitleLabel.textColor = [UIColor blackColor];
-  self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
-  self.subTitleLabel.backgroundColor = [UIColor clearColor];
-  self.subTitleLabel.adjustsFontSizeToFitWidth = YES;
-  self.subTitleLabel.text = subTitle;
-  [self.titleView addSubview:self.subTitleLabel];
-}
 
 #pragma mark - ユーティリティ -
 #pragma mark ナビゲーションバー
@@ -163,6 +132,43 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 -(void)didTappedInsertObjectButton
 {
   LOG(@"挿入ボタン");
+}
+
+
+/**
+ * @brief  タイトルを設定
+ *
+ * @param title     メインタイトル
+ * @param miniTitle サブタイトル
+ */
+-(void)configureTitleWithString:(NSString *)title
+                       subTitle:(NSString *)subTitle
+{
+  LOG(@"ナビゲーションバーのタイトル・サブタイトルを設定");
+  // タイトルビューを再設定
+  self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+  self.titleView.backgroundColor = [UIColor clearColor];
+  self.titleView.opaque = NO;
+  self.navigationItem.titleView = self.titleView;
+  
+  // メインタイトルを作成・設定
+  self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 195, 20)];
+  self.titleLabel.font = [UIFont boldSystemFontOfSize:kTitleFontSize];
+  self.titleLabel.text = title;
+  self.titleLabel.textColor = [UIColor blackColor];
+  self.titleLabel.textAlignment = NSTextAlignmentCenter;
+  self.titleLabel.backgroundColor = [UIColor clearColor];
+  [self.titleView addSubview:self.titleLabel];
+  
+  // サブタイトルを作成・設定
+  self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
+  self.subTitleLabel.font = [UIFont boldSystemFontOfSize:kSubTitleFontSize];
+  self.subTitleLabel.textColor = [UIColor blackColor];
+  self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
+  self.subTitleLabel.backgroundColor = [UIColor clearColor];
+  self.subTitleLabel.adjustsFontSizeToFitWidth = YES;
+  self.subTitleLabel.text = subTitle;
+  [self.titleView addSubview:self.subTitleLabel];
 }
 
 #pragma mark アクセサリー

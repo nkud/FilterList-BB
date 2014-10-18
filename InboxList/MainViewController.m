@@ -74,7 +74,7 @@
                                                                  bundle:nil];
 
   self.itemViewController.fetchedResultsController = [CoreDataController itemFethcedResultsController:self.itemViewController];
-  [self.itemViewController configureTitleWithString:@"ITEMS"
+  [self.itemViewController configureTitleWithString:@"ITEM"
                                            subTitle:@"All Items"];
   
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
