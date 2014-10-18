@@ -322,10 +322,9 @@
 		B03F2BD2194D75F40037AE2C /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				B0264E2C19EE51620066C44E /* checked.png */,
-				B0D7BFAB19F245A6006EDCAB /* EditBarItem.png */,
+				B0D7BFB419F257A4006EDCAB /* CellCheckBox */,
+				B0D7BFB519F257B1006EDCAB /* NavigationBarItem */,
 				B0D7BFB319F256DF006EDCAB /* TabBarItem */,
-				B0264E2D19EE51620066C44E /* unchecked.png */,
 				B0531997199FC92C00F63783 /* filtertab.png */,
 				B0531998199FC92C00F63783 /* itemtab.png */,
 				B0531999199FC92C00F63783 /* tagtab.png */,
@@ -548,6 +547,23 @@
 				B0D7BFAD19F24C79006EDCAB /* FilterTabBarItem.png */,
 			);
 			name = TabBarItem;
+			sourceTree = "<group>";
+		};
+		B0D7BFB419F257A4006EDCAB /* CellCheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				B0264E2C19EE51620066C44E /* checked.png */,
+				B0264E2D19EE51620066C44E /* unchecked.png */,
+			);
+			name = CellCheckBox;
+			sourceTree = "<group>";
+		};
+		B0D7BFB519F257B1006EDCAB /* NavigationBarItem */ = {
+			isa = PBXGroup;
+			children = (
+				B0D7BFAB19F245A6006EDCAB /* EditBarItem.png */,
+			);
+			name = NavigationBarItem;
 			sourceTree = "<group>";
 		};
 		B0E5330119E3C0B3005A53B1 /* ItemListNav */ = {

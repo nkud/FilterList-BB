@@ -8,6 +8,7 @@
 
 #import "TabBar.h"
 #import "Header.h"
+#import "Configure.h"
 
 static NSString *kItemTabBarItemImageName = @"ItemTabBarItem.png";
 static NSString *kTagTabBarItemImageName = @"TagTabBarItem.png";
@@ -35,7 +36,6 @@ static NSString *kFilterTabBarItemImageName = @"FilterTabBarItem.png";
   self.completedModeTab = [[UITabBarItem alloc] initWithTitle:@"COMP"
                                                         image:[UIImage imageNamed:@"completedtab.png"]
                                                           tag:3];
-  
   self.items = [NSArray arrayWithObjects:self.itemModeTab, self.tagModeTab, self.filterModeTab, self.completedModeTab, nil];
   self.selectedItem = self.itemModeTab;
 }
@@ -43,9 +43,9 @@ static NSString *kFilterTabBarItemImageName = @"FilterTabBarItem.png";
 /**
  *  初期化
  *
- *  @param frame <#frame description#>
+ *  @param frame フレーム
  *
- *  @return <#return value description#>
+ *  @return インスタンス
  */
 - (id)initWithFrame:(CGRect)frame
 {
@@ -55,8 +55,9 @@ static NSString *kFilterTabBarItemImageName = @"FilterTabBarItem.png";
     {
       [self createTabs];
       self.barStyle = UIBarStyleDefault;
-      self.tintColor = [UIColor blueColor];
+      self.tintColor = TAG_COLOR;
       self.translucent = NO;
+//      self.barTintColor = [UIColor blackColor];
     }
     return self;
 }
