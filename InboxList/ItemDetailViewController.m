@@ -391,6 +391,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
     return 44;
   }
 }
+
+#pragma mark デリゲート
 /**
  * @brief  タグが選択された時の処理
  *
@@ -417,6 +419,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     // ピッカーの表示・非表示
     [self toggleDatePickerCell];
   }
+  [tableView deselectRowAtIndexPath:indexPath
+                           animated:YES];
 }
 
 /**
