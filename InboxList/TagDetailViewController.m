@@ -94,7 +94,21 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 - (void)saveAndDismiss
 {
   LOG(@"タグを保存");
+  
+  self.tagTitle = [self tagTitleCell].titleField.text;
+  
+  [self.delegate dismissDetailView:self.tagTitle
+                         indexPath:self.tagIndexPath
+                          isNewTag:self.isNewTag];
   [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (TagTitleCell *)tagTitleCell
+{
+  TagTitleCell *cell
+  = (TagTitleCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0
+                                                                              inSection:0]];
+  return cell;
 }
 
 #pragma mark - ユーティリティ -
@@ -138,7 +152,9 @@ numberOfRowsInSection:(NSInteger)section
   if ([self isTitleCellAtIndexPath:indexPath])
   {
     TagTitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTitleCellID];
-    cell.titleField.text = @"fdsa";
+    if (self.tagTitle) {
+      cell.titleField.text = self.tagTitle;
+    }
     return cell;
   } else {
     UITableViewCell *cell;

@@ -94,19 +94,23 @@
  */
 -(void)toAdd:(id)sender
 {
-  // 新規入力画面をプッシュ
-  NSString *inputTagNibName = @"InputTagViewController";
-  
-  // タグ入力画面
-  InputTagViewController *inputTagViewController =
-  [[InputTagViewController alloc] initWithNibName:inputTagNibName
-                                           bundle:nil];
-  
+//  // 新規入力画面をプッシュ
+//  NSString *inputTagNibName = @"InputTagViewController";
+//  
+//  // タグ入力画面
+//  InputTagViewController *inputTagViewController =
+//  [[InputTagViewController alloc] initWithNibName:inputTagNibName
+//                                           bundle:nil];
+//  
   // デリゲートを設定する
-  inputTagViewController.delegate = self;
+//  inputTagViewController.delegate = self;
+  
+  TagDetailViewController *controller = [[TagDetailViewController alloc] initWithTitle:nil
+                                                                             indexPath:nil
+                                                                              delegate:self];
   
   // プッシュする
-  [self.navigationController pushViewController:inputTagViewController
+  [self.navigationController pushViewController:controller
                                        animated:YES];
 }
 #pragma mark - ユーティリティ
@@ -325,8 +329,13 @@ numberOfRowsInSection:(NSInteger)section
 accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"アクセサリーをタップ");
-  TagDetailViewController *controller = [[TagDetailViewController alloc] initWithNibName:nil
-                                                                                  bundle:nil];
+  NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPath];
+  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+  TagDetailViewController *controller
+  = [[TagDetailViewController alloc] initWithTitle:tag.title
+                                         indexPath:indexPathInController
+                                          delegate:self];
+  
   [self.navigationController pushViewController:controller
                                        animated:YES];
 }
@@ -468,8 +477,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-//      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPath]
-//              atIndexPath:indexPath];                                // これであってる？？
+      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPath]
+                 atIndexPath:indexPath];                                // これであってる？？
 
       break;
 
@@ -509,6 +518,24 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  // Pass the selected object to the new view controller.
  }
  */
+
+-(void)dismissDetailView:(NSString *)title
+               indexPath:(NSIndexPath *)indexPath
+                isNewTag:(BOOL)isNewTag
+{
+  if ([title isEqualToString:@""]) {
+    return;
+  }
+  NSIndexPath *indexPathInController = indexPath;
+  Tag *tag;
+  if (isNewTag) {
+    tag = [CoreDataController newTagObject];
+  } else {
+    tag = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+  }
+  tag.title = title;
+  [CoreDataController saveContext];
+}
 
 #pragma mark - デリゲート
 
