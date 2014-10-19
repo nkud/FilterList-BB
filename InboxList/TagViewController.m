@@ -225,9 +225,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     case UITableViewCellEditingStyleDelete: // 削除
     {
       LOG(@"タグを削除");
-      //      [[CoreDataController managedObjectContext] deleteObject:self.tagArray_[indexPath.row]];
-      //      NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row
-      //                                              inSection:0];
       Tag *tag = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
       LOG(@"関連アイテム：%@", tag.items);
       LOG(@"アイテムを削除");
@@ -296,12 +293,14 @@ numberOfRowsInSection:(NSInteger)section
   Tag *tag;
   NSString *itemCountString;
   if ([self isCellForAllItemsAtIndexPath:indexPath])
-  { // 全アイテム表示用タグの設定
+  {
+    // 全アイテム表示用タグの設定
     cell.labelForTitle.text = @"all items";
     cell.labelForOverDueItemsSize.text = @"";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
   } else
-  { // 通常のタグの設定
+  {
+    // 通常のタグの設定
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.labelForTitle.text = tag.title;
@@ -309,7 +308,6 @@ numberOfRowsInSection:(NSInteger)section
     LOG(@"%ld", (long)overDueItemsSizeForTag);
     cell.labelForOverDueItemsSize.text = [NSString stringWithFormat:@"%lu", (unsigned long)overDueItemsSizeForTag];
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
-    
   }
   cell.labelForItemSize.text = itemCountString;
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
@@ -355,8 +353,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   [self configureTagCell:cell atIndexPath:indexForAllItems];
   [self.tableView reloadData];
 }
-
-
 
 #pragma mark - コンテンツの更新
 
@@ -440,6 +436,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
                        withRowAnimation:UITableViewRowAnimationLeft];
       
       // 他のタグのアイテム数も変更するように更新
+      // TODO: これだと一瞬で切り替わってしまう
       [self.tableView reloadData];
       //      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
       //      NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して

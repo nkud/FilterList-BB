@@ -32,6 +32,36 @@
   return self;
 }
 
+-(void)showItemSizeLabel:(BOOL)show
+{
+  CGFloat alpha;
+  if (show) {
+    alpha = 1.0f;
+  } else {
+    alpha = 0.0f;
+  }
+  self.labelForItemSize.alpha = alpha;
+  self.labelForDueToTodayItemsSize.alpha = alpha;
+  self.labelForOverDueItemsSize.alpha = alpha;
+}
+
+-(void)setEditing:(BOOL)editing
+         animated:(BOOL)animated
+{
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:0.3];
+  if (editing == YES) {
+    [self showItemSizeLabel:NO];
+    self.labelForItemSize.alpha = 0;
+  } else {
+    [self showItemSizeLabel:YES];
+  }
+  [UIView commitAnimations];
+  
+  [super setEditing:editing
+           animated:animated];
+}
+
 - (void)awakeFromNib
 {
   // Initialization code
