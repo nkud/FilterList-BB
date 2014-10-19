@@ -9,7 +9,10 @@
 #import "TagDetailViewController.h"
 #import "Header.h"
 
+#import "TagTitleCell.h"
+
 static NSString *kTitleCellID = @"TitleCellIdentifier";
+static NSString *kTitleCellNibName = @"TagTitleCell";
 
 #pragma mark -
 
@@ -46,6 +49,9 @@ static NSString *kTitleCellID = @"TitleCellIdentifier";
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   [self.view addSubview:self.tableView];
+  
+  [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName bundle:nil]
+       forCellReuseIdentifier:kTitleCellID];
 }
 
 #pragma mark - ユーティリティ -
@@ -86,12 +92,15 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [[UITableViewCell alloc] init];
   if ([self isTitleCellAtIndexPath:indexPath])
   {
-    cell.textLabel.text = dataArray_[indexPath.section][indexPath.row];
+    TagTitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTitleCellID];
+    cell.titleField.text = @"fdsa";
+    return cell;
+  } else {
+    UITableViewCell *cell;
+    return cell;
   }
-  return cell;
 }
 
 #pragma mark - その他 -
