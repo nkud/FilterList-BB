@@ -466,12 +466,12 @@
 		B0A0914E19CD322E005CDCF8 /* ListModeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B0BE423819E2E62C0033F169 /* ListViewController.h */,
+				B0BE423919E2E62C0033F169 /* ListViewController.m */,
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
 				B0AD8C7019D12AFA0069B29D /* CompleteMode */,
-				B0BE423819E2E62C0033F169 /* ListViewController.h */,
-				B0BE423919E2E62C0033F169 /* ListViewController.m */,
 			);
 			name = ListModeViewController;
 			sourceTree = "<group>";
@@ -519,9 +519,9 @@
 		B0BDA8821996563C003AA40B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				B03E6C1B18CAA383007703B8 /* ManagedObject */,
 				B0BDA87F19965639003AA40B /* CoreDataController.h */,
 				B0BDA88019965639003AA40B /* CoreDataController.m */,
+				B03E6C1B18CAA383007703B8 /* ManagedObject */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -639,12 +639,12 @@
 		B0E7571419499EAA004C6344 /* ItemMode */ = {
 			isa = PBXGroup;
 			children = (
+				B00AD6A418C45E470005A552 /* ItemViewController.h */,
+				B00AD6A518C45E470005A552 /* ItemViewController.m */,
 				B0E7571219499D98004C6344 /* ItemCell */,
 				B083521619CD59EF00071EE0 /* InputHeaderCell */,
 				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B0E7571319499E95004C6344 /* ItemDetailView */,
-				B00AD6A418C45E470005A552 /* ItemViewController.h */,
-				B00AD6A518C45E470005A552 /* ItemViewController.m */,
 			);
 			name = ItemMode;
 			sourceTree = "<group>";
