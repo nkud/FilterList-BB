@@ -17,6 +17,9 @@
 
 #define kPickerAnimationDuration 0.4
 
+static NSString *kDateCellPlaceHold = @"due date";
+static NSString *kTitleCellPlaceHold = @"tag";
+
 // セルID
 static NSString *kTitleCellID = @"titleCell";
 static NSString *kTagCellID = @"tagCell";
@@ -508,12 +511,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
             atIndexPath:(NSIndexPath *)atIndexPath
 {
   NSString *stringForTags;
+  UIColor *textColor;
   if (self.tagsForItem && [self.tagsForItem count] > 0) {
+    // タグが設定されている時
     stringForTags = [self createStringForSet:self.tagsForItem];
+    textColor = [UIColor blackColor];
   } else {
-    stringForTags = @"tags";
+    // タグが設定されていない時
+    stringForTags = kTitleCellPlaceHold;
+    textColor = [UIColor grayColor];
   }
   cell.textLabel.text = stringForTags;
+  cell.textLabel.textColor = textColor;
 }
 
 /**
@@ -531,14 +540,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   { // リマインダーが設定されている時
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-//    stringForDate = [NSDateFormatter localizedStringFromDate:self.reminderForItem
-//                                                   dateStyle:NSDateFormatterShortStyle
-//                                                   timeStyle:NSDateFormatterShortStyle];
     stringForDate = [formatter stringFromDate:self.reminderForItem];
     colorForText = [UIColor blackColor];
   } else
   { // リマインダーが設定されていない時
-    stringForDate = @"reminder";
+    stringForDate = kDateCellPlaceHold;
     colorForText = [UIColor grayColor];
   }
   // 文字を設定
