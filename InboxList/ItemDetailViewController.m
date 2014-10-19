@@ -28,7 +28,9 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 #pragma mark -
 
-@interface ItemDetailViewController ()
+@interface ItemDetailViewController () {
+  BOOL didAcitivateKeyboard_;
+}
 
 -(NSString *)createStringForSet:(NSSet *)set;
 
@@ -78,11 +80,22 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 }
 
 /**
+ * @brief  変数を初期化
+ */
+- (void)initParam
+{
+  didAcitivateKeyboard_ = NO;
+}
+
+/**
  * @brief  ビューがロードされた後の処理
  */
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  // 変数を初期化
+  [self initParam];
   
   // セル登録
   [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTitleCell"
@@ -113,10 +126,19 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   = CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID] frame]);
 }
 
+/**
+ * @brief  ビュー表示後の処理
+ *
+ * @param animated アニメーション
+ */
 -(void)viewDidAppear:(BOOL)animated
 {
+  if (didAcitivateKeyboard_) {
+    return;
+  }
   ItemDetailTitleCell *cell = [self getTitleCell];
   [cell.titleField becomeFirstResponder];
+  didAcitivateKeyboard_ = YES;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
