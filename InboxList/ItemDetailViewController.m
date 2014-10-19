@@ -135,6 +135,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
  */
 -(void)viewDidAppear:(BOOL)animated
 {
+  [super viewDidAppear:animated];
   if (didAcitivateKeyboard_ == NO) {
     ItemDetailTitleCell *cell = [self getTitleCell];
     [cell.titleField becomeFirstResponder];

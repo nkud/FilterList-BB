@@ -41,6 +41,11 @@
   [self.saveButton addTarget:self
                       action:@selector(save:)
             forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
   [self.titleField becomeFirstResponder];
 }
 /**
