@@ -24,6 +24,33 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 
 @implementation TagDetailViewController
 
+#pragma mark - 初期化 -
+
+-(instancetype)initWithTitle:(NSString *)title
+                   indexPath:(NSIndexPath *)indexPath
+                    delegate:(id<TagDetailViewControllerDelegte>)delegate
+{
+  self = [super initWithNibName:nil
+                         bundle:nil];
+  if (self) {
+    if (title) {
+      self.tagTitle = title;
+      self.tagIndexPath = indexPath;
+      self.isNewTag = NO;
+    } else {
+      self.tagTitle = nil;
+      self.tagIndexPath = nil;
+      self.isNewTag = YES;
+    }
+  }
+  self.delegate = delegate;
+  
+  return self;
+}
+
+/**
+ * @brief  変数初期化
+ */
 - (void)initParam {
   NSArray *itemOne = @[kTitleCellID];
   dataArray_ = @[itemOne];
@@ -52,6 +79,22 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
   
   [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName bundle:nil]
        forCellReuseIdentifier:kTitleCellID];
+  
+  // ナビバーアイテム
+  UIBarButtonItem *saveButton
+  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+                                                  target:self
+                                                  action:@selector(saveAndDismiss)];
+  self.navigationItem.rightBarButtonItem = saveButton;
+}
+
+/**
+ * @brief  保存して終了
+ */
+- (void)saveAndDismiss
+{
+  LOG(@"タグを保存");
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - ユーティリティ -
