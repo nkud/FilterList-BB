@@ -312,6 +312,7 @@ numberOfRowsInSection:(NSInteger)section
     
   }
   cell.labelForItemSize.text = itemCountString;
+  cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
 // TODO: tag で処理
