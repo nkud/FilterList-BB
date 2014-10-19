@@ -144,9 +144,13 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  LOG(@"リターン");
   [textField resignFirstResponder];
   return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+  [self closeDatePickerCell];
 }
 
 #pragma mark - 保存・終了処理
@@ -441,6 +445,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   } else if ([cell.reuseIdentifier isEqualToString:kTagCellID])
   {
     // タグ入力画面を表示
+    [self closeDatePickerCell];
     [self presentTagSelectView];
   } else if ([cell.reuseIdentifier isEqualToString:kDateCellID])
   {
