@@ -13,6 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 
-@property id<UITextFieldDelegate> delegate;
+//@property id<UITextFieldDelegate> delegate;
 
 @end

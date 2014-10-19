@@ -116,6 +116,13 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   [cell.titleField becomeFirstResponder];
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  LOG(@"リターン");
+  [textField resignFirstResponder];
+  return YES;
+}
+
 #pragma mark - 保存・終了処理
 
 /**
@@ -483,7 +490,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   {
     cell.titleField.text = self.titleForItem;
   }
-  cell.delegate = self;
+  cell.titleField.delegate = self;
 }
 
 /**
