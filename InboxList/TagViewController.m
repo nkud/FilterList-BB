@@ -13,6 +13,8 @@
 #import "CoreDataController.h"
 #import "InputTagViewController.h"
 
+#import "TagDetailViewController.h"
+
 #import "Configure.h"
 
 #define kHeightForTagCell 44
@@ -323,6 +325,10 @@ numberOfRowsInSection:(NSInteger)section
 accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
   LOG(@"アクセサリーをタップ");
+  TagDetailViewController *controller = [[TagDetailViewController alloc] initWithNibName:nil
+                                                                                  bundle:nil];
+  [self.navigationController pushViewController:controller
+                                       animated:YES];
 }
 
 // TODO: tag で処理

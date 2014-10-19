@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface TagDetailViewController : UIViewController
+<UITableViewDelegate, UITableViewDataSource>
+
+@property UITableView *tableView;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "TagDetailViewController.h"
+#import "Header.h"
 
 @interface TagDetailViewController ()
 
@@ -15,8 +16,31 @@
 @implementation TagDetailViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
+  // Do any additional setup after loading the view.
+  
+  // テーブルビュー初期化
+  CGRect frame = CGRectMake(0,
+                            0,
+                            SCREEN_BOUNDS.size.width,
+                            SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H);
+  self.tableView = [[UITableView alloc] initWithFrame:frame];
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
+  [self.view addSubview:self.tableView];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
+{
+  return 0;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell *cell = [[UITableViewCell alloc] init];
+  return cell;
 }
 
 - (void)didReceiveMemoryWarning {
