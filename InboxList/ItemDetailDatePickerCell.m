@@ -7,6 +7,7 @@
 //
 
 #import "ItemDetailDatePickerCell.h"
+#import "Header.h"
 
 @implementation ItemDetailDatePickerCell
 
@@ -37,7 +38,7 @@
   [dateFormatter setDateFormat:@"yyyy/MM/dd hh:mm"];
   NSString *dateString = [dateFormatter stringFromDate:datePicker.date];
 
-  NSLog(@"%s %@", __FUNCTION__, dateString);
+  LOG(@"%@", dateString);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

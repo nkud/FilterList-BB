@@ -386,21 +386,6 @@ numberOfRowsInSection:(NSInteger)section
 }
 
 /**
- * @brief  ピッカーが変更された時の処理
- *
- * @param date 日時
- */
--(void)didChangedDate:(NSDate *)date
-{
-  // 日時を設定
-  self.reminderForItem = date;
-  // セルに反映させる
-  ItemDetailDateCell *cell = [self dateCell];
-  [self configureDateCell:cell
-              atIndexPath:nil];
-}
-
-/**
  * @brief  ピッカーの高さを取得
  *
  * @param tableView テーブルビュー
@@ -448,20 +433,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
   LOG(@"%@", cell.reuseIdentifier);
-  // タグセルの処理
-  if ([cell.reuseIdentifier isEqualToString:kTitleCellID]) {
+
+  if ([cell.reuseIdentifier isEqualToString:kTitleCellID])
+  {
+    // タグセルの処理
     LOG(@"タイトルセルを選択");
   } else if ([cell.reuseIdentifier isEqualToString:kTagCellID])
   {
     // タグ入力画面を表示
     [self presentTagSelectView];
   } else if ([cell.reuseIdentifier isEqualToString:kDateCellID])
-  { // リマインダーセルの処理
+  {
+    // リマインダーセルの処理
+    
     // キーボードは閉じる
     ItemDetailTitleCell *tcell = [self getTitleCell];
     [tcell.titleField resignFirstResponder];
-    // ピッカーの表示・非表示
+    
     [self toggleDatePickerCell];
+    [self configureDateCell:(ItemDetailDateCell *)cell
+                atIndexPath:indexPath];
   }
   // 選択解除
   [tableView deselectRowAtIndexPath:indexPath
@@ -581,26 +572,43 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString *stringForDate;
   UIColor *colorForText;
-  if (self.reminderForItem)
-  {
-    // リマインダーが設定されている時
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    stringForDate = [formatter stringFromDate:self.reminderForItem];
-    colorForText = [UIColor blackColor];
-  } else
-  {
-    // リマインダーが設定されていない時
+  
+  if (self.reminderForItem == nil && [self hasInlineDatePicker] == NO) {
     stringForDate = kDateCellPlaceHold;
     colorForText = [UIColor grayColor];
+  } else {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    colorForText = [UIColor blackColor];
+    if (self.reminderForItem) {
+      stringForDate = [formatter stringFromDate:self.reminderForItem];
+    } else {
+      stringForDate = [formatter stringFromDate:[NSDate date]];
+      self.reminderForItem = [NSDate date];
+    }
   }
   cell.textLabel.text = stringForDate;
   cell.textLabel.textColor = colorForText;
 }
+#pragma mark - デリゲート -
+#pragma mark ピッカー
+/**
+ * @brief  ピッカーが変更された時の処理
+ *
+ * @param date 日時
+ */
+-(void)didChangedDate:(NSDate *)date
+{
+  // 日時を設定
+  self.reminderForItem = date;
+  // セルに反映させる
+  ItemDetailDateCell *cell = [self dateCell];
+  [self configureDateCell:cell
+              atIndexPath:nil];
+}
 
 
-
-#pragma mark - タグ選択画面デリゲート
+#pragma mark タグ選択画面
 
 /**
  * @brief  タグ選択画面を終了する
