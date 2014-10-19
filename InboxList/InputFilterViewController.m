@@ -95,7 +95,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   [self registerClassForCells];
   
   // テーブルの設定
-  self.tableView.allowsMultipleSelectionDuringEditing = YES;
+  self.tableView.allowsMultipleSelectionDuringEditing = YES; // ???
   self.tableView.scrollEnabled = NO;
 
   // ボタンを設定
