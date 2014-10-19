@@ -419,6 +419,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     // ピッカーの表示・非表示
     [self toggleDatePickerCell];
   }
+  // 選択解除
   [tableView deselectRowAtIndexPath:indexPath
                            animated:YES];
 }
