@@ -50,7 +50,9 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 
 -(void)viewDidAppear:(BOOL)animated
 {
-  [[self tagTitleCell].titleField becomeFirstResponder];
+  if (self.isNewTag) {
+    [[self tagTitleCell].titleField becomeFirstResponder];
+  }
 }
 
 /**
