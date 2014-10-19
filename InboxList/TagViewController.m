@@ -313,6 +313,18 @@ numberOfRowsInSection:(NSInteger)section
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
+/**
+ * @brief  アクセサリーをタップした時の処理
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ */
+-(void)tableView:(UITableView *)tableView
+accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+  LOG(@"アクセサリーをタップ");
+}
+
 // TODO: tag で処理
 - (NSSet *)overDueItemsForTag:(Tag *)tag
 {
@@ -370,10 +382,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 /**
  * @brief  セクションの変更処理
  *
- * @param controller   <#controller description#>
- * @param sectionInfo  <#sectionInfo description#>
- * @param sectionIndex <#sectionIndex description#>
- * @param type         <#type description#>
+ * @param controller   コントローラー
+ * @param sectionInfo  セクション情報
+ * @param sectionIndex セクション位置
+ * @param type         タイプ？？
  */
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
@@ -405,11 +417,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 /**
  * @brief  オブジェクトの変更処理
  *
- * @param controller   <#controller description#>
- * @param anObject     <#anObject description#>
- * @param indexPath    <#indexPath description#>
- * @param type         <#type description#>
- * @param newIndexPath <#newIndexPath description#>
+ * @param controller   コントローラー
+ * @param anObject     オブジェクト
+ * @param indexPath    位置
+ * @param type         タイプ？？
+ * @param newIndexPath 新しい位置
  */
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
