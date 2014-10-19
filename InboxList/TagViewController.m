@@ -64,7 +64,9 @@
 
   // 編集・追加ボタンを追加
   self.navigationItem.leftBarButtonItem = [self newEditTableButton];
+  self.navigationItem.leftBarButtonItem.tintColor = TAG_COLOR;
   self.navigationItem.rightBarButtonItem = [self newInsertObjectButton];
+  self.navigationItem.rightBarButtonItem.tintColor = TAG_COLOR;
 }
 
 -(void)didTappedEditTableButton
@@ -93,21 +95,9 @@
  */
 -(void)toAdd:(id)sender
 {
-//  // 新規入力画面をプッシュ
-//  NSString *inputTagNibName = @"InputTagViewController";
-//  
-//  // タグ入力画面
-//  InputTagViewController *inputTagViewController =
-//  [[InputTagViewController alloc] initWithNibName:inputTagNibName
-//                                           bundle:nil];
-//  
-  // デリゲートを設定する
-//  inputTagViewController.delegate = self;
-  
   TagDetailViewController *controller = [[TagDetailViewController alloc] initWithTitle:nil
                                                                              indexPath:nil
                                                                               delegate:self];
-  
   // プッシュする
   [self.navigationController pushViewController:controller
                                        animated:YES];
@@ -463,7 +453,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
       
       // 他のタグのアイテム数も変更するように更新
       // TODO: これだと一瞬で切り替わってしまう
-      [self.tableView reloadData];
+//      [self.tableView reloadData];
       //      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
       //      NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
       //      for (Tag *tag in tags) { // そのセットそれぞれに対して

@@ -71,7 +71,9 @@ static NSString *kFilterCellID = @"FilterCell";
        forCellReuseIdentifier:@"FilterCell"];
   // 編集ボタンを追加
   self.navigationItem.rightBarButtonItem = [self newInsertObjectButton];
+  self.navigationItem.rightBarButtonItem.tintColor = FILTER_COLOR;
   self.navigationItem.leftBarButtonItem = [self newEditTableButton];
+  self.navigationItem.leftBarButtonItem.tintColor = FILTER_COLOR;
 }
 
 /**

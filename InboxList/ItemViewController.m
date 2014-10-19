@@ -90,7 +90,9 @@
   
   // 編集・追加ボタン
   self.navigationItem.leftBarButtonItem = [self newEditTableButton];
+  self.navigationItem.leftBarButtonItem.tintColor = ITEM_COLOR;
   self.navigationItem.rightBarButtonItem = [self newInsertObjectButton];
+  self.navigationItem.rightBarButtonItem.tintColor = ITEM_COLOR;
 }
 
 -(void)didTappedEditTableButton
