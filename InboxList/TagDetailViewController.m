@@ -72,11 +72,7 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
   // Do any additional setup after loading the view.
   
   // テーブルビュー初期化
-  CGRect frame = CGRectMake(0,
-                            0,
-                            SCREEN_BOUNDS.size.width,
-                            SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H);
-  self.tableView = [[UITableView alloc] initWithFrame:frame
+  self.tableView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS
                                                 style:UITableViewStyleGrouped];
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
@@ -128,11 +124,6 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 
 #pragma mark - テーブルビュー -
 #pragma mark デリゲート
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-  return 20;
-}
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
