@@ -17,6 +17,8 @@
 
 #define kPickerAnimationDuration 0.4
 
+#define kHeaderLabelFontSize 13
+
 static NSString *kDateCellPlaceHold = @"due date";
 static NSString *kTitleCellPlaceHold = @"tag";
 
@@ -283,7 +285,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   }
 }
 
-#pragma mark - テーブルビュー
+#pragma mark - テーブルビュー -
 
 /**
  * @brief  セクション数を返す
@@ -417,6 +419,24 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+/**
+ * @brief  ヘッダービュー表示前処理
+ *
+ * @param tableView テーブルビュー
+ * @param view      ヘッダー
+ * @param section   セクション
+ */
+- (void)tableView:(UITableView *)tableView
+willDisplayHeaderView:(UIView *)view
+       forSection:(NSInteger)section {
+  UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+  
+  header.textLabel.textColor = [UIColor grayColor];
+  header.textLabel.font = [UIFont systemFontOfSize:kHeaderLabelFontSize];
+  CGRect headerFrame = header.frame;
+  header.textLabel.frame = headerFrame;
+}
+
 #pragma mark デリゲート
 /**
  * @brief  タグが選択された時の処理
@@ -425,7 +445,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  * @param indexPath 位置
  */
 -(void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+didSelectRmowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
   LOG(@"%@", cell.reuseIdentifier);
@@ -448,6 +468,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [tableView deselectRowAtIndexPath:indexPath
                            animated:YES];
 }
+
+#pragma mark データソース
 
 /**
  * @brief  タグ入力画面を表示
@@ -534,11 +556,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString *stringForTags;
   UIColor *textColor;
-  if (self.tagsForItem && [self.tagsForItem count] > 0) {
+  if (self.tagsForItem && [self.tagsForItem count] > 0)
+  {
     // タグが設定されている時
     stringForTags = [self createStringForSet:self.tagsForItem];
     textColor = [UIColor blackColor];
-  } else {
+  } else
+  {
     // タグが設定されていない時
     stringForTags = kTitleCellPlaceHold;
     textColor = [UIColor grayColor];
@@ -559,19 +583,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   NSString *stringForDate;
   UIColor *colorForText;
   if (self.reminderForItem)
-  { // リマインダーが設定されている時
+  {
+    // リマインダーが設定されている時
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     stringForDate = [formatter stringFromDate:self.reminderForItem];
     colorForText = [UIColor blackColor];
   } else
-  { // リマインダーが設定されていない時
+  {
+    // リマインダーが設定されていない時
     stringForDate = kDateCellPlaceHold;
     colorForText = [UIColor grayColor];
   }
-  // 文字を設定
   cell.textLabel.text = stringForDate;
-  // 文字色を設定
   cell.textLabel.textColor = colorForText;
 }
 
