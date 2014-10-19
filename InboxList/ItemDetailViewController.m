@@ -135,12 +135,11 @@ static NSString *kDatePickerCellID = @"datePickerCell";
  */
 -(void)viewDidAppear:(BOOL)animated
 {
-  if (didAcitivateKeyboard_) {
-    return;
+  if (didAcitivateKeyboard_ == NO) {
+    ItemDetailTitleCell *cell = [self getTitleCell];
+    [cell.titleField becomeFirstResponder];
+    didAcitivateKeyboard_ = YES;
   }
-  ItemDetailTitleCell *cell = [self getTitleCell];
-  [cell.titleField becomeFirstResponder];
-  didAcitivateKeyboard_ = YES;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -445,7 +444,7 @@ willDisplayHeaderView:(UIView *)view
  * @param indexPath 位置
  */
 -(void)tableView:(UITableView *)tableView
-didSelectRmowAtIndexPath:(NSIndexPath *)indexPath
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
   LOG(@"%@", cell.reuseIdentifier);
