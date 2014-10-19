@@ -129,6 +129,19 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 #pragma mark - テーブルビュー -
 #pragma mark デリゲート
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  return 20;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+  if (section == 0) {
+    return @"TITLE";
+  }
+  return @"";
+}
+
 #pragma mark データソース
 
 
