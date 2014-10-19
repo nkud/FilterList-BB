@@ -48,6 +48,11 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
   return self;
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+  [[self tagTitleCell].titleField becomeFirstResponder];
+}
+
 /**
  * @brief  変数初期化
  */
@@ -155,11 +160,19 @@ numberOfRowsInSection:(NSInteger)section
     if (self.tagTitle) {
       cell.titleField.text = self.tagTitle;
     }
+    cell.titleField.delegate = self;
     return cell;
   } else {
     UITableViewCell *cell;
     return cell;
   }
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  [textField resignFirstResponder];
+  [self saveAndDismiss];
+  return YES;
 }
 
 #pragma mark - その他 -

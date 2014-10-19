@@ -17,7 +17,8 @@
 @end
 
 @interface TagDetailViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource>
+<UITableViewDelegate, UITableViewDataSource,
+UITextFieldDelegate>
 
 @property UITableView *tableView;
 
