@@ -291,7 +291,7 @@ numberOfRowsInSection:(NSInteger)section
   {
     // 全アイテム表示用タグの設定
     cell.labelForTitle.text = @"all items";
-    cell.labelForOverDueItemsSize.text = @"";
+//    cell.labelForOverDueItemsSize.text = @"";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
   } else
   {
