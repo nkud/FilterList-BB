@@ -81,9 +81,13 @@
 #pragma mark - 遷移
 -(void)viewWillAppear:(BOOL)animated
 {
+  [super viewDidAppear:animated];
+  
   NSIndexPath *indexForAllItems = [NSIndexPath indexPathForRow:0 inSection:0];
   TagCell *cell = (TagCell *)[self.tableView cellForRowAtIndexPath:indexForAllItems];
   [self configureTagCell:cell atIndexPath:indexForAllItems];
+  
+  [self.delegateForList openTabBar];
 }
 
 #pragma mark - 新規入力
@@ -101,6 +105,7 @@
   // プッシュする
   [self.navigationController pushViewController:controller
                                        animated:YES];
+  [self.delegateForList closeTabBar];
 }
 #pragma mark - ユーティリティ
 
@@ -327,6 +332,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
   
   [self.navigationController pushViewController:controller
                                        animated:YES];
+  [self.delegateForList closeTabBar];
 }
 
 // TODO: tag で処理
