@@ -11,7 +11,6 @@
 #import "TagCell.h"
 #import "Tag.h"
 #import "CoreDataController.h"
-#import "InputTagViewController.h"
 
 #import "TagDetailViewController.h"
 

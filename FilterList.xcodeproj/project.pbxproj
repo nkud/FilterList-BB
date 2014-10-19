@@ -33,8 +33,6 @@
 		B053199A199FC92C00F63783 /* filtertab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531997199FC92C00F63783 /* filtertab.png */; };
 		B053199B199FC92C00F63783 /* itemtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531998199FC92C00F63783 /* itemtab.png */; };
 		B053199C199FC92C00F63783 /* tagtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531999199FC92C00F63783 /* tagtab.png */; };
-		B05319A0199FD46F00F63783 /* InputTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B053199E199FD46F00F63783 /* InputTagViewController.m */; };
-		B05319A1199FD46F00F63783 /* InputTagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B053199F199FD46F00F63783 /* InputTagViewController.xib */; };
 		B056F7CA198D394800768E8E /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B056F7C9198D394800768E8E /* TagCell.xib */; };
 		B05FA8231982B20C00E25FAF /* TabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B05FA8221982B20C00E25FAF /* TabBar.m */; };
 		B06894E7198D544F000A4DCB /* ItemDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06894E6198D544F000A4DCB /* ItemDetailViewController.xib */; };
@@ -125,9 +123,6 @@
 		B0531997199FC92C00F63783 /* filtertab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filtertab.png; sourceTree = "<group>"; };
 		B0531998199FC92C00F63783 /* itemtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemtab.png; sourceTree = "<group>"; };
 		B0531999199FC92C00F63783 /* tagtab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tagtab.png; sourceTree = "<group>"; };
-		B053199D199FD46F00F63783 /* InputTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTagViewController.h; sourceTree = "<group>"; };
-		B053199E199FD46F00F63783 /* InputTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTagViewController.m; sourceTree = "<group>"; };
-		B053199F199FD46F00F63783 /* InputTagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputTagViewController.xib; sourceTree = "<group>"; };
 		B053C91B19557C1600C51AA1 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		B056F7C9198D394800768E8E /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		B05FA8211982B20200E25FAF /* TabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBar.h; path = InboxList/TabBar.h; sourceTree = "<group>"; };
@@ -360,16 +355,6 @@
 			name = InputFilterView;
 			sourceTree = "<group>";
 		};
-		B05319A2199FD47700F63783 /* InputTagViewController */ = {
-			isa = PBXGroup;
-			children = (
-				B053199D199FD46F00F63783 /* InputTagViewController.h */,
-				B053199E199FD46F00F63783 /* InputTagViewController.m */,
-				B053199F199FD46F00F63783 /* InputTagViewController.xib */,
-			);
-			name = InputTagViewController;
-			sourceTree = "<group>";
-		};
 		B05FA8201982AE8900E25FAF /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,7 +443,6 @@
 				B0808048195825A3007D21E4 /* TagViewController.m */,
 				B0D7BFB919F39E7D006EDCAB /* TagDetailView */,
 				B06D719B198D3BE1001A9F91 /* TagCell */,
-				B05319A2199FD47700F63783 /* InputTagViewController */,
 			);
 			name = TagMode;
 			sourceTree = "<group>";
@@ -767,7 +751,6 @@
 				B053199C199FC92C00F63783 /* tagtab.png in Resources */,
 				B08CDBBD19C55BAF008263AC /* ItemDetailDateCell.xib in Resources */,
 				B06D719D198D43A8001A9F91 /* ItemCell.xib in Resources */,
-				B05319A1199FD46F00F63783 /* InputTagViewController.xib in Resources */,
 				B0BC6A8D19A9CDC700E53AEF /* TagSelectViewController.xib in Resources */,
 				B0D7BFAE19F24C79006EDCAB /* FilterTabBarItem.png in Resources */,
 				B053199B199FC92C00F63783 /* itemtab.png in Resources */,
@@ -824,7 +807,6 @@
 				B0AD8C7919D12C070069B29D /* TagLabel.m in Sources */,
 				B0808049195825A3007D21E4 /* TagViewController.m in Sources */,
 				B08CDBB019C553CC008263AC /* ItemDetailTitleCell.m in Sources */,
-				B05319A0199FD46F00F63783 /* InputTagViewController.m in Sources */,
 				B0E5330819E3EC85005A53B1 /* CompleteCell.m in Sources */,
 				B00AD69D18C45E470005A552 /* AppDelegate.m in Sources */,
 				B080804C19582CF6007D21E4 /* MainViewController.m in Sources */,
