@@ -69,6 +69,7 @@
 		B0D7BFAE19F24C79006EDCAB /* FilterTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = B0D7BFAD19F24C79006EDCAB /* FilterTabBarItem.png */; };
 		B0D7BFB019F256CD006EDCAB /* ItemTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = B0D7BFAF19F256CD006EDCAB /* ItemTabBarItem.png */; };
 		B0D7BFB219F256DA006EDCAB /* TagTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = B0D7BFB119F256DA006EDCAB /* TagTabBarItem.png */; };
+		B0D7BFB819F39E79006EDCAB /* TagDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D7BFB719F39E79006EDCAB /* TagDetailViewController.m */; };
 		B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* ItemCell.m */; };
 		B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4690D19A84B99008B3150 /* TagNavigationController.m */; };
 		B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4691319A84BC3008B3150 /* FilterNavigationController.m */; };
@@ -182,6 +183,8 @@
 		B0D7BFAD19F24C79006EDCAB /* FilterTabBarItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FilterTabBarItem.png; path = Icon/FilterTabBarItem.png; sourceTree = SOURCE_ROOT; };
 		B0D7BFAF19F256CD006EDCAB /* ItemTabBarItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ItemTabBarItem.png; path = Icon/ItemTabBarItem.png; sourceTree = SOURCE_ROOT; };
 		B0D7BFB119F256DA006EDCAB /* TagTabBarItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TagTabBarItem.png; path = Icon/TagTabBarItem.png; sourceTree = SOURCE_ROOT; };
+		B0D7BFB619F39E79006EDCAB /* TagDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDetailViewController.h; sourceTree = "<group>"; };
+		B0D7BFB719F39E79006EDCAB /* TagDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagDetailViewController.m; sourceTree = "<group>"; };
 		B0DABFAB1914CC50007597E3 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
 		B0E4690C19A84B99008B3150 /* TagNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagNavigationController.h; sourceTree = "<group>"; };
@@ -448,6 +451,7 @@
 			children = (
 				B0808047195825A3007D21E4 /* TagViewController.h */,
 				B0808048195825A3007D21E4 /* TagViewController.m */,
+				B0D7BFB919F39E7D006EDCAB /* TagDetailView */,
 				B06D719B198D3BE1001A9F91 /* TagCell */,
 				B05319A2199FD47700F63783 /* InputTagViewController */,
 			);
@@ -564,6 +568,15 @@
 				B0D7BFAB19F245A6006EDCAB /* EditBarItem.png */,
 			);
 			name = NavigationBarItem;
+			sourceTree = "<group>";
+		};
+		B0D7BFB919F39E7D006EDCAB /* TagDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				B0D7BFB619F39E79006EDCAB /* TagDetailViewController.h */,
+				B0D7BFB719F39E79006EDCAB /* TagDetailViewController.m */,
+			);
+			name = TagDetailView;
 			sourceTree = "<group>";
 		};
 		B0E5330119E3C0B3005A53B1 /* ItemListNav */ = {
@@ -781,6 +794,7 @@
 				B0BC6A8C19A9CDC700E53AEF /* TagSelectViewController.m in Sources */,
 				B0BDA88119965639003AA40B /* CoreDataController.m in Sources */,
 				B0BC6A9219A9FA9800E53AEF /* TagSelectCell.m in Sources */,
+				B0D7BFB819F39E79006EDCAB /* TagDetailViewController.m in Sources */,
 				B0C95D6D19D5667800F32F6C /* Filter.m in Sources */,
 				B0E532FD19E38C49005A53B1 /* CompleteViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
