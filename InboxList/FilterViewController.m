@@ -94,6 +94,17 @@ static NSString *kFilterCellID = @"FilterCell";
   [self presentInputFilterView];
 }
 
+-(void)didTappedEditTableButton
+{
+  if (self.tableView.isEditing) {
+    [self.tableView setEditing:false
+                      animated:YES];
+  } else {
+    [self.tableView setEditing:true
+                      animated:YES];
+  }
+}
+
 /**
  *  @brief フィルター入力画面を表示する
  */
@@ -211,6 +222,13 @@ numberOfRowsInSection:(NSInteger)section
   
   // アクセサリー
   cell.accessoryView = [self newDisclosureIndicatorAccessory];
+  cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+}
+
+-(void)tableView:(UITableView *)tableView
+accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+  LOG(@"アクセサリーをタップ");
 }
 
 
