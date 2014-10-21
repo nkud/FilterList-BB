@@ -16,6 +16,7 @@
 
 - (void)dismissInputFilterView:(NSString *)filterTitle
                tagsForSelected:(NSSet *)tagsForSelected
+                     indexPath:(NSIndexPath *)indexPath
                    isNewFilter:(BOOL)isNewFilter;
 
 @end
@@ -32,11 +33,14 @@
 
 @property NSString *titleForFilter;
 @property NSSet *tagsForFilter;
+@property NSIndexPath *indexPathForFilter;
 
 @property BOOL isNewFilter;
 
 - (instancetype)initWithFilterTitle:(NSString *)title
                                tags:(NSSet *)tags
-                        isNewFilter:(BOOL)isNewFilter;
+                        isNewFilter:(BOOL)isNewFilter
+                          indexPath:(NSIndexPath *)indexPath
+                           delegate:(id<FilterDetailViewControllerDelegate>)delegate;
 
 @end

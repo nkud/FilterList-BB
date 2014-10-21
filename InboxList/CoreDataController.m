@@ -465,6 +465,13 @@ enum __SECTION__ {
   [self saveContext];
 }
 
++(Filter *)newFilterObject
+{
+  Filter* filter = [NSEntityDescription insertNewObjectForEntityForName:@"Filter"
+                                                 inManagedObjectContext:[self app].managedObjectContext];
+  return filter;
+}
+
 #pragma mark - 完了リスト
 
 +(NSFetchedResultsController *)completeFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller

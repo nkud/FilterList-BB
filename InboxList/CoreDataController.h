@@ -42,6 +42,7 @@
 +(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(void)insertNewFilter:(NSString *)filterTitle
          tagsForFilter:(NSSet *)tagsForFilter;
++(Filter *)newFilterObject;
 
 #pragma mark - 完了リスト用
 +(NSFetchedResultsController *)completeFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;

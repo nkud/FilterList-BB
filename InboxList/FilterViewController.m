@@ -116,9 +116,13 @@ static NSString *kFilterCellID = @"FilterCell";
   LOG(@"フィルター入力画面を作成・表示");
   // 初期化
   FilterDetailViewController *controller
-  = [[FilterDetailViewController alloc] initWithNibName:nil
-                                                 bundle:nil];
-  controller.delegate = self;
+  = [[FilterDetailViewController alloc] initWithFilterTitle:nil
+                                                       tags:nil
+                                                isNewFilter:YES
+                                                  indexPath:nil
+                                                   delegate:self];
+  
+  // プッシュ
   [self.navigationController pushViewController:controller
                                        animated:YES];
 }
@@ -195,6 +199,14 @@ numberOfRowsInSection:(NSInteger)section
   return [[self.fetchedResultsController sections] count];
 }
 
+/**
+ * @brief  セルを作成
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return セル
+ */
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -226,16 +238,27 @@ numberOfRowsInSection:(NSInteger)section
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
+/**
+ * @brief  アクセサリーをタップした時の処理
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ */
 -(void)tableView:(UITableView *)tableView
 accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
+  LOG(@"アクセサリーをタップ");
+  
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
   
-  LOG(@"アクセサリーをタップ");
   FilterDetailViewController *controller
   = [[FilterDetailViewController alloc] initWithFilterTitle:filter.title
                                                        tags:filter.tags
-                                                isNewFilter:NO];
+                                                isNewFilter:NO
+                                                  indexPath:indexPath
+                                                   delegate:self];
+  
+  // プッシュ
   [self.navigationController pushViewController:controller
                                        animated:YES];
 }
@@ -246,12 +269,13 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 -(NSString *)createStringForSet:(NSSet *)set
 {
   NSMutableString *string = [[NSMutableString alloc] init];
+  
   for( Tag *tag in set )
   { //< すべてのタグに対して
     [string appendString:tag.title]; //< フィールドに足していく
     [string appendString:@" "];
   }
-  LOG(@"%@", string);
+  
   return string;
 }
 
@@ -330,7 +354,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
       [self configureFilterCell:(FilterCell *)[tableView cellForRowAtIndexPath:indexPath]
-              atIndexPath:indexPath];                                // これであってる？？
+                    atIndexPath:indexPath];                                // これであってる？？
 
       break;
 
@@ -342,6 +366,27 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
                        withRowAnimation:UITableViewRowAnimationFade];
       break;
   }
+}
+
+#pragma mark - その他 -
+#pragma mark 詳細ビューデリゲート
+-(void)dismissInputFilterView:(NSString *)filterTitle
+              tagsForSelected:(NSSet *)tagsForSelected
+                    indexPath:(NSIndexPath *)indexPath
+                  isNewFilter:(BOOL)isNewFilter
+{
+  if ([filterTitle isEqualToString:@""]) {
+    return;
+  }
+  NSIndexPath *indexPathInController = indexPath;
+  Filter *filter;
+  if (isNewFilter) {
+    filter = [CoreDataController newFilterObject];
+  } else {
+    filter = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+  }
+  filter.title = filterTitle;
+  [CoreDataController saveContext];
 }
 
 /*
