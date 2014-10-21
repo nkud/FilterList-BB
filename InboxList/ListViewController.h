@@ -43,4 +43,6 @@
 -(void)didTappedEditTableButton;
 -(void)didTappedInsertObjectButton;
 
+-(void)aleartMessage:(NSString *)message;
+
 @end

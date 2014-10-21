@@ -171,6 +171,42 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   [self.titleView addSubview:self.subTitleLabel];
 }
 
+/**
+ * @brief  メッセージを表示する
+ *
+ * @param message メッセージ
+ */
+-(void)aleartMessage:(NSString *)message
+{
+  UILabel *label = self.subTitleLabel;
+  NSString *originString = label.text;
+  [UIView animateWithDuration:0.2
+                   animations:^{
+                     label.alpha = 0;
+                   } completion:^(BOOL finished) {
+                     [UIView animateWithDuration:0.2
+                                      animations:^{
+                                        label.text = message;
+                                        label.alpha = 1;
+                                      } completion:^(BOOL finished) {
+                                        [UIView animateWithDuration:0.2
+                                                              delay:1
+                                                            options:UIViewAnimationOptionCurveLinear
+                                                         animations:^{
+                                                           label.alpha = 0;
+                                                         } completion:^(BOOL finished) {
+                                                           [UIView animateWithDuration:0.2
+                                                                            animations:^{
+                                                                              label.text = originString;
+                                                                              label.alpha = 1;
+                                                                            } completion:^(BOOL finished) {
+                                                                              ;
+                                                                            }];
+                                                         }];
+                                      }];
+                   }];
+}
+
 #pragma mark アクセサリー
 -(UIButton *)newDisclosureIndicatorAccessory
 {
