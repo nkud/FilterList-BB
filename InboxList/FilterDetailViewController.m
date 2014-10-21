@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
-#import "InputFilterViewController.h"
+#import "FilterDetailViewController.h"
 #import "FilterCell.h"
 #import "CoreDataController.h"
 
@@ -28,14 +28,14 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 
 #pragma mark -
 
-@interface InputFilterViewController ()
+@interface FilterDetailViewController ()
 {
   NSArray *dataArray_;
 }
 
 @end
 
-@implementation InputFilterViewController
+@implementation FilterDetailViewController
 
 #pragma mark - 初期化
 

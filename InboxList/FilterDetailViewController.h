@@ -12,7 +12,7 @@
 /**
  * @brief  フィルター入力画面プロトコル
  */
-@protocol InputFilterViewControllerDelegate <NSObject>
+@protocol FilterDetailViewControllerDelegate <NSObject>
 
 - (void)dismissInputFilterView:(NSString *)filterTitle
                tagsForSelected:(NSSet *)tagsForSelected;
@@ -22,12 +22,12 @@
 /**
  * @brief  フィルター入力画面
  */
-@interface InputFilterViewController : UIViewController
+@interface FilterDetailViewController : UIViewController
 <UITableViewDelegate, UITableViewDataSource, TagSelectViewControllerDelegate>
 
 @property UITableView *tableView;
 
-@property id<InputFilterViewControllerDelegate> delegate;
+@property id<FilterDetailViewControllerDelegate> delegate;
 
 @property NSString *titleForFilter;
 @property NSSet *tagsForFilter;

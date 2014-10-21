@@ -17,7 +17,7 @@
 #import "CompleteViewController.h"
 #import "CompleteNavigationController.h"
 
-#import "InputFilterViewController.h"
+#import "FilterDetailViewController.h"
 
 #import "TabBar.h"
 

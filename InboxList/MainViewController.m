@@ -9,7 +9,7 @@
 #import "MainViewController.h"
 #import "AppDelegate.h"
 #import "Header.h"
-#import "InputFilterViewController.h"
+#import "FilterDetailViewController.h"
 #import "CoreDataController.h"
 #import "Configure.h"
 #import "ListViewController.h"

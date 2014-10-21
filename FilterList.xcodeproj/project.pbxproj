@@ -26,7 +26,7 @@
 		B00AD6BF18C45E480005A552 /* InboxListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AD6BE18C45E480005A552 /* InboxListTests.m */; };
 		B0264E2E19EE51620066C44E /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = B0264E2C19EE51620066C44E /* checked.png */; };
 		B0264E2F19EE51620066C44E /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = B0264E2D19EE51620066C44E /* unchecked.png */; };
-		B053050119EA486D00E87C64 /* InputFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B053050019EA486D00E87C64 /* InputFilterViewController.m */; };
+		B053050119EA486D00E87C64 /* FilterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B053050019EA486D00E87C64 /* FilterDetailViewController.m */; };
 		B053050619EAB46600E87C64 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B053050419EAB46600E87C64 /* FilterCell.m */; };
 		B053050719EAB46600E87C64 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B053050519EAB46600E87C64 /* FilterCell.xib */; };
 		B0531996199FC79C00F63783 /* completedtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531995199FC79C00F63783 /* completedtab.png */; };
@@ -114,8 +114,8 @@
 		B00AD6BE18C45E480005A552 /* InboxListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InboxListTests.m; sourceTree = "<group>"; };
 		B0264E2C19EE51620066C44E /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checked.png; path = ../../../Desktop/checked.png; sourceTree = "<group>"; };
 		B0264E2D19EE51620066C44E /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unchecked.png; path = ../../../Desktop/unchecked.png; sourceTree = "<group>"; };
-		B05304FF19EA486D00E87C64 /* InputFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputFilterViewController.h; sourceTree = "<group>"; };
-		B053050019EA486D00E87C64 /* InputFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputFilterViewController.m; sourceTree = "<group>"; };
+		B05304FF19EA486D00E87C64 /* FilterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterDetailViewController.h; sourceTree = "<group>"; };
+		B053050019EA486D00E87C64 /* FilterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterDetailViewController.m; sourceTree = "<group>"; };
 		B053050319EAB46600E87C64 /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
 		B053050419EAB46600E87C64 /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
 		B053050519EAB46600E87C64 /* FilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
@@ -346,13 +346,13 @@
 			name = FilterCell;
 			sourceTree = "<group>";
 		};
-		B053050219EA601C00E87C64 /* InputFilterView */ = {
+		B053050219EA601C00E87C64 /* FilterDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				B05304FF19EA486D00E87C64 /* InputFilterViewController.h */,
-				B053050019EA486D00E87C64 /* InputFilterViewController.m */,
+				B05304FF19EA486D00E87C64 /* FilterDetailViewController.h */,
+				B053050019EA486D00E87C64 /* FilterDetailViewController.m */,
 			);
-			name = InputFilterView;
+			name = FilterDetailView;
 			sourceTree = "<group>";
 		};
 		B05FA8201982AE8900E25FAF /* TabBar */ = {
@@ -430,7 +430,7 @@
 			children = (
 				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
 				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
-				B053050219EA601C00E87C64 /* InputFilterView */,
+				B053050219EA601C00E87C64 /* FilterDetailView */,
 				B0501AEA199E56DC00A58C2D /* FilterCell */,
 			);
 			name = FilterMode;
@@ -800,7 +800,7 @@
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
 				B0D7BFBD19F3A389006EDCAB /* TagTitleCell.m in Sources */,
-				B053050119EA486D00E87C64 /* InputFilterViewController.m in Sources */,
+				B053050119EA486D00E87C64 /* FilterDetailViewController.m in Sources */,
 				B08CDBB619C559B8008263AC /* ItemDetailTagCell.m in Sources */,
 				B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
