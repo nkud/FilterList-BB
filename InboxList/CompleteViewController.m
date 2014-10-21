@@ -46,17 +46,25 @@ static NSString *kCompleteCellID = @"CompleteCell";
   
   UIButton *deleteAllButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
   [deleteAllButton addTarget:self
-                      action:@selector(deleteAllSelectedRows)
+                      action:@selector(deleteAllSelectedRows:)
             forControlEvents:UIControlEventTouchUpInside];
-  deleteAllButton.frame = CGRectMake(0, 0, 100, 30);
+  [deleteAllButton setTitle:@"Delete"
+                   forState:UIControlStateNormal];
+  [deleteAllButton setTintColor:[UIColor whiteColor]];
+  CGFloat height = 30;
+  CGFloat width = 100;
+  CGFloat margin = 20;
+  deleteAllButton.frame = CGRectMake(margin,
+                                     (editTabBar.frame.size.height-height)/2,
+                                     width,
+                                     height);
   deleteAllButton.backgroundColor = [UIColor redColor];
-  deleteAllButton.titleLabel.text = @"Delete";
   [editTabBar addSubview:deleteAllButton];
   
   [self.view addSubview:editTabBar];
 }
 
--(void)deleteAllSelectedRows
+-(void)deleteAllSelectedRows:(id)sender
 {
   LOG(@"全削除");
   for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
