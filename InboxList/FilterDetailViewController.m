@@ -130,7 +130,18 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   self.navigationItem.rightBarButtonItem = addButton;
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+  if (self.isNewFilter) {
+    [[self titleCell].titleField becomeFirstResponder];
+  }
+}
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  [self saveAndDismissView];
+  return YES;
+}
 
 -(void)saveAndDismissView
 {
@@ -201,6 +212,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
     ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
     cell.titleField.text = self.titleForFilter;
     cell.titleField.placeholder = @"title";
+    cell.titleField.delegate = self;
     return cell;
   }
   // タグ選択セル

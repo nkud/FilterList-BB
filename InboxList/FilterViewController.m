@@ -386,6 +386,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
     filter = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
   }
   filter.title = filterTitle;
+  filter.tags = tagsForSelected;
   [CoreDataController saveContext];
 }
 

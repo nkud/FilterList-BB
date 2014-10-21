@@ -25,7 +25,7 @@
  * @brief  フィルター入力画面
  */
 @interface FilterDetailViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource, TagSelectViewControllerDelegate>
+<UITableViewDelegate, UITableViewDataSource, TagSelectViewControllerDelegate, UITextFieldDelegate>
 
 @property UITableView *tableView;
 

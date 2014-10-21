@@ -29,8 +29,7 @@
  *  @brief  フィルターリスト
  */
 @interface FilterViewController : ListViewController
-<NSFetchedResultsControllerDelegate, FilterDetailViewControllerDelegate,
-UITextFieldDelegate>
+<NSFetchedResultsControllerDelegate, FilterDetailViewControllerDelegate>
 
 @property id <FilterViewControllerDelegate> delegate;
 

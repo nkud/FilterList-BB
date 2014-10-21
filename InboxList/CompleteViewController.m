@@ -12,6 +12,7 @@
 #import "CompleteCell.h"
 
 #import "Header.h"
+#import "Configure.h"
 
 static NSString *kCompleteCellID = @"CompleteCell";
 
@@ -33,12 +34,35 @@ static NSString *kCompleteCellID = @"CompleteCell";
   [self.tableView registerNib:[UINib nibWithNibName:@"CompleteCell" bundle:nil]
        forCellReuseIdentifier:kCompleteCellID];
   
-  
   // 編集ボタン
   self.navigationItem.leftBarButtonItem = [self newEditTableButton];
   // Do any additional setup after loading the view.
   
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
+  
+  // 編集タブ
+  UIView *editTabBar = [[UIView alloc] initWithFrame:self.tabBar.frame];
+  editTabBar.backgroundColor = [UIColor whiteColor];
+  
+  UIButton *deleteAllButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [deleteAllButton addTarget:self
+                      action:@selector(deleteAllSelectedRows)
+            forControlEvents:UIControlEventTouchUpInside];
+  deleteAllButton.frame = CGRectMake(0, 0, 100, 30);
+  deleteAllButton.backgroundColor = [UIColor redColor];
+  deleteAllButton.titleLabel.text = @"Delete";
+  [editTabBar addSubview:deleteAllButton];
+  
+  [self.view addSubview:editTabBar];
+}
+
+-(void)deleteAllSelectedRows
+{
+  LOG(@"全削除");
+  for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
+    Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [[self.fetchedResultsController managedObjectContext] deleteObject:item];
+  }
 }
 
 -(void)didTappedEditTableButton
@@ -106,6 +130,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [self configureTitleWithString:@"COMPLETE"
                         subTitle:[NSString stringWithFormat:@"%ld items are completed.",
                                   (long)[sectionInfo numberOfObjects]]];
+  self.titleLabel.textColor = COMPLETE_COLOR;
   
 }
 
