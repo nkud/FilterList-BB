@@ -81,12 +81,12 @@
 #pragma mark - 遷移
 -(void)viewWillAppear:(BOOL)animated
 {
-  [super viewDidAppear:animated];
-  
-  NSIndexPath *indexForAllItems = [NSIndexPath indexPathForRow:0 inSection:0];
-  TagCell *cell = (TagCell *)[self.tableView cellForRowAtIndexPath:indexForAllItems];
-  [self configureTagCell:cell atIndexPath:indexForAllItems];
-  
+  [super viewWillAppear:animated];
+//  
+//  NSIndexPath *indexForAllItems = [NSIndexPath indexPathForRow:0 inSection:0];
+//  TagCell *cell = (TagCell *)[self.tableView cellForRowAtIndexPath:indexForAllItems];
+//  [self configureTagCell:cell atIndexPath:indexForAllItems];
+//  
   [self.delegateForList openTabBar];
 }
 

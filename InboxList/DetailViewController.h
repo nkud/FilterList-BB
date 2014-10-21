@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailViewController : UIViewController
+<UITableViewDelegate, UITableViewDataSource>
+{
+  NSArray *dataArray_;
+}
+@property UITableView *tableView;
 
 @end

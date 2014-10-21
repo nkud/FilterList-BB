@@ -276,7 +276,6 @@
 				B08F791B19A8286900145F75 /* Configure.h */,
 				B080804A19582CF6007D21E4 /* MainViewController.h */,
 				B080804B19582CF6007D21E4 /* MainViewController.m */,
-				B0030D9F19F6E4FA00CF8F40 /* DetailView */,
 				B0BDA8821996563C003AA40B /* CoreData */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
 				B0C93A1A194C4AB600733BE7 /* NavigationController */,
@@ -474,6 +473,7 @@
 			children = (
 				B0BE423819E2E62C0033F169 /* ListViewController.h */,
 				B0BE423919E2E62C0033F169 /* ListViewController.m */,
+				B0030D9F19F6E4FA00CF8F40 /* DetailView */,
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
