@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0030D9E19F6E4F600CF8F40 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0030D9D19F6E4F600CF8F40 /* DetailViewController.m */; };
 		B00AD68B18C45E470005A552 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AD68A18C45E470005A552 /* Foundation.framework */; };
 		B00AD68D18C45E470005A552 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AD68C18C45E470005A552 /* CoreGraphics.framework */; };
 		B00AD68F18C45E470005A552 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00AD68E18C45E470005A552 /* UIKit.framework */; };
@@ -90,6 +91,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B0030D9C19F6E4F600CF8F40 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		B0030D9D19F6E4F600CF8F40 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		B00AD68718C45E470005A552 /* FilterList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilterList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00AD68A18C45E470005A552 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B00AD68C18C45E470005A552 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -226,6 +229,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B0030D9F19F6E4FA00CF8F40 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				B0030D9C19F6E4F600CF8F40 /* DetailViewController.h */,
+				B0030D9D19F6E4F600CF8F40 /* DetailViewController.m */,
+			);
+			name = DetailView;
+			sourceTree = "<group>";
+		};
 		B00AD67E18C45E470005A552 = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +276,7 @@
 				B08F791B19A8286900145F75 /* Configure.h */,
 				B080804A19582CF6007D21E4 /* MainViewController.h */,
 				B080804B19582CF6007D21E4 /* MainViewController.m */,
+				B0030D9F19F6E4FA00CF8F40 /* DetailView */,
 				B0BDA8821996563C003AA40B /* CoreData */,
 				B08EBBC419703ED700DB9582 /* AppDelegate */,
 				B0C93A1A194C4AB600733BE7 /* NavigationController */,
@@ -795,6 +808,7 @@
 				B0BDA88119965639003AA40B /* CoreDataController.m in Sources */,
 				B0BC6A9219A9FA9800E53AEF /* TagSelectCell.m in Sources */,
 				B0D7BFB819F39E79006EDCAB /* TagDetailViewController.m in Sources */,
+				B0030D9E19F6E4F600CF8F40 /* DetailViewController.m in Sources */,
 				B0C95D6D19D5667800F32F6C /* Filter.m in Sources */,
 				B0E532FD19E38C49005A53B1 /* CompleteViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
