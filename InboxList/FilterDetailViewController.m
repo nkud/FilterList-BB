@@ -39,14 +39,6 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 
 #pragma mark - 初期化
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil
-                        bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil
-                         bundle:nibBundleOrNil];
-  return self;
-}
-
 /**
  * @brief  セルを登録
  */
@@ -75,7 +67,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
                               tags:(NSSet *)tags
                        isNewFilter:(BOOL)isNewFilter
                          indexPath:(NSIndexPath *)indexPath
-delegate:(id<FilterDetailViewControllerDelegate>)delegate
+                          delegate:(id<FilterDetailViewControllerDelegate>)delegate
 {
   self = [super initWithNibName:nil bundle:nil];
   if (self) {
@@ -91,6 +83,7 @@ delegate:(id<FilterDetailViewControllerDelegate>)delegate
     self.isNewFilter = YES;
     }
   }
+  
   self.delegate = delegate;
   return self;
 }
@@ -105,9 +98,6 @@ delegate:(id<FilterDetailViewControllerDelegate>)delegate
   NSArray *itemThree = @[kDueDateCellID];
   NSArray *itemFour = @[kSearchCellID];
   dataArray_ = @[itemOne, itemTwo, itemThree, itemFour];
-
-  self.titleForFilter = nil;
-  self.tagsForFilter = nil;
 }
 
 - (void)viewDidLoad
@@ -136,22 +126,11 @@ delegate:(id<FilterDetailViewControllerDelegate>)delegate
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                 target:self
                                 action:@selector(saveAndDismissView)];
+
   self.navigationItem.rightBarButtonItem = addButton;
 }
 
--(ItemDetailTitleCell *)titleCell
-{
-  NSIndexPath *indexPathForTitleCell = [NSIndexPath indexPathForRow:0
-                                                          inSection:0];
-  ItemDetailTitleCell *cell = (ItemDetailTitleCell *)[self.tableView cellForRowAtIndexPath:indexPathForTitleCell];
-  return cell;
-}
--(ItemDetailTagCell *)tagCell
-{
-  NSIndexPath *indexPathForTagCell = [NSIndexPath indexPathForRow:0 inSection:1];
-  ItemDetailTagCell *cell = (ItemDetailTagCell *)[self.tableView cellForRowAtIndexPath:indexPathForTagCell];
-  return cell;
-}
+
 
 -(void)saveAndDismissView
 {
@@ -168,7 +147,19 @@ delegate:(id<FilterDetailViewControllerDelegate>)delegate
 }
 
 #pragma mark - ユーティリティ
-
+-(ItemDetailTitleCell *)titleCell
+{
+  NSIndexPath *indexPathForTitleCell = [NSIndexPath indexPathForRow:0
+                                                          inSection:0];
+  ItemDetailTitleCell *cell = (ItemDetailTitleCell *)[self.tableView cellForRowAtIndexPath:indexPathForTitleCell];
+  return cell;
+}
+-(ItemDetailTagCell *)tagCell
+{
+  NSIndexPath *indexPathForTagCell = [NSIndexPath indexPathForRow:0 inSection:1];
+  ItemDetailTagCell *cell = (ItemDetailTagCell *)[self.tableView cellForRowAtIndexPath:indexPathForTagCell];
+  return cell;
+}
 /**
  * @brief  指定の位置のセルのIDを返す
  *
@@ -205,10 +196,11 @@ delegate:(id<FilterDetailViewControllerDelegate>)delegate
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  // アイテムセル
+  // タイトルセル
   if ([self isTitleCellAtIndexPath:indexPath]) {
     ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
     cell.titleField.text = self.titleForFilter;
+    cell.titleField.placeholder = @"title";
     return cell;
   }
   // タグ選択セル

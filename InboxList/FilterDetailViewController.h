@@ -29,13 +29,11 @@
 
 @property UITableView *tableView;
 
-@property id<FilterDetailViewControllerDelegate> delegate;
-
 @property NSString *titleForFilter;
 @property NSSet *tagsForFilter;
 @property NSIndexPath *indexPathForFilter;
-
 @property BOOL isNewFilter;
+@property id<FilterDetailViewControllerDelegate> delegate;
 
 - (instancetype)initWithFilterTitle:(NSString *)title
                                tags:(NSSet *)tags
