@@ -29,9 +29,6 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 #pragma mark -
 
 @interface FilterDetailViewController ()
-{
-  NSArray *dataArray_;
-}
 
 @end
 
@@ -107,13 +104,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   // パラメータを初期化・設定
   [self initParam];
   
-  // テーブルビュー初期化
-  self.tableView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS
-                                                style:UITableViewStyleGrouped];
-  self.tableView.delegate = self;
-  self.tableView.dataSource = self;
-  [self.view addSubview:self.tableView];
-  
+
   // セルを登録
   [self registerClassForCells];
   
@@ -225,17 +216,6 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   UITableViewCell *cell;
   cell = [[UITableViewCell alloc] init];
   return cell;
-}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-  return [dataArray_ count];;
-}
-
--(NSInteger)tableView:(UITableView *)tableView
-numberOfRowsInSection:(NSInteger)section
-{
-  return [dataArray_[section] count];
 }
 
 #pragma mark 選択の処理

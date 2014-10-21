@@ -61,7 +61,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
                                  indexPath:(NSIndexPath *)indexPath
                                   delegate:(id<ItemDetailViewControllerDelegate>)delegate
 {
-  self = [super initWithNibName:@"ItemDetailViewController"
+  self = [super initWithNibName:nil
                          bundle:nil];
   if (self)
   {

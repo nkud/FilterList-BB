@@ -261,6 +261,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
   // プッシュ
   [self.navigationController pushViewController:controller
                                        animated:YES];
+  [self.delegateForList closeTabBar];
 }
 
 

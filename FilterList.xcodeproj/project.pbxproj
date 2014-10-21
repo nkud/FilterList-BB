@@ -36,7 +36,6 @@
 		B053199C199FC92C00F63783 /* tagtab.png in Resources */ = {isa = PBXBuildFile; fileRef = B0531999199FC92C00F63783 /* tagtab.png */; };
 		B056F7CA198D394800768E8E /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B056F7C9198D394800768E8E /* TagCell.xib */; };
 		B05FA8231982B20C00E25FAF /* TabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B05FA8221982B20C00E25FAF /* TabBar.m */; };
-		B06894E7198D544F000A4DCB /* ItemDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06894E6198D544F000A4DCB /* ItemDetailViewController.xib */; };
 		B06D719A198D3BDA001A9F91 /* TagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06D7199198D3BDA001A9F91 /* TagCell.m */; };
 		B06D719D198D43A8001A9F91 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06D719C198D43A8001A9F91 /* ItemCell.xib */; };
 		B0808049195825A3007D21E4 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0808048195825A3007D21E4 /* TagViewController.m */; };
@@ -130,7 +129,6 @@
 		B056F7C9198D394800768E8E /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		B05FA8211982B20200E25FAF /* TabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBar.h; path = InboxList/TabBar.h; sourceTree = "<group>"; };
 		B05FA8221982B20C00E25FAF /* TabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBar.m; path = InboxList/TabBar.m; sourceTree = "<group>"; };
-		B06894E6198D544F000A4DCB /* ItemDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemDetailViewController.xib; sourceTree = "<group>"; };
 		B06D7198198D3BDA001A9F91 /* TagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagCell.h; sourceTree = "<group>"; };
 		B06D7199198D3BDA001A9F91 /* TagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagCell.m; sourceTree = "<group>"; };
 		B06D719C198D43A8001A9F91 /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
@@ -653,7 +651,6 @@
 			children = (
 				B00AD6A718C45E470005A552 /* ItemDetailViewController.h */,
 				B00AD6A818C45E470005A552 /* ItemDetailViewController.m */,
-				B06894E6198D544F000A4DCB /* ItemDetailViewController.xib */,
 				B08CDBC419C55BEF008263AC /* DatePickerCell */,
 				B08CDBBE19C55BB3008263AC /* DateCell */,
 				B08CDBB819C559BC008263AC /* TagCell */,
@@ -776,7 +773,6 @@
 				B0BC6A9319A9FA9800E53AEF /* TagSelectCell.xib in Resources */,
 				B083521519CD59EC00071EE0 /* InputHeaderCell.xib in Resources */,
 				B00AD69718C45E470005A552 /* InfoPlist.strings in Resources */,
-				B06894E7198D544F000A4DCB /* ItemDetailViewController.xib in Resources */,
 				B0D7BFAC19F245A6006EDCAB /* EditBarItem.png in Resources */,
 				B053050719EAB46600E87C64 /* FilterCell.xib in Resources */,
 			);

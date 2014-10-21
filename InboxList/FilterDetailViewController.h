@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TagSelectViewController.h"
+#import "DetailViewController.h"
 
 /**
  * @brief  フィルター入力画面プロトコル
@@ -24,10 +25,8 @@
 /**
  * @brief  フィルター入力画面
  */
-@interface FilterDetailViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource, TagSelectViewControllerDelegate, UITextFieldDelegate>
-
-@property UITableView *tableView;
+@interface FilterDetailViewController : DetailViewController
+<TagSelectViewControllerDelegate, UITextFieldDelegate>
 
 @property NSString *titleForFilter;
 @property NSSet *tagsForFilter;
