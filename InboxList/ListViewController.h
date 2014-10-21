@@ -28,7 +28,7 @@
 @property id<ListViewControllerDelegate> delegateForList;
 
 #pragma mark - アクセサリー
--(UIButton *)newDisclosureIndicatorAccessory;
+//-(UIButton *)newDisclosureIndicatorAccessory;
 
 
 #pragma mark - ナビゲーションバー

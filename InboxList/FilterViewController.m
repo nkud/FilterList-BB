@@ -234,7 +234,7 @@ numberOfRowsInSection:(NSInteger)section
   cell.tagLabel.text = [self createStringForSet:filter.tags];
   
   // アクセサリー
-  cell.accessoryView = [self newDisclosureIndicatorAccessory];
+//  cell.accessoryView = [self newDisclosureIndicatorAccessory];
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 

@@ -208,16 +208,16 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 }
 
 #pragma mark アクセサリー
--(UIButton *)newDisclosureIndicatorAccessory
-{
-  UIButton *disclosureIndicator = [UIButton buttonWithType:UIButtonTypeCustom];
-  disclosureIndicator.frame = CGRectMake(0, 0, 30, 30);
-  disclosureIndicator.backgroundColor = [UIColor blackColor];
-  [disclosureIndicator addTarget:self
-                          action:@selector(didTappedAccessoryButton)
-                forControlEvents:UIControlEventTouchUpInside];
-  return disclosureIndicator;
-}
+//-(UIButton *)newDisclosureIndicatorAccessory
+//{
+//  UIButton *disclosureIndicator = [UIButton buttonWithType:UIButtonTypeCustom];
+//  disclosureIndicator.frame = CGRectMake(0, 0, 30, 30);
+//  disclosureIndicator.backgroundColor = [UIColor blackColor];
+//  [disclosureIndicator addTarget:self
+//                          action:@selector(didTappedAccessoryButton)
+//                forControlEvents:UIControlEventTouchUpInside];
+//  return disclosureIndicator;
+//}
 
 /**
  * @brief  アクセサリーがタップされた時の処理
