@@ -63,6 +63,34 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 }
 
 /**
+ * @brief  初期化
+ *
+ * @param title       タイトル
+ * @param tags        タグ
+ * @param isNewFilter 新規・更新
+ *
+ * @return インスタンス
+ */
+-(instancetype)initWithFilterTitle:(NSString *)title
+                              tags:(NSSet *)tags
+                       isNewFilter:(BOOL)isNewFilter
+{
+  self = [super initWithNibName:nil bundle:nil];
+  if (self) {
+    if (title) {
+      self.titleForFilter = title;
+      self.tagsForFilter = tags;
+      self.isNewFilter = NO;
+    } else {
+      self.titleForFilter = nil;
+      self.tagsForFilter = nil;
+    self.isNewFilter = YES;
+    }
+  }
+  return self;
+}
+
+/**
  * @brief  パラメータを初期化・設定
  */
 -(void)initParam
@@ -126,7 +154,8 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   self.titleForFilter = [self titleCell].titleField.text;
   // デリゲートに入力情報を渡す
   [self.delegate dismissInputFilterView:self.titleForFilter
-                        tagsForSelected:self.tagsForFilter];
+                        tagsForSelected:self.tagsForFilter
+                            isNewFilter:self.isNewFilter];
   
   // ビューをポップ
   [self.navigationController popToRootViewControllerAnimated:YES];

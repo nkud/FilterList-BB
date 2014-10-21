@@ -15,7 +15,8 @@
 @protocol FilterDetailViewControllerDelegate <NSObject>
 
 - (void)dismissInputFilterView:(NSString *)filterTitle
-               tagsForSelected:(NSSet *)tagsForSelected;
+               tagsForSelected:(NSSet *)tagsForSelected
+                   isNewFilter:(BOOL)isNewFilter;
 
 @end
 
@@ -31,5 +32,11 @@
 
 @property NSString *titleForFilter;
 @property NSSet *tagsForFilter;
+
+@property BOOL isNewFilter;
+
+- (instancetype)initWithFilterTitle:(NSString *)title
+                               tags:(NSSet *)tags
+                        isNewFilter:(BOOL)isNewFilter;
 
 @end

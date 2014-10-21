@@ -229,7 +229,15 @@ numberOfRowsInSection:(NSInteger)section
 -(void)tableView:(UITableView *)tableView
 accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
+  Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  
   LOG(@"アクセサリーをタップ");
+  FilterDetailViewController *controller
+  = [[FilterDetailViewController alloc] initWithFilterTitle:filter.title
+                                                       tags:filter.tags
+                                                isNewFilter:NO];
+  [self.navigationController pushViewController:controller
+                                       animated:YES];
 }
 
 
