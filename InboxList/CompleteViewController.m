@@ -44,24 +44,30 @@ static NSString *kCompleteCellID = @"CompleteCell";
   UIView *editTabBar = [[UIView alloc] initWithFrame:self.tabBar.frame];
   editTabBar.backgroundColor = [UIColor whiteColor];
   
-  UIButton *deleteAllButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [deleteAllButton addTarget:self
+  self.deleteAllButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [self.deleteAllButton addTarget:self
                       action:@selector(deleteAllSelectedRows:)
             forControlEvents:UIControlEventTouchUpInside];
-  [deleteAllButton setTitle:@"Delete"
-                   forState:UIControlStateNormal];
-  [deleteAllButton setTintColor:[UIColor whiteColor]];
+  [self updateButtonForDelete];
+  [self.deleteAllButton setTintColor:[UIColor whiteColor]];
   CGFloat height = 30;
   CGFloat width = 100;
   CGFloat margin = 20;
-  deleteAllButton.frame = CGRectMake(margin,
+  self.deleteAllButton.frame = CGRectMake(margin,
                                      (editTabBar.frame.size.height-height)/2,
                                      width,
                                      height);
-  deleteAllButton.backgroundColor = [UIColor redColor];
-  [editTabBar addSubview:deleteAllButton];
+  self.deleteAllButton.backgroundColor = [UIColor redColor];
+  [editTabBar addSubview:self.deleteAllButton];
   
   [self.view addSubview:editTabBar];
+}
+
+-(void)updateButtonForDelete
+{
+  NSString *title = [NSString stringWithFormat:@"Delete(%lu)", (unsigned long)[[self.tableView indexPathsForSelectedRows] count]];
+  [self.deleteAllButton setTitle:title
+                        forState:UIControlStateNormal];
 }
 
 -(void)deleteAllSelectedRows:(id)sender

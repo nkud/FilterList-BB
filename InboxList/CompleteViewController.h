@@ -15,4 +15,6 @@
 
 -(void)updateTableView;
 
+@property UIButton *deleteAllButton;
+
 @end
