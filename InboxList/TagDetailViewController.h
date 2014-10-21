@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DetailViewController.h"
 
 @protocol TagDetailViewControllerDelegte <NSObject>
 
@@ -16,11 +17,8 @@
 
 @end
 
-@interface TagDetailViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource,
-UITextFieldDelegate>
-
-@property UITableView *tableView;
+@interface TagDetailViewController : DetailViewController
+<UITextFieldDelegate>
 
 @property NSString *tagTitle;
 @property NSIndexPath *tagIndexPath;

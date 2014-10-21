@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "Header.h"
 
 @interface DetailViewController ()
 
@@ -17,8 +18,14 @@
 #pragma mark - 初期化 -
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
+  // Do any additional setup after loading the view.
+  
+  self.tableView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS
+                                                style:UITableViewStyleGrouped];
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
+  [self.view addSubview:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning {

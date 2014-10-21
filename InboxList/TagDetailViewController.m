@@ -16,9 +16,7 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 
 #pragma mark -
 
-@interface TagDetailViewController () {
-  NSArray *dataArray_;
-}
+@interface TagDetailViewController ()
 
 @end
 
@@ -74,11 +72,6 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
   // Do any additional setup after loading the view.
   
   // テーブルビュー初期化
-  self.tableView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS
-                                                style:UITableViewStyleGrouped];
-  self.tableView.delegate = self;
-  self.tableView.dataSource = self;
-  [self.view addSubview:self.tableView];
   
   [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName bundle:nil]
        forCellReuseIdentifier:kTitleCellID];
@@ -136,18 +129,6 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 }
 
 #pragma mark データソース
-
-
--(NSInteger)tableView:(UITableView *)tableView
-numberOfRowsInSection:(NSInteger)section
-{
-  return [dataArray_[section] count];
-}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-  return [dataArray_ count];
-}
 
 /**
  * @brief  セルを作成する
