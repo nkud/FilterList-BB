@@ -9,6 +9,11 @@
 #import "DetailViewController.h"
 #import "Header.h"
 
+static NSString *kTitleCellID = @"TitleCellIdentifier";
+static NSString *kTitleCellNibName = @"TitleCell";
+
+#pragma mark -
+
 @interface DetailViewController ()
 
 @end
@@ -26,6 +31,11 @@
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   [self.view addSubview:self.tableView];
+  
+  // セルを登録
+  [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName
+                                             bundle:nil]
+       forCellReuseIdentifier:kTitleCellID];
 }
 
 - (void)didReceiveMemoryWarning {
