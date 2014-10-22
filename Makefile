@@ -48,9 +48,9 @@ ipa: $(OUT_APP_DIR)/Applications/$(PRODUCT_NAME).app
 
 build: clean
 	@[ -d $(OUT_APP_DIR) ] || $(MKDIR) $(OUT_APP_DIR)
-	@xcodebuild -project "$(PROJ_FILE_PATH)" -sdk "$(SDK)" -configuration "$(CONFIGURATION)" -target "$(TARGET_NAME)" install DSTROOT="$(OUT_APP_DIR)"
+	@xcodebuild -project "$(PROJ_FILE_PATH)" -sdk "$(SDK)" -configuration "$(CONFIGURATION)" -target "$(TARGET_NAME)" install DSTROOT="$(OUT_APP_DIR)" 1>/dev/null
 clean:
-	@xcodebuild clean -project "$(PROJ_FILE_PATH)"
+	@xcodebuild clean -project "$(PROJ_FILE_PATH)" 1>/dev/null
 
 
 upload: $(OUT_IPA_DIR)/$(IPA_FILE_NAME).ipa
