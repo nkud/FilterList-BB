@@ -70,8 +70,6 @@
 		B0D7BFB019F256CD006EDCAB /* ItemTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = B0D7BFAF19F256CD006EDCAB /* ItemTabBarItem.png */; };
 		B0D7BFB219F256DA006EDCAB /* TagTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = B0D7BFB119F256DA006EDCAB /* TagTabBarItem.png */; };
 		B0D7BFB819F39E79006EDCAB /* TagDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D7BFB719F39E79006EDCAB /* TagDetailViewController.m */; };
-		B0D7BFBD19F3A389006EDCAB /* TagTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D7BFBB19F3A389006EDCAB /* TagTitleCell.m */; };
-		B0D7BFBE19F3A389006EDCAB /* TagTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D7BFBC19F3A389006EDCAB /* TagTitleCell.xib */; };
 		B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DABFAC1914CC50007597E3 /* ItemCell.m */; };
 		B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4690D19A84B99008B3150 /* TagNavigationController.m */; };
 		B0E4691419A84BC3008B3150 /* FilterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4691319A84BC3008B3150 /* FilterNavigationController.m */; };
@@ -188,9 +186,6 @@
 		B0D7BFB119F256DA006EDCAB /* TagTabBarItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TagTabBarItem.png; path = Icon/TagTabBarItem.png; sourceTree = SOURCE_ROOT; };
 		B0D7BFB619F39E79006EDCAB /* TagDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDetailViewController.h; sourceTree = "<group>"; };
 		B0D7BFB719F39E79006EDCAB /* TagDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagDetailViewController.m; sourceTree = "<group>"; };
-		B0D7BFBA19F3A389006EDCAB /* TagTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagTitleCell.h; sourceTree = "<group>"; };
-		B0D7BFBB19F3A389006EDCAB /* TagTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagTitleCell.m; sourceTree = "<group>"; };
-		B0D7BFBC19F3A389006EDCAB /* TagTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagTitleCell.xib; sourceTree = "<group>"; };
 		B0DABFAB1914CC50007597E3 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		B0DABFAC1914CC50007597E3 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
 		B0E4690C19A84B99008B3150 /* TagNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagNavigationController.h; sourceTree = "<group>"; };
@@ -591,19 +586,8 @@
 			children = (
 				B0D7BFB619F39E79006EDCAB /* TagDetailViewController.h */,
 				B0D7BFB719F39E79006EDCAB /* TagDetailViewController.m */,
-				B0D7BFBF19F3A38E006EDCAB /* TitleCell */,
 			);
 			name = TagDetailView;
-			sourceTree = "<group>";
-		};
-		B0D7BFBF19F3A38E006EDCAB /* TitleCell */ = {
-			isa = PBXGroup;
-			children = (
-				B0D7BFBA19F3A389006EDCAB /* TagTitleCell.h */,
-				B0D7BFBB19F3A389006EDCAB /* TagTitleCell.m */,
-				B0D7BFBC19F3A389006EDCAB /* TagTitleCell.xib */,
-			);
-			name = TitleCell;
 			sourceTree = "<group>";
 		};
 		B0E5330119E3C0B3005A53B1 /* ItemListNav */ = {
@@ -770,7 +754,6 @@
 				B056F7CA198D394800768E8E /* TagCell.xib in Resources */,
 				B0264E2E19EE51620066C44E /* checked.png in Resources */,
 				B0D7BFB219F256DA006EDCAB /* TagTabBarItem.png in Resources */,
-				B0D7BFBE19F3A389006EDCAB /* TagTitleCell.xib in Resources */,
 				B0531996199FC79C00F63783 /* completedtab.png in Resources */,
 				B00AD6AB18C45E470005A552 /* Images.xcassets in Resources */,
 				B08CDBB719C559B8008263AC /* ItemDetailTagCell.xib in Resources */,
@@ -827,7 +810,6 @@
 				B0E532FD19E38C49005A53B1 /* CompleteViewController.m in Sources */,
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
-				B0D7BFBD19F3A389006EDCAB /* TagTitleCell.m in Sources */,
 				B053050119EA486D00E87C64 /* FilterDetailViewController.m in Sources */,
 				B08CDBB619C559B8008263AC /* ItemDetailTagCell.m in Sources */,
 				B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */,

@@ -9,10 +9,7 @@
 #import "TagDetailViewController.h"
 #import "Header.h"
 
-#import "TagTitleCell.h"
-
-static NSString *kTitleCellID = @"TitleCellIdentifier";
-static NSString *kTitleCellNibName = @"TagTitleCell";
+#import "TitleCell.h"
 
 #pragma mark -
 
@@ -49,7 +46,7 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 -(void)viewDidAppear:(BOOL)animated
 {
   if (self.isNewTag) {
-    [[self tagTitleCell].titleField becomeFirstResponder];
+    [[self titleCell].titleField becomeFirstResponder];
   }
 }
 
@@ -57,7 +54,7 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
  * @brief  変数初期化
  */
 - (void)initParam {
-  NSArray *itemOne = @[kTitleCellID];
+  NSArray *itemOne = @[[self titleCellID]];
   dataArray_ = @[itemOne];
 }
 
@@ -70,11 +67,6 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
   // 変数初期化
   [self initParam];
   // Do any additional setup after loading the view.
-  
-  // テーブルビュー初期化
-  
-  [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName bundle:nil]
-       forCellReuseIdentifier:kTitleCellID];
   
   // ナビバーアイテム
   UIBarButtonItem *saveButton
@@ -91,7 +83,7 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 {
   LOG(@"タグを保存");
   
-  self.tagTitle = [self tagTitleCell].titleField.text;
+  self.tagTitle = [self titleCell].titleField.text;
   
   [self.delegate dismissDetailView:self.tagTitle
                          indexPath:self.tagIndexPath
@@ -99,11 +91,11 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (TagTitleCell *)tagTitleCell
+- (TitleCell *)titleCell
 {
-  TagTitleCell *cell
-  = (TagTitleCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0
-                                                                              inSection:0]];
+  TitleCell *cell
+  = (TitleCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0
+                                                                           inSection:0]];
   return cell;
 }
 
@@ -143,7 +135,7 @@ static NSString *kTitleCellNibName = @"TagTitleCell";
 {
   if ([self isTitleCellAtIndexPath:indexPath])
   {
-    TagTitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTitleCellID];
+    TitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[self titleCellID]];
     if (self.tagTitle) {
       cell.titleField.text = self.tagTitle;
     }

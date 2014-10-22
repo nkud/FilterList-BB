@@ -15,4 +15,6 @@
 }
 @property UITableView *tableView;
 
+-(NSString *)titleCellID;
+
 @end

@@ -9,6 +9,8 @@
 #import "DetailViewController.h"
 #import "Header.h"
 
+#import "TitleCell.h"
+
 static NSString *kTitleCellID = @"TitleCellIdentifier";
 static NSString *kTitleCellNibName = @"TitleCell";
 
@@ -41,6 +43,12 @@ static NSString *kTitleCellNibName = @"TitleCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - ユーティリティ -
+-(NSString *)titleCellID
+{
+  return kTitleCellID;
 }
 
 #pragma mark - テーブルビュー -

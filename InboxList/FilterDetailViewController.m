@@ -18,12 +18,10 @@
 #import "Header.h"
 
 #pragma mark Cell Identifier
-static NSString *kTitleCellID = @"titleCell";
 static NSString *kTagSelectCellID = @"tagCell";
 static NSString *kDueDateCellID = @"DueDateCell";
 static NSString *kSearchCellID = @"SearchCell";
 
-static NSString *kTitleCellNibName = @"ItemDetailTitleCell";
 static NSString *kTagCellNibName = @"ItemDetailTagCell";
 
 #pragma mark -
@@ -41,8 +39,6 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
  */
 -(void)registerClassForCells
 {
-  [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName bundle:nil]
-       forCellReuseIdentifier:kTitleCellID];
   [self.tableView registerNib:[UINib nibWithNibName:kTagCellNibName bundle:nil]
        forCellReuseIdentifier:kTagSelectCellID];
   [self.tableView registerClass:[UITableViewCell class]
@@ -90,7 +86,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
  */
 -(void)initParam
 {
-  NSArray *itemOne = @[kTitleCellID];
+  NSArray *itemOne = @[ [self titleCellID] ];
   NSArray *itemTwo = @[kTagSelectCellID];
   NSArray *itemThree = @[kDueDateCellID];
   NSArray *itemFour = @[kSearchCellID];
@@ -177,7 +173,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 
 -(BOOL)isTitleCellAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (kTitleCellID == [self cellIdentifierAtIndexPath:indexPath]) {
+  if ([self titleCellID] == [self cellIdentifierAtIndexPath:indexPath]) {
     return YES;
   } else {
     return NO;
@@ -200,7 +196,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 {
   // タイトルセル
   if ([self isTitleCellAtIndexPath:indexPath]) {
-    ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:kTitleCellID];
+    ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:[self titleCellID]];
     cell.titleField.text = self.titleForFilter;
     cell.titleField.placeholder = @"title";
     cell.titleField.delegate = self;
