@@ -76,6 +76,9 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   self.tableView = [[UITableView alloc] initWithFrame:frame];
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
+  
+  self.tableView.allowsMultipleSelectionDuringEditing = YES;
+  
   [self.view addSubview:self.tableView];
   
   // タブバー初期化

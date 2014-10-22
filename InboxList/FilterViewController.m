@@ -164,6 +164,9 @@ static NSString *kFilterCellID = @"FilterCell";
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (tableView.isEditing) {
+    return;
+  }
   LOG(@"セルが選択された");
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
   [self.delegate didSelectedFilter:filter.title

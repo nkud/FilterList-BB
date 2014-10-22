@@ -32,6 +32,7 @@
 
 @property NSFetchedResultsController *fetchedResultsController;
 
+-(void)deleteAllSelectedRows:(id)sender;
 
 #pragma mark - ナビゲーションバー
 -(void)configureTitleWithString:(NSString *)title

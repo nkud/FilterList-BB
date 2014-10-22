@@ -168,6 +168,9 @@
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (tableView.isEditing) {
+    return;
+  }
   NSIndexPath *indexPathInTableView = indexPath;
   LOG(@"タグセルが選択された");
   if ([self isCellForAllItemsAtIndexPath:indexPathInTableView]) {

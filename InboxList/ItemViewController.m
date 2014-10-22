@@ -183,6 +183,16 @@ willDisplayHeaderView:(UIView *)view
   header.textLabel.frame = headerFrame;
 }
 
+-(void)deleteAllSelectedRows:(id)sender
+{
+  LOG(@"全削除");
+  for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
+    NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPath];
+    NSManagedObject *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+    [[self.fetchedResultsController managedObjectContext] deleteObject:item];
+  }
+}
+
 #pragma mark セル
 
 /**
@@ -194,6 +204,9 @@ willDisplayHeaderView:(UIView *)view
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (tableView.isEditing) {
+    return;
+  }
   NSIndexPath *indexPathInTableView = indexPath;
   if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView])
   {

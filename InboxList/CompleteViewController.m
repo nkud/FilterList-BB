@@ -96,7 +96,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (tableView.isEditing) {
+    return;
+  }
   LOG(@"完了リストセルが選択された");
+  [tableView deselectRowAtIndexPath:indexPath
+                           animated:YES];
 }
 
 -(void)updateTableView
