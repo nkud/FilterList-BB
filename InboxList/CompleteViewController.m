@@ -42,17 +42,10 @@ static NSString *kCompleteCellID = @"CompleteCell";
 
 }
 
--(void)deleteAllSelectedRows:(id)sender
-{
-  LOG(@"全削除");
-    for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
-      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-      [[self.fetchedResultsController managedObjectContext] deleteObject:item];
-    }
-}
-
 -(void)didTappedEditTableButton
 {
+  [super didTappedEditTableButton];
+  
   [self toEdit:self];
 }
 
@@ -87,12 +80,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     LOG(@"編集モード終了");
     [self.tableView setEditing:false
                       animated:YES];
-    [self.delegateForList openTabBar];
   } else {
     LOG(@"編集モード開始");
     [self.tableView setEditing:true
                       animated:YES];
-    [self.delegateForList closeTabBar];
   }
 }
 

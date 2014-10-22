@@ -71,10 +71,12 @@
 
 -(void)didTappedEditTableButton
 {
+  [super didTappedEditTableButton];
   [self toEdit:self];
 }
 -(void)didTappedInsertObjectButton
 {
+  [super didTappedInsertObjectButton];
   [self toAdd:self];
 }
 

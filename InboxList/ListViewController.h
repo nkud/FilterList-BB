@@ -30,6 +30,8 @@
 #pragma mark - アクセサリー
 //-(UIButton *)newDisclosureIndicatorAccessory;
 
+@property NSFetchedResultsController *fetchedResultsController;
+
 
 #pragma mark - ナビゲーションバー
 -(void)configureTitleWithString:(NSString *)title

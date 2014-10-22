@@ -21,8 +21,6 @@
 @interface ItemViewController : ListViewController
 <NSFetchedResultsControllerDelegate, ItemDetailViewControllerDelegate, InputHeaderCellDelegate>
 
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-
 //@property (strong, nonatomic) Tag *tagForSelected;
 
 @property (strong, nonatomic) NSSet *selectedTags;

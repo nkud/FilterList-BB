@@ -32,7 +32,6 @@ static NSString * const TagModeCellIdentifier = @"TagCell";
 
 @property (assign, nonatomic) id <TagViewControllerDelegate> delegate;
 
-@property NSFetchedResultsController *fetchedResultsController;
 
 - (void)updateTableView;
 

@@ -33,6 +33,4 @@
 
 @property id <FilterViewControllerDelegate> delegate;
 
-@property NSFetchedResultsController *fetchedResultsController;
-
 @end

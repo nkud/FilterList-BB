@@ -11,9 +11,6 @@
 @interface CompleteViewController : ListViewController
 <NSFetchedResultsControllerDelegate>
 
-@property NSFetchedResultsController *fetchedResultsController;
-
 -(void)updateTableView;
-
 
 @end

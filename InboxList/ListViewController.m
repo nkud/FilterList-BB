@@ -122,6 +122,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 
 -(void)updateButtonForDelete
 {
+  // TODO: 更新されない
   NSString *title = [NSString stringWithFormat:@"Delete(%lu)", (unsigned long)[[self.tableView indexPathsForSelectedRows] count]];
   [self.deleteAllButton setTitle:title
                         forState:UIControlStateNormal];
@@ -130,10 +131,10 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 -(void)deleteAllSelectedRows:(id)sender
 {
   LOG(@"全削除");
-//  for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
-//    Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    [[self.fetchedResultsController managedObjectContext] deleteObject:item];
-//  }
+  for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
+    NSManagedObject *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [[self.fetchedResultsController managedObjectContext] deleteObject:item];
+  }
 }
 
 
@@ -167,10 +168,17 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 -(void)didTappedEditTableButton
 {
   LOG(@"編集ボタン");
+  if (self.tableView.isEditing) {
+    [self.delegateForList openTabBar];
+  } else {
+    [self.delegateForList closeTabBar];
+  }
+
 }
 
 -(void)didTappedInsertObjectButton
 {
+  [self.delegateForList closeTabBar];
   LOG(@"挿入ボタン");
 }
 

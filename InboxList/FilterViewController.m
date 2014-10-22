@@ -89,13 +89,10 @@ static NSString *kFilterCellID = @"FilterCell";
 
 #pragma mark - フィルター入力 -
 
--(void)didTappedInsertObjectButton
-{
-  [self presentInputFilterView];
-}
-
 -(void)didTappedEditTableButton
 {
+  [super didTappedEditTableButton];
+  
   [self aleartMessage:@"Edit mode"];
   if (self.tableView.isEditing) {
     [self.tableView setEditing:false
@@ -105,6 +102,14 @@ static NSString *kFilterCellID = @"FilterCell";
                       animated:YES];
   }
 }
+
+-(void)didTappedInsertObjectButton
+{
+  [super didTappedInsertObjectButton];
+  
+  [self presentInputFilterView];
+}
+
 
 /**
  *  @brief フィルター入力画面を表示する
