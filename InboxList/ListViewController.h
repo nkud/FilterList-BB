@@ -45,4 +45,7 @@
 
 -(void)aleartMessage:(NSString *)message;
 
+@property UIButton *deleteAllButton;
+
+
 @end

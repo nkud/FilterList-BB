@@ -7,7 +7,7 @@
 //
 
 #import "ItemDetailViewController.h"
-#import "ItemDetailTitleCell.h"
+#import "TitleCell.h"
 #import "ItemDetailTagCell.h"
 #import "ItemDetailDateCell.h"
 #import "ItemDetailDatePickerCell.h"
@@ -23,7 +23,6 @@ static NSString *kDateCellPlaceHold = @"due date";
 static NSString *kTitleCellPlaceHold = @"tag";
 
 // セルID
-static NSString *kTitleCellID = @"titleCell";
 static NSString *kTagCellID = @"tagCell";
 static NSString *kDateCellID = @"dateCell";
 static NSString *kDatePickerCellID = @"datePickerCell";
@@ -100,9 +99,6 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   [self initParam];
   
   // セル登録
-  [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTitleCell"
-                                             bundle:nil]
-       forCellReuseIdentifier:kTitleCellID];
   [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTagCell"
                                              bundle:nil]
        forCellReuseIdentifier:kTagCellID];
@@ -137,7 +133,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 {
   [super viewDidAppear:animated];
   if (didAcitivateKeyboard_ == NO) {
-    ItemDetailTitleCell *cell = [self getTitleCell];
+    TitleCell *cell = [self getTitleCell];
     [cell.titleField becomeFirstResponder];
     didAcitivateKeyboard_ = YES;
   }
@@ -182,12 +178,12 @@ static NSString *kDatePickerCellID = @"datePickerCell";
  *
  * @return タイトルセル
  */
--(ItemDetailTitleCell *)getTitleCell
+-(TitleCell *)getTitleCell
 {
   NSIndexPath *indexPathForTitleCell = [NSIndexPath indexPathForRow:0
                                                           inSection:0];
-  ItemDetailTitleCell *cell
-  = (ItemDetailTitleCell *)[self.tableView cellForRowAtIndexPath:indexPathForTitleCell];
+  TitleCell *cell
+  = (TitleCell *)[self.tableView cellForRowAtIndexPath:indexPathForTitleCell];
   return cell;
 }
 
@@ -271,7 +267,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
  */
 -(NSString *)getTextOfTitleCell
 {
-  ItemDetailTitleCell *cell = [self getTitleCell];
+  TitleCell *cell = [self getTitleCell];
   return cell.titleField.text;
 }
 
@@ -361,7 +357,7 @@ numberOfRowsInSection:(NSInteger)section
   // タイトルセルを作成
   if ([self isTitleCellAtIndexPath:indexPath])
   {
-    ItemDetailTitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTitleCellID];
+    TitleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[self titleCellID]];
     [self configureTitleCell:cell atIndexPath:indexPath];
     return cell;
   }
@@ -439,7 +435,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
   LOG(@"%@", cell.reuseIdentifier);
 
-  if ([cell.reuseIdentifier isEqualToString:kTitleCellID])
+  if ([cell.reuseIdentifier isEqualToString:[self titleCellID]])
   {
     // タグセルの処理
     LOG(@"タイトルセルを選択");
@@ -453,7 +449,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     // リマインダーセルの処理
     
     // キーボードは閉じる
-    ItemDetailTitleCell *tcell = [self getTitleCell];
+    TitleCell *tcell = [self getTitleCell];
     [tcell.titleField resignFirstResponder];
     
     [self toggleDatePickerCell];
@@ -531,7 +527,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  * @param cell        セル
  * @param atIndexPath 位置
  */
--(void)configureTitleCell:(ItemDetailTitleCell *)cell
+-(void)configureTitleCell:(TitleCell *)cell
               atIndexPath:(NSIndexPath *)atIndexPath
 {
   if (self.titleForItem)

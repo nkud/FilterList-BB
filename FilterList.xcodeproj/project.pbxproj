@@ -45,8 +45,6 @@
 		B083521419CD59EC00071EE0 /* InputHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B083521219CD59EC00071EE0 /* InputHeaderCell.m */; };
 		B083521519CD59EC00071EE0 /* InputHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B083521319CD59EC00071EE0 /* InputHeaderCell.xib */; };
 		B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */; };
-		B08CDBB019C553CC008263AC /* ItemDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B08CDBAE19C553CC008263AC /* ItemDetailTitleCell.m */; };
-		B08CDBB119C553CC008263AC /* ItemDetailTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08CDBAF19C553CC008263AC /* ItemDetailTitleCell.xib */; };
 		B08CDBB619C559B8008263AC /* ItemDetailTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B08CDBB419C559B8008263AC /* ItemDetailTagCell.m */; };
 		B08CDBB719C559B8008263AC /* ItemDetailTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08CDBB519C559B8008263AC /* ItemDetailTagCell.xib */; };
 		B08CDBBC19C55BAF008263AC /* ItemDetailDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B08CDBBA19C55BAF008263AC /* ItemDetailDateCell.m */; };
@@ -144,9 +142,6 @@
 		B083521319CD59EC00071EE0 /* InputHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputHeaderCell.xib; sourceTree = "<group>"; };
 		B08C33A319A84E4F00AB5F25 /* ItemNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemNavigationController.h; sourceTree = "<group>"; };
 		B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemNavigationController.m; sourceTree = "<group>"; };
-		B08CDBAD19C553CC008263AC /* ItemDetailTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailTitleCell.h; sourceTree = "<group>"; };
-		B08CDBAE19C553CC008263AC /* ItemDetailTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailTitleCell.m; sourceTree = "<group>"; };
-		B08CDBAF19C553CC008263AC /* ItemDetailTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemDetailTitleCell.xib; sourceTree = "<group>"; };
 		B08CDBB319C559B8008263AC /* ItemDetailTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailTagCell.h; sourceTree = "<group>"; };
 		B08CDBB419C559B8008263AC /* ItemDetailTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailTagCell.m; sourceTree = "<group>"; };
 		B08CDBB519C559B8008263AC /* ItemDetailTagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemDetailTagCell.xib; sourceTree = "<group>"; };
@@ -406,16 +401,6 @@
 			name = InputHeaderCell;
 			sourceTree = "<group>";
 		};
-		B08CDBB219C553D1008263AC /* TitleCell */ = {
-			isa = PBXGroup;
-			children = (
-				B08CDBAD19C553CC008263AC /* ItemDetailTitleCell.h */,
-				B08CDBAE19C553CC008263AC /* ItemDetailTitleCell.m */,
-				B08CDBAF19C553CC008263AC /* ItemDetailTitleCell.xib */,
-			);
-			name = TitleCell;
-			sourceTree = "<group>";
-		};
 		B08CDBB819C559BC008263AC /* TagCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,7 +639,6 @@
 				B08CDBC419C55BEF008263AC /* DatePickerCell */,
 				B08CDBBE19C55BB3008263AC /* DateCell */,
 				B08CDBB819C559BC008263AC /* TagCell */,
-				B08CDBB219C553D1008263AC /* TitleCell */,
 			);
 			name = ItemDetailView;
 			sourceTree = "<group>";
@@ -765,7 +749,6 @@
 				B053199B199FC92C00F63783 /* itemtab.png in Resources */,
 				B08CDBC319C55BED008263AC /* ItemDetailDatePickerCell.xib in Resources */,
 				B053199A199FC92C00F63783 /* filtertab.png in Resources */,
-				B08CDBB119C553CC008263AC /* ItemDetailTitleCell.xib in Resources */,
 				B0D7BFB019F256CD006EDCAB /* ItemTabBarItem.png in Resources */,
 				B0E5330919E3EC85005A53B1 /* CompleteCell.xib in Resources */,
 				B0264E2F19EE51620066C44E /* unchecked.png in Resources */,
@@ -816,7 +799,6 @@
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
 				B0AD8C7919D12C070069B29D /* TagLabel.m in Sources */,
 				B0808049195825A3007D21E4 /* TagViewController.m in Sources */,
-				B08CDBB019C553CC008263AC /* ItemDetailTitleCell.m in Sources */,
 				B0E5330819E3EC85005A53B1 /* CompleteCell.m in Sources */,
 				B00AD69D18C45E470005A552 /* AppDelegate.m in Sources */,
 				B080804C19582CF6007D21E4 /* MainViewController.m in Sources */,

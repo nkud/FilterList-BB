@@ -9,8 +9,6 @@
 #import "DetailViewController.h"
 #import "Header.h"
 
-#import "TitleCell.h"
-
 static NSString *kTitleCellID = @"TitleCellIdentifier";
 static NSString *kTitleCellNibName = @"TitleCell";
 

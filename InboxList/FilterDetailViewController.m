@@ -9,8 +9,8 @@
 #import "FilterDetailViewController.h"
 #import "FilterCell.h"
 #import "CoreDataController.h"
+#import "TitleCell.h"
 
-#import "ItemDetailTitleCell.h"
 #import "ItemDetailTagCell.h"
 
 #import "TagSelectViewController.h"
@@ -145,11 +145,11 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 }
 
 #pragma mark - ユーティリティ
--(ItemDetailTitleCell *)titleCell
+-(TitleCell *)titleCell
 {
   NSIndexPath *indexPathForTitleCell = [NSIndexPath indexPathForRow:0
                                                           inSection:0];
-  ItemDetailTitleCell *cell = (ItemDetailTitleCell *)[self.tableView cellForRowAtIndexPath:indexPathForTitleCell];
+  TitleCell *cell = (TitleCell *)[self.tableView cellForRowAtIndexPath:indexPathForTitleCell];
   return cell;
 }
 -(ItemDetailTagCell *)tagCell
@@ -196,7 +196,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 {
   // タイトルセル
   if ([self isTitleCellAtIndexPath:indexPath]) {
-    ItemDetailTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:[self titleCellID]];
+    TitleCell *cell = [tableView dequeueReusableCellWithIdentifier:[self titleCellID]];
     cell.titleField.text = self.titleForFilter;
     cell.titleField.placeholder = @"title";
     cell.titleField.delegate = self;

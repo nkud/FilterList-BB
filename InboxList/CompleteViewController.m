@@ -39,44 +39,16 @@ static NSString *kCompleteCellID = @"CompleteCell";
   // Do any additional setup after loading the view.
   
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
-  
-  // 編集タブ
-  UIView *editTabBar = [[UIView alloc] initWithFrame:self.tabBar.frame];
-  editTabBar.backgroundColor = [UIColor whiteColor];
-  
-  self.deleteAllButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [self.deleteAllButton addTarget:self
-                      action:@selector(deleteAllSelectedRows:)
-            forControlEvents:UIControlEventTouchUpInside];
-  [self updateButtonForDelete];
-  [self.deleteAllButton setTintColor:[UIColor whiteColor]];
-  CGFloat height = 30;
-  CGFloat width = 100;
-  CGFloat margin = 20;
-  self.deleteAllButton.frame = CGRectMake(margin,
-                                     (editTabBar.frame.size.height-height)/2,
-                                     width,
-                                     height);
-  self.deleteAllButton.backgroundColor = [UIColor redColor];
-  [editTabBar addSubview:self.deleteAllButton];
-  
-  [self.view addSubview:editTabBar];
-}
 
--(void)updateButtonForDelete
-{
-  NSString *title = [NSString stringWithFormat:@"Delete(%lu)", (unsigned long)[[self.tableView indexPathsForSelectedRows] count]];
-  [self.deleteAllButton setTitle:title
-                        forState:UIControlStateNormal];
 }
 
 -(void)deleteAllSelectedRows:(id)sender
 {
   LOG(@"全削除");
-  for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
-    Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [[self.fetchedResultsController managedObjectContext] deleteObject:item];
-  }
+    for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      [[self.fetchedResultsController managedObjectContext] deleteObject:item];
+    }
 }
 
 -(void)didTappedEditTableButton
