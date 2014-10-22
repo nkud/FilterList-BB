@@ -229,32 +229,58 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
  */
 -(void)aleartMessage:(NSString *)message
 {
+  CGFloat duration = 0.3f;
+  CGFloat presentDistance = 50;
+  CGFloat delay = 0.8f;
+  
   UILabel *label = self.subTitleLabel;
-  NSString *originString = label.text;
-  [UIView animateWithDuration:0.2
+  
+  CGRect originFrame = label.frame;
+  CGRect startFrame = label.frame;
+  startFrame.origin.x -= presentDistance;
+  CGRect destinationFrame = label.frame;
+  destinationFrame.origin.x += presentDistance;
+//  NSString *originString = label.text;
+  
+  // メッセージ
+  UILabel *mesLabel = [[UILabel alloc] initWithFrame:startFrame];
+  mesLabel.font = [UIFont boldSystemFontOfSize:kSubTitleFontSize];
+  mesLabel.textColor = [UIColor blackColor];
+  mesLabel.textAlignment = NSTextAlignmentCenter;
+  mesLabel.backgroundColor = [UIColor clearColor];
+  mesLabel.adjustsFontSizeToFitWidth = YES;
+  mesLabel.text = message;
+  mesLabel.alpha = 0;
+  
+  [self.titleView addSubview:mesLabel];
+  
+  // 消滅
+  [UIView animateWithDuration:duration
                    animations:^{
                      label.alpha = 0;
-                   } completion:^(BOOL finished) {
+                     label.frame = destinationFrame;
+                     
+                     mesLabel.alpha = 1;
+                     mesLabel.frame = originFrame;
+                   }
+                   completion:^(BOOL finished) {
+                     label.frame = startFrame;
+                     
+                     // 出現
                      [UIView animateWithDuration:0.2
+                                           delay:delay
+                                         options:UIViewAnimationOptionCurveLinear
                                       animations:^{
-                                        label.text = message;
                                         label.alpha = 1;
-                                      } completion:^(BOOL finished) {
-                                        [UIView animateWithDuration:0.2
-                                                              delay:1
-                                                            options:UIViewAnimationOptionCurveLinear
-                                                         animations:^{
-                                                           label.alpha = 0;
-                                                         } completion:^(BOOL finished) {
-                                                           [UIView animateWithDuration:0.2
-                                                                            animations:^{
-                                                                              label.text = originString;
-                                                                              label.alpha = 1;
-                                                                            } completion:^(BOOL finished) {
-                                                                              ;
-                                                                            }];
-                                                         }];
+                                        label.frame = originFrame;
+                                        
+                                        mesLabel.alpha = 0;
+                                        mesLabel.frame = destinationFrame;
+                                      }
+                                      completion:^(BOOL finished) {
+                                        ;
                                       }];
+                     
                    }];
 }
 
