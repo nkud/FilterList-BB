@@ -46,6 +46,10 @@
 -(void)didTappedEditTableButton;
 -(void)didTappedInsertObjectButton;
 
+#pragma mark - 編集バー
+@property UIView *editTabBar;
+- (void)hideEditTabBar:(BOOL)hide;
+
 -(void)aleartMessage:(NSString *)message;
 
 @property UIButton *deleteAllButton;

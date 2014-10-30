@@ -25,17 +25,11 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 
 #pragma mark - 初期化 -
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil
-                         bundle:nibBundleOrNil];
-
-  if (self) {
-
-  }
-  return self;
-}
-
+/**
+ * @brief  ビュー表示前処理
+ *
+ * @param animated アニメーション
+ */
 -(void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
@@ -45,6 +39,21 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   [self.tableView reloadData];
 }
 
+/**
+ * @brief  ビュー非表示前
+ *
+ * @param animated アニメーション
+ */
+-(void)viewWillDisappear:(BOOL)animated
+{
+  [self hideEditTabBar:YES];
+}
+
+/**
+ * @brief  ビュー表示後処理
+ *
+ * @param animated アニメーション
+ */
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   
@@ -52,17 +61,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   [self.tableView flashScrollIndicators];
 }
 
-- (void)setEditing:(BOOL)flag
-          animated:(BOOL)animated {
-  
-  [super setEditing:flag
-           animated:animated];
-
-  [self.tableView setEditing:flag
-                    animated:animated];
-}
 /**
- * @brief  ビューロード後
+ * @brief  ビューロード後処理
  */
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -77,12 +77,12 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   
+  // 編集時マルチ選択を許可
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
   
   [self.view addSubview:self.tableView];
   
   // タブバー初期化
-  LOG(@"タブバー初期化");
   frame = CGRectMake(0,
                      SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H,
                      SCREEN_BOUNDS.size.width,
@@ -92,17 +92,11 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   self.tabBar.delegate = self;
   [self.view addSubview:self.tabBar];
   
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  // 編集タブ初期化
+  self.editTabBar = [[UIView alloc] initWithFrame:self.tabBar.frame];
+  self.editTabBar.backgroundColor = [UIColor whiteColor];
   
-  
-  // 編集タブ
-  UIView *editTabBar = [[UIView alloc] initWithFrame:self.tabBar.frame];
-  editTabBar.backgroundColor = [UIColor whiteColor];
-  
+  // 全削除ボタン作成
   self.deleteAllButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
   [self.deleteAllButton addTarget:self
                            action:@selector(deleteAllSelectedRows:)
@@ -113,15 +107,33 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   CGFloat width = 100;
   CGFloat margin = 20;
   self.deleteAllButton.frame = CGRectMake(margin,
-                                          (editTabBar.frame.size.height-height)/2,
+                                          (self.editTabBar.frame.size.height-height)/2,
                                           width,
                                           height);
   self.deleteAllButton.backgroundColor = [UIColor redColor];
-  [editTabBar addSubview:self.deleteAllButton];
+  [self.editTabBar addSubview:self.deleteAllButton];
   
-  [self.view addSubview:editTabBar];
+  [self.view addSubview:self.editTabBar];
+  
+  // 編集タブは隠す
+  [self hideEditTabBar:YES];
 }
 
+/**
+ * @brief  編集
+ *
+ * @param flag     編集中か評価
+ * @param animated アニメーション
+ */
+- (void)setEditing:(BOOL)flag
+          animated:(BOOL)animated {
+  
+  [super setEditing:flag
+           animated:animated];
+  
+  [self.tableView setEditing:flag
+                    animated:animated];
+}
 
 -(void)updateButtonForDelete
 {
@@ -168,15 +180,23 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   return editTableButton;
 }
 
+/**
+ * @brief  編集ボタンをタップ時
+ */
 -(void)didTappedEditTableButton
 {
-  LOG(@"編集ボタン");
-  if (self.tableView.isEditing) {
+  if (self.tableView.isEditing)
+  {
+    // 編集中なら
+    // タブバーを開く
     [self.delegateForList openTabBar];
+    [self hideEditTabBar:YES];
   } else {
+    // そうでないなら
+    // タブバーを閉じる
+    [self hideEditTabBar:NO];
     [self.delegateForList closeTabBar];
   }
-
 }
 
 -(void)didTappedInsertObjectButton
@@ -184,7 +204,6 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   [self.delegateForList closeTabBar];
   LOG(@"挿入ボタン");
 }
-
 
 /**
  * @brief  タイトルを設定
@@ -303,6 +322,30 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 {
   LOG(@"アクセサリーをタップ");
 }
+
+#pragma mark タブバー
+
+/**
+ * @brief  編集タブバーの表示・非表示
+ *
+ * @param hide 真偽値
+ */
+-(void)hideEditTabBar:(BOOL)hide
+{
+  CGRect frame = self.editTabBar.frame;
+  if (hide) {
+    // 編集タブを隠す
+    frame.origin.y = SCREEN_BOUNDS.size.height - NAVBAR_H - STATUSBAR_H;
+  } else {
+    // 編集タブを表示する
+    frame.origin.y = SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H;
+  }
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:0.2];
+  self.editTabBar.frame = frame;
+  [UIView commitAnimations];
+}
+
 #pragma mark - その他 -
 #pragma mark メモリー
 - (void)didReceiveMemoryWarning {
