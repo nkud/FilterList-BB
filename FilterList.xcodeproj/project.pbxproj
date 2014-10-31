@@ -468,6 +468,7 @@
 				B0BE423819E2E62C0033F169 /* ListViewController.h */,
 				B0BE423919E2E62C0033F169 /* ListViewController.m */,
 				B0030D9F19F6E4FA00CF8F40 /* DetailView */,
+				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
@@ -650,7 +651,6 @@
 				B00AD6A518C45E470005A552 /* ItemViewController.m */,
 				B0E7571219499D98004C6344 /* ItemCell */,
 				B083521619CD59EF00071EE0 /* InputHeaderCell */,
-				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B0E7571319499E95004C6344 /* ItemDetailView */,
 			);
 			name = ItemMode;

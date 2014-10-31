@@ -16,13 +16,15 @@
 
 /// タグ選択画面
 @interface TagSelectViewController : UIViewController
-<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,
+UITextFieldDelegate>
 
+// IOBoutle
 @property (weak, nonatomic) IBOutlet UITableView *tagTableView;
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
-
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
+// コントローラー
 @property NSFetchedResultsController *fetchedResultsController;
 
 @property NSSet *tagsForAlreadySelected;

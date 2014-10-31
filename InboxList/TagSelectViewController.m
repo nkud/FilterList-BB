@@ -52,6 +52,14 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   
   // 既存のタグを選択セットに追加する
   [self initializeForAlreadySavedTags];
+  
+  self.inputField.delegate = self;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  [self.inputField resignFirstResponder];
+  return YES;
 }
 
 /**
