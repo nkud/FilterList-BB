@@ -474,8 +474,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   controller.delegate = self;
   controller.tagsForAlreadySelected = nil;
   controller.maxCapacityRowsForSelected = 1;
-  [self.navigationController pushViewController:controller
-                                       animated:YES];
+  [self presentViewController:controller
+                     animated:YES
+                   completion:^{
+                   }];
+//  [self.navigationController pushViewController:controller
+//                                       animated:YES];
 }
 
 /**
@@ -640,6 +644,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   self.tagsForItem = tagsForSelectedRows;
   /// @todo 効率悪い
   [self.tableView reloadData];
+
+  // 閉じる
+  [self dismissViewControllerAnimated:YES
+                           completion:^{
+                             ;
+                           }];
 }
 
 #pragma mark - その他

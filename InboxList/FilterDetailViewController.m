@@ -236,8 +236,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   controller.delegate = self;
   controller.tagsForAlreadySelected = nil;
   controller.maxCapacityRowsForSelected = 0;
-  [self.navigationController pushViewController:controller
-                                       animated:YES];
+  
+  [self presentViewController:controller
+                     animated:YES
+                   completion:^{
+                     ;
+                   }];
+//  [self.navigationController pushViewController:controller
+//                                       animated:YES];
 }
 
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
@@ -246,6 +252,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   self.tagsForFilter = tagsForSelectedRows;
   
   [self.tableView reloadData];
+  [self dismissViewControllerAnimated:YES
+                           completion:^{
+                             ;
+                           }];
 }
 /**
  * @brief  タグのセットから文字列を作成
