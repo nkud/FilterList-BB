@@ -591,7 +591,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   }
   cell.textLabel.text = stringForDate;
   cell.textLabel.textColor = colorForText;
+  
+  [self addCancelButton:cell];
 }
+
+/**
+ * @brief  キャンセルボタンが押された時
+ *
+ * @param sender センダー
+ */
+-(void)didTappedCancelButton:(id)sender
+{
+  self.reminderForItem = nil;
+  
+  // 日時セルを更新
+  [self configureDateCell:[self dateCell]
+              atIndexPath:nil];
+}
+
 #pragma mark - デリゲート -
 #pragma mark ピッカー
 /**

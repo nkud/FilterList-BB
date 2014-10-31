@@ -17,4 +17,8 @@
 
 -(NSString *)titleCellID;
 
+#pragma mark - キャンセルボタン
+- (void)addCancelButton:(UITableViewCell *)cell;
+- (void)didTappedCancelButton:(id)sender;
+
 @end

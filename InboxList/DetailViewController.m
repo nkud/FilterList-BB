@@ -49,6 +49,22 @@ static NSString *kTitleCellNibName = @"TitleCell";
   return kTitleCellID;
 }
 
+- (void)addCancelButton:(UITableViewCell *)cell
+{
+  UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  cancelButton.frame = CGRectMake(0, 0, 30, 30);
+  cancelButton.backgroundColor = [UIColor blackColor];
+  [cancelButton addTarget:self
+                   action:@selector(didTappedCancelButton:)
+         forControlEvents:UIControlEventTouchUpInside];
+  cell.accessoryView = cancelButton;
+}
+
+- (void)didTappedCancelButton:(id)sender
+{
+  LOG(@"キャンセルボタン");
+}
+
 #pragma mark - テーブルビュー -
 #pragma mark デリゲート
 -(UITableViewCell *)tableView:(UITableView *)tableView
