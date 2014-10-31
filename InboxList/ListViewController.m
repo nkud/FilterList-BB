@@ -332,6 +332,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
  */
 -(void)hideEditTabBar:(BOOL)hide
 {
+  CGFloat duration = 0.2;
   CGRect frame = self.editTabBar.frame;
   if (hide) {
     // 編集タブを隠す
@@ -341,7 +342,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
     frame.origin.y = SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H;
   }
   [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.2];
+  [UIView setAnimationDuration:duration];
   self.editTabBar.frame = frame;
   [UIView commitAnimations];
 }
