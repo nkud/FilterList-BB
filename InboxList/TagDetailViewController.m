@@ -21,6 +21,15 @@
 
 #pragma mark - 初期化 -
 
+/**
+ * @brief  初期化
+ *
+ * @param title     タイトル
+ * @param indexPath 位置
+ * @param delegate  デリゲート
+ *
+ * @return インスタンス
+ */
 -(instancetype)initWithTitle:(NSString *)title
                    indexPath:(NSIndexPath *)indexPath
                     delegate:(id<TagDetailViewControllerDelegte>)delegate
@@ -55,7 +64,9 @@
  */
 - (void)initParam {
   NSArray *itemOne = @[[self titleCellID]];
-  dataArray_ = @[itemOne];
+  NSArray *itemTwo = @[[self titleCellID]];
+  NSArray *itemThree = @[[self titleCellID]];
+  dataArray_ = @[itemOne, itemTwo, itemThree];
 }
 
 /**
@@ -112,7 +123,8 @@
 #pragma mark - テーブルビュー -
 #pragma mark デリゲート
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+-(NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section
 {
   if (section == 0) {
     return @"TITLE";
@@ -142,7 +154,8 @@
     cell.titleField.delegate = self;
     return cell;
   } else {
-    UITableViewCell *cell;
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                   reuseIdentifier:@"cell"];
     return cell;
   }
 }
