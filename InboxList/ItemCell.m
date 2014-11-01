@@ -9,8 +9,12 @@
 #import "ItemCell.h"
 #import "Header.h"
 
-@implementation ItemCell
+static NSString *kCheckedImageName = @"checked@2x.png";
+static NSString *kUncheckedImageName = @"unchecked@2x.png";
 
+#pragma mark -
+
+@implementation ItemCell
 
 /**
  * 初期化する
@@ -52,7 +56,7 @@
 -(void)setChecked
 {
   LOG(@"チェックを付ける");
-  UIImage *check_true = [UIImage imageNamed:@"checked.png"];
+  UIImage *check_true = [UIImage imageNamed:kCheckedImageName];
   [self.checkBoxImageView setImage:check_true];
 }
 
@@ -62,7 +66,7 @@
 - (void)setUnChecked
 {
   LOG(@"チェックを外す");
-  UIImage *check_false = [UIImage imageNamed:@"unchecked.png"];
+  UIImage *check_false = [UIImage imageNamed:kUncheckedImageName];
   [self.checkBoxImageView setImage:check_false];
 }
 
