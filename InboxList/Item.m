@@ -59,7 +59,16 @@
  */
 -(BOOL)isDueToToday
 {
-  return NO;
+  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  [formatter setDateFormat:@"yyyy-MM-dd"];;
+  NSDate *today = [NSDate date];
+  NSString *todayString = [formatter stringFromDate:today];
+  NSString *dueToString = [formatter stringFromDate:self.reminder];
+  if ([todayString isEqualToString:dueToString]) {
+    return YES;
+  } else {
+    return NO;
+  }
 }
 
 -(NSString *)tagName

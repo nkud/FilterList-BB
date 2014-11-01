@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Item.h"
 
 /**
  * @brief  アイテムリスト用のセル
@@ -23,8 +24,8 @@
 
 //+ (CGFloat)cellHeight;
 
--(BOOL)updateCheckBox:(BOOL)isChecked;
--(void)setChecked;
--(void)setUnChecked;
+-(BOOL)updateCheckBoxWithItem:(Item *)item;
+-(void)setCheckedWithItem:(Item *)item;
+-(void)setUnCheckedWithItem:(Item *)item;
 
 @end

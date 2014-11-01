@@ -335,7 +335,8 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   cell.tagLabel.text = item.tag.title;
   
   // 状態
-  [cell updateCheckBox:item.state.boolValue];
+//  [cell updateCheckBox:item.state.boolValue];
+  [cell updateCheckBoxWithItem:item];
   
   // リマインダー
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -372,12 +373,14 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       LOG(@"チェックボックスのタッチ開始");
       CGPoint point = [sender locationInView:self.tableView];
       NSIndexPath *indexPathInTableView = [self.tableView indexPathForRowAtPoint:point];
+      NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
       
       // その位置のセルのデータをモデルから取得する
       ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
 
       selected_cell = cell;
-      [selected_cell setChecked];
+      [selected_cell setCheckedWithItem:item];
     }
       break;
       
@@ -386,16 +389,16 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       LOG(@"チェックボックスのタッチ終了");
       CGPoint point = [sender locationInView:self.tableView];
       NSIndexPath *indexPathInTableView = [self.tableView indexPathForRowAtPoint:point];
+      NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
       
       // その位置のセルのデータをモデルから取得する
-      
-      NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+    
       LOG(@"モデルを取得");
       if (indexPathInController.section < 0) {
-        [selected_cell setUnChecked];
+        [selected_cell setUnCheckedWithItem:item];
         return;
       }
-      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
       ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
       
       if (selected_cell == cell) {
@@ -404,7 +407,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
         [item setComplete];
         [CoreDataController saveContext];
       } else {
-        [selected_cell setUnChecked];
+        [selected_cell setUnCheckedWithItem:item];
       }
       [CoreDataController saveContext];
     }
