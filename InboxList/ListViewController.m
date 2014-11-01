@@ -101,11 +101,13 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   [self.deleteAllButton addTarget:self
                            action:@selector(deleteAllSelectedRows:)
                  forControlEvents:UIControlEventTouchUpInside];
-  [self updateDeleteButtonTitle];
+  [self updateDeleteButton];
   [self.deleteAllButton setTintColor:[UIColor whiteColor]];
-  CGFloat height = 30;
-  CGFloat width = 100;
-  CGFloat margin = 20;
+  CGFloat height = TABBAR_H;
+  CGFloat width = SCREEN_BOUNDS.size.width/2;
+  CGFloat margin = 0;
+  [self.deleteAllButton setTitle:@"Delete All"
+                        forState:UIControlStateDisabled];
   self.deleteAllButton.frame = CGRectMake(margin,
                                           (self.editTabBar.frame.size.height-height)/2,
                                           width,
@@ -125,22 +127,33 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
  * @param flag     編集中か評価
  * @param animated アニメーション
  */
-- (void)setEditing:(BOOL)flag
-          animated:(BOOL)animated {
-  
-  [super setEditing:flag
-           animated:animated];
-  
-  [self.tableView setEditing:flag
-                    animated:animated];
-}
+//- (void)setEditing:(BOOL)flag
+//          animated:(BOOL)animated {
+//  
+//  [super setEditing:flag
+//           animated:animated];
+//  
+//  [self.tableView setEditing:flag
+//                    animated:animated];
+//}
 
--(void)updateDeleteButtonTitle
+/**
+ * @brief  削除ボタンを更新する
+ */
+-(void)updateDeleteButton
 {
   NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+  BOOL noItemsInTable = [[self.fetchedResultsController fetchedObjects] count] == 0;
   BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
   BOOL noItemsAreSelected = selectedRows.count == 0;
   NSString *title;
+  
+  if (noItemsInTable) {
+    self.deleteAllButton.enabled = NO;
+    return;
+  } else {
+    self.deleteAllButton.enabled = YES;
+  }
   
   if (allItemsAreSelected || noItemsAreSelected) {
     title = @"Delete All";
@@ -154,12 +167,12 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  [self updateDeleteButtonTitle];
+  [self updateDeleteButton];
 }
 -(void)tableView:(UITableView *)tableView
 didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  [self updateDeleteButtonTitle];
+  [self updateDeleteButton];
 }
 
 -(void)deleteAllSelectedRows:(id)sender
@@ -204,6 +217,7 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(void)didTappedEditTableButton
 {
+  [self updateDeleteButton];
   if (self.tableView.isEditing)
   {
     // 編集中なら
