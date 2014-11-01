@@ -99,7 +99,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   // 全削除ボタン作成
   self.deleteAllButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
   [self.deleteAllButton addTarget:self
-                           action:@selector(deleteAllSelectedRows:)
+                           action:@selector(deleteRows:)
                  forControlEvents:UIControlEventTouchUpInside];
   [self updateDeleteButton];
   [self.deleteAllButton setTintColor:[UIColor whiteColor]];
@@ -159,6 +159,18 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
   [self updateDeleteButton];
 }
 
+-(void)deleteRows:(id)sender
+{
+  NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+  BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
+  BOOL noItemsAreSelected = selectedRows.count == 0;
+  if (allItemsAreSelected || noItemsAreSelected) {
+    [self deleteAllRows:self];
+  } else {
+    [self deleteAllSelectedRows:self];
+  }
+}
+
 /**
  * @brief  選択セルを削除
  *
@@ -173,6 +185,14 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+-(void)deleteAllRows:(id)sender
+{
+  LOG(@"全削除");
+  NSArray *allObjects = [self.fetchedResultsController fetchedObjects];
+  for (NSManagedObject *obj in allObjects) {
+    [[self.fetchedResultsController managedObjectContext] deleteObject:obj];
+  }
+}
 
 #pragma mark - ユーティリティ -
 #pragma mark ナビゲーションバー
