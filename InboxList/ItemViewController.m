@@ -204,6 +204,7 @@ willDisplayHeaderView:(UIView *)view
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  [super tableView:tableView didSelectRowAtIndexPath:indexPath];
   if (tableView.isEditing) {
     return;
   }

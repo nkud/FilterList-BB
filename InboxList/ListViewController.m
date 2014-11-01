@@ -101,7 +101,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   [self.deleteAllButton addTarget:self
                            action:@selector(deleteAllSelectedRows:)
                  forControlEvents:UIControlEventTouchUpInside];
-  [self updateButtonForDelete];
+  [self updateDeleteButtonTitle];
   [self.deleteAllButton setTintColor:[UIColor whiteColor]];
   CGFloat height = 30;
   CGFloat width = 100;
@@ -135,12 +135,31 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
                     animated:animated];
 }
 
--(void)updateButtonForDelete
+-(void)updateDeleteButtonTitle
 {
-  // TODO: 更新されない
-  NSString *title = [NSString stringWithFormat:@"Delete(%lu)", (unsigned long)[[self.tableView indexPathsForSelectedRows] count]];
+  NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+  BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
+  BOOL noItemsAreSelected = selectedRows.count == 0;
+  NSString *title;
+  
+  if (allItemsAreSelected || noItemsAreSelected) {
+    title = @"Delete All";
+  } else {
+      title = [NSString stringWithFormat:@"Delete(%lu)", (unsigned long)selectedRows.count];
+  }
+  
   [self.deleteAllButton setTitle:title
                         forState:UIControlStateNormal];
+}
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  [self updateDeleteButtonTitle];
+}
+-(void)tableView:(UITableView *)tableView
+didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  [self updateDeleteButtonTitle];
 }
 
 -(void)deleteAllSelectedRows:(id)sender
