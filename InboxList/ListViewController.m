@@ -122,22 +122,6 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 }
 
 /**
- * @brief  編集
- *
- * @param flag     編集中か評価
- * @param animated アニメーション
- */
-//- (void)setEditing:(BOOL)flag
-//          animated:(BOOL)animated {
-//  
-//  [super setEditing:flag
-//           animated:animated];
-//  
-//  [self.tableView setEditing:flag
-//                    animated:animated];
-//}
-
-/**
  * @brief  削除ボタンを更新する
  */
 -(void)updateDeleteButton
@@ -175,9 +159,14 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
   [self updateDeleteButton];
 }
 
+/**
+ * @brief  選択セルを削除
+ *
+ * @param sender センダー
+ */
 -(void)deleteAllSelectedRows:(id)sender
 {
-  LOG(@"全削除");
+  LOG(@"選択セルのみ削除");
   for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
     NSManagedObject *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [[self.fetchedResultsController managedObjectContext] deleteObject:item];
