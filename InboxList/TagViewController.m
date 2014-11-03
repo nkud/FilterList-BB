@@ -300,7 +300,7 @@ numberOfRowsInSection:(NSInteger)section
   if ([self isCellForAllItemsAtIndexPath:indexPath])
   {
     // 全アイテム表示用タグの設定
-    cell.labelForTitle.text = @"all items";
+    cell.labelForTitle.text = @"Inbox";
 //    cell.labelForOverDueItemsSize.text = @"";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
   } else
