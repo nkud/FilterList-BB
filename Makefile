@@ -1,5 +1,5 @@
 
-SDK=iphoneos8.0
+SDK=iphoneos8.1
 
 CONFIGURATION=AdHoc
 

@@ -491,13 +491,13 @@
 			children = (
 				B0BE423819E2E62C0033F169 /* ListViewController.h */,
 				B0BE423919E2E62C0033F169 /* ListViewController.m */,
-				B0907A091A07CFD500934BE6 /* Config */,
 				B0030D9F19F6E4FA00CF8F40 /* DetailView */,
 				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B0E7571419499EAA004C6344 /* ItemMode */,
 				B08EBBC319703ED000DB9582 /* TagMode */,
 				B08EBBC219703EBC00DB9582 /* FilterMode */,
 				B0AD8C7019D12AFA0069B29D /* CompleteMode */,
+				B0907A091A07CFD500934BE6 /* Config */,
 			);
 			name = ListModeViewController;
 			sourceTree = "<group>";
