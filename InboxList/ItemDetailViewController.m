@@ -584,7 +584,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     colorForText = [UIColor grayColor];
   } else {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
+    [formatter setDateFormat:@"yyyy/MM/dd"];
     colorForText = [UIColor blackColor];
     if (self.reminderForItem) {
       stringForDate = [formatter stringFromDate:self.reminderForItem];

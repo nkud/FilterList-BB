@@ -35,6 +35,15 @@
   self.completionDate = nil;
 }
 
+-(BOOL)hasDueDate
+{
+  if (self.reminder == nil) {
+    return NO;
+  } else {
+    return YES;
+  }
+}
+
 /**
  * @brief  期限を過ぎているか評価
  *

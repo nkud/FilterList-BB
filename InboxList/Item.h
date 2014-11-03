@@ -26,6 +26,7 @@
 
 -(BOOL)isOverDue;
 -(BOOL)isDueToToday;
+-(BOOL)hasDueDate;
 
 -(BOOL)isCompleted;
 -(void)setComplete;

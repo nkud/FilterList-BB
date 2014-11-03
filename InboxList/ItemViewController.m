@@ -344,10 +344,13 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   
   // テキストの色を変更する
   UIColor *textColor;
+
   if ([item isDueToToday]) {
     textColor = DUE_TO_TODAY_COLOR;
-  } else if ([item isOverDue]) {
+  } else if([item isOverDue]) {
     textColor = OVERDUE_COLOR;
+  } else if([item hasDueDate]) {
+    textColor = HAS_DUE_DATE_COLOR;
   } else {
     textColor = GRAY_COLOR;
   }

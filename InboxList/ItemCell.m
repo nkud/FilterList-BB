@@ -66,6 +66,13 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow@2x.png";
       return kRedUncheckedImageName;
     }
   }
+  if ([item hasDueDate]) {
+    if (check) {
+      return kBlueCheckedImageName;
+    } else {
+      return kBlueUncheckedImageName;
+    }
+  }
   if (check) {
     return kCheckedImageName;
   } else {
