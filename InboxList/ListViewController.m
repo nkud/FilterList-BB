@@ -232,7 +232,11 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
     // 編集中なら
     // タブバーを開く
     [self.delegateForList openTabBar];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelay:0.2];
     [self hideEditTabBar:YES];
+    [UIView commitAnimations];
+    
   } else {
     // そうでないなら
     // タブバーを閉じる
@@ -374,7 +378,7 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(void)hideEditTabBar:(BOOL)hide
 {
-  CGFloat duration = 0.2;
+//  CGFloat duration = 0.2;
   CGRect frame = self.editTabBar.frame;
   if (hide) {
     // 編集タブを隠す
@@ -383,10 +387,10 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
     // 編集タブを表示する
     frame.origin.y = SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H;
   }
-  [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:duration];
+//  [UIView beginAnimations:nil context:nil];
+//  [UIView setAnimationDuration:duration];
   self.editTabBar.frame = frame;
-  [UIView commitAnimations];
+//  [UIView commitAnimations];
 }
 
 #pragma mark - その他 -

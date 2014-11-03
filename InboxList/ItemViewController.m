@@ -341,6 +341,8 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   formatter.dateFormat = @"yyyy/MM/dd";
   cell.reminderLabel.text = [formatter stringFromDate:item.reminder];
+  
+  // テキストの色を変更する
   UIColor *textColor;
   if ([item isDueToToday]) {
     textColor = DUE_TO_TODAY_COLOR;
@@ -350,6 +352,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
     textColor = GRAY_COLOR;
   }
   cell.reminderLabel.textColor = textColor;
+  
   // 画像タッチを認識する設定
   UILongPressGestureRecognizer *recognizer
   = [[UILongPressGestureRecognizer alloc] initWithTarget:self
