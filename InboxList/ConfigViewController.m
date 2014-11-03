@@ -9,21 +9,39 @@
 #import "ConfigViewController.h"
 
 @interface ConfigViewController ()
+{
+  NSArray *dataArray_;
+}
 
 @end
 
 @implementation ConfigViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+  [super viewDidLoad];
+  // Do any additional setup after loading the view.
+  
+  // セルデータを作成
+  NSArray *colorSection = @[[self titleCellID]];
+  dataArray_ = @[colorSection];
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return [dataArray_ count];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section
+{
+  return [dataArray_[section] count];
+}
+  
 /*
 #pragma mark - Navigation
 

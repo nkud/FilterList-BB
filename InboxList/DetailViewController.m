@@ -70,7 +70,7 @@ static NSString *kTitleCellNibName = @"TitleCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell;
+  UITableViewCell *cell = [UITableViewCell new];
   return cell;
 }
 #pragma mark データソース
