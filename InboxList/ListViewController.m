@@ -199,7 +199,7 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 -(UIBarButtonItem *)newInsertObjectButton
 {
   UIBarButtonItem *insertObjectButton
-  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
                                                   target:self
                                                   action:@selector(didTappedInsertObjectButton)];
   return insertObjectButton;
