@@ -39,7 +39,16 @@ static NSString *kCompleteCellID = @"CompleteCell";
   // Do any additional setup after loading the view.
   
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
+  
+  UIBarButtonItem *configButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+                                                                                target:self
+                                                                                action:@selector(presentConfigView:)];
+  self.navigationItem.rightBarButtonItem = configButton;
+}
 
+-(void)presentConfigView:(id)sender
+{
+  LOG(@"コンフィグ");
 }
 
 -(void)didTappedEditTableButton
