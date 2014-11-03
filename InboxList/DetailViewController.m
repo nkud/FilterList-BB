@@ -9,6 +9,10 @@
 #import "DetailViewController.h"
 #import "Header.h"
 
+#define CANCEL_BUTTON_HEIGHT 44
+
+static NSString *kCancelButtonImageName = @"cancel@2x.png";
+
 static NSString *kTitleCellID = @"TitleCellIdentifier";
 static NSString *kTitleCellNibName = @"TitleCell";
 
@@ -51,9 +55,12 @@ static NSString *kTitleCellNibName = @"TitleCell";
 
 - (void)addCancelButton:(UITableViewCell *)cell
 {
-  UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  cancelButton.frame = CGRectMake(0, 0, 30, 30);
-  cancelButton.backgroundColor = [UIColor blackColor];
+  UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0,
+                                                                      0,
+                                                                      CANCEL_BUTTON_HEIGHT,
+                                                                      CANCEL_BUTTON_HEIGHT)];
+  [cancelButton setImage:[UIImage imageNamed:kCancelButtonImageName]
+                forState:UIControlStateNormal];
   [cancelButton addTarget:self
                    action:@selector(didTappedCancelButton:)
          forControlEvents:UIControlEventTouchUpInside];
