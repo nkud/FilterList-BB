@@ -59,6 +59,7 @@
 		B08CDBC319C55BED008263AC /* ItemDetailDatePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08CDBC119C55BED008263AC /* ItemDetailDatePickerCell.xib */; };
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
+		B08FA77C1A07E6F1008A6434 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B08FA77B1A07E6F1008A6434 /* cancel@2x.png */; };
 		B0907A081A07CFD000934BE6 /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0907A071A07CFD000934BE6 /* ConfigViewController.m */; };
 		B0AD8C7919D12C070069B29D /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AD8C7819D12C070069B29D /* TagLabel.m */; };
 		B0BC6A8C19A9CDC700E53AEF /* TagSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A8A19A9CDC700E53AEF /* TagSelectViewController.m */; };
@@ -169,6 +170,7 @@
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B08F791B19A8286900145F75 /* Configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
+		B08FA77B1A07E6F1008A6434 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cancel@2x.png"; path = "Icon/cancel@2x.png"; sourceTree = SOURCE_ROOT; };
 		B0907A061A07CFD000934BE6 /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
 		B0907A071A07CFD000934BE6 /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				B0D7BFB519F257B1006EDCAB /* NavigationBarItem */,
 				B0D7BFB319F256DF006EDCAB /* TabBarItem */,
 				B0531997199FC92C00F63783 /* filtertab.png */,
+				B08FA77B1A07E6F1008A6434 /* cancel@2x.png */,
 				B0531998199FC92C00F63783 /* itemtab.png */,
 				B0531999199FC92C00F63783 /* tagtab.png */,
 				B0531995199FC79C00F63783 /* completedtab.png */,
@@ -776,6 +779,7 @@
 				B00AD6AB18C45E470005A552 /* Images.xcassets in Resources */,
 				B036899A1A04B33700CC8521 /* unchecked@2x.png in Resources */,
 				B08CDBB719C559B8008263AC /* ItemDetailTagCell.xib in Resources */,
+				B08FA77C1A07E6F1008A6434 /* cancel@2x.png in Resources */,
 				B036899D1A04C11F00CC8521 /* checked-yellow@2x.png in Resources */,
 				B053199C199FC92C00F63783 /* tagtab.png in Resources */,
 				B08CDBBD19C55BAF008263AC /* ItemDetailDateCell.xib in Resources */,
