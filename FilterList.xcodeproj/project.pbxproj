@@ -59,6 +59,7 @@
 		B08CDBC319C55BED008263AC /* ItemDetailDatePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08CDBC119C55BED008263AC /* ItemDetailDatePickerCell.xib */; };
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
 		B08F4B651915FAC80047E210 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08F4B641915FAC80047E210 /* NavigationController.m */; };
+		B0907A081A07CFD000934BE6 /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0907A071A07CFD000934BE6 /* ConfigViewController.m */; };
 		B0AD8C7919D12C070069B29D /* TagLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AD8C7819D12C070069B29D /* TagLabel.m */; };
 		B0BC6A8C19A9CDC700E53AEF /* TagSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BC6A8A19A9CDC700E53AEF /* TagSelectViewController.m */; };
 		B0BC6A8D19A9CDC700E53AEF /* TagSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BC6A8B19A9CDC700E53AEF /* TagSelectViewController.xib */; };
@@ -168,6 +169,8 @@
 		B08F4B631915FAC80047E210 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		B08F4B641915FAC80047E210 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		B08F791B19A8286900145F75 /* Configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
+		B0907A061A07CFD000934BE6 /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
+		B0907A071A07CFD000934BE6 /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		B0981E36194D5FF000F49C9F /* InboxList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "InboxList 2.xcdatamodel"; sourceTree = "<group>"; };
 		B0AD8C7719D12C070069B29D /* TagLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagLabel.h; sourceTree = "<group>"; };
 		B0AD8C7819D12C070069B29D /* TagLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagLabel.m; sourceTree = "<group>"; };
@@ -474,11 +477,21 @@
 			name = AppDelegate;
 			sourceTree = "<group>";
 		};
+		B0907A091A07CFD500934BE6 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				B0907A061A07CFD000934BE6 /* ConfigViewController.h */,
+				B0907A071A07CFD000934BE6 /* ConfigViewController.m */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
 		B0A0914E19CD322E005CDCF8 /* ListModeViewController */ = {
 			isa = PBXGroup;
 			children = (
 				B0BE423819E2E62C0033F169 /* ListViewController.h */,
 				B0BE423919E2E62C0033F169 /* ListViewController.m */,
+				B0907A091A07CFD500934BE6 /* Config */,
 				B0030D9F19F6E4FA00CF8F40 /* DetailView */,
 				B0BC6A8E19A9CDCC00E53AEF /* TagSelectViewController */,
 				B0E7571419499EAA004C6344 /* ItemMode */,
@@ -810,6 +823,7 @@
 				B0BC6A8C19A9CDC700E53AEF /* TagSelectViewController.m in Sources */,
 				B0BDA88119965639003AA40B /* CoreDataController.m in Sources */,
 				B0BC6A9219A9FA9800E53AEF /* TagSelectCell.m in Sources */,
+				B0907A081A07CFD000934BE6 /* ConfigViewController.m in Sources */,
 				B05EA7C819F7648B00AC0289 /* TitleCell.m in Sources */,
 				B0D7BFB819F39E79006EDCAB /* TagDetailViewController.m in Sources */,
 				B0030D9E19F6E4F600CF8F40 /* DetailViewController.m in Sources */,
