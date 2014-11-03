@@ -14,6 +14,8 @@
 #import "Header.h"
 #import "Configure.h"
 
+#import "ConfigViewController.h"
+
 static NSString *kCompleteCellID = @"CompleteCell";
 
 #pragma mark -
@@ -49,6 +51,9 @@ static NSString *kCompleteCellID = @"CompleteCell";
 -(void)presentConfigView:(id)sender
 {
   LOG(@"コンフィグ");
+  ConfigViewController *controller = [[ConfigViewController alloc] initWithNibName:nil bundle:nil];
+  [self.navigationController pushViewController:controller
+                                       animated:YES];
 }
 
 -(void)didTappedEditTableButton
