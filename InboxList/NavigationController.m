@@ -51,8 +51,7 @@
   CATransition *transition = [CATransition animation];
   transition.duration = 0.3f;
   transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-  transition.type = kCATransitionPush;
-  transition.subtype = kCATransitionFromRight;
+  transition.type = kCATransitionFade;
 	[self.view.layer addAnimation:transition forKey:nil];
 
   [super pushViewController:viewController animated:animated];
@@ -69,8 +68,7 @@
   CATransition *transition = [CATransition animation];
   transition.duration = 0.3f;
   transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-  transition.type = kCATransitionPush;
-  transition.subtype = kCATransitionFromLeft;
+  transition.type = kCATransitionFade;
 	[self.view.layer addAnimation:transition forKey:nil];
 
   return [super popToRootViewControllerAnimated:animated];
