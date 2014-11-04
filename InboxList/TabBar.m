@@ -26,7 +26,7 @@ static NSString *kFilterTabBarItemImageName = @"FilterTabBarItem.png";
   LOG(@"タブバーを作成");
   self.itemModeTab = [[UITabBarItem alloc] initWithTitle:@"ITEM"
                                                    image:[UIImage imageNamed:kItemTabBarItemImageName]
-                                                     tag:0];  
+                                                     tag:0];
   self.tagModeTab = [[UITabBarItem alloc] initWithTitle:@"TAG"
                                                   image:[UIImage imageNamed:kTagTabBarItemImageName]
                                                     tag:1];
