@@ -58,7 +58,7 @@ static NSString *kCompleteTabBarItemImageName = @"CompleteTabBarItem.png";
       self.barStyle = UIBarStyleDefault;
       self.tintColor = TAG_COLOR;
       self.translucent = NO;
-//      self.barTintColor = [UIColor blackColor];
+      self.barTintColor = RGB(30, 30, 30);
     }
     return self;
 }
