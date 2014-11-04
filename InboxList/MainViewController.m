@@ -14,6 +14,8 @@
 #import "Configure.h"
 #import "ListViewController.h"
 
+#define kDurationForListModeSegue 0.2f
+
 #define kMarginRateForTagList 0
 #define kMarginRateForFilterList 0
 
@@ -294,7 +296,7 @@
 {
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.2];
+  [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self closeTagListMode];
   [self closeFilterListMode];
@@ -317,7 +319,7 @@
   LOG(@"タグリストモード");
   [self.tagViewController updateTableView];
   [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.3];
+  [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
   [self closeFilterListMode];
@@ -328,7 +330,7 @@
 {
   LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.3];
+  [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
   [self openFilterListMode];
@@ -341,7 +343,7 @@
   [self.completeViewController updateTableView];
   
   [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.3];
+  [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
   [self openFilterListMode];
