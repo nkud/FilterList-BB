@@ -54,5 +54,6 @@
 
 @property UIButton *deleteAllButton;
 
+-(void)instantMessage:(NSString *)message;
 
 @end

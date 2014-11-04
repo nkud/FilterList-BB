@@ -393,6 +393,48 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 //  [UIView commitAnimations];
 }
 
+#pragma mark インスタントメッセージ
+-(void)instantMessage:(NSString *)message
+{
+  CGFloat width = 80;
+  CGFloat height = 80;
+  UILabel *instant = [UILabel new];
+  instant.frame = CGRectMake((SCREEN_BOUNDS.size.width - width)/2,
+                             (SCREEN_BOUNDS.size.height - height - NAVBAR_H - TABBAR_H)/2 - 50,
+                             width,
+                             height);
+  instant.backgroundColor = [UIColor blackColor];
+  instant.textColor = [UIColor whiteColor];
+  instant.text = message;
+  instant.layer.masksToBounds = YES;
+  instant.layer.opacity = 0.0f;
+  instant.layer.cornerRadius = 10;
+  [self.tableView addSubview:instant];
+  
+  // アニメーションを実行
+  // TODO: 途中でストップできるようにする
+  [UIView animateWithDuration:0.1f
+                        delay:0.0
+                      options:UIViewAnimationOptionCurveLinear
+                   animations:^{
+                     instant.layer.opacity = 0.5f;
+                     instant.transform = CGAffineTransformMakeScale(1.1, 1.1);
+                   }
+                   completion:^(BOOL finished) {
+                     [UIView animateKeyframesWithDuration:0.1f
+                                                    delay:0.5f
+                                                  options:UIViewKeyframeAnimationOptionOverrideInheritedOptions
+                                               animations:^{
+                                                 instant.layer.opacity = 0.0f;
+                                               }
+                                               completion:^(BOOL finished) {
+                                                 ;
+                                               }];
+                     
+                   }];
+  
+}
+
 #pragma mark - その他 -
 #pragma mark メモリー
 - (void)didReceiveMemoryWarning {
