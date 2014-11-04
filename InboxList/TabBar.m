@@ -13,6 +13,7 @@
 static NSString *kItemTabBarItemImageName = @"ItemTabBarItem.png";
 static NSString *kTagTabBarItemImageName = @"TagTabBarItem.png";
 static NSString *kFilterTabBarItemImageName = @"FilterTabBarItem.png";
+static NSString *kCompleteTabBarItemImageName = @"CompleteTabBarItem.png";
 
 #pragma mark -
 
@@ -34,7 +35,7 @@ static NSString *kFilterTabBarItemImageName = @"FilterTabBarItem.png";
                                                      image:[UIImage imageNamed:kFilterTabBarItemImageName]
                                                        tag:2];
   self.completedModeTab = [[UITabBarItem alloc] initWithTitle:@"COMP"
-                                                        image:[UIImage imageNamed:@"completedtab.png"]
+                                                        image:[UIImage imageNamed:kCompleteTabBarItemImageName]
                                                           tag:3];
   self.items = [NSArray arrayWithObjects:self.itemModeTab, self.tagModeTab, self.filterModeTab, self.completedModeTab, nil];
   self.selectedItem = self.itemModeTab;
