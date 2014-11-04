@@ -163,7 +163,21 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(void)deleteRows:(id)sender
 {
-  [self showConfirmActionSheetWithTitle:@"Are you sure to delete rows?"];
+  NSString *title;
+  NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+  BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
+  BOOL noItemsAreSelected = selectedRows.count == 0;
+  BOOL oneItemAreSelected = selectedRows.count == 1;
+  if (allItemsAreSelected || noItemsAreSelected) {
+    title = NSLocalizedString(@"Are you sure you want to remove all items?", @"");
+  } else {
+    if (oneItemAreSelected) {
+      title = NSLocalizedString(@"Are you sure you want to remove this item?", @"");
+    } else {
+      title = NSLocalizedString(@"Are you sure you want to remove these items?", @"");
+    }
+  }
+  [self showConfirmActionSheetWithTitle:title];
 }
 
 /**
