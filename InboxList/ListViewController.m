@@ -17,6 +17,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 #import "ListViewController.h"
 #import "Header.h"
 
+#import "CoreDataController.h"
+
 @interface ListViewController ()
 
 @end
@@ -161,14 +163,7 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(void)deleteRows:(id)sender
 {
-  NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
-  BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
-  BOOL noItemsAreSelected = selectedRows.count == 0;
-  if (allItemsAreSelected || noItemsAreSelected) {
-    [self deleteAllRows:self];
-  } else {
-    [self deleteAllSelectedRows:self];
-  }
+  [self showConfirmActionSheetWithTitle:@"Are you sure to delete rows?"];
 }
 
 /**
@@ -191,6 +186,37 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
   NSArray *allObjects = [self.fetchedResultsController fetchedObjects];
   for (NSManagedObject *obj in allObjects) {
     [[self.fetchedResultsController managedObjectContext] deleteObject:obj];
+  }
+}
+
+-(void)showConfirmActionSheetWithTitle:(NSString *)title
+{
+  NSString *cancelTitle = NSLocalizedString(@"Cancel", @"Cancel title for item removal action");
+  NSString *okTitle = NSLocalizedString(@"OK", @"OK title for item removal action");
+  UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title
+                                                           delegate:self
+                                                  cancelButtonTitle:cancelTitle
+                                             destructiveButtonTitle:okTitle
+                                                  otherButtonTitles:nil];
+  [actionSheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet
+clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex == 0)
+  {
+    // OKボタンの処理
+    LOG(@"OK");
+    NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+    BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
+    BOOL noItemsAreSelected = selectedRows.count == 0;
+    if (allItemsAreSelected || noItemsAreSelected) {
+      [self deleteAllRows:self];
+    } else {
+      [self deleteAllSelectedRows:self];
+    }
+    [CoreDataController saveContext];
   }
 }
 

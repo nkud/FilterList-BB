@@ -16,7 +16,8 @@
 @end
 
 @interface ListViewController : UIViewController
-<UITableViewDelegate, UITableViewDataSource, UITabBarDelegate>
+<UITableViewDelegate, UITableViewDataSource, UITabBarDelegate,
+UIActionSheetDelegate>
 
 
 @property (strong, nonatomic) UITableView *tableView;
