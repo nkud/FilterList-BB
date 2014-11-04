@@ -11,14 +11,14 @@
 
 #import "Header.h"
 
-static NSString *kCheckedImageName = @"checked@2x.png";
-static NSString *kUncheckedImageName = @"unchecked@2x.png";
-static NSString *kBlueCheckedImageName = @"checked-blue@2x.png";
-static NSString *kBlueUncheckedImageName = @"unchecked-blue@2x.png";
-static NSString *kRedCheckedImageName = @"checked-red@2x.png";
-static NSString *kRedUncheckedImageName = @"unchecked-red@2x.png";
-static NSString *kYellowCheckedImageName = @"checked-yellow@2x.png";
-static NSString *kYellowUncheckedImageName = @"unchecked-yellow@2x.png";
+static NSString *kCheckedImageName = @"checked.png";
+static NSString *kUncheckedImageName = @"unchecked.png";
+static NSString *kBlueCheckedImageName = @"checked-blue.png";
+static NSString *kBlueUncheckedImageName = @"unchecked-blue.png";
+static NSString *kRedCheckedImageName = @"checked-red.png";
+static NSString *kRedUncheckedImageName = @"unchecked-red.png";
+static NSString *kYellowCheckedImageName = @"checked-yellow.png";
+static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
 
 
 #pragma mark -
