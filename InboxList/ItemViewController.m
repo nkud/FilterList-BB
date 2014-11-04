@@ -591,6 +591,12 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   // タブバーを開ける
   LOG(@"%@", title);
   Item *item;
+  NSString *message;
+  if (isNewItem) {
+    message = @"Done";
+  } else {
+    message = @"Update";
+  }
   if (isNewItem) {
     // 新規にアイテムを作成
     if ([title isEqualToString:@""])
@@ -614,6 +620,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   item.reminder = reminder;
   LOG(@"%@", item);
   [CoreDataController saveContext];
+  [self instantMessage:message];
 }
 
 -(void)viewWillAppear:(BOOL)animated
