@@ -191,7 +191,8 @@ numberOfRowsInSection:(NSInteger)section
   
   // 完了日を表示
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-  formatter.dateFormat = @"MM/dd/hh-mm-ss";
+  formatter.dateFormat = @"yyyy/MM/dd/hh:mm";
+  cell.completionDateLabel.textColor = [UIColor grayColor];
   cell.completionDateLabel.text = [formatter stringFromDate:item.completionDate];
   
   // TODO: 親リストを継承させる
