@@ -294,7 +294,7 @@
 {
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.0];
+  [UIView setAnimationDuration:0.2];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self closeTagListMode];
   [self closeFilterListMode];
@@ -317,7 +317,7 @@
   LOG(@"タグリストモード");
   [self.tagViewController updateTableView];
   [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.0];
+  [UIView setAnimationDuration:0.3];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
   [self closeFilterListMode];
@@ -328,7 +328,7 @@
 {
   LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.0];
+  [UIView setAnimationDuration:0.3];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
   [self openFilterListMode];
@@ -341,7 +341,7 @@
   [self.completeViewController updateTableView];
   
   [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.0];
+  [UIView setAnimationDuration:0.3];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
   [self openFilterListMode];
