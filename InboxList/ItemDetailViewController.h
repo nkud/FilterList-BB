@@ -13,6 +13,8 @@
 #import "ItemDetailDatePickerCell.h"
 #import "DetailViewController.h"
 
+#import "NavigationController.h"
+
 /**
  * @brief  詳細画面用プロトコル
  */
@@ -39,6 +41,8 @@
 @property (strong, nonatomic) NSIndexPath *indexPathForItem;
 
 @property NSIndexPath *indexPathForDatePickerCell;
+
+@property __NavigationController *navigationController;
 
 @property id <ItemDetailViewControllerDelegate> delegate;
 

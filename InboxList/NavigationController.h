@@ -13,4 +13,9 @@
  */
 @interface __NavigationController : UINavigationController
 
+-(void)pushViewControllerFromBottom:(UIViewController *)viewController
+                           animated:(BOOL)animated;
+
+-(NSArray *)popToRootViewControllerFromBottomAnimated:(BOOL)animated;
+
 @end

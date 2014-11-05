@@ -14,6 +14,7 @@
 #import "ItemCell.h"
 #import "InputHeaderCell.h"
 #import "ListViewController.h"
+#import "NavigationController.h"
 
 /**
  * @brief  アイテムリスト
@@ -24,6 +25,8 @@
 //@property (strong, nonatomic) Tag *tagForSelected;
 
 @property (strong, nonatomic) NSSet *selectedTags;
+
+@property __NavigationController *navigationController;
 
 -(void)updateTableView;
 

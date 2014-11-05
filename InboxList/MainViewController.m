@@ -80,7 +80,8 @@
                                            subTitle:@"All Items"];
   
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
-
+  self.itemViewController.navigationController = self.itemNavigationController;
+  
 
   // フィルターコントローラを初期化
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil

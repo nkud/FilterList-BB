@@ -524,6 +524,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                                            reminder:nil
                                           indexPath:nil
                                            delegate:self];
+  
+  detailViewController.navigationController = self.navigationController;
   [self.navigationController pushViewController:detailViewController
                                        animated:YES];
 }
@@ -564,8 +566,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                                             indexPath:indexPathInController
                                              delegate:self];
   }
-
-
+  detailViewController.navigationController = self.navigationController;
   // 詳細画面をプッシュ
   [self.navigationController pushViewController:detailViewController
                                        animated:NO];
