@@ -10,6 +10,7 @@
 #import "CoreDataController.h"
 #import "Tag.h"
 #import "Header.h"
+#import "Configure.h"
 
 static NSString *kTagForSelectedCellID = @"TagSelectCell";
 
@@ -60,6 +61,8 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                   target:self
                                                   action:@selector(cancel:)];
+  // タイトル
+  self.navigationItem.title = @"TAG SELECT";
 }
 
 /**
