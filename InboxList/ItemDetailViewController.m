@@ -642,12 +642,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   self.tagsForItem = tagsForSelectedRows;
   /// @todo 効率悪い
   [self.tableView reloadData];
+  
+  // 自身までポップ
+  [self.navigationController popToViewController:self
+                                        animated:YES];
 
   // 閉じる
-  [self dismissViewControllerAnimated:YES
-                           completion:^{
-                             ;
-                           }];
+//  [self dismissViewControllerAnimated:YES
+//                           completion:^{
+//                             ;
+//                           }];
 }
 
 #pragma mark - その他

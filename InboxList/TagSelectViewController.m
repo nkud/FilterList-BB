@@ -54,6 +54,23 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   [self initializeForAlreadySavedTags];
   
   self.inputField.delegate = self;
+  
+  // キャンセルボタン
+  self.navigationItem.leftBarButtonItem
+  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                  target:self
+                                                  action:@selector(cancel:)];
+}
+
+/**
+ * @brief  キャンセルして終了する
+ *
+ * @param sender センダー
+ */
+- (void)cancel:(id)sender
+{
+  LOG(@"キャンセル");
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
