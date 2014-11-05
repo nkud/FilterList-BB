@@ -442,15 +442,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   } else if ([cell.reuseIdentifier isEqualToString:kTagCellID])
   {
     // タグ入力画面を表示
-    [self closeDatePickerCell];
-    [self presentTagSelectView];
+    [self closeDatePickerCell]; // 日付セルを閉じて
+    [self presentTagSelectView]; // タグ選択画面を表示する
   } else if ([cell.reuseIdentifier isEqualToString:kDateCellID])
   {
     // リマインダーセルの処理
-    
-    // キーボードは閉じる
     TitleCell *tcell = [self getTitleCell];
-    [tcell.titleField resignFirstResponder];
+    [tcell.titleField resignFirstResponder]; // キーボードは閉じる
     
     [self toggleDatePickerCell];
     [self configureDateCell:(ItemDetailDateCell *)cell
@@ -474,12 +472,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   controller.delegate = self;
   controller.tagsForAlreadySelected = nil;
   controller.maxCapacityRowsForSelected = 1;
-  [self presentViewController:controller
-                     animated:YES
-                   completion:^{
-                   }];
-//  [self.navigationController pushViewController:controller
-//                                       animated:YES];
+//  [self presentViewController:controller
+//                     animated:YES
+//                   completion:^{
+//                   }];
+  [self.navigationController pushViewController:controller
+                                       animated:YES];
 }
 
 /**
