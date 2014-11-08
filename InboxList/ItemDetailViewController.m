@@ -472,12 +472,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   controller.delegate = self;
   controller.tagsForAlreadySelected = nil;
   controller.maxCapacityRowsForSelected = 1;
-//  [self presentViewController:controller
-//                     animated:YES
-//                   completion:^{
-//                   }];
-  [self.navigationController pushViewControllerFromBottom:controller
-                                                 animated:YES];
+  
+  UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
+  
+  [self presentViewController:navcontroller
+                     animated:YES
+                   completion:^{
+                   }];
+  
+//  [self.navigationController pushViewControllerFromBottom:controller
+//                                                 animated:YES];
 }
 
 /**
@@ -642,12 +646,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   self.tagsForItem = tagsForSelectedRows;
   /// @todo 効率悪い
   [self.tableView reloadData];
-  
+
   // 自身までポップ
 //  [self.navigationController popToViewController:self
 //                                        animated:YES];
-  [self.navigationController popToViewControllerFromBottom:self
-                                                  animated:YES];
+//  [self.navigationController popToViewControllerFromBottom:self
+//                                                  animated:YES];
   // 閉じる
 //  [self dismissViewControllerAnimated:YES
 //                           completion:^{

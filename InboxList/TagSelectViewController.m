@@ -82,7 +82,11 @@ shouldReloadTableForSearchString:(NSString *)searchString
 - (void)cancel:(id)sender
 {
   LOG(@"キャンセル");
-  [self.navigationController popViewControllerAnimated:YES];
+  [self dismissViewControllerAnimated:YES
+                           completion:^{
+                             ;
+                           }];
+//  [self.navigationController popViewControllerAnimated:YES];
 }
 
 /**
@@ -152,8 +156,13 @@ shouldReloadTableForSearchString:(NSString *)searchString
   [self.delegate dismissTagSelectView:[self tagsForSelectedRows]];
   // 入力画面をポップして、１つ前の画面に戻る
 //  [self.navigationController popViewControllerAnimated:YES];
+  
+  [self dismissViewControllerAnimated:YES
+                           completion:^{
+                             [self.navigationController.navigationBar setHidden:NO];
+                           }];
   // ナビゲーションバーを表示
-  [self.navigationController.navigationBar setHidden:NO];
+
 }
 
 #pragma mark - テーブルビュー

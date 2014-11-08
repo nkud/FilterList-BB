@@ -75,7 +75,6 @@
   [super pushViewController:viewController animated:NO];
 }
 
-
 /**
  * @brief  ビューを削除する
  * @param animated アニメーション
