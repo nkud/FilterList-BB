@@ -17,7 +17,8 @@
 /// タグ選択画面
 @interface TagSelectViewController : UIViewController
 <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,
-UITextFieldDelegate>
+UITextFieldDelegate,
+UISearchBarDelegate, UISearchDisplayDelegate>
 
 // IOBoutle
 @property (weak, nonatomic) IBOutlet UITableView *tagTableView;
