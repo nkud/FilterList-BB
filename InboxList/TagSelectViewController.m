@@ -54,6 +54,13 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                   target:self
                                                   action:@selector(cancel:)];
+  
+  if (self.maxCapacityRowsForSelected != 1) {
+    self.navigationItem.rightBarButtonItem
+    = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                    target:self
+                                                    action:@selector(add:)];
+  }
   // タイトル
   self.navigationItem.title = @"TAG SELECT";
   
@@ -65,6 +72,11 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) { /// iOS 7 or above
     self.edgesForExtendedLayout = UIRectEdgeNone;
   }
+}
+
+- (void)add:(id)sender
+{
+  [self dismissTagSelectView];
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller

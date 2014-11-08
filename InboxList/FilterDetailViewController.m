@@ -237,11 +237,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   controller.tagsForAlreadySelected = nil;
   controller.maxCapacityRowsForSelected = 0;
   
-  [self presentViewController:controller
+  UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
+  
+  [self presentViewController:navcontroller
                      animated:YES
                    completion:^{
-                     ;
                    }];
+  
+//  [self presentViewController:controller
+//                     animated:YES
+//                   completion:^{
+//                     ;
+//                   }];
 //  [self.navigationController pushViewController:controller
 //                                       animated:YES];
 }
@@ -252,10 +259,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   self.tagsForFilter = tagsForSelectedRows;
   
   [self.tableView reloadData];
-  [self dismissViewControllerAnimated:YES
-                           completion:^{
-                             ;
-                           }];
+//  [self dismissViewControllerAnimated:YES
+//                           completion:^{
+//                             ;
+//                           }];
 }
 /**
  * @brief  タグのセットから文字列を作成
