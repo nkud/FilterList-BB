@@ -31,8 +31,8 @@ UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate>
 
 @property NSInteger maxCapacityRowsForSelected;
 
+#pragma mark - 検索
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *tagSearchDisplayController;
-
 
 @end

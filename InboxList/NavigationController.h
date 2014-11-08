@@ -17,5 +17,7 @@
                            animated:(BOOL)animated;
 
 -(NSArray *)popToRootViewControllerFromBottomAnimated:(BOOL)animated;
+-(NSArray *)popToViewControllerFromBottom:(UIViewController *)viewController
+                                 animated:(BOOL)animated;
 
 @end

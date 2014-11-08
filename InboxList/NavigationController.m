@@ -109,5 +109,20 @@
   
   return [super popToRootViewControllerAnimated:NO];
 }
+-(NSArray *)popToViewControllerFromBottom:(UIViewController *)viewController
+                                 animated:(BOOL)animated
+{
+  LOG(@"ポップ");
+  CATransition *transition = [CATransition animation];
+  transition.duration = 0.3f;
+  transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+  
+  transition.type = kCATransitionMoveIn;
+  transition.subtype = kCATransitionFromBottom;
+  
+  [self.view.layer addAnimation:transition forKey:nil];
+  
+  return [super popToViewController:viewController animated:NO];
+}
 
 @end

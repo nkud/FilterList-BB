@@ -644,9 +644,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [self.tableView reloadData];
   
   // 自身までポップ
-  [self.navigationController popToViewController:self
-                                        animated:YES];
-
+//  [self.navigationController popToViewController:self
+//                                        animated:YES];
+  [self.navigationController popToViewControllerFromBottom:self
+                                                  animated:YES];
   // 閉じる
 //  [self dismissViewControllerAnimated:YES
 //                           completion:^{
