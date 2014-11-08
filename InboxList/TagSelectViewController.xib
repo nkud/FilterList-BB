@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TagSelectViewController">
             <connections>
+                <outlet property="searchBar" destination="sMM-zW-umr" id="1pe-Kc-9cy"/>
+                <outlet property="searchDisplayController" destination="rRW-nD-F5o" id="sHb-xq-9Ke"/>
+                <outlet property="tagSearchDisplayController" destination="rRW-nD-F5o" id="NV9-yf-dwM"/>
                 <outlet property="tagTableView" destination="LJo-rk-CSh" id="kgy-IE-dkZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -17,21 +20,33 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LJo-rk-CSh">
-                    <rect key="frame" x="0.0" y="44" width="320" height="528"/>
+                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="ssL-nj-WoJ"/>
                         <outlet property="delegate" destination="-1" id="KN6-O8-OQa"/>
                     </connections>
                 </tableView>
-                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z23-Pa-djY">
+                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sMM-zW-umr">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="SQq-31-1qz"/>
+                    </connections>
                 </searchBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="44" y="148"/>
+            <point key="canvasLocation" x="10" y="131"/>
         </view>
+        <searchDisplayController id="rRW-nD-F5o">
+            <connections>
+                <outlet property="delegate" destination="-1" id="YrM-fA-hkV"/>
+                <outlet property="searchBar" destination="sMM-zW-umr" id="IBV-2J-kNS"/>
+                <outlet property="searchContentsController" destination="-1" id="7jZ-qP-G6h"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="hXc-0b-h2W"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="GUc-WX-YVU"/>
+            </connections>
+        </searchDisplayController>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

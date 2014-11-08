@@ -40,11 +40,6 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
                                                 bundle:nil]
           forCellReuseIdentifier:kTagForSelectedCellID];
   
-  // ボタンの設定
-  [self.saveButton addTarget:self
-                      action:@selector(dismissTagSelectView)
-            forControlEvents:UIControlEventTouchUpInside];
-  
   // リザルトコントローラーの設定
   self.fetchedResultsController = [CoreDataController tagFetchedResultsController:self];
   
@@ -54,8 +49,6 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   // 既存のタグを選択セットに追加する
   [self initializeForAlreadySavedTags];
   
-  self.inputField.delegate = self;
-  
   // キャンセルボタン
   self.navigationItem.leftBarButtonItem
   = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
@@ -63,6 +56,22 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
                                                   action:@selector(cancel:)];
   // タイトル
   self.navigationItem.title = @"TAG SELECT";
+  
+  //////////////////////////////////////////////////////////////////////////////
+  // 検索
+  self.searchBar.scopeButtonTitles = @[@"color", @"num"];
+  // TODO: これについて勉強する必要性あり
+  // ステータスバーとか考えてくれる
+  if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) { /// iOS 7 or above
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+  }
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller
+shouldReloadTableForSearchString:(NSString *)searchString
+{
+  LOG(@"検索: %@", searchString);
+  return YES;
 }
 
 /**
@@ -74,12 +83,6 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
 {
   LOG(@"キャンセル");
   [self.navigationController popViewControllerAnimated:YES];
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-  [self.inputField resignFirstResponder];
-  return YES;
 }
 
 /**
@@ -166,6 +169,11 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
+  if (tableView == self.tagSearchDisplayController.searchResultsTableView)
+  {
+    LOG(@"検索テーブル");
+    return 1;
+  }
   id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
   return [sectionInfo numberOfObjects];
 }
@@ -179,6 +187,9 @@ numberOfRowsInSection:(NSInteger)section
  */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+  if (tableView == self.tagSearchDisplayController.searchResultsTableView) {
+    return 1;
+  }
   return [[self.fetchedResultsController sections] count];
 }
 
@@ -198,7 +209,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   // セルを取得
-  UITableViewCell *cell = [self.tagTableView cellForRowAtIndexPath:indexPath];
+  UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
   if ([self cellHasCheckmark:cell]) {
     // 選択セル配列から削除
@@ -216,6 +227,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+- (BOOL)isSearchResultsTableView:(UITableView *)tableView
+{
+  if (tableView == self.tagSearchDisplayController.searchResultsTableView) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 
 /**
  * @brief  セルを返す
@@ -226,9 +246,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(UITableViewCell *)tableView:(UITableView*)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // 検索モード時
+  if ([self isSearchResultsTableView:tableView])
+  {
+    UITableViewCell *cell = [self.tagTableView dequeueReusableCellWithIdentifier:kTagForSelectedCellID];
+    cell.textLabel.text = @"検索アイテム";
+    return cell;
+  }
+  // 通常時
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-  UITableViewCell *cell = [self.tagTableView dequeueReusableCellWithIdentifier:kTagForSelectedCellID];
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagForSelectedCellID];
 
   cell.textLabel.text = tag.title;
   

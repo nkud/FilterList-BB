@@ -17,13 +17,10 @@
 /// タグ選択画面
 @interface TagSelectViewController : UIViewController
 <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,
-UITextFieldDelegate,
-UISearchBarDelegate, UISearchDisplayDelegate>
+UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate>
 
 // IOBoutle
 @property (weak, nonatomic) IBOutlet UITableView *tagTableView;
-@property (weak, nonatomic) IBOutlet UITextField *inputField;
-@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 // コントローラー
 @property NSFetchedResultsController *fetchedResultsController;
@@ -33,5 +30,9 @@ UISearchBarDelegate, UISearchDisplayDelegate>
 @property id <TagSelectViewControllerDelegate> delegate;
 
 @property NSInteger maxCapacityRowsForSelected;
+
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) IBOutlet UISearchDisplayController *tagSearchDisplayController;
+
 
 @end
