@@ -19,20 +19,22 @@
 <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,
 UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate>
 
-// IOBoutle
+#pragma mark - IBOutlet
 @property (weak, nonatomic) IBOutlet UITableView *tagTableView;
 
-// コントローラー
-@property NSFetchedResultsController *fetchedResultsController;
+#pragma mark - コントローラー
 
-@property NSSet *tagsForAlreadySelected;
-
-@property id <TagSelectViewControllerDelegate> delegate;
-
-@property NSInteger maxCapacityRowsForSelected;
 
 #pragma mark - 検索
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *tagSearchDisplayController;
+
+#pragma mark - デリゲート
+@property id <TagSelectViewControllerDelegate> delegate;
+
+#pragma mark - その他
+@property NSSet *tagsForAlreadySelected;
+
+@property NSInteger maxCapacityRowsForSelected;
 
 @end

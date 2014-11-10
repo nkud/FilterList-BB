@@ -266,6 +266,59 @@ enum __SECTION__ {
   return aFetchedResultsController;
 }
 
++(NSFetchedResultsController *)tagFetchedResultsControllerWithSearch:(NSString *)searchString
+                                                            delegate:(id<NSFetchedResultsControllerDelegate>)controller
+{
+  LOG(@"タグ用のリザルトコントローラー");
+  
+  //  [self addTagObjecForAllItems];
+  
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  
+  // エンティティを設定
+  static NSString *tag_entity_name = @"Tag";
+  NSEntityDescription *entity = [self entityDescriptionForName:tag_entity_name];
+  fetchRequest.entity = entity;
+  
+  /// Set the batch size to a suitable number.
+  [fetchRequest setFetchBatchSize:20];
+  
+  // ソート条件を設定
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+                                                                 ascending:YES];
+  NSArray *sortDescriptors = @[sortDescriptor];
+  fetchRequest.sortDescriptors = sortDescriptors;
+  
+  // 検索文字列
+  NSPredicate *filterPredicate;
+  NSMutableArray *predicateArray = [NSMutableArray array];
+  if (searchString.length) {
+    // your search predicate(s) are added to this array
+    [predicateArray addObject:[NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString]];
+    // finally add the filter predicate for this view
+    filterPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:predicateArray];
+  }
+  [fetchRequest setPredicate:filterPredicate];
+  
+  // コントローラーを作成
+  NSFetchedResultsController *aFetchedResultsController
+  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:[self managedObjectContext]
+                                          sectionNameKeyPath:nil
+                                                   cacheName:nil];
+  // デリゲートを設定
+  aFetchedResultsController.delegate = controller;
+  
+  /**
+   *  フェッチを実行
+   */
+  NSError *error = nil;
+  if (![aFetchedResultsController performFetch:&error]) {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }
+  return aFetchedResultsController;
+}
 /**
  * @brief  ユーザー定義タグのみのリザルトコントローラー
  *

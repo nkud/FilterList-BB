@@ -17,8 +17,18 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
 #pragma mark -
 
 @interface TagSelectViewController ()
+{
+  // コントローラー
+  NSFetchedResultsController *searchFetchedResultsController_;
+  NSFetchedResultsController *fetchedResultsController_;
+}
 
 @property NSMutableArray *kIndexPathsForSelectedRows;
+
+-(NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView;
+-(void)configureCell:(UITableViewCell *)cell
+          controller:(NSFetchedResultsController *)controller
+           indexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -39,9 +49,6 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   [self.tagTableView registerNib:[UINib nibWithNibName:@"TagSelectCell"
                                                 bundle:nil]
           forCellReuseIdentifier:kTagForSelectedCellID];
-  
-  // リザルトコントローラーの設定
-  self.fetchedResultsController = [CoreDataController tagFetchedResultsController:self];
   
   // 選択されたセル
   self.kIndexPathsForSelectedRows = [[NSMutableArray alloc] init];
@@ -73,6 +80,8 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) { /// iOS 7 or above
     self.edgesForExtendedLayout = UIRectEdgeNone;
   }
+  
+  self.searchDisplayController.delegate = self;
 }
 
 - (void)add:(id)sender
@@ -118,6 +127,18 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 
 #pragma mark - ユーティリティ
+
+/**
+ * @brief  現在の状態に合ったコントローラーを返す
+ *
+ * @param tableView テーブルビュー
+ *
+ * @return コントローラー
+ */
+-(NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView
+{
+  return tableView == self.tagTableView ? self.fetchedResultsController : self.searchFetchedResultsController;
+}
 
 /**
  * @brief  選択されたタグのセットを返す
@@ -191,10 +212,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  if ( [self isSearchResultsTableView:tableView] )
-  {
-  }
-  id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+  id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsControllerForTableView:tableView] sections][section];
   return [sectionInfo numberOfObjects];
 }
 
@@ -207,10 +225,7 @@ numberOfRowsInSection:(NSInteger)section
  */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  if (tableView == self.tagSearchDisplayController.searchResultsTableView) {
-    return 1;
-  }
-  return [[self.fetchedResultsController sections] count];
+  return [[[self fetchedResultsControllerForTableView:tableView] sections] count];
 }
 
 -(BOOL)tableView:(UITableView *)tableView
@@ -256,6 +271,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+-(NSFetchedResultsController *)searchFetchedResultsController
+{
+//  if (searchFetchedResultsController_) {
+//    return searchFetchedResultsController_;
+//  }
+  searchFetchedResultsController_ = [CoreDataController tagFetchedResultsControllerWithSearch:self.searchBar.text
+                                                                                     delegate:self];
+  return searchFetchedResultsController_;
+}
+
+-(NSFetchedResultsController *)fetchedResultsController
+{
+  if (fetchedResultsController_) {
+    return fetchedResultsController_;
+  }
+  fetchedResultsController_ = [CoreDataController tagFetchedResultsController:self];
+  return fetchedResultsController_;
+}
 
 /**
  * @brief  セルを返す
@@ -266,25 +299,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(UITableViewCell *)tableView:(UITableView*)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  // 検索モード時
-  if ([self isSearchResultsTableView:tableView])
-  {
-    UITableViewCell *cell = [self.tagTableView dequeueReusableCellWithIdentifier:kTagForSelectedCellID];
-    cell.textLabel.text = @"検索アイテム";
-    return cell;
-  }
-  // 通常時
-  Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagForSelectedCellID];
-
-  cell.textLabel.text = tag.title;
+  UITableViewCell *cell = [self.tagTableView dequeueReusableCellWithIdentifier:kTagForSelectedCellID];
   
+  [self configureCell:cell
+           controller:[self fetchedResultsControllerForTableView:tableView]
+            indexPath:indexPath];
+
   // 既存のタグなら、チェックマークをつける
   if ([self.kIndexPathsForSelectedRows containsObject:indexPath]) {
     [self toggleCheckmark:cell];
   }
   return cell;
+}
+
+-(void)configureCell:(UITableViewCell *)cell
+          controller:(NSFetchedResultsController *)controller
+                        indexPath:(NSIndexPath *)indexPath
+{
+  Tag *tag = [controller objectAtIndexPath:indexPath];
+  cell.textLabel.text = tag.title;
 }
 
 #pragma mark - その他

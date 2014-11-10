@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 
 /**
- * @brief  コアデータコントローラー
+ * @brief  コントローラー
  */
 @interface CoreDataController : NSObject
 
@@ -19,7 +19,7 @@
 
 +(BOOL)hasTagForTitle:(NSString *)title;
 
-// アイテム用
+#pragma mark - アイテム用
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
                                                         controller:(id<NSFetchedResultsControllerDelegate>)controller;
@@ -29,8 +29,11 @@
 +(Item *)newItemObject;
 +(NSInteger)countItems;
 
-// タグ用
+#pragma mark - タグ用
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
++(NSFetchedResultsController *)tagFetchedResultsControllerWithSearch:(NSString *)searchString
+                                                            delegate:(id<NSFetchedResultsControllerDelegate>)controller;
+
 +(NSFetchedResultsController *)userTagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSArray *)getAllTagsArray;
 +(NSArray *)fetchTagsForTitle:(NSString *)title;
@@ -38,7 +41,7 @@
 
 +(void)insertNewTag:(NSString *)title;
 
-// フィルター用
+#pragma mark - フィルター用
 +(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(void)insertNewFilter:(NSString *)filterTitle
          tagsForFilter:(NSSet *)tagsForFilter;
@@ -47,7 +50,7 @@
 #pragma mark - 完了リスト用
 +(NSFetchedResultsController *)completeFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 
-// その他
+#pragma mark - その他
 +(NSEntityDescription *)entityDescriptionForName:(NSString *)name;
 
 +(NSManagedObjectContext *)managedObjectContext;
