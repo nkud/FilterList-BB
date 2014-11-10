@@ -12,6 +12,8 @@
 #import "Tag.h"
 #import "CoreDataController.h"
 
+#import "InputHeaderCell.h"
+
 #import "TagDetailViewController.h"
 
 #import "Configure.h"
@@ -19,6 +21,8 @@
 #define kHeightForTagCell 44
 
 #pragma mark -
+
+static NSString *kInputHeaderCellID = @"InputHeaderCell";
 
 @interface TagViewController () {
   
@@ -61,6 +65,9 @@
   [self.tableView registerNib:[UINib nibWithNibName:@"TagCell"
                                              bundle:nil]
        forCellReuseIdentifier:TagModeCellIdentifier];
+  [self.tableView registerNib:[UINib nibWithNibName:@"InputHeaderCell"
+                                             bundle:nil]
+       forCellReuseIdentifier:kInputHeaderCellID];
 
   // 編集・追加ボタンを追加
   self.navigationItem.leftBarButtonItem = [self newEditTableButton];
@@ -286,6 +293,13 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if ([self isCellForInputAtIndexPath:indexPath])
+  {
+    // TODO: 入力セル用のコンフィグメソッドを作成する
+    InputHeaderCell *inputCell = [tableView dequeueReusableCellWithIdentifier:kInputHeaderCellID];
+    inputCell.inputField.placeholder = @"new Tag";
+    return inputCell;
+  }
   // セルを作成する
   TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
   
@@ -315,7 +329,7 @@ numberOfRowsInSection:(NSInteger)section
 //    cell.labelForOverDueItemsSize.text = @"";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
   } else if([self isCellForInputAtIndexPath:indexPath]) {
-    cell.labelForTitle.text = @"Input";
+    return;
   }
   else
   {
