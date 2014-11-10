@@ -34,6 +34,7 @@ UIActionSheetDelegate>
 @property NSFetchedResultsController *fetchedResultsController;
 
 -(void)deleteAllSelectedRows:(id)sender;
+-(void)deleteAllRows:(id)sender;
 
 #pragma mark - ナビゲーションバー
 -(void)configureTitleWithString:(NSString *)title

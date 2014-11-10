@@ -266,6 +266,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       break;
   }
 }
+
+-(void)deleteAllSelectedRows:(id)sender
+{
+  LOG(@"選択セルのみ削除");
+  for (NSIndexPath *indexPathInTableView in self.tableView.indexPathsForSelectedRows) {
+    NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+    NSManagedObject *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+    [[self.fetchedResultsController managedObjectContext] deleteObject:item];
+  }
+}
+
 #pragma mark ビューの設定
 
 /**
