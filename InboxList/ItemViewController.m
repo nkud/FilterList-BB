@@ -88,6 +88,7 @@
                                              bundle:nil]
        forCellReuseIdentifier:@"InputHeaderCell"];
   
+  //////////////////////////////////////////////////////////////////////////////
   // 編集・追加ボタン
   self.navigationItem.leftBarButtonItem = [self newEditTableButton];
   self.navigationItem.leftBarButtonItem.tintColor = ITEM_COLOR;
@@ -486,7 +487,7 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
   if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
     return NO;
   }
-  return YES;
+  return NO;
 }
 
 /**
