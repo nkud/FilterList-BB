@@ -113,6 +113,15 @@
 
 -(BOOL)isCellForAllItemsAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (indexPath.row == 1 && indexPath.section == 0 ) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
+-(BOOL)isCellForInputAtIndexPath:(NSIndexPath *)indexPath
+{
   if (indexPath.row == 0 && indexPath.section == 0 ) {
     return YES;
   } else {
@@ -130,7 +139,7 @@
 - (NSIndexPath *)mapIndexPathFromFetchResultsController:(NSIndexPath *)indexPath
 {
   if (indexPath.section == 0)
-    indexPath = [NSIndexPath indexPathForRow:indexPath.row + 1
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row + 2
                                    inSection:indexPath.section];
   
   return indexPath;
@@ -146,7 +155,7 @@
 - (NSIndexPath *)mapIndexPathToFetchResultsController:(NSIndexPath *)indexPath
 {
   if (indexPath.section == 0)
-    indexPath = [NSIndexPath indexPathForRow:indexPath.row - 1
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row - 2
                                    inSection:indexPath.section];
   
   return indexPath;
@@ -175,6 +184,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"タグセルが選択された");
   if ([self isCellForAllItemsAtIndexPath:indexPathInTableView]) {
     [self.delegate didSelectTag:nil];
+  } else if([self isCellForInputAtIndexPath:indexPathInTableView]) {
+    ;
   } else {
     // 選択された位置のタグを取得して
     NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
@@ -216,7 +227,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([self isCellForAllItemsAtIndexPath:indexPath]) {
+  if ([self isCellForAllItemsAtIndexPath:indexPath] || [self isCellForInputAtIndexPath:indexPath]) {
     return NO;                  // 編集不可
   }                             // タグセクションなら
   return YES;                   // 編集可
@@ -266,7 +277,7 @@ numberOfRowsInSection:(NSInteger)section
 {
   id <NSFetchedResultsSectionInfo> sectionInfo
   = [[self.fetchedResultsController sections] objectAtIndex:section];
-  return [sectionInfo numberOfObjects] + 1;
+  return [sectionInfo numberOfObjects] + 2;
 }
 
 /**
@@ -303,7 +314,10 @@ numberOfRowsInSection:(NSInteger)section
     cell.labelForTitle.text = @"Inbox";
 //    cell.labelForOverDueItemsSize.text = @"";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
-  } else
+  } else if([self isCellForInputAtIndexPath:indexPath]) {
+    cell.labelForTitle.text = @"Input";
+  }
+  else
   {
     // 通常のタグの設定
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
