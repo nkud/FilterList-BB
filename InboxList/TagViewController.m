@@ -298,6 +298,7 @@ numberOfRowsInSection:(NSInteger)section
     // TODO: 入力セル用のコンフィグメソッドを作成する
     InputHeaderCell *inputCell = [tableView dequeueReusableCellWithIdentifier:kInputHeaderCellID];
     inputCell.inputField.placeholder = @"new Tag";
+    inputCell.delegate = self;
     return inputCell;
   }
   // セルを作成する
@@ -308,6 +309,12 @@ numberOfRowsInSection:(NSInteger)section
           atIndexPath:indexPath];
   
   return cell;
+}
+
+-(void)didInputtedNewItem:(NSString *)titleForItem
+{
+  LOG(@"クイック入力: %@", titleForItem);
+  [CoreDataController insertNewTag:titleForItem];
 }
 
 #pragma mark セル関係

@@ -11,6 +11,8 @@
 #import "ListViewController.h"
 #import "TagDetailViewController.h"
 
+#import "InputHeaderCell.h"
+
 static NSString * const TagModeCellIdentifier = @"TagCell";
 
 /**
@@ -26,7 +28,8 @@ static NSString * const TagModeCellIdentifier = @"TagCell";
  * @brief  タグリスト
  */
 @interface TagViewController : ListViewController
-<NSFetchedResultsControllerDelegate, TagDetailViewControllerDelegte>
+<NSFetchedResultsControllerDelegate, TagDetailViewControllerDelegte,
+InputHeaderCellDelegate>
 
 @property (strong, nonatomic) NSArray *tagArray_;
 
