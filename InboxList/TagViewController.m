@@ -184,6 +184,7 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  [super tableView:tableView didSelectRowAtIndexPath:indexPath];
   if (tableView.isEditing) {
     return;
   }
