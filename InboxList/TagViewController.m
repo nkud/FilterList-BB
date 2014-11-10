@@ -327,6 +327,7 @@ numberOfRowsInSection:(NSInteger)section
 {
   LOG(@"クイック入力: %@", titleForItem);
   [CoreDataController insertNewTag:titleForItem];
+  [self instantMessage:@"Saved"];
 }
 
 #pragma mark セル関係

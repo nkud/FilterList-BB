@@ -314,6 +314,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   [CoreDataController insertNewItem:titleForItem
                                 tag:[self selectedTag]
                            reminder:nil];
+  [self instantMessage:@"Saved"];
 }
 
 #pragma mark - セル設定
