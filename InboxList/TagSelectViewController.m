@@ -80,8 +80,6 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) { /// iOS 7 or above
     self.edgesForExtendedLayout = UIRectEdgeNone;
   }
-  
-  self.searchDisplayController.delegate = self;
 }
 
 - (void)add:(id)sender
@@ -243,6 +241,9 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if ([self isSearchResultsTableView:tableView]) {
+    indexPath = [self mapIndexPathToFetchedResultsController:indexPath];
+  }
   // セルを取得
   UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
@@ -254,12 +255,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [self addIndexPathForSelectedRows:indexPath];
   }
   [self toggleCheckmark:cell];
+  
   // 選択されたセルが、最大選択セルを超えていれば、選択画面を終了
   if (self.maxCapacityRowsForSelected > 0) {
     if ([self.kIndexPathsForSelectedRows count] >= self.maxCapacityRowsForSelected) {
       [self dismissTagSelectView];
     }
   }
+}
+
+/**
+ * @brief  検索テーブルの位置を通常テーブルの位置に変換する
+ *
+ * @param indexPath 検索テーブルでの位置
+ *
+ * @return 通常テーブルでの位置
+ */
+-(NSIndexPath *)mapIndexPathToFetchedResultsController:(NSIndexPath *)indexPath
+{
+  Tag *tag = [[self searchFetchedResultsController] objectAtIndexPath:indexPath];
+  return [[self fetchedResultsController] indexPathForObject:tag];
 }
 
 - (BOOL)isSearchResultsTableView:(UITableView *)tableView
