@@ -66,7 +66,8 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   
   //////////////////////////////////////////////////////////////////////////////
   // 検索
-  self.searchBar.scopeButtonTitles = @[@"color", @"num"];
+//  self.searchBar.scopeButtonTitles = @[@"color", @"num"];
+  self.searchBar.placeholder = @"Search or Create";
   // TODO: これについて勉強する必要性あり
   // ステータスバーとか考えてくれる
   if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) { /// iOS 7 or above
@@ -190,10 +191,8 @@ shouldReloadTableForSearchString:(NSString *)searchString
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  if (tableView == self.tagSearchDisplayController.searchResultsTableView)
+  if ( [self isSearchResultsTableView:tableView] )
   {
-    LOG(@"検索テーブル");
-    return 1;
   }
   id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
   return [sectionInfo numberOfObjects];
