@@ -93,7 +93,7 @@ static NSString *kFilterCellID = @"FilterCell";
 {
   [super didTappedEditTableButton];
   
-  [self aleartMessage:@"Edit mode"];
+//  [self aleartMessage:@"Edit mode"];
   if (self.tableView.isEditing) {
     [self.tableView setEditing:false
                       animated:YES];
