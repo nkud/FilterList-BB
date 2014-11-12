@@ -35,6 +35,9 @@
 @property BOOL isNewFilter;
 @property id<FilterDetailViewControllerDelegate> delegate;
 
+#pragma mark - 期間セル用
+@property NSIndexPath *indexPathForDatePickerCell;
+
 #pragma mark - 初期化メソッド
 - (instancetype)initWithFilterTitle:(NSString *)title
                                tags:(NSSet *)tags

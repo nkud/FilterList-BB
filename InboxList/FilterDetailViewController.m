@@ -189,6 +189,24 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   }
 }
 
+- (BOOL)isDateCellAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (kDueDateCellID == [self cellIdentifierAtIndexPath:indexPath]) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
+- (BOOL)hasInlineDatePickerCell
+{
+  if (self.indexPathForDatePickerCell) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 #pragma mark - テーブルビュー
 
 -(NSString *)tableView:(UITableView *)tableView
@@ -222,6 +240,13 @@ titleForHeaderInSection:(NSInteger)section
     ItemDetailTagCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagSelectCellID];
     [self configureTagCell:cell
     atIndexPathInTableView:indexPath];
+    return cell;
+  }
+  if ([self isDateCellAtIndexPath:indexPath])
+  {
+    // 日付セル
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDueDateCellID];
+    cell.textLabel.text = @"date";
     return cell;
   }
   UITableViewCell *cell;
