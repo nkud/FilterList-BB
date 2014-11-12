@@ -18,7 +18,9 @@ static NSString *kTitleCellNibName = @"TitleCell";
 
 #pragma mark -
 
-@interface DetailViewController ()
+@interface DetailViewController () {
+  NSArray *dataArray_;
+}
 
 @end
 

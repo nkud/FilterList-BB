@@ -13,7 +13,9 @@
 
 #pragma mark -
 
-@interface TagDetailViewController ()
+@interface TagDetailViewController () {
+  NSArray *dataArray_;
+}
 
 @end
 

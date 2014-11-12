@@ -10,9 +10,6 @@
 
 @interface DetailViewController : UIViewController
 <UITableViewDelegate, UITableViewDataSource>
-{
-  NSArray *dataArray_;
-}
 @property UITableView *tableView;
 
 -(NSString *)titleCellID;
