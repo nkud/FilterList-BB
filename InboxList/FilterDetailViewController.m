@@ -93,12 +93,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   
   NSArray *itemTwo = @[kTagSelectCellID];
   
-  NSArray *itemThree;
-  if ([self hasInlineDatePickerCell]) {
-    itemThree = @[kDueDateCellID, kDatePickerCellID];
-  } else {
-    itemThree = @[kDueDateCellID];
-  }
+  NSArray *itemThree = @[kDueDateCellID];
   
   NSArray *itemFour = @[kSearchCellID];
   dataArray_ = @[itemOne, itemTwo, itemThree, itemFour];
@@ -177,7 +172,8 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 }
 -(ItemDetailTagCell *)tagCell
 {
-  NSIndexPath *indexPathForTagCell = [NSIndexPath indexPathForRow:0 inSection:1];
+  NSIndexPath *indexPathForTagCell = [NSIndexPath indexPathForRow:0
+                                                        inSection:1];
   ItemDetailTagCell *cell = (ItemDetailTagCell *)[self.tableView cellForRowAtIndexPath:indexPathForTagCell];
   return cell;
 }
@@ -190,6 +186,9 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
  */
 -(NSString *)cellIdentifierAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (indexPath.section == 2 && indexPath.row == 1) {
+    return @"";
+  }
   NSString *identifier = self.dataArray[indexPath.section][indexPath.row];
   return identifier;
 }
@@ -223,15 +222,16 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 
 - (BOOL)isDatePickerCellAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([self hasInlineDatePickerCell]) {
-    if (kDatePickerCellID == [self cellIdentifierAtIndexPath:indexPath]) {
-      return YES;
-    } else {
-      return NO;
-    }
-  } else {
-    return NO;
-  }
+//  if ([self hasInlineDatePickerCell]) {
+//    if (kDatePickerCellID == [self cellIdentifierAtIndexPath:indexPath]) {
+//      return YES;
+//    } else {
+//      return NO;
+//    }
+//  } else {
+//    return NO;
+//  }
+  return NO;
 }
 
 - (BOOL)hasInlineDatePickerCell
@@ -248,7 +248,11 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  return [self.dataArray[section] count];
+  NSInteger numRows = [self.dataArray[section] count];
+  if ([self hasInlineDatePickerCell] && section == 2) {
+    numRows += 1;
+  }
+  return numRows;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -271,6 +275,14 @@ titleForHeaderInSection:(NSInteger)section
   return @"";
 }
 
+/**
+ * @brief  セルを作成する
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return セル
+ */
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -298,19 +310,29 @@ titleForHeaderInSection:(NSInteger)section
     cell.textLabel.text = @"date";
     return cell;
   }
+//  if ([self isDatePickerCellAtIndexPath:indexPath]) {
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDueDateCellID];
+//    cell.textLabel.text = @"picker cell";
+//    return cell;
+//  }
   UITableViewCell *cell;
   cell = [UITableViewCell new];
   return cell;
 }
 
+/**
+ * @brief  日付ピッカーを表示・非表示する
+ */
 - (void)toggleDatePickerCell
 {
   [self.tableView beginUpdates];
+  
   if ([self hasInlineDatePickerCell]) {
     [self closeDatePickerCell];
   } else {
     [self openDatePickerCell];
   }
+  
   [self.tableView endUpdates];
 }
 -(void)openDatePickerCell
