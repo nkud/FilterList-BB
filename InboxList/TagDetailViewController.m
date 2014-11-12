@@ -65,10 +65,16 @@
  * @brief  変数初期化
  */
 - (void)initParam {
+
+}
+
+-(NSArray *)dataArray
+{
   NSArray *itemOne = @[[self titleCellID]];
   NSArray *itemTwo = @[[self titleCellID]];
   NSArray *itemThree = @[[self titleCellID]];
   dataArray_ = @[itemOne, itemTwo, itemThree];
+  return dataArray_;
 }
 
 /**
