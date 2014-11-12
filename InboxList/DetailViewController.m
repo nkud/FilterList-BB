@@ -18,9 +18,7 @@ static NSString *kTitleCellNibName = @"TitleCell";
 
 #pragma mark -
 
-@interface DetailViewController () {
-  NSArray *dataArray_;
-}
+@interface DetailViewController ()
 
 @end
 
@@ -47,6 +45,12 @@ static NSString *kTitleCellNibName = @"TitleCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(NSArray *)dataArray
+{
+  dataArray_ = @[];
+  return dataArray_;
 }
 
 #pragma mark - ユーティリティ -
@@ -86,12 +90,12 @@ static NSString *kTitleCellNibName = @"TitleCell";
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  return [dataArray_[section] count];
+  return [self.dataArray[section] count];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [dataArray_ count];
+  return [self.dataArray count];
 }
 
 /*
