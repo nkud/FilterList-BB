@@ -191,6 +191,21 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 
 #pragma mark - テーブルビュー
 
+-(NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section
+{
+  if (section == 0) {
+    return @"TITLE";
+  }
+  if (section == 1) {
+    return @"TAG";
+  }
+  if (section == 2) {
+    return @"INTERVAL";
+  }
+  return @"";
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

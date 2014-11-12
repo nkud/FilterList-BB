@@ -15,6 +15,7 @@
  */
 @protocol FilterDetailViewControllerDelegate <NSObject>
 
+#pragma mark - 画面削除処理
 - (void)dismissInputFilterView:(NSString *)filterTitle
                tagsForSelected:(NSSet *)tagsForSelected
                      indexPath:(NSIndexPath *)indexPath
@@ -34,6 +35,7 @@
 @property BOOL isNewFilter;
 @property id<FilterDetailViewControllerDelegate> delegate;
 
+#pragma mark - 初期化メソッド
 - (instancetype)initWithFilterTitle:(NSString *)title
                                tags:(NSSet *)tags
                         isNewFilter:(BOOL)isNewFilter
