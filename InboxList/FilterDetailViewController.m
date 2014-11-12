@@ -144,7 +144,8 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  [self saveAndDismissView];
+//  [self saveAndDismissView];
+  [textField resignFirstResponder];
   return YES;
 }
 
