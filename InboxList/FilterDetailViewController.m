@@ -124,7 +124,6 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   
   // テーブルの設定
   self.tableView.allowsMultipleSelectionDuringEditing = YES; // ???
-  self.tableView.scrollEnabled = NO;
 
   // ボタンを設定
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
@@ -220,7 +219,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 - (BOOL)isDatePickerCellAtIndexPath:(NSIndexPath *)indexPath
 {
   if ([self hasInlineDatePickerCell]) {
-    if (indexPath == [NSIndexPath indexPathForRow:1 inSection:2]) {
+    if (kDatePickerCellID == [self cellIdentifierAtIndexPath:indexPath]) {
       return YES;
     } else {
       return NO;
