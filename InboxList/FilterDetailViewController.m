@@ -30,6 +30,8 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 @interface FilterDetailViewController ()
 {
   NSArray *dataArray_;
+  
+  BOOL didActivatedKeyboard_;
 }
 
 @end
@@ -109,6 +111,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 -(void)initParam
 {
   self.indexPathForDatePickerCell = nil;
+  didActivatedKeyboard_ = NO;
 }
 
 - (void)viewDidLoad
@@ -137,13 +140,15 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 -(void)viewDidAppear:(BOOL)animated
 {
   if (self.isNewFilter) {
-    [[self titleCell].titleField becomeFirstResponder];
+    if (didActivatedKeyboard_ == NO) {
+      [[self titleCell].titleField becomeFirstResponder];
+      didActivatedKeyboard_ = YES;
+    }
   }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-//  [self saveAndDismissView];
   [textField resignFirstResponder];
   return YES;
 }
