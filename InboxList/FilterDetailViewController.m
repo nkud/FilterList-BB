@@ -224,6 +224,15 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   return ([self hasInlineDatePickerCell] && self.indexPathForDatePickerCell == indexPath);
 }
 
+-(BOOL)indexPathHasDate:(NSIndexPath *)indexPath
+{
+  BOOL hasDate = NO;
+  if ([self cellIdentifierAtIndexPath:indexPath] == kDueDateCellID) {
+    hasDate = YES;
+  }
+  return hasDate;
+}
+
 -(TitleCell *)titleCell
 {
   NSIndexPath *indexPathForTitleCell = [NSIndexPath indexPathForRow:0
@@ -373,14 +382,14 @@ titleForHeaderInSection:(NSInteger)section
     atIndexPathInTableView:indexPath];
     return cell;
   }
-  if ([self isDateCellAtIndexPath:indexPath])
+  if ([self indexPathHasDate:indexPath])
   {
     // 日付セル
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDueDateCellID];
     cell.textLabel.text = @"date";
     return cell;
   }
-  if ([self isDatePickerCellAtIndexPath:indexPath])
+  if ([self indexPathHasPicker:indexPath])
   {
     // 日付ピッカーセル
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
