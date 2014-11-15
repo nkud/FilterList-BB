@@ -51,14 +51,6 @@ static NSString *kCompleteCellID = @"CompleteCell";
   self.navigationItem.rightBarButtonItem = configButton;
 }
 
--(void)presentConfigView:(id)sender
-{
-  LOG(@"コンフィグ");
-  ConfigViewController *controller = [[ConfigViewController alloc] initWithNibName:nil bundle:nil];
-  [self.navigationController pushViewController:controller
-                                       animated:YES];
-}
-
 -(void)didTappedEditTableButton
 {
   [super didTappedEditTableButton];
@@ -66,6 +58,17 @@ static NSString *kCompleteCellID = @"CompleteCell";
   [self toEdit:self];
 }
 
+#pragma mark - コンフィグ画面
+
+-(void)presentConfigView:(id)sender
+{
+  LOG(@"コンフィグ");
+  ConfigViewController *controller = [[ConfigViewController alloc] initWithNibName:nil bundle:nil];
+  UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
+  [self presentViewController:navcontroller
+                     animated:YES
+                   completion:nil];
+}
 #pragma mark - テーブルビュー
 /**
  *  @brief 編集時の処理
