@@ -34,6 +34,8 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
   BOOL didActivatedKeyboard_;
 }
 
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+
 @end
 
 @implementation FilterDetailViewController
@@ -128,8 +130,12 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                 target:self
                                 action:@selector(saveAndDismissView)];
-
   self.navigationItem.rightBarButtonItem = addButton;
+  
+  // show short-style date format
+  self.dateFormatter = [[NSDateFormatter alloc] init];
+  [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
+  [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 }
 
 -(void)viewDidAppear:(BOOL)animated
