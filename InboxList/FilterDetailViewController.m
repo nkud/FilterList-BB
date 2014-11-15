@@ -9,7 +9,9 @@
 #import "FilterDetailViewController.h"
 #import "FilterCell.h"
 #import "CoreDataController.h"
+
 #import "TitleCell.h"
+#import "ItemDetailDatePickerCell.h"
 
 #import "ItemDetailTagCell.h"
 
@@ -24,6 +26,7 @@ static NSString *kDatePickerCellID = @"DatePickerCell";
 static NSString *kSearchCellID = @"SearchCell";
 
 static NSString *kTagCellNibName = @"ItemDetailTagCell";
+static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 
 #pragma mark -
 
@@ -53,6 +56,9 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
          forCellReuseIdentifier:kDueDateCellID];
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kSearchCellID];
+  [self.tableView registerNib:[UINib nibWithNibName:kDatePickerCellNibName
+                                             bundle:nil]
+       forCellReuseIdentifier:kDatePickerCellID];
 }
 
 /**
@@ -169,6 +175,55 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 }
 
 #pragma mark - ユーティリティ
+/**
+ * @brief  指定した位置の下に日付ピッカーを持つか評価
+ *
+ * @param indexPath 位置
+ *
+ * @return 真偽値
+ */
+-(BOOL)hasPickerForIndexPath:(NSIndexPath *)indexPath
+{
+  BOOL hasDatePicker = NO;
+  
+  NSInteger targetedRow = indexPath.row;
+  targetedRow++;
+  
+  UITableViewCell *checkDatePickerCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:targetedRow
+                                                                                                  inSection:2]];
+  UIDatePicker *checkDatePicker = (UIDatePicker *)[checkDatePickerCell viewWithTag:99];
+  hasDatePicker = (checkDatePicker != nil);
+  
+  return hasDatePicker;
+}
+
+/**
+ * @brief  日付ピッカーの表示を保存している日付に合わせる
+ */
+- (void)updateDatePicker
+{
+  if (self.indexPathForDatePickerCell) {
+    UITableViewCell *datePickerCell = [self.tableView cellForRowAtIndexPath:self.indexPathForDatePickerCell];
+    
+    UIDatePicker *targetedDatePicker = (UIDatePicker *)[datePickerCell viewWithTag:99];
+    if (targetedDatePicker) {
+      [targetedDatePicker setDate:[NSDate date] animated:NO];
+    }
+  }
+}
+
+/**
+ * @brief  指定した位置に日付ピッカーがあるか評価
+ *
+ * @param indexPath 位置
+ *
+ * @return 真偽値
+ */
+-(BOOL)indexPathHasPicker:(NSIndexPath *)indexPath
+{
+  return ([self hasInlineDatePickerCell] && self.indexPathForDatePickerCell == indexPath);
+}
+
 -(TitleCell *)titleCell
 {
   NSIndexPath *indexPathForTitleCell = [NSIndexPath indexPathForRow:0
@@ -193,7 +248,7 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 -(NSString *)cellIdentifierAtIndexPath:(NSIndexPath *)indexPath
 {
   if (indexPath.section == 2 && indexPath.row == 1) {
-    return @"";
+    return kDatePickerCellID;
   }
   NSString *identifier = self.dataArray[indexPath.section][indexPath.row];
   return identifier;
@@ -228,15 +283,15 @@ static NSString *kTagCellNibName = @"ItemDetailTagCell";
 
 - (BOOL)isDatePickerCellAtIndexPath:(NSIndexPath *)indexPath
 {
-//  if ([self hasInlineDatePickerCell]) {
-//    if (kDatePickerCellID == [self cellIdentifierAtIndexPath:indexPath]) {
-//      return YES;
-//    } else {
-//      return NO;
-//    }
-//  } else {
-//    return NO;
-//  }
+  if ([self hasInlineDatePickerCell]) {
+    if (kDatePickerCellID == [self cellIdentifierAtIndexPath:indexPath]) {
+      return YES;
+    } else {
+      return NO;
+    }
+  } else {
+    return NO;
+  }
   return NO;
 }
 
@@ -259,6 +314,15 @@ numberOfRowsInSection:(NSInteger)section
     numRows += 1;
   }
   return numRows;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if ([self isDatePickerCellAtIndexPath:indexPath]) {
+    return CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID] frame]);
+  }
+  return 44;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -316,11 +380,12 @@ titleForHeaderInSection:(NSInteger)section
     cell.textLabel.text = @"date";
     return cell;
   }
-//  if ([self isDatePickerCellAtIndexPath:indexPath]) {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDueDateCellID];
-//    cell.textLabel.text = @"picker cell";
-//    return cell;
-//  }
+  if ([self isDatePickerCellAtIndexPath:indexPath])
+  {
+    // 日付ピッカーセル
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    return cell;
+  }
   UITableViewCell *cell;
   cell = [UITableViewCell new];
   return cell;
