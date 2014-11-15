@@ -50,12 +50,16 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
  */
 -(void)registerClassForCells
 {
-  [self.tableView registerNib:[UINib nibWithNibName:kTagCellNibName bundle:nil]
+  [self.tableView registerNib:[UINib nibWithNibName:kTagCellNibName
+                                             bundle:nil]
        forCellReuseIdentifier:kTagSelectCellID];
+  
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kDueDateCellID];
+  
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kSearchCellID];
+  
   [self.tableView registerNib:[UINib nibWithNibName:kDatePickerCellNibName
                                              bundle:nil]
        forCellReuseIdentifier:kDatePickerCellID];
@@ -221,7 +225,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
  */
 -(BOOL)indexPathHasPicker:(NSIndexPath *)indexPath
 {
-  return ([self hasInlineDatePickerCell] && self.indexPathForDatePickerCell == indexPath);
+  return ([self hasInlineDatePickerCell] && self.indexPathForDatePickerCell.row == indexPath.row);
 }
 
 -(BOOL)indexPathHasDate:(NSIndexPath *)indexPath
@@ -337,7 +341,7 @@ numberOfRowsInSection:(NSInteger)section
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([self isDatePickerCellAtIndexPath:indexPath]) {
+  if ([self indexPathHasPicker:indexPath]) {
     return CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID] frame]);
   }
   return 44;
@@ -449,44 +453,12 @@ titleForHeaderInSection:(NSInteger)section
                                                          inSection:2];
   }
   
-  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+  [self.tableView deselectRowAtIndexPath:indexPath
+                                animated:YES];
   
   [self.tableView endUpdates];
 }
 
-/**
- * @brief  日付ピッカーを表示・非表示する
- */
-- (void)toggleDatePickerCell
-{
-  [self.tableView beginUpdates];
-  
-  if ([self hasInlineDatePickerCell]) {
-    [self closeDatePickerCell];
-  } else {
-    [self openDatePickerCell];
-  }
-  
-  [self.tableView endUpdates];
-}
--(void)openDatePickerCell
-{
-  if ( ! [self hasInlineDatePickerCell]) {
-    self.indexPathForDatePickerCell = [NSIndexPath indexPathForRow:1 inSection:2];
-    NSArray *indexPaths = @[self.indexPathForDatePickerCell];
-    [self.tableView insertRowsAtIndexPaths:indexPaths
-                          withRowAnimation:UITableViewRowAnimationFade];
-  }
-}
--(void)closeDatePickerCell
-{
-  if ([self hasInlineDatePickerCell]) {
-    self.indexPathForDatePickerCell = nil;
-    NSArray *indexPaths = @[[NSIndexPath indexPathForRow:1 inSection:2]];
-    [self.tableView deleteRowsAtIndexPaths:indexPaths
-                          withRowAnimation:UITableViewRowAnimationFade];
-  }
-}
 #pragma mark 選択の処理
 
 -(void)tableView:(UITableView *)tableView
@@ -503,7 +475,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   if ([self indexPathHasDate:indexPath]) {
     // 日付セル
     [self displayInlineDatePickerForRowAtIndexPath:indexPath];
-    return;
   }
 }
 
