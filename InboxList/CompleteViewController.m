@@ -16,6 +16,8 @@
 
 #import "ConfigViewController.h"
 
+static NSString *kConfigButtonImageName = @"ConfigBarButton.png";
+
 static NSString *kCompleteCellID = @"CompleteCell";
 
 #pragma mark -
@@ -42,9 +44,10 @@ static NSString *kCompleteCellID = @"CompleteCell";
   
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
   
-  UIBarButtonItem *configButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
-                                                                                target:self
-                                                                                action:@selector(presentConfigView:)];
+  UIBarButtonItem *configButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:kConfigButtonImageName]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(presentConfigView:)];
   self.navigationItem.rightBarButtonItem = configButton;
 }
 
