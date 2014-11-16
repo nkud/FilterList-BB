@@ -633,7 +633,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
                                                   options:UIViewKeyframeAnimationOptionOverrideInheritedOptions
                                                animations:^{
                                                  instant.layer.opacity = 0.0f;
-                                                 instant.transform = CGAffineTransformMakeScale(0.5, 0.5);
+                                                 instant.transform = CGAffineTransformMakeScale(0.7, 0.7);
                                                }
                                                completion:^(BOOL finished) {
                                                  ;

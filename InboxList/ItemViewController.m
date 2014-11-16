@@ -124,8 +124,8 @@
     }
     [self instantMessage:@"Move"
                    color:nil];
+    [CoreDataController saveContext];
   }
-  [CoreDataController saveContext];
 }
 /**
  * @brief  全選択する
@@ -682,6 +682,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [super viewWillAppear:animated];
   if (self.tableView.editing == NO) {
     [self.delegateForList openTabBar];
+  } else {
+    [self updateEditTabBar];
   }
 }
 
