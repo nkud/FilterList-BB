@@ -329,6 +329,49 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 }
 
 /**
+ * @brief  全選択ボタンを作成する
+ *
+ * @return インスタンス
+ */
+-(UIBarButtonItem *)newSelectAllButton
+{
+  UIBarButtonItem *selectAllButton
+  = [[UIBarButtonItem alloc] initWithTitle:@"Select All"
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(selectAllRows:)];
+  return selectAllButton;
+}
+
+/**
+ * @brief  全選択する
+ *
+ * @param sender センダー
+ */
+-(void)selectAllRows:(id)sender
+{
+  LOG(@"全選択");
+  NSInteger section =  [self.tableView numberOfSections];
+  
+  for (; section > 0; section--) {
+    NSInteger row = [self.tableView numberOfRowsInSection:section];
+    LOG(@"%lu, %lu", section, row);
+    NSIndexPath *indexPathInController = [NSIndexPath indexPathForRow:row-1
+                                                            inSection:section-1];
+    [self.tableView selectRowAtIndexPath:indexPathInController
+                                animated:YES
+                          scrollPosition:UITableViewScrollPositionNone];
+  }
+}
+
+-(void)updateEditTabBar
+{
+  LOG(@"編集タブを更新する");
+  [self updateMoveButton];
+  [self updateDeleteButton];
+}
+
+/**
  * @brief  編集ボタンを作成
  *
  * @return インスタンス
@@ -351,6 +394,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   [self updateDeleteButton];
   [self updateMoveButton];
+  
   if (self.tableView.isEditing)
   {
     // 編集中なら
@@ -360,13 +404,25 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
     [UIView setAnimationDelay:0.2];
     [self hideEditTabBar:YES];
     [UIView commitAnimations];
-    
+    [self toggleRightNavigationItemWithEditingState:NO];
   } else {
     // そうでないなら
     // タブバーを閉じる
     [self hideEditTabBar:NO];
     [self.delegateForList closeTabBar];
+    [self toggleRightNavigationItemWithEditingState:YES];
   }
+}
+
+-(void)toggleRightNavigationItemWithEditingState:(BOOL)isEditing
+{
+  UIBarButtonItem *rightItem;
+  if (isEditing) {
+    rightItem = [self newSelectAllButton];
+  } else {
+    rightItem = [self newInsertObjectButton];
+  }
+  self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 -(void)didTappedInsertObjectButton

@@ -56,6 +56,8 @@ UIActionSheetDelegate, TagSelectViewControllerDelegate>
 
 -(void)aleartMessage:(NSString *)message;
 
+- (void)updateEditTabBar;
+
 @property UIButton *deleteAllButton;
 @property UIButton *moveButton;
 
