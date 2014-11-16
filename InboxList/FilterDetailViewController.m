@@ -228,6 +228,13 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   return ([self hasInlineDatePickerCell] && self.indexPathForDatePickerCell.row == indexPath.row);
 }
 
+/**
+ * @brief  位置が日付を持つか評価
+ *
+ * @param indexPath 位置
+ *
+ * @return 真偽値
+ */
 -(BOOL)indexPathHasDate:(NSIndexPath *)indexPath
 {
   BOOL hasDate = NO;
@@ -317,6 +324,11 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   return NO;
 }
 
+/**
+ * @brief  日付ピッカーが表示されているか評価する
+ *
+ * @return 真偽値
+ */
 - (BOOL)hasInlineDatePickerCell
 {
   if (self.indexPathForDatePickerCell) {
