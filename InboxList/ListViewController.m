@@ -51,7 +51,9 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
  */
 -(void)viewWillDisappear:(BOOL)animated
 {
-  [self hideEditTabBar:YES];
+  if (self.tableView.editing == NO) {
+    [self hideEditTabBar:YES];
+  }
 }
 
 /**

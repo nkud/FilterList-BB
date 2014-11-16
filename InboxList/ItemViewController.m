@@ -648,7 +648,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 -(void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  [self.delegateForList openTabBar];
+  if (self.tableView.editing == NO) {
+    [self.delegateForList openTabBar];
+  }
 }
 
 
