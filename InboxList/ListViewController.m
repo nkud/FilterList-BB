@@ -583,19 +583,30 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 -(void)instantMessage:(NSString *)message
 {
   CGFloat width = 80;
-  CGFloat height = 80;
+  CGFloat height = 50;
   UILabel *instant = [UILabel new];
   instant.frame = CGRectMake((SCREEN_BOUNDS.size.width - width)/2,
                              (SCREEN_BOUNDS.size.height - height - NAVBAR_H - TABBAR_H)/2 - 50,
                              width,
                              height);
+  
   instant.backgroundColor = [UIColor blackColor];
   instant.textColor = [UIColor whiteColor];
-  instant.text = message;
+  NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+  style.alignment = NSTextAlignmentCenter;
+  NSDictionary *attributes = @{NSParagraphStyleAttributeName:style};
+  instant.attributedText = [[NSAttributedString alloc] initWithString:message
+                                                           attributes:attributes];
+  
+  // レイヤー
   instant.layer.masksToBounds = YES;
   instant.layer.opacity = 0.0f;
   instant.layer.cornerRadius = 10;
+  
   [self.view addSubview:instant];
+  
+  CGFloat maxOpacity = 0.5f;
+  CGFloat animationDelay = 0.3f;
   
   // アニメーションを実行
   // TODO: 途中でストップできるようにする
@@ -603,15 +614,16 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
                         delay:0.0
                       options:UIViewAnimationOptionCurveLinear
                    animations:^{
-                     instant.layer.opacity = 0.5f;
+                     instant.layer.opacity = maxOpacity;
                      instant.transform = CGAffineTransformMakeScale(1.1, 1.1);
                    }
                    completion:^(BOOL finished) {
                      [UIView animateKeyframesWithDuration:0.1f
-                                                    delay:0.5f
+                                                    delay:animationDelay
                                                   options:UIViewKeyframeAnimationOptionOverrideInheritedOptions
                                                animations:^{
                                                  instant.layer.opacity = 0.0f;
+                                                 instant.transform = CGAffineTransformMakeScale(0.5, 0.5);
                                                }
                                                completion:^(BOOL finished) {
                                                  ;
