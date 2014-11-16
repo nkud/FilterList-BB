@@ -336,7 +336,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 -(UIBarButtonItem *)newSelectAllButton
 {
   UIBarButtonItem *selectAllButton
-  = [[UIBarButtonItem alloc] initWithTitle:@"Select All"
+  = [[UIBarButtonItem alloc] initWithTitle:@"ALL"
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(selectAllRows:)];
