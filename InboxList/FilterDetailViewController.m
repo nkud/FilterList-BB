@@ -164,6 +164,11 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   return YES;
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  [[self titleCell].titleField resignFirstResponder];
+}
+
 -(void)saveAndDismissView
 {
   LOG(@"保存してビュー削除");
