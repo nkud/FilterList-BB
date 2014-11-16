@@ -16,6 +16,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 
 #import "ListViewController.h"
 #import "Header.h"
+#import "Configure.h"
 
 #import "CoreDataController.h"
 
@@ -93,7 +94,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   self.tabBar = [[UITabBar alloc] initWithFrame:frame];
   self.tabBar.delegate = self;
   [self.view addSubview:self.tabBar];
-  
+
+  //////////////////////////////////////////////////////////////////////////////
   // 編集タブ初期化
   self.editTabBar = [[UIView alloc] initWithFrame:self.tabBar.frame];
   self.editTabBar.backgroundColor = [UIColor whiteColor];
@@ -104,7 +106,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
                            action:@selector(deleteRows:)
                  forControlEvents:UIControlEventTouchUpInside];
   [self updateDeleteButton];
-  [self.deleteAllButton setTintColor:[UIColor whiteColor]];
+  [self.deleteAllButton setTintColor:RED_COLOR];
   CGFloat height = TABBAR_H;
   CGFloat width = SCREEN_BOUNDS.size.width/2;
   CGFloat margin = 0;
@@ -114,13 +116,53 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
                                           (self.editTabBar.frame.size.height-height)/2,
                                           width,
                                           height);
-  self.deleteAllButton.backgroundColor = [UIColor redColor];
   [self.editTabBar addSubview:self.deleteAllButton];
   
   [self.view addSubview:self.editTabBar];
   
+  // 移動ボタン
+  self.moveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [self.moveButton addTarget:self
+                      action:@selector(moveTag:)
+            forControlEvents:UIControlEventTouchUpInside];
+  [self.moveButton setTintColor:BLUE_COLOR];
+  [self updateMoveButton];
+  self.moveButton.frame = CGRectMake(self.editTabBar.frame.size.width-margin-width,
+                                     (self.editTabBar.frame.size.height-height)/2,
+                                     width,
+                                     height);
+  [self.moveButton setTitle:@"Move"
+                   forState:UIControlStateNormal];
+  [self.editTabBar addSubview:self.moveButton];
   // 編集タブは隠す
   [self hideEditTabBar:YES];
+}
+
+-(void)moveTag:(id)sender
+{
+  LOG(@"タグを移動");
+}
+
+-(void)updateMoveButton
+{
+  NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+  BOOL noItemsInTable = [[self.fetchedResultsController fetchedObjects] count] == 0;
+  BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
+  BOOL noItemsAreSelected = selectedRows.count == 0;
+  NSString *title;
+  if (noItemsInTable || noItemsAreSelected) {
+    self.moveButton.enabled = NO;
+    return;
+  } else {
+    self.moveButton.enabled = YES;
+  }
+  if (allItemsAreSelected) {
+    title = @"Move All";
+  } else {
+    title = [NSString stringWithFormat:@"Move(%lu)", (unsigned long)selectedRows.count];
+  }
+  [self.moveButton setTitle:title
+                   forState:UIControlStateNormal];
 }
 
 /**
@@ -134,14 +176,14 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   BOOL noItemsAreSelected = selectedRows.count == 0;
   NSString *title;
   
-  if (noItemsInTable) {
+  if (noItemsInTable || noItemsAreSelected) {
     self.deleteAllButton.enabled = NO;
     return;
   } else {
     self.deleteAllButton.enabled = YES;
   }
   
-  if (allItemsAreSelected || noItemsAreSelected) {
+  if (allItemsAreSelected) {
     title = @"Delete All";
   } else {
       title = [NSString stringWithFormat:@"Delete(%lu)", (unsigned long)selectedRows.count];
@@ -154,11 +196,13 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [self updateDeleteButton];
+  [self updateMoveButton];
 }
 -(void)tableView:(UITableView *)tableView
 didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [self updateDeleteButton];
+  [self updateMoveButton];
 }
 
 -(void)deleteRows:(id)sender

@@ -26,9 +26,12 @@
 #define FILTER_LIST_TITLE @"FILTER"
 
 #define ITEM_COLOR RGB(0, 0, 0)
-#define TAG_COLOR RGB(74, 144, 226);
+#define TAG_COLOR RGB(74, 144, 226)
 #define FILTER_COLOR RGB(245, 166, 35)
 #define COMPLETE_COLOR RGB(212, 212, 212)
+
+#define BLUE_COLOR RGB(74, 144, 226)
+#define RED_COLOR RGB(208, 9, 27)
 
 #define OVERDUE_COLOR RGB(208, 9 ,27)
 #define DUE_TO_TODAY_COLOR FILTER_COLOR
@@ -37,10 +40,6 @@
 
 #define ITEM_NAVBAR_COLOR RGB(230, 230, 0)
 
-/**
- * @brief セルの高さ
- */
 //#define TAG_CELL_HEIGHT 50
-
 
 #endif

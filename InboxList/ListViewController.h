@@ -55,6 +55,7 @@ UIActionSheetDelegate>
 -(void)aleartMessage:(NSString *)message;
 
 @property UIButton *deleteAllButton;
+@property UIButton *moveButton;
 
 -(void)instantMessage:(NSString *)message;
 
