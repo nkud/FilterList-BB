@@ -61,6 +61,7 @@ UIActionSheetDelegate, TagSelectViewControllerDelegate>
 @property UIButton *deleteAllButton;
 @property UIButton *moveButton;
 
--(void)instantMessage:(NSString *)message;
+#pragma mark - インスタントメッセージ
+-(void)instantMessage:(NSString *)message color:(UIColor *)color;
 
 @end

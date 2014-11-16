@@ -122,6 +122,8 @@
       Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
       [item setTag:selectedTag];
     }
+    [self instantMessage:@"Move"
+                   color:nil];
   }
   [CoreDataController saveContext];
 }
@@ -350,7 +352,8 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   [CoreDataController insertNewItem:titleForItem
                                 tag:[self selectedTag]
                            reminder:nil];
-  [self instantMessage:@"Saved"];
+  [self instantMessage:@"Saved"
+                 color:nil];
 }
 
 #pragma mark - セル設定
@@ -632,7 +635,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   Item *item;
   NSString *message;
   if (isNewItem) {
-    message = @"Done";
+    message = @"Saved";
   } else {
     message = @"Update";
   }
@@ -659,7 +662,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   item.reminder = reminder;
   LOG(@"%@", item);
   [CoreDataController saveContext];
-  [self instantMessage:message];
+  
+  [self instantMessage:message
+                 color:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated

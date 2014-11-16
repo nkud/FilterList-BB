@@ -313,6 +313,10 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
     } else {
       [self deleteAllSelectedRows:self];
     }
+    if ( ! noItemsAreSelected) {
+      [self instantMessage:@"Delete"
+                     color:nil];
+    }
     [CoreDataController saveContext];
   }
 }
@@ -580,7 +584,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
  *
  * @param message メッセージ
  */
--(void)instantMessage:(NSString *)message
+-(void)instantMessage:(NSString *)message color:(UIColor *)color
 {
   CGFloat width = 80;
   CGFloat height = 50;
@@ -590,7 +594,13 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
                              width,
                              height);
   
-  instant.backgroundColor = [UIColor blackColor];
+  // 背景色
+  if (color) {
+    instant.backgroundColor = color;
+  } else {
+    instant.backgroundColor = [UIColor blackColor];
+  }
+
   instant.textColor = [UIColor whiteColor];
   NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
   style.alignment = NSTextAlignmentCenter;
@@ -606,7 +616,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   [self.view addSubview:instant];
   
   CGFloat maxOpacity = 0.5f;
-  CGFloat animationDelay = 0.3f;
+  CGFloat animationDelay = 0.4f;
   
   // アニメーションを実行
   // TODO: 途中でストップできるようにする
