@@ -14,5 +14,7 @@
 
 @dynamic title;
 @dynamic tags;
+@dynamic from;
+@dynamic interval;
 
 @end

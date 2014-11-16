@@ -123,6 +123,8 @@ static NSString *kFilterCellID = @"FilterCell";
   FilterDetailViewController *controller
   = [[FilterDetailViewController alloc] initWithFilterTitle:nil
                                                        tags:nil
+                                                       from:nil
+                                                   interval:nil
                                                 isNewFilter:YES
                                                   indexPath:nil
                                                    delegate:self];
@@ -262,6 +264,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
   FilterDetailViewController *controller
   = [[FilterDetailViewController alloc] initWithFilterTitle:filter.title
                                                        tags:filter.tags
+                                                       from:filter.from
+                                                   interval:filter.interval
                                                 isNewFilter:NO
                                                   indexPath:indexPath
                                                    delegate:self];
@@ -381,6 +385,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 #pragma mark 詳細ビューデリゲート
 -(void)dismissInputFilterView:(NSString *)filterTitle
               tagsForSelected:(NSSet *)tagsForSelected
+                         from:(NSDate *)from
+                     interval:(NSDate *)interval
                     indexPath:(NSIndexPath *)indexPath
                   isNewFilter:(BOOL)isNewFilter
 {
@@ -396,6 +402,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
   }
   filter.title = filterTitle;
   filter.tags = tagsForSelected;
+  filter.from = from;
+  filter.interval = interval;
   [CoreDataController saveContext];
 }
 

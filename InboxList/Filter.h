@@ -18,6 +18,8 @@
 
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSSet *tags;
+@property (nonatomic, retain) NSDate *from;
+@property (nonatomic, retain) NSDate *interval;
 @end
 
 @interface Filter (CoreDataGeneratedAccessors)

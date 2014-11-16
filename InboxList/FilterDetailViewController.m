@@ -78,6 +78,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
  */
 -(instancetype)initWithFilterTitle:(NSString *)title
                               tags:(NSSet *)tags
+                              from:(NSDate *)from
+                          interval:(NSDate *)interval
                        isNewFilter:(BOOL)isNewFilter
                          indexPath:(NSIndexPath *)indexPath
                           delegate:(id<FilterDetailViewControllerDelegate>)delegate
@@ -87,11 +89,16 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
     if (title) {
       self.titleForFilter = title;
       self.tagsForFilter = tags;
+      self.filterFromDate = from;
+      self.filterInterval = interval;
       self.indexPathForFilter = indexPath;
+
       self.isNewFilter = NO;
     } else {
       self.titleForFilter = nil;
       self.tagsForFilter = nil;
+      self.filterFromDate = nil;
+      self.filterInterval = nil;
       self.indexPathForFilter = nil;
     self.isNewFilter = YES;
     }
@@ -178,6 +185,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   // デリゲートに入力情報を渡す
   [self.delegate dismissInputFilterView:self.titleForFilter
                         tagsForSelected:self.tagsForFilter
+                                   from:self.filterFromDate
+                               interval:self.filterInterval
                               indexPath:self.indexPathForFilter
                             isNewFilter:self.isNewFilter];
   
@@ -200,6 +209,11 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   }
   
   // TODO: update data model
+  if (targetedCellIndexPath.row == 0) {
+    self.filterFromDate = date;
+  } else {
+    self.filterInterval = date;
+  }
   
   // updaate the cell's date string.
   UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:targetedCellIndexPath];
@@ -440,6 +454,14 @@ titleForHeaderInSection:(NSInteger)section
   {
     // 日付セル
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDueDateCellID];
+    if (indexPath.row == 0 && self.filterFromDate) {
+      cell.textLabel.text = [self.dateFormatter stringFromDate:self.filterFromDate];
+      return cell;
+    }
+    if (indexPath.row != 0 && self.filterInterval) {
+      cell.textLabel.text = [self.dateFormatter stringFromDate:self.filterInterval];
+      return cell;
+    }
     cell.textLabel.text = @"date";
     return cell;
   }
