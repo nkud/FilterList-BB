@@ -376,6 +376,9 @@ titleForHeaderInSection:(NSInteger)section
   if (section == 2) {
     return @"INTERVAL";
   }
+  if (section == 3) {
+    return @"SEARCH";
+  }
   return @"";
 }
 
