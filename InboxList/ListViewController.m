@@ -574,6 +574,12 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 }
 
 #pragma mark インスタントメッセージ
+
+/**
+ * @brief  インスタントメッセージを表示する
+ *
+ * @param message メッセージ
+ */
 -(void)instantMessage:(NSString *)message
 {
   CGFloat width = 80;
@@ -589,7 +595,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   instant.layer.masksToBounds = YES;
   instant.layer.opacity = 0.0f;
   instant.layer.cornerRadius = 10;
-  [self.tableView addSubview:instant];
+  [self.view addSubview:instant];
   
   // アニメーションを実行
   // TODO: 途中でストップできるようにする
