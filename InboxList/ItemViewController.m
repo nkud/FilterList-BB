@@ -107,6 +107,25 @@
   [self presentInputItemView];
 }
 
+-(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
+{
+  Tag *selectedTag;
+  for (Tag *tag in tagsForSelectedRows) {
+    // １つだけ
+    selectedTag = tag;
+    break;
+  }
+  NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+  if (self.tableView.editing) {
+    for (NSIndexPath *indexPathInTable in selectedRows) {
+      NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTable];
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+      [item setTag:selectedTag];
+    }
+  }
+  [CoreDataController saveContext];
+}
+
 #pragma mark - テーブルビュー
 
 #pragma mark セクション

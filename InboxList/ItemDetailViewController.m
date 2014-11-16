@@ -479,9 +479,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                      animated:YES
                    completion:^{
                    }];
-  
-//  [self.navigationController pushViewControllerFromBottom:controller
-//                                                 animated:YES];
 }
 
 /**

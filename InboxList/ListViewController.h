@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TagSelectViewController.h"
+
 @protocol ListViewControllerDelegate <NSObject>
 
 -(void)openTabBar;
@@ -17,7 +19,7 @@
 
 @interface ListViewController : UIViewController
 <UITableViewDelegate, UITableViewDataSource, UITabBarDelegate,
-UIActionSheetDelegate>
+UIActionSheetDelegate, TagSelectViewControllerDelegate>
 
 
 @property (strong, nonatomic) UITableView *tableView;

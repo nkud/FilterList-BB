@@ -20,6 +20,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 
 #import "CoreDataController.h"
 
+#import "TagSelectViewController.h"
+
 @interface ListViewController ()
 
 @end
@@ -138,9 +140,42 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   [self hideEditTabBar:YES];
 }
 
+/**
+ * @brief  選択したセルのタグを移動する
+ *
+ * @param sender センダー
+ */
 -(void)moveTag:(id)sender
 {
   LOG(@"タグを移動");
+  TagSelectViewController *controller = [[TagSelectViewController alloc] initWithNibName:nil bundle:nil];
+  
+  controller.delegate = self;
+  controller.tagsForAlreadySelected = nil;
+  controller.maxCapacityRowsForSelected = 1;
+  
+  UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
+  [self presentViewController:navcontroller
+                     animated:YES
+                   completion:nil];
+}
+
+-(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
+{
+  Tag *selectedTag;
+  for (Tag *tag in tagsForSelectedRows) {
+    // １つだけ
+    selectedTag = tag;
+    break;
+  }
+  NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+  if (self.tableView.editing) {
+    for (NSIndexPath *indexPathInTable in selectedRows) {
+      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInTable];
+      [item setTag:selectedTag];
+    }
+  }
+  [CoreDataController saveContext];
 }
 
 -(void)updateMoveButton
