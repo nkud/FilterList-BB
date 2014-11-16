@@ -549,6 +549,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)configureTagCell:(ItemDetailTagCell *)cell
             atIndexPath:(NSIndexPath *)atIndexPath
 {
+  cell.textLabel.text = @"Tag";
   NSString *stringForTags;
   UIColor *textColor;
   if (self.tagsForItem && [self.tagsForItem count] > 0)
@@ -562,8 +563,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     stringForTags = kTitleCellPlaceHold;
     textColor = [UIColor grayColor];
   }
-  cell.textLabel.text = stringForTags;
-  cell.textLabel.textColor = textColor;
+  cell.detailTextLabel.text = stringForTags;
+//  cell.detailTextLabel.textColor = textColor;
 }
 
 /**
@@ -575,6 +576,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)configureDateCell:(ItemDetailDateCell *)cell
              atIndexPath:(NSIndexPath *)atIndexPath
 {
+  cell.textLabel.text = @"Due Date";
   NSString *stringForDate;
   UIColor *colorForText;
   
@@ -592,10 +594,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
       self.reminderForItem = [NSDate date];
     }
   }
-  cell.textLabel.text = stringForDate;
-  cell.textLabel.textColor = colorForText;
+  cell.detailTextLabel.text = stringForDate;
+//  cell.detailTextLabel.textColor = colorForText;
   
-  [self addCancelButton:cell];
+//  [self addCancelButton:cell];
 }
 
 /**

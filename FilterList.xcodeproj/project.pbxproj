@@ -267,6 +267,9 @@
 				B0030D9C19F6E4F600CF8F40 /* DetailViewController.h */,
 				B0030D9D19F6E4F600CF8F40 /* DetailViewController.m */,
 				B05EA7CA19F7649400AC0289 /* TitleCell */,
+				B08CDBC419C55BEF008263AC /* DatePickerCell */,
+				B08CDBBE19C55BB3008263AC /* DateCell */,
+				B08CDBB819C559BC008263AC /* TagCell */,
 			);
 			name = DetailView;
 			sourceTree = "<group>";
@@ -704,9 +707,6 @@
 			children = (
 				B00AD6A718C45E470005A552 /* ItemDetailViewController.h */,
 				B00AD6A818C45E470005A552 /* ItemDetailViewController.m */,
-				B08CDBC419C55BEF008263AC /* DatePickerCell */,
-				B08CDBBE19C55BB3008263AC /* DateCell */,
-				B08CDBB819C559BC008263AC /* TagCell */,
 			);
 			name = ItemDetailView;
 			sourceTree = "<group>";
