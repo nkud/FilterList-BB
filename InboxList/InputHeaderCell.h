@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol InputHeaderCellDelegate <NSObject>
+@protocol InputHeaderCellDelegate <UITextFieldDelegate>
 
 -(void)didInputtedNewItem:(NSString *)titleForItem;
 

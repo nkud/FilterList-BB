@@ -20,7 +20,8 @@
  * @brief  アイテムリスト
  */
 @interface ItemViewController : ListViewController
-<NSFetchedResultsControllerDelegate, ItemDetailViewControllerDelegate, InputHeaderCellDelegate>
+<NSFetchedResultsControllerDelegate, ItemDetailViewControllerDelegate, InputHeaderCellDelegate,
+UITextFieldDelegate>
 
 //@property (strong, nonatomic) Tag *tagForSelected;
 

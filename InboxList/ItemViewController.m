@@ -99,8 +99,11 @@
 -(void)didTappedEditTableButton
 {
   [super didTappedEditTableButton];
+  InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+  [cell.inputField resignFirstResponder];
   [self toEdit:self];
 }
+
 -(void)didTappedInsertObjectButton
 {
   [super didTappedInsertObjectButton];
@@ -304,6 +307,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
     InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
     cell.delegate = self;
+    cell.inputField.delegate = self;
     return cell;
   }
   static NSString *CellIdentifier = @"ItemCell";
@@ -311,6 +315,35 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [self configureItemCell:cell
               atIndexPath:indexPathInTableView];
   return cell;
+}
+
+/**
+ * @brief  リターンキーが押された時の処理
+ *
+ * @param textField テキストフィールド
+ *
+ * @return 真偽値
+ */
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  if ([textField.text isEqualToString:@""])
+  {
+    // キーボードを閉じる
+    [textField resignFirstResponder];
+  } else
+  {
+    [self didInputtedNewItem:textField.text];
+    textField.text = @"";
+  }
+  return YES;
+}
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+//  if (self.tableView.isEditing) {
+//    return NO;
+//  }
+  return YES;
 }
 
 /**

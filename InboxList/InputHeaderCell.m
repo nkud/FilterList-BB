@@ -15,7 +15,7 @@ NSString *kPlaceholderForInputFiled = @"new item";
 - (void)awakeFromNib {
   // Initialization code
   self.inputField.placeholder = kPlaceholderForInputFiled;
-  self.inputField.delegate = self;
+  self.selectionStyle  = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -24,26 +24,6 @@ NSString *kPlaceholderForInputFiled = @"new item";
     // Configure the view for the selected state
 }
 
-/**
- * @brief  リターンキーが押された時の処理
- *
- * @param textField テキストフィールド
- *
- * @return 真偽値
- */
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-  if ([textField.text isEqualToString:@""])
-  {
-    // キーボードを閉じる
-    [self.inputField resignFirstResponder];
-  } else
-  {
-    [self.delegate didInputtedNewItem:self.inputField.text];
-    textField.text = @"";
-  }
 
-  return YES;
-}
 
 @end
