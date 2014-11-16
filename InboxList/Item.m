@@ -61,6 +61,19 @@
   }
 }
 
+-(BOOL)isEqualDueDate:(NSDate *)date
+{
+  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  [formatter setDateFormat:@"yyyy-MM-dd"];;
+  NSString *todayString = [formatter stringFromDate:date];
+  NSString *dueToString = [formatter stringFromDate:self.reminder];
+  if ([todayString isEqualToString:dueToString]) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 /**
  * @brief  期限が今日までなら真
  *

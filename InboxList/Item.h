@@ -32,6 +32,8 @@
 -(void)setComplete;
 -(void)setIncomplete;
 
+-(BOOL)isEqualDueDate:(NSDate *)date;
+
 -(NSString *)tagName;
 
 @end

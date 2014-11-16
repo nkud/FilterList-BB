@@ -652,19 +652,29 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     // 更新するアイテムを取得
     item = [self.fetchedResultsController objectAtIndexPath:indexPath];
   }
-  item.title = title;
+
+  Tag *selectedTag;
   for (Tag *tag in tags) {
     // １個だけ挿入する
-    item.tag = tag;
+    selectedTag = tag;
     break;
   }
+  
+  BOOL showInstantMessage = NO;
+  if ( ! [item.title isEqualToString:title] || ! [item isEqualDueDate:reminder] || item.tag != selectedTag) {
+    showInstantMessage = YES;
+  }
+  item.title = title;
   item.state = [NSNumber numberWithBool:false];
   item.reminder = reminder;
+  item.tag = selectedTag;
   LOG(@"%@", item);
   [CoreDataController saveContext];
   
-  [self instantMessage:message
-                 color:nil];
+  if (showInstantMessage) {
+    [self instantMessage:message
+                   color:nil];
+  }
 }
 
 -(void)viewWillAppear:(BOOL)animated
