@@ -19,6 +19,8 @@
 
 #import "Header.h"
 
+#define kDatePickerTag 99
+
 #pragma mark Cell Identifier
 static NSString *kTagSelectCellID = @"tagCell";
 static NSString *kDueDateCellID = @"DueDateCell";
@@ -184,6 +186,25 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 }
 
 #pragma mark - ユーティリティ
+
+-(void)didChangedDate:(NSDate *)date
+{
+  NSIndexPath *targetedCellIndexPath = nil;
+  if ([self hasInlineDatePickerCell]) {
+    // 上の日付セルを指定する
+    targetedCellIndexPath = [NSIndexPath indexPathForRow:self.indexPathForDatePickerCell.row - 1
+                                               inSection:2];
+  } else {
+    // external date picker: update the current "selected" cell's date.
+    targetedCellIndexPath = [self.tableView indexPathForSelectedRow];
+  }
+  
+  // TODO: update data model
+  
+  // updaate the cell's date string.
+  UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:targetedCellIndexPath];
+  cell.textLabel.text = [self.dateFormatter stringFromDate:date];
+}
 /**
  * @brief  指定した位置の下に日付ピッカーを持つか評価
  *
@@ -200,7 +221,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   
   UITableViewCell *checkDatePickerCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:targetedRow
                                                                                                   inSection:2]];
-  UIDatePicker *checkDatePicker = (UIDatePicker *)[checkDatePickerCell viewWithTag:99];
+  UIDatePicker *checkDatePicker = (UIDatePicker *)[checkDatePickerCell viewWithTag:kDatePickerTag];
   hasDatePicker = (checkDatePicker != nil);
   
   return hasDatePicker;
@@ -214,7 +235,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   if (self.indexPathForDatePickerCell) {
     UITableViewCell *datePickerCell = [self.tableView cellForRowAtIndexPath:self.indexPathForDatePickerCell];
     
-    UIDatePicker *targetedDatePicker = (UIDatePicker *)[datePickerCell viewWithTag:99];
+    UIDatePicker *targetedDatePicker = (UIDatePicker *)[datePickerCell viewWithTag:kDatePickerTag];
     if (targetedDatePicker) {
       [targetedDatePicker setDate:[NSDate date] animated:NO];
     }
@@ -425,7 +446,8 @@ titleForHeaderInSection:(NSInteger)section
   if ([self indexPathHasPicker:indexPath])
   {
     // 日付ピッカーセル
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    ItemDetailDatePickerCell *cell = [tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    cell.delegate = self;
     return cell;
   }
   UITableViewCell *cell;

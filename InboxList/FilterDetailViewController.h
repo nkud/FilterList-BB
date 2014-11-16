@@ -10,6 +10,8 @@
 #import "TagSelectViewController.h"
 #import "DetailViewController.h"
 
+#import "ItemDetailDatePickerCell.h"
+
 /**
  * @brief  フィルター入力画面プロトコル
  */
@@ -27,7 +29,7 @@
  * @brief  フィルター入力画面
  */
 @interface FilterDetailViewController : DetailViewController
-<TagSelectViewControllerDelegate, UITextFieldDelegate>
+<TagSelectViewControllerDelegate, UITextFieldDelegate, ItemDetailDatePickerCellDelegate>
 
 @property NSString *titleForFilter;
 @property NSSet *tagsForFilter;
