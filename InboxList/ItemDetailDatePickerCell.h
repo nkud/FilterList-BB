@@ -21,4 +21,14 @@
 
 @property id <ItemDetailDatePickerCellDelegate> delegate;
 
+#pragma mark - ショートカットボタン
+@property (weak, nonatomic) IBOutlet UIButton *todayButton;
+@property (weak, nonatomic) IBOutlet UIButton *oneDayButton;
+@property (weak, nonatomic) IBOutlet UIButton *oneWeekButton;
+@property (weak, nonatomic) IBOutlet UIButton *oneMonthButton;
+- (IBAction)setToday:(id)sender;
+- (IBAction)addOneDay:(id)sender;
+- (IBAction)addOneWeek:(id)sender;
+- (IBAction)addOneMonth:(id)sender;
+
 @end

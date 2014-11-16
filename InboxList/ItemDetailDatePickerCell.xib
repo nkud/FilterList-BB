@@ -7,8 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="160" id="KGk-i7-Jjw" customClass="ItemDetailDatePickerCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="200" id="KGk-i7-Jjw" customClass="ItemDetailDatePickerCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="215"/>
@@ -20,13 +20,53 @@
                             <!--2014-09-15 15:47:38 +0000-->
                         </date>
                     </datePicker>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXH-Z8-vO5">
+                        <rect key="frame" x="0.0" y="161" width="80" height="38"/>
+                        <state key="normal" title="Button">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="setToday:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="TY3-Nu-FVC"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5B-hn-ZLo">
+                        <rect key="frame" x="80" y="161" width="80" height="38"/>
+                        <state key="normal" title="Button">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="addOneDay:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fDX-9G-CCs"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AhY-yG-XdE">
+                        <rect key="frame" x="160" y="161" width="80" height="38"/>
+                        <state key="normal" title="Button">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="addOneWeek:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8Og-fj-4Lc"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTw-v6-xHm">
+                        <rect key="frame" x="240" y="161" width="80" height="38"/>
+                        <state key="normal" title="Button">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="addOneMonth:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dfE-d0-Xfz"/>
+                        </connections>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.92647879460000004" green="0.92647879460000004" blue="0.92647879460000004" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="datePicker" destination="yF9-bx-nh9" id="3zd-bm-41b"/>
+                <outlet property="oneDayButton" destination="Q5B-hn-ZLo" id="7E0-sS-hja"/>
+                <outlet property="oneMonthButton" destination="XTw-v6-xHm" id="XPf-0X-8ER"/>
+                <outlet property="oneWeekButton" destination="AhY-yG-XdE" id="z1o-uG-7St"/>
+                <outlet property="todayButton" destination="jXH-Z8-vO5" id="LOM-do-rBu"/>
             </connections>
-            <point key="canvasLocation" x="388" y="317"/>
+            <point key="canvasLocation" x="388" y="377"/>
         </tableViewCell>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

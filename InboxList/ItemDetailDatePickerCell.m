@@ -23,6 +23,68 @@
   [self.datePicker addTarget:self
                       action:@selector(pickerDidChangedValue:)
             forControlEvents:UIControlEventValueChanged];
+  
+  [self.oneDayButton setTitle:@"+1 day"
+                     forState:UIControlStateNormal];
+  [self.oneWeekButton setTitle:@"+1 week"
+                      forState:UIControlStateNormal];
+  [self.oneMonthButton setTitle:@"+1 month"
+                       forState:UIControlStateNormal];
+  
+  self.selectionStyle = UITableViewCellSelectionStyleNone;
+
+//  self.todayButton.layer.borderWidth = 0.5f;
+//  self.oneDayButton.layer.borderWidth = 0.5f;
+//  self.oneWeekButton.layer.borderWidth = 0.5f;
+//  self.oneMonthButton.layer.borderWidth = 0.5f;
+}
+
+-(void)setTodayButton:(UIButton *)todayButton
+{
+  [todayButton setTitle:@"Today"
+               forState:UIControlStateNormal];
+}
+
+-(void)setToday:(id)sender {
+  [self.datePicker setDate:[NSDate date]
+                  animated:YES];
+  [self.delegate didChangedDate:self.datePicker.date];
+}
+
+- (IBAction)addOneDay:(id)sender {
+  NSCalendar *calendar = [NSCalendar currentCalendar];
+  NSDate *date = self.datePicker.date;
+  NSDateComponents *components = [[NSDateComponents alloc] init];
+  components.day = 1;
+  [self.datePicker setDate:[calendar dateByAddingComponents:components
+                                                     toDate:date
+                                                    options:0]
+                  animated:YES];
+  [self.delegate didChangedDate:self.datePicker.date];
+}
+
+- (IBAction)addOneWeek:(id)sender {
+  NSCalendar *calendar = [NSCalendar currentCalendar];
+  NSDate *date = self.datePicker.date;
+  NSDateComponents *components = [[NSDateComponents alloc] init];
+  components.day = 7;
+  [self.datePicker setDate:[calendar dateByAddingComponents:components
+                                                     toDate:date
+                                                    options:0]
+                  animated:YES];
+  [self.delegate didChangedDate:self.datePicker.date];
+}
+
+- (IBAction)addOneMonth:(id)sender {
+  NSCalendar *calendar = [NSCalendar currentCalendar];
+  NSDate *date = self.datePicker.date;
+  NSDateComponents *components = [[NSDateComponents alloc] init];
+  components.month = 1;
+  [self.datePicker setDate:[calendar dateByAddingComponents:components
+                                                     toDate:date
+                                                    options:0]
+                  animated:YES];
+  [self.delegate didChangedDate:self.datePicker.date];
 }
 
 /**
@@ -47,5 +109,4 @@
 
     // Configure the view for the selected state
 }
-
 @end
