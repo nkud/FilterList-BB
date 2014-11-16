@@ -17,13 +17,40 @@
 
 @implementation ConfigViewController
 
+/**
+ * @brief  ビューロード後処理
+ */
 - (void)viewDidLoad {
   [super viewDidLoad];
-  // Do any additional setup after loading the view.
   
+  // キャンセルボタン
+  self.navigationItem.leftBarButtonItem
+  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                  target:self
+                                                  action:@selector(cancel:)];
+  
+  // タイトル
+  self.navigationItem.title = @"Configure";
+}
+
+- (void)cancel:(id)sender
+{
+  [self dismissViewControllerAnimated:YES
+                           completion:nil];
+}
+
+/**
+ * @brief  データ配列
+ *
+ * @return 配列
+ */
+-(NSArray *)dataArray
+{
   // セルデータを作成
   NSArray *colorSection = @[[self titleCellID]];
-  dataArray_ = @[colorSection];
+  NSArray *badgeSection = @[[self titleCellID]];
+  dataArray_ = @[colorSection, badgeSection];
+  return dataArray_;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,13 +60,13 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [dataArray_ count];
+  return [self.dataArray count];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
-  return [dataArray_[section] count];
+  return [self.dataArray[section] count];
 }
   
 /*

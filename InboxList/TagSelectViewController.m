@@ -42,8 +42,6 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  // ナビゲーションバーを非表示
-//  [self.navigationController.navigationBar setHidden:YES];
 
   // セルを登録
   [self.tagTableView registerNib:[UINib nibWithNibName:@"TagSelectCell"
