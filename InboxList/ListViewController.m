@@ -114,7 +114,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   CGFloat height = TABBAR_H;
   CGFloat width = SCREEN_BOUNDS.size.width/2;
   CGFloat margin = 0;
-  [self.deleteAllButton setTitle:@"Delete All"
+  [self.deleteAllButton setTitle:@"Delete"
                         forState:UIControlStateDisabled];
   self.deleteAllButton.frame = CGRectMake(margin,
                                           (self.editTabBar.frame.size.height-height)/2,
@@ -131,6 +131,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
             forControlEvents:UIControlEventTouchUpInside];
   [self.moveButton setTintColor:BLUE_COLOR];
   [self updateMoveButton];
+  [self.moveButton setTitle:@"Move"
+                   forState:UIControlStateDisabled];
   self.moveButton.frame = CGRectMake(self.editTabBar.frame.size.width-margin-width,
                                      (self.editTabBar.frame.size.height-height)/2,
                                      width,
@@ -348,6 +350,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 -(void)didTappedEditTableButton
 {
   [self updateDeleteButton];
+  [self updateMoveButton];
   if (self.tableView.isEditing)
   {
     // 編集中なら
