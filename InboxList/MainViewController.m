@@ -295,6 +295,11 @@
 
 #pragma mark - ユーティリティ
 
+/**
+ * @brief  トップがアイテムリストなら真
+ *
+ * @return 真偽値
+ */
 -(BOOL)isItemListInMain
 {
   if (self.mainViewController_ == self.itemViewController) {
@@ -302,6 +307,11 @@
   }
   return NO;
 }
+/**
+ * @brief  トップがタグリストなら真
+ *
+ * @return 真偽値
+ */
 -(BOOL)isTagListInMain
 {
   if (self.mainViewController_ == self.tagViewController) {
@@ -309,6 +319,11 @@
   }
   return NO;
 }
+/**
+ * @brief  トップがフィルターリストなら真
+ *
+ * @return 真偽値
+ */
 -(BOOL)isFilterListInMain
 {
   if (self.mainViewController_ == self.filterViewController) {
@@ -316,6 +331,11 @@
   }
   return NO;
 }
+/**
+ * @brief  トップが完了リストなら真
+ *
+ * @return 真偽値
+ */
 -(BOOL)isCompleteListInMain
 {
   if (self.mainViewController_ == self.completeViewController) {
@@ -410,7 +430,10 @@ didSelectItem:(UITabBarItem *)item
     case 0:
       LOG(@"タブ０");
       if ([self isItemListInMain]) {
-        LOG(@"!!");
+//        NSFetchedResultsController *result_controller = [CoreDataController itemFethcedResultsController:self.itemViewController];
+//        [self loadItemViewForTitle:@"ALL"
+//                              tags:nil
+//            fetcheResultController:result_controller];
       } else {
         [self toItemListMode];
       }
