@@ -103,6 +103,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   self.editTabBar = [[UIView alloc] initWithFrame:self.tabBar.frame];
   self.editTabBar.backgroundColor = [UIColor whiteColor];
   
+  [self.view addSubview:self.editTabBar];
   // 全削除ボタン作成
   self.deleteAllButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
   [self.deleteAllButton addTarget:self
@@ -120,8 +121,6 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
                                           width,
                                           height);
   [self.editTabBar addSubview:self.deleteAllButton];
-  
-  [self.view addSubview:self.editTabBar];
   
   // 移動ボタン
   self.moveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
