@@ -318,6 +318,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
                      color:nil];
     }
     [CoreDataController saveContext];
+    [self updateEditTabBar];
   }
 }
 
