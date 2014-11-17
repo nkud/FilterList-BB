@@ -100,8 +100,26 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
 }
 
 #pragma mark - 新規入力
-
 /**
+ * @brief  リターンキーが押された時の処理
+ *
+ * @param textField テキストフィールド
+ *
+ * @return 真偽値
+ */
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  if ([textField.text isEqualToString:@""])
+  {
+    // キーボードを閉じる
+    [textField resignFirstResponder];
+  } else
+  {
+    [self didInputtedNewItem:textField.text];
+    textField.text = @"";
+  }
+  return YES;
+}/**
  *  @brief 新規入力を開始する
  *
  *  @param sender センダー
@@ -311,6 +329,7 @@ numberOfRowsInSection:(NSInteger)section
     InputHeaderCell *inputCell = [tableView dequeueReusableCellWithIdentifier:kInputHeaderCellID];
     inputCell.inputField.placeholder = @"new Tag";
     inputCell.delegate = self;
+    inputCell.inputField.delegate = self;
     return inputCell;
   }
   // セルを作成する
