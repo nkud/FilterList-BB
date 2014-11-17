@@ -27,6 +27,8 @@
 
 }
 
+@property ListViewController *mainViewController_;
+
 @end
 
 
@@ -291,6 +293,37 @@
   }
 }
 
+#pragma mark - ユーティリティ
+
+-(BOOL)isItemListInMain
+{
+  if (self.mainViewController_ == self.itemViewController) {
+    return YES;
+  }
+  return NO;
+}
+-(BOOL)isTagListInMain
+{
+  if (self.mainViewController_ == self.tagViewController) {
+    return YES;
+  }
+  return NO;
+}
+-(BOOL)isFilterListInMain
+{
+  if (self.mainViewController_ == self.filterViewController) {
+    return YES;
+  }
+  return NO;
+}
+-(BOOL)isCompleteListInMain
+{
+  if (self.mainViewController_ == self.completeViewController) {
+    return YES;
+  }
+  return NO;
+}
+
 #pragma mark - リスト表示モード関数
 
 -(void)toItemListMode
@@ -303,6 +336,8 @@
   [self closeFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
+  
+  self.mainViewController_ = self.itemViewController;
 }
 -(void)toItemListModeWithDuration:(NSTimeInterval)duration
 {
@@ -314,6 +349,8 @@
   [self closeFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
+  
+  self.mainViewController_ = self.itemViewController;
 }
 -(void)toTagListMode
 {
@@ -326,6 +363,8 @@
   [self closeFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
+  
+  self.mainViewController_ = self.tagViewController;
 }
 -(void)toFilterListMode
 {
@@ -337,6 +376,8 @@
   [self openFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
+  
+  self.mainViewController_ = self.filterViewController;
 }
 -(void)toCompleteListMode
 {
@@ -350,9 +391,9 @@
   [self openFilterListMode];
   [self openCompleteListMode];
   [UIView commitAnimations];
+  
+  self.mainViewController_ = self.completeViewController;
 }
-
-
 
 #pragma mark - デリゲート用
 #pragma mark タブバー
@@ -368,7 +409,11 @@ didSelectItem:(UITabBarItem *)item
   switch (item.tag) {
     case 0:
       LOG(@"タブ０");
-      [self toItemListMode];
+      if ([self isItemListInMain]) {
+        LOG(@"!!");
+      } else {
+        [self toItemListMode];
+      }
       break;
     case 1:
       LOG(@"タブ１");
