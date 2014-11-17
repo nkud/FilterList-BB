@@ -74,6 +74,7 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  //////////////////////////////////////////////////////////////////////////////
   // テーブルビュー初期化
   LOG(@"テーブルビュー初期化");
   CGRect frame = CGRectMake(0,
@@ -88,8 +89,9 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
   
   [self.view addSubview:self.tableView];
-  
-  // タブバー初期化
+
+  //////////////////////////////////////////////////////////////////////////////
+  // 編集タブ初期化
   frame = CGRectMake(0,
                      SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H,
                      SCREEN_BOUNDS.size.width,
@@ -98,9 +100,6 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   self.tabBar = [[UITabBar alloc] initWithFrame:frame];
   self.tabBar.delegate = self;
   [self.view addSubview:self.tabBar];
-
-  //////////////////////////////////////////////////////////////////////////////
-  // 編集タブ初期化
   self.editTabBar = [[UIView alloc] initWithFrame:self.tabBar.frame];
   self.editTabBar.backgroundColor = [UIColor whiteColor];
   
@@ -144,6 +143,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   [self hideEditTabBar:YES];
 }
 
+#pragma mark - 編集タブ -
+
 /**
  * @brief  選択したセルのタグを移動する
  *
@@ -164,6 +165,11 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
                    completion:nil];
 }
 
+/**
+ * @brief  タグ選択画面を終了する
+ *
+ * @param tagsForSelectedRows 選択されたタグ
+ */
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
   Tag *selectedTag;
@@ -182,6 +188,9 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   [CoreDataController saveContext];
 }
 
+/**
+ * @brief  移動ボタンを更新する
+ */
 -(void)updateMoveButton
 {
   NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
