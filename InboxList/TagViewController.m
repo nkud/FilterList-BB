@@ -553,22 +553,22 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
-  indexPath = [self mapIndexPathFromFetchResultsController:indexPath];
-  newIndexPath = [self mapIndexPathFromFetchResultsController:newIndexPath];
+  NSIndexPath *indexPathInTableView = [self mapIndexPathFromFetchResultsController:indexPath];
+  NSIndexPath *newIndexPathInTableView = [self mapIndexPathFromFetchResultsController:newIndexPath];
   LOG(@"コンテキストを更新");
   UITableView *tableView = self.tableView;
 
   switch(type) {
     case NSFetchedResultsChangeInsert:
       LOG(@"挿入");
-      [tableView insertRowsAtIndexPaths:@[newIndexPath]
+      [tableView insertRowsAtIndexPaths:@[newIndexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationLeft];
       break;
 
     case NSFetchedResultsChangeDelete:
     {
       LOG(@"削除");
-      [tableView deleteRowsAtIndexPaths:@[indexPath]
+      [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationLeft];
       
       // 他のタグのアイテム数も変更するように更新
@@ -586,17 +586,22 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPath]
-                 atIndexPath:indexPath];                                // これであってる？？
+//      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
+//                 atIndexPath:indexPath];                                // これであってる？？
+      [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
+                       withRowAnimation:UITableViewRowAnimationAutomatic];
 
       break;
 
     case NSFetchedResultsChangeMove:
       LOG(@"移動");
-      [tableView deleteRowsAtIndexPaths:@[indexPath]
-                       withRowAnimation:UITableViewRowAnimationFade];
-      [tableView insertRowsAtIndexPaths:@[newIndexPath]
-                       withRowAnimation:UITableViewRowAnimationFade];
+      [tableView moveRowAtIndexPath:indexPathInTableView
+                        toIndexPath:newIndexPathInTableView];
+//      [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
+//                       withRowAnimation:UITableViewRowAnimationFade];
+//      [tableView insertRowsAtIndexPaths:@[newIndexPathInTableView]
+//                       withRowAnimation:UITableViewRowAnimationFade];
+//      [tableView reloadData];
       break;
   }
 }
