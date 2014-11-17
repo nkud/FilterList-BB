@@ -189,6 +189,22 @@ static NSString *kTagCellID = @"TagCell";
 
 #pragma mark - テーブルビュー
 
+-(BOOL)tableView:(UITableView *)tableView
+canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if ([self isCellForInputAtIndexPath:indexPath]) {
+    return NO;
+  }
+  return YES;
+}
+
+-(void)tableView:(UITableView *)tableView
+moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+     toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+  LOG(@"移動");
+}
+
 /**
  *  @brief タグが選択された時の処理
  *
