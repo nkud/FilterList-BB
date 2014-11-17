@@ -22,6 +22,9 @@
 
 #define kHeightForSection 22
 
+static NSString *kItemCellID = @"ItemCell";
+static NSString *kInputHeaderCellID = @"InputHeaderCell";
+
 #pragma mark -
 
 @interface ItemViewController () {
@@ -80,13 +83,14 @@
   // 変数を初期化
   [self initParameter];
 
+  //////////////////////////////////////////////////////////////////////////////
   // セルとして使うクラスを登録する
   [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ItemCell class])
                                              bundle:nil]
-       forCellReuseIdentifier:@"ItemCell"];
+       forCellReuseIdentifier:kItemCellID];
   [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
                                              bundle:nil]
-       forCellReuseIdentifier:@"InputHeaderCell"];
+       forCellReuseIdentifier:kInputHeaderCellID];
   
   //////////////////////////////////////////////////////////////////////////////
   // 編集・追加ボタン
@@ -237,6 +241,16 @@ willDisplayHeaderView:(UIView *)view
 
 #pragma mark セル
 
+-(CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  NSString *identifier = kItemCellID;
+  if ([self isInputHeaderCellAtIndexPathInTableView:indexPath]) {
+    identifier = kInputHeaderCellID;
+  }
+  return CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:identifier] frame]);
+}
+
 /**
  *  @brief セルが選択された時の処理
  *
@@ -302,16 +316,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSIndexPath *indexPathInTableView = indexPath;
-  
-  LOG(@"指定されたセルを返す");
-  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
+//  NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView])
+  {
+    // 入力セル
     InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
     cell.delegate = self;
     cell.inputField.delegate = self;
     return cell;
   }
-  static NSString *CellIdentifier = @"ItemCell";
-  ItemCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+//  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+
+  ItemCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kItemCellID];
   [self configureItemCell:cell
               atIndexPath:indexPathInTableView];
   return cell;
@@ -414,7 +431,9 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   // リマインダー
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   formatter.dateFormat = @"yyyy/MM/dd";
-  cell.reminderLabel.text = [formatter stringFromDate:item.reminder];
+  if (item.reminder) {
+    cell.reminderLabel.text = [formatter stringFromDate:item.reminder];
+  }
   
   // テキストの色を変更する
   UIColor *textColor;
