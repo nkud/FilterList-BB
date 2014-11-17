@@ -16,6 +16,7 @@
         <userInfo/>
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES">
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="section" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="filter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Filter" inverseName="tags" inverseEntity="Filter" syncable="YES"/>
@@ -24,6 +25,6 @@
     <elements>
         <element name="Filter" positionX="-4689" positionY="-1873" width="128" height="105"/>
         <element name="Item" positionX="-4743" positionY="-1719" width="162" height="135"/>
-        <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="103"/>
+        <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="120"/>
     </elements>
 </model>

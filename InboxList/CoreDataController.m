@@ -241,7 +241,7 @@ enum __SECTION__ {
   [fetchRequest setFetchBatchSize:20];
   
   // ソート条件を設定
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"order"
                                                                  ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];
   fetchRequest.sortDescriptors = sortDescriptors;
@@ -326,48 +326,48 @@ enum __SECTION__ {
  *
  * @return リザルトコントローラー
  */
-+(NSFetchedResultsController *)userTagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
-{
-  LOG(@"タグ用のリザルトコントローラー");
-  
-//  [self addTagObjecForAllItems];
-  
-  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  
-  // エンティティを設定
-  static NSString *tag_entity_name = @"Tag";
-  NSEntityDescription *entity = [self entityDescriptionForName:tag_entity_name];
-  fetchRequest.entity = entity;
-  
-  /// Set the batch size to a suitable number.
-  [fetchRequest setFetchBatchSize:20];
-  
-  // ソート条件を設定
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
-                                                                 ascending:YES];
-  NSArray *sortDescriptors = @[sortDescriptor];
-  [fetchRequest setSortDescriptors:sortDescriptors];
-  
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.section == %d", __TAG_SECTTION__];
-  [fetchRequest setPredicate:predicate];
-  
-  // コントローラーを作成
-  NSFetchedResultsController *aFetchedResultsController
-  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:[self managedObjectContext]
-                                          sectionNameKeyPath:nil
-                                                   cacheName:nil];
-  // デリゲートを設定
-  aFetchedResultsController.delegate = controller;
-  
-  // フェッチを実行
-	NSError *error = nil;
-	if (![aFetchedResultsController performFetch:&error]) {
-    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    abort();
-	}
-  return aFetchedResultsController;
-}
+//+(NSFetchedResultsController *)userTagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
+//{
+//  LOG(@"タグ用のリザルトコントローラー");
+//  
+////  [self addTagObjecForAllItems];
+//  
+//  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//  
+//  // エンティティを設定
+//  static NSString *tag_entity_name = @"Tag";
+//  NSEntityDescription *entity = [self entityDescriptionForName:tag_entity_name];
+//  fetchRequest.entity = entity;
+//  
+//  /// Set the batch size to a suitable number.
+//  [fetchRequest setFetchBatchSize:20];
+//  
+//  // ソート条件を設定
+//  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
+//                                                                 ascending:YES];
+//  NSArray *sortDescriptors = @[sortDescriptor];
+//  [fetchRequest setSortDescriptors:sortDescriptors];
+//  
+//  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.section == %d", __TAG_SECTTION__];
+//  [fetchRequest setPredicate:predicate];
+//  
+//  // コントローラーを作成
+//  NSFetchedResultsController *aFetchedResultsController
+//  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+//                                        managedObjectContext:[self managedObjectContext]
+//                                          sectionNameKeyPath:nil
+//                                                   cacheName:nil];
+//  // デリゲートを設定
+//  aFetchedResultsController.delegate = controller;
+//  
+//  // フェッチを実行
+//	NSError *error = nil;
+//	if (![aFetchedResultsController performFetch:&error]) {
+//    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//    abort();
+//	}
+//  return aFetchedResultsController;
+//}
 
 /**
  * @brief  タグを挿入
@@ -378,8 +378,22 @@ enum __SECTION__ {
 {
   Tag *tag = [self newTagObject];
   tag.title = title;
+  tag.order = [NSNumber numberWithInteger:[CoreDataController lastTagOrder] + 1];
   tag.section = [NSNumber numberWithInt:__TAG_SECTTION__];
   [self saveContext];
+  LOG(@"[ new tag ] title=%@, order=%@", tag.title, tag.order);
+}
+
++ (NSInteger)lastTagOrder
+{
+  NSInteger order = 0;
+  
+  NSArray *tags =  [[CoreDataController tagFetchedResultsController:nil] fetchedObjects];
+  if (tags.count > 0) {
+    Tag *lastTag = [tags lastObject];
+    order = [lastTag.order integerValue];
+  }
+  return order;
 }
 
 /**

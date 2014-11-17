@@ -17,5 +17,6 @@
 @dynamic title;
 @dynamic filter;
 @dynamic items;
+@dynamic order;
 
 @end

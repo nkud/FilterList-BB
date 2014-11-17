@@ -189,10 +189,18 @@ static NSString *kTagCellID = @"TagCell";
 
 #pragma mark - テーブルビュー
 
+/**
+ * @brief  位置が移動可能か評価する
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return 真偽値
+ */
 -(BOOL)tableView:(UITableView *)tableView
 canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([self isCellForInputAtIndexPath:indexPath]) {
+  if ([self isCellForInputAtIndexPath:indexPath] || [self isCellForAllItemsAtIndexPath:indexPath]) {
     return NO;
   }
   return YES;
@@ -202,7 +210,28 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-  LOG(@"移動");
+  NSIndexPath *sourceIndexPathInController = [self mapIndexPathToFetchResultsController:sourceIndexPath];
+  NSIndexPath *destinationIndexPathInController = [self mapIndexPathToFetchResultsController:destinationIndexPath];
+  
+  NSMutableArray *things = [[self.fetchedResultsController fetchedObjects] mutableCopy];
+  
+  // Grab the item we're moving.
+  NSManagedObject *thing = [[self fetchedResultsController] objectAtIndexPath:sourceIndexPathInController];
+  
+  // Remove the object we're moving from the array.
+  [things removeObject:thing];
+  // Now re-insert it at the destination.
+  [things insertObject:thing atIndex:[destinationIndexPathInController row]];
+  
+  // All of the objects are now in their correct order. Update each
+  // object's displayOrder field by iterating through the array.
+  int i = 0;
+  for (NSManagedObject *mo in things)
+  {
+    [mo setValue:[NSNumber numberWithInt:i++] forKey:@"order"];
+  }
+  
+  [CoreDataController saveContext];
 }
 
 /**

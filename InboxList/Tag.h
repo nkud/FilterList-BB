@@ -20,6 +20,8 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) Filter *filter;
 @property (nonatomic, retain) NSSet *items;
+@property (nonatomic, retain) NSNumber* order;
+
 @end
 
 @interface Tag (CoreDataGeneratedAccessors)
