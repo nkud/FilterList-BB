@@ -18,11 +18,12 @@
 
 #import "Configure.h"
 
-#define kHeightForTagCell 44
+//#define kHeightForTagCell 44
 
 #pragma mark -
 
 static NSString *kInputHeaderCellID = @"InputHeaderCell";
+static NSString *kTagCellID = @"TagCell";
 
 @interface TagViewController () {
   
@@ -62,10 +63,10 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
   self.titleLabel.textColor = TAG_COLOR;
   
   // 使用するセルを登録
-  [self.tableView registerNib:[UINib nibWithNibName:@"TagCell"
+  [self.tableView registerNib:[UINib nibWithNibName:kTagCellID
                                              bundle:nil]
        forCellReuseIdentifier:TagModeCellIdentifier];
-  [self.tableView registerNib:[UINib nibWithNibName:@"InputHeaderCell"
+  [self.tableView registerNib:[UINib nibWithNibName:kInputHeaderCellID
                                              bundle:nil]
        forCellReuseIdentifier:kInputHeaderCellID];
 
@@ -184,11 +185,6 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
                                    inSection:indexPath.section];
   
   return indexPath;
-}
-
--(NSInteger)heightForTagCell
-{
-  return kHeightForTagCell;
 }
 
 #pragma mark - テーブルビュー
@@ -431,7 +427,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 -(CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return [self heightForTagCell];
+  return CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kTagCellID] frame]);
 }
 
 #pragma mark 更新
