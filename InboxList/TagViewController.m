@@ -253,6 +253,21 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [CoreDataController saveContext];
 }
 
+-(void)selectAllRows:(id)sender
+{
+  LOG(@"全選択");
+  NSArray *objects = [self.fetchedResultsController fetchedObjects];
+  for (NSManagedObject *obj in objects) {
+    NSIndexPath *indexPathInController = [self.fetchedResultsController indexPathForObject:obj];
+    NSIndexPath *indexPathInTable = [self mapIndexPathFromFetchResultsController:indexPathInController];
+    [self.tableView selectRowAtIndexPath:indexPathInTable
+                                animated:NO
+                          scrollPosition:UITableViewScrollPositionNone];
+  }
+  [self updateEditTabBar];
+}
+
+
 /**
  *  @brief タグが選択された時の処理
  *
