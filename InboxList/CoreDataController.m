@@ -376,12 +376,26 @@ enum __SECTION__ {
  */
 +(void)insertNewTag:(NSString *)title
 {
+  // 既存のタグ順序を１つずらす
+  [CoreDataController incrementTagOrder];
+  
   Tag *tag = [self newTagObject];
   tag.title = title;
-  tag.order = [NSNumber numberWithInteger:[CoreDataController lastTagOrder] + 1];
+  tag.order = [NSNumber numberWithInteger:0];
   tag.section = [NSNumber numberWithInt:__TAG_SECTTION__];
   [self saveContext];
   LOG(@"[ new tag ] title=%@, order=%@", tag.title, tag.order);
+}
+
++(void)incrementTagOrder
+{
+  NSArray *tags = [[CoreDataController tagFetchedResultsController:nil] fetchedObjects];
+  for (Tag *tag in tags) {
+    NSNumber *originOrder = [tag valueForKey:@"order"];
+    NSInteger newOrder = [originOrder integerValue] + 1;
+    tag.order = [NSNumber numberWithInteger:newOrder];
+  }
+  [CoreDataController saveContext];
 }
 
 + (NSInteger)lastTagOrder

@@ -217,25 +217,37 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
 {
+  LOG(@"移動: %@ -> %@", sourceIndexPath, destinationIndexPath);
   NSIndexPath *sourceIndexPathInController = [self mapIndexPathToFetchResultsController:sourceIndexPath];
   NSIndexPath *destinationIndexPathInController = [self mapIndexPathToFetchResultsController:destinationIndexPath];
   
-  NSMutableArray *things = [[self.fetchedResultsController fetchedObjects] mutableCopy];
-  
-  // Grab the item we're moving.
-  NSManagedObject *thing = [[self fetchedResultsController] objectAtIndexPath:sourceIndexPathInController];
-  
-  // Remove the object we're moving from the array.
-  [things removeObject:thing];
-  // Now re-insert it at the destination.
-  [things insertObject:thing atIndex:[destinationIndexPathInController row]];
-  
-  // All of the objects are now in their correct order. Update each
-  // object's displayOrder field by iterating through the array.
-  int i = 0;
-  for (NSManagedObject *mo in things)
-  {
-    [mo setValue:[NSNumber numberWithInt:i++] forKey:@"order"];
+  NSInteger minRowIdx, maxRowIdx;
+  BOOL isMoveDirectionSmallToLarge;
+  if(sourceIndexPathInController.row == destinationIndexPathInController.row){
+    return;
+  }else if(sourceIndexPathInController.row < destinationIndexPathInController.row){
+    minRowIdx = sourceIndexPathInController.row;
+    maxRowIdx = destinationIndexPathInController.row;
+    isMoveDirectionSmallToLarge = YES;
+    
+  }else{
+    minRowIdx = destinationIndexPathInController.row;
+    maxRowIdx = sourceIndexPathInController.row;
+    isMoveDirectionSmallToLarge = NO;
+  }
+  for(NSInteger i = minRowIdx; i <= maxRowIdx; i++){
+    NSIndexPath *itIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
+    NSManagedObject *managedObj = [self.fetchedResultsController objectAtIndexPath:itIndexPath];
+    NSNumber *displayOrder = [managedObj valueForKey:@"order"];
+    NSInteger newOrder;
+    if(i == sourceIndexPathInController.row){
+      newOrder = destinationIndexPathInController.row;
+    }else if(isMoveDirectionSmallToLarge){
+      newOrder = [displayOrder integerValue] - 1;
+    }else{
+      newOrder = [displayOrder integerValue] + 1;
+    }
+    [managedObj setValue:@(newOrder) forKey:@"order"];
   }
   
   [CoreDataController saveContext];
