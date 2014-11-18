@@ -45,6 +45,12 @@
   self.labelForOverDueItemsSize.alpha = alpha;
 }
 
+/**
+ * @brief  編集モードにする
+ *
+ * @param editing  編集モード
+ * @param animated アニメーション
+ */
 -(void)setEditing:(BOOL)editing
          animated:(BOOL)animated
 {

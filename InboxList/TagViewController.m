@@ -206,6 +206,13 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
+/**
+ * @brief  セルを移動する
+ *
+ * @param tableView            テーブルビュー
+ * @param sourceIndexPath      前位置
+ * @param destinationIndexPath 後位置
+ */
 -(void)tableView:(UITableView *)tableView
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
