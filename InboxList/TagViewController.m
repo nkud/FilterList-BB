@@ -454,7 +454,7 @@ numberOfRowsInSection:(NSInteger)section
     cell.labelForTitle.text = tag.title;
     NSInteger overDueItemsSizeForTag = [[self overDueItemsForTag:tag] count];
     LOG(@"%ld", (long)overDueItemsSizeForTag);
-    cell.labelForOverDueItemsSize.text = [NSString stringWithFormat:@"%lu", (unsigned long)overDueItemsSizeForTag];
+//    cell.labelForOverDueItemsSize.text = [NSString stringWithFormat:@"%lu", (unsigned long)overDueItemsSizeForTag];
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
   }
   cell.labelForItemSize.text = itemCountString;

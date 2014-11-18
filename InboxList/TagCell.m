@@ -41,8 +41,8 @@
     alpha = 0.0f;
   }
   self.labelForItemSize.alpha = alpha;
-  self.labelForDueToTodayItemsSize.alpha = alpha;
-  self.labelForOverDueItemsSize.alpha = alpha;
+//  self.labelForDueToTodayItemsSize.alpha = alpha;
+//  self.labelForOverDueItemsSize.alpha = alpha;
 }
 
 /**
@@ -74,8 +74,8 @@
   // Initialization code
   // 文字色を設定
   self.labelForItemSize.textColor = GRAY_COLOR;
-  self.labelForDueToTodayItemsSize.textColor = DUE_TO_TODAY_COLOR;
-  self.labelForOverDueItemsSize.textColor = OVERDUE_COLOR;
+//  self.labelForDueToTodayItemsSize.textColor = DUE_TO_TODAY_COLOR;
+//  self.labelForOverDueItemsSize.textColor = OVERDUE_COLOR;
 }
 
 - (void)setSelected:(BOOL)selected

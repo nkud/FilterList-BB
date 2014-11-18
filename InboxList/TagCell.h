@@ -16,8 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelForItemSize;
-@property (weak, nonatomic) IBOutlet UILabel *labelForOverDueItemsSize;
-@property (weak, nonatomic) IBOutlet UILabel *labelForDueToTodayItemsSize;
+//@property (weak, nonatomic) IBOutlet UILabel *labelForOverDueItemsSize;
+//@property (weak, nonatomic) IBOutlet UILabel *labelForDueToTodayItemsSize;
 
 - (void)showItemSizeLabel:(BOOL)show;
 
