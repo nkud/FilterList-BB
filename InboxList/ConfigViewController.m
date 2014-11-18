@@ -79,6 +79,15 @@
   return cell;
 }
 
+-(NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section
+{
+  if (section == 2) {
+    return @"その他";
+  }
+  return @"未定";
+}
+
 /**
  * @brief  セルを設定する
  *
