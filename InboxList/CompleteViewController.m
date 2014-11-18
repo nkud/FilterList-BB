@@ -58,6 +58,14 @@ static NSString *kCompleteCellID = @"CompleteCell";
   [self toEdit:self];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+  if (self.tableView.isEditing) {
+    return;
+  }
+  [self.delegateForList openTabBar];
+}
+
 #pragma mark - コンフィグ画面
 
 -(void)presentConfigView:(id)sender
@@ -68,6 +76,7 @@ static NSString *kCompleteCellID = @"CompleteCell";
   [self presentViewController:navcontroller
                      animated:YES
                    completion:nil];
+  [self.delegateForList closeTabBar];
 }
 #pragma mark - テーブルビュー
 /**

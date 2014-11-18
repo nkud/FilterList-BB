@@ -47,15 +47,58 @@
 -(NSArray *)dataArray
 {
   // セルデータを作成
-  NSArray *colorSection = @[[self titleCellID]];
-  NSArray *badgeSection = @[[self titleCellID]];
-  dataArray_ = @[colorSection, badgeSection];
+  NSArray *colorSection = @[[self normalCellID]];
+  NSArray *badgeSection = @[[self normalCellID]];
+  NSArray *aboutSection = @[[self normalCellID]];
+  dataArray_ = @[colorSection, badgeSection, aboutSection];
   return dataArray_;
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
+}
+
+/**
+ * @brief  セルを作成する
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ *
+ * @return インスタンス
+ */
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  NSString *identifier = self.dataArray[indexPath.section][indexPath.row];
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+  
+  [self configureCell:cell
+          atIndexPath:indexPath];
+  
+  return cell;
+}
+
+/**
+ * @brief  セルを設定する
+ *
+ * @param cell      セル
+ * @param indexPath 位置
+ */
+-(void)configureCell:(UITableViewCell *)cell
+         atIndexPath:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 2) {
+    cell.textLabel.text = @"About FilterList";
+  }
+  cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+}
+
+-(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  [tableView deselectRowAtIndexPath:indexPath
+                           animated:YES];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

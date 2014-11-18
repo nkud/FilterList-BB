@@ -17,6 +17,7 @@
 @property UITableView *tableView;
 
 -(NSString *)titleCellID;
+-(NSString *)normalCellID;
 
 #pragma mark - キャンセルボタン
 - (void)addCancelButton:(UITableViewCell *)cell;

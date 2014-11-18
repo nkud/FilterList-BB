@@ -16,6 +16,8 @@ static NSString *kCancelButtonImageName = @"cancel@2x.png";
 static NSString *kTitleCellID = @"TitleCellIdentifier";
 static NSString *kTitleCellNibName = @"TitleCell";
 
+static NSString *kNormalCellID = @"NormalCell";
+
 #pragma mark -
 
 @interface DetailViewController ()
@@ -40,6 +42,8 @@ static NSString *kTitleCellNibName = @"TitleCell";
   [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName
                                              bundle:nil]
        forCellReuseIdentifier:kTitleCellID];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kNormalCellID];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +61,11 @@ static NSString *kTitleCellNibName = @"TitleCell";
 -(NSString *)titleCellID
 {
   return kTitleCellID;
+}
+
+-(NSString *)normalCellID
+{
+  return kNormalCellID;
 }
 
 - (void)addCancelButton:(UITableViewCell *)cell
