@@ -76,7 +76,7 @@ static NSString *kFilterCellID = @"FilterCell";
   self.navigationItem.leftBarButtonItem.tintColor = FILTER_COLOR;
 
   // テーブルを設定する
-  self.tableView.backgroundColor = GRAY_COLOR;
+  self.tableView.backgroundColor = LIST_BG_GRAY;
   CGRect frame = self.tableView.frame;
   frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
   self.tableView.frame = frame;
@@ -254,7 +254,7 @@ numberOfRowsInSection:(NSInteger)section
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
   // 背景色を設定する
-  cell.backgroundColor = GRAY_COLOR;
+  cell.backgroundColor = LIST_BG_GRAY;
 }
 
 /**

@@ -77,7 +77,7 @@ static NSString *kTagCellID = @"TagCell";
   self.navigationItem.rightBarButtonItem.tintColor = TAG_COLOR;
   
   // テーブルの設定
-  self.tableView.backgroundColor = GRAY_COLOR;
+  self.tableView.backgroundColor = LIST_BG_GRAY;
   CGRect frame = self.tableView.frame;
   frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
   self.tableView.frame = frame;
@@ -443,6 +443,9 @@ numberOfRowsInSection:(NSInteger)section
 {
   Tag *tag;
   NSString *itemCountString;
+  
+  cell.backgroundColor = LIST_BG_GRAY;
+  
   if ([self isCellForAllItemsAtIndexPath:indexPath])
   {
     // 全アイテム表示用タグの設定
@@ -450,7 +453,6 @@ numberOfRowsInSection:(NSInteger)section
 //    cell.labelForOverDueItemsSize.text = @"";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
   } else if([self isCellForInputAtIndexPath:indexPath]) {
-    cell.backgroundColor = GRAY_COLOR;
     return;
   }
   else
@@ -466,7 +468,6 @@ numberOfRowsInSection:(NSInteger)section
   }
   cell.labelForItemSize.text = itemCountString;
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-  cell.backgroundColor = GRAY_COLOR;
 }
 
 /**
