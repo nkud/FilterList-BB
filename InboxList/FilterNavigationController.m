@@ -32,11 +32,16 @@
  */
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  if (self) {
+    // Custom initialization
+    self.navigationBar.barTintColor = GRAY_COLOR;
+    CGRect frame = self.view.frame;
+    frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
+    frame.origin.x += ITEM_LIST_REMAIN_MARGIN;
+    self.view.frame = frame;
+  }
+  return self;
 }
 
 /**

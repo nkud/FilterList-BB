@@ -14,7 +14,7 @@
 #import "Configure.h"
 #import "ListViewController.h"
 
-#define kDurationForListModeSegue 0.3f
+#define kDurationForListModeSegue 0.2f
 
 #define kMarginRateForTagList 0
 #define kMarginRateForFilterList 0
@@ -175,15 +175,22 @@
   }
 }
 #pragma mark - アイテムリスト
+/**
+ * @brief  アイテムリストを開閉する
+ *
+ * @param open 開閉
+ */
 -(void)toggleItemList:(BOOL)open
 {
   if (open) {
+    // 開く
     CGRect rect = self.itemNavigationController.view.frame;
     rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
     self.itemNavigationController.view.frame = rect;
   } else {
+    // 閉じる
     CGRect rect = self.itemNavigationController.view.frame;
-    rect.origin.x = - SCREEN_BOUNDS.size.width - 20;
+    rect.origin.x = - SCREEN_BOUNDS.size.width + ITEM_LIST_REMAIN_MARGIN;
     self.itemNavigationController.view.frame = rect;
   }
 }
@@ -213,7 +220,7 @@
 {
   if ( ! [self hasActivatedFilterListMode]) {
     CGRect rect = self.filterNavigationController.view.frame;
-    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForFilterList;
+    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForFilterList + ITEM_LIST_REMAIN_MARGIN;
     self.filterNavigationController.view.frame = rect;
   }
 }

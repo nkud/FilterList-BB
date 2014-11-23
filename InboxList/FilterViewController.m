@@ -74,6 +74,12 @@ static NSString *kFilterCellID = @"FilterCell";
   self.navigationItem.rightBarButtonItem.tintColor = FILTER_COLOR;
   self.navigationItem.leftBarButtonItem = [self newEditTableButton];
   self.navigationItem.leftBarButtonItem.tintColor = FILTER_COLOR;
+
+  // テーブルを設定する
+  self.tableView.backgroundColor = GRAY_COLOR;
+  CGRect frame = self.tableView.frame;
+  frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
+  self.tableView.frame = frame;
 }
 
 /**
@@ -246,6 +252,9 @@ numberOfRowsInSection:(NSInteger)section
   // アクセサリー
 //  cell.accessoryView = [self newDisclosureIndicatorAccessory];
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+  // 背景色を設定する
+  cell.backgroundColor = GRAY_COLOR;
 }
 
 /**

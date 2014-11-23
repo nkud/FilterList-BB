@@ -75,6 +75,12 @@ static NSString *kTagCellID = @"TagCell";
   self.navigationItem.leftBarButtonItem.tintColor = TAG_COLOR;
   self.navigationItem.rightBarButtonItem = [self newInsertObjectButton];
   self.navigationItem.rightBarButtonItem.tintColor = TAG_COLOR;
+  
+  // テーブルの設定
+  self.tableView.backgroundColor = GRAY_COLOR;
+  CGRect frame = self.tableView.frame;
+  frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
+  self.tableView.frame = frame;
 }
 
 -(void)didTappedEditTableButton
@@ -444,6 +450,7 @@ numberOfRowsInSection:(NSInteger)section
 //    cell.labelForOverDueItemsSize.text = @"";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
   } else if([self isCellForInputAtIndexPath:indexPath]) {
+    cell.backgroundColor = GRAY_COLOR;
     return;
   }
   else
@@ -459,6 +466,7 @@ numberOfRowsInSection:(NSInteger)section
   }
   cell.labelForItemSize.text = itemCountString;
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+  cell.backgroundColor = GRAY_COLOR;
 }
 
 /**

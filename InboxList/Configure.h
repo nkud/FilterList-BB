@@ -40,6 +40,8 @@
 
 #define ITEM_NAVBAR_COLOR RGB(230, 230, 0)
 
+#define ITEM_LIST_REMAIN_MARGIN 30
+
 //#define TAG_CELL_HEIGHT 50
 
 #endif
