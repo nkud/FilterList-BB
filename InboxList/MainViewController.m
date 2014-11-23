@@ -14,12 +14,12 @@
 #import "Configure.h"
 #import "ListViewController.h"
 
-#define kDurationForListModeSegue 0.2f
+#define kDurationForListModeSegue 0.3f
 
 #define kMarginRateForTagList 0
 #define kMarginRateForFilterList 0
 
-#define kDurationForHiddenTabBar 0.2
+#define kDurationForHiddenTabBar 0.2f
 
 #pragma mark -
 
@@ -72,6 +72,7 @@
                                                          TABBAR_H)];
   self.tabBar.delegate = self;
 
+  //////////////////////////////////////////////////////////////////////////////
   // アイテムリストを初期化・設定
   LOG(@"アイテムリストを初期化・設定");
   self.itemViewController = [[ItemViewController alloc] initWithNibName:nil
@@ -84,21 +85,26 @@
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
   self.itemViewController.navigationController = self.itemNavigationController;
   
+  CALayer *itemLayer = self.itemNavigationController.view.layer;
+  itemLayer.shadowOpacity = 0.8f;
 
+  //////////////////////////////////////////////////////////////////////////////
   // フィルターコントローラを初期化
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil
                                                                      bundle:nil];
   self.filterViewController.delegate = self;
   self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
   self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
-  
+
+  //////////////////////////////////////////////////////////////////////////////
   // タグビューコントローラを初期化
   self.tagViewController = [[TagViewController alloc] initWithNibName:nil
                                                                bundle:nil];
   self.tagViewController.delegate = self;
   self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
   self.tagNavigationController = [[TagNavigationController alloc] initWithRootViewController:self.tagViewController];
-  
+
+  //////////////////////////////////////////////////////////////////////////////
   // 完了リストコントローラーを初期化
   LOG(@"完了リストコントローラーを初期化・設定");
   self.completeViewController = [[CompleteViewController alloc] initWithNibName:nil
@@ -111,9 +117,9 @@
   
   // コントローラーを配置
   LOG(@"コントローラーを配置");
-  [self.view addSubview:self.itemNavigationController.view];
   [self.view addSubview:self.tagNavigationController.view];
   [self.view addSubview:self.filterNavigationController.view];
+  [self.view addSubview:self.itemNavigationController.view];
   [self.view addSubview:self.completeNavigationController.view];
   [self.view addSubview:self.tabBar];
   
@@ -159,14 +165,6 @@
   }
 }
 
--(void)toggleTagListMode
-{
-  if ([self hasActivatedTagListMode]) {
-    [self closeTagListMode];
-  } else {
-    [self openTagListMode];
-  }
-}
 -(BOOL)hasActivatedTagListMode
 {
   CGRect rect = self.tagNavigationController.view.frame;
@@ -176,6 +174,28 @@
     return YES;
   }
 }
+#pragma mark - アイテムリスト
+-(void)toggleItemList:(BOOL)open
+{
+  if (open) {
+    CGRect rect = self.itemNavigationController.view.frame;
+    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
+    self.itemNavigationController.view.frame = rect;
+  } else {
+    CGRect rect = self.itemNavigationController.view.frame;
+    rect.origin.x = - SCREEN_BOUNDS.size.width - 20;
+    self.itemNavigationController.view.frame = rect;
+  }
+}
+-(void)toggleTagListMode
+{
+  if ([self hasActivatedTagListMode]) {
+    [self closeTagListMode];
+  } else {
+    [self openTagListMode];
+  }
+}
+
 
 #pragma mark フィルターリスト
 /**
@@ -185,7 +205,7 @@
 {
   if ([self hasActivatedFilterListMode]) {
     CGRect rect = self.filterNavigationController.view.frame;
-    rect.origin.x = SCREEN_BOUNDS.size.width + 100;
+    rect.origin.x = SCREEN_BOUNDS.size.width;
     self.filterNavigationController.view.frame = rect;
   }
 }
@@ -352,7 +372,8 @@
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-  [self closeTagListMode];
+//  [self closeTagListMode];
+  [self toggleItemList:YES];
   [self closeFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
@@ -365,7 +386,8 @@
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:duration];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-  [self closeTagListMode];
+//  [self closeTagListMode];
+  [self toggleItemList:YES];
   [self closeFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
@@ -380,6 +402,7 @@
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
+  [self toggleItemList:NO];
   [self closeFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
@@ -393,6 +416,7 @@
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
+  [self toggleItemList:NO];
   [self openFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
@@ -408,6 +432,7 @@
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
   [self openTagListMode];
+  [self toggleItemList:NO];
   [self openFilterListMode];
   [self openCompleteListMode];
   [UIView commitAnimations];
