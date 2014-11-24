@@ -432,6 +432,8 @@
 
 -(void)toItemListMode
 {
+  self.itemNavigationController.view.userInteractionEnabled = YES;
+  
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
@@ -446,6 +448,8 @@
 }
 -(void)toItemListModeWithDuration:(NSTimeInterval)duration
 {
+  self.itemNavigationController.view.userInteractionEnabled = YES;
+  
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:duration];
@@ -460,6 +464,8 @@
 }
 -(void)toTagListMode
 {
+  self.itemNavigationController.view.userInteractionEnabled = NO;
+  
   LOG(@"タグリストモード");
   [self.tagViewController updateTableView];
   [UIView beginAnimations:nil context:nil];
@@ -475,6 +481,8 @@
 }
 -(void)toFilterListMode
 {
+  self.itemNavigationController.view.userInteractionEnabled = NO;
+  
   LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
@@ -489,6 +497,8 @@
 }
 -(void)toCompleteListMode
 {
+  self.itemNavigationController.view.userInteractionEnabled = NO;
+  
   LOG(@"完了リストモード");
   [self.completeViewController updateTableView];
   
