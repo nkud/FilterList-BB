@@ -49,6 +49,11 @@ static NSString *kTagCellID = @"TagCell";
   return self;
 }
 
+-(void)initParameter
+{
+  self.navbarThemeColor = TAG_COLOR;
+}
+
 /**
  * @brief  ビューがロードされた後の処理
  */
@@ -56,6 +61,8 @@ static NSString *kTagCellID = @"TagCell";
 {
   LOG(@"タグビューがロードされた後の処理");
   [super viewDidLoad];
+  
+  [self initParameter];
   
   // タイトルを設定
   [self configureTitleWithString:TAG_LIST_TITLE

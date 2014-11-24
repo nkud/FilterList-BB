@@ -47,6 +47,10 @@ static NSString *kFilterCellID = @"FilterCell";
   return self;
 }
 
+-(void)initParameter
+{
+  self.navbarThemeColor = FILTER_COLOR;
+}
 
 /**
  *  @brief ビューを読み込んだ後の処理
@@ -54,6 +58,8 @@ static NSString *kFilterCellID = @"FilterCell";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  [self initParameter];
 
   // タイトルを設定
   [self configureTitleWithString:FILTER_LIST_TITLE

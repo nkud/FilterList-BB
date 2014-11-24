@@ -53,6 +53,8 @@ UIActionSheetDelegate, TagSelectViewControllerDelegate>
 -(void)didTappedEditTableButton;
 -(void)didTappedInsertObjectButton;
 
+@property UIColor *navbarThemeColor;
+
 #pragma mark - 編集バー
 @property UIView *editTabBar;
 - (void)hideEditTabBar:(BOOL)hide;

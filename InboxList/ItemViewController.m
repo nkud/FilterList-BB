@@ -52,6 +52,8 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
   isOpen = false;
   app = [[UIApplication sharedApplication] delegate];
   heightForSection_ = kHeightForSection;
+  
+  self.navbarThemeColor = ITEM_COLOR;
 }
 
 /**

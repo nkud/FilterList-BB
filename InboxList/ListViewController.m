@@ -430,10 +430,16 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 -(void)toggleRightNavigationItemWithEditingState:(BOOL)isEditing
 {
   UIBarButtonItem *rightItem;
+  
   if (isEditing) {
     rightItem = [self newSelectAllButton];
   } else {
     rightItem = [self newInsertObjectButton];
+  }
+  
+  // テーマカラーに設定する
+  if (self.navbarThemeColor) {
+    rightItem.tintColor = self.navbarThemeColor;
   }
   self.navigationItem.rightBarButtonItem = rightItem;
 }
