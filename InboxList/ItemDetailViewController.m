@@ -627,11 +627,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(void)didTappedDateCancelButton:(id)sender
 {
+  if ([self hasInlineDatePicker]) {
+    [self closeDatePickerCell];
+  }
   self.reminderForItem = nil;
   
   // 日時セルを更新
   [self configureDateCell:[self dateCell]
               atIndexPath:nil];
+
 }
 
 /**
