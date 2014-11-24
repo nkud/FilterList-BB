@@ -321,8 +321,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   {
     // 入力セル
     InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
+    NSString *placeholder;
+    if ([self selectedTag]) {
+      placeholder = [NSString stringWithFormat:@"new item with \"%@\"", [self selectedTag].title];
+    } else {
+      placeholder = @"new item";
+    }
+
     cell.delegate = self;
     cell.inputField.delegate = self;
+    cell.inputField.placeholder = placeholder;
     return cell;
   }
 
@@ -439,12 +447,16 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   UIColor *textColor;
 
   if ([item isDueToToday]) {
+    // 今日まで
     textColor = DUE_TO_TODAY_COLOR;
   } else if([item isOverDue]) {
+    // 期限超過
     textColor = OVERDUE_COLOR;
   } else if([item hasDueDate]) {
+    // 単純に期限付き
     textColor = HAS_DUE_DATE_COLOR;
   } else {
+    // その他
     textColor = GRAY_COLOR;
   }
   cell.reminderLabel.textColor = textColor;
@@ -781,6 +793,11 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   }
 }
 
+/**
+ * @brief  選択されたタグの先頭を返す
+ *
+ * @return タグオブジェクト
+ */
 -(Tag *)selectedTag
 {
   if (self.selectedTags == nil) {
