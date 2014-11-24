@@ -119,6 +119,7 @@ static NSString *kTagCellID = @"TagCell";
 //  
   [self.delegateForList openTabBar];
   
+  // タグモードの時のみ幅を広げる
   if ([self.delegateForList isTopViewController:self]) {
     [self.delegateForList listDidEditMode];
   }
