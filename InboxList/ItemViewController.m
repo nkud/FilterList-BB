@@ -481,6 +481,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)didTappedCheckBox:(UILongPressGestureRecognizer *)sender
 {
   static ItemCell *selected_cell = nil;
+  static Item *selected_item = nil;
   
   switch (sender.state) {
     case UIGestureRecognizerStateBegan:
@@ -495,7 +496,9 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
 
       selected_cell = cell;
-      [selected_cell setCheckedWithItem:item];
+      selected_item = item;
+      
+      [selected_cell setCheckedWithItem:selected_item];
     }
       break;
       
@@ -505,24 +508,24 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       CGPoint point = [sender locationInView:self.tableView];
       NSIndexPath *indexPathInTableView = [self.tableView indexPathForRowAtPoint:point];
       NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
-      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
+//      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
       
       // その位置のセルのデータをモデルから取得する
     
       LOG(@"モデルを取得");
       if (indexPathInController.section < 0) {
-        [selected_cell setUnCheckedWithItem:item];
+        [selected_cell setUnCheckedWithItem:selected_item];
         return;
       }
       ItemCell *cell = (ItemCell *)[self.tableView cellForRowAtIndexPath:indexPathInTableView];
       
       if (selected_cell == cell) {
         // チェックをつける
-        item.state = [NSNumber numberWithBool:true];
-        [item setComplete];
+        selected_item.state = [NSNumber numberWithBool:true];
+        [selected_item setComplete];
         [CoreDataController saveContext];
       } else {
-        [selected_cell setUnCheckedWithItem:item];
+        [selected_cell setUnCheckedWithItem:selected_item];
       }
       [CoreDataController saveContext];
     }
