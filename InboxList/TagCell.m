@@ -76,8 +76,6 @@
   self.labelForItemSize.textColor = GRAY_COLOR;
 //  self.labelForDueToTodayItemsSize.textColor = DUE_TO_TODAY_COLOR;
 //  self.labelForOverDueItemsSize.textColor = OVERDUE_COLOR;
-  
-  self.accessoryView = self.labelForItemSize;
 }
 
 - (void)setSelected:(BOOL)selected

@@ -205,10 +205,57 @@ enum __SECTION__ {
                                        inManagedObjectContext:[self app].managedObjectContext];
 }
 
+/**
+ * @brief  アイテム数を返す
+ *
+ * @return アイテム数
+ */
 +(NSInteger)countItems
 {
   NSInteger ret;
   NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Item"];
+  NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
+                                                                            error:nil];
+  ret = [array count];
+  return ret;
+}
+
+/**
+ * @brief  未完了のアイテム数を数える
+ *
+ * @return 未完了のアイテム数
+ */
++(NSInteger)countUncompletedItems
+{
+  NSInteger ret;
+  NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Item"];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:false]];
+  [request setPredicate:predicate];
+
+  NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
+                                                                            error:nil];
+  ret = [array count];
+  return ret;
+}
+
++(NSInteger)countUncompletedItemsWithTags:(NSSet *)tags
+{
+  NSInteger ret;
+  NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Item"];
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:false]];
+  
+  NSMutableArray *predicate_array = [[NSMutableArray alloc] init];
+  NSPredicate *tag_predicates;
+  for (Tag *tag in tags) {
+    tag_predicates = [NSPredicate predicateWithFormat:@"%@ == SELF.tag.title", tag.title];
+    [predicate_array addObject:predicate];
+  }
+  NSCompoundPredicate *compound_predicate
+  = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType
+                                subpredicates:@[tag_predicates, predicate]];
+  
+  [request setPredicate:compound_predicate];
+  
   NSArray *array = [[CoreDataController managedObjectContext] executeFetchRequest:request
                                                                             error:nil];
   ret = [array count];

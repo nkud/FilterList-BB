@@ -28,6 +28,8 @@
             reminder:(NSDate *)reminder;
 +(Item *)newItemObject;
 +(NSInteger)countItems;
++(NSInteger)countUncompletedItems;
++(NSInteger)countUncompletedItemsWithTags:(NSSet *)tags;
 
 #pragma mark - タグ用
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;

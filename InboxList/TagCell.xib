@@ -28,6 +28,7 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="accessoryView" destination="o6c-ZE-ARJ" id="OZ8-xv-kTH"/>
                 <outlet property="labelForItemSize" destination="o6c-ZE-ARJ" id="ltz-KD-8nI"/>
                 <outlet property="labelForTitle" destination="Nj2-3a-VnD" id="9Jj-SS-Qq6"/>
             </connections>

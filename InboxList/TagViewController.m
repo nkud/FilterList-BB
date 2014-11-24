@@ -465,7 +465,7 @@ numberOfRowsInSection:(NSInteger)section
     // 全アイテム表示用タグの設定
     cell.labelForTitle.text = @"Inbox";
 //    cell.labelForOverDueItemsSize.text = @"";
-    itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countItems]];
+    itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countUncompletedItems]];
   } else if([self isCellForInputAtIndexPath:indexPath]) {
     return;
   }
@@ -478,7 +478,8 @@ numberOfRowsInSection:(NSInteger)section
     NSInteger overDueItemsSizeForTag = [[self overDueItemsForTag:tag] count];
     LOG(@"%ld", (long)overDueItemsSizeForTag);
 //    cell.labelForOverDueItemsSize.text = [NSString stringWithFormat:@"%lu", (unsigned long)overDueItemsSizeForTag];
-    itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
+//    itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
+    itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
   }
   cell.labelForItemSize.text = itemCountString;
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
