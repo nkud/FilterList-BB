@@ -118,6 +118,10 @@ static NSString *kTagCellID = @"TagCell";
 //  [self configureTagCell:cell atIndexPath:indexForAllItems];
 //  
   [self.delegateForList openTabBar];
+  
+  if ([self.delegateForList isTopViewController:self]) {
+    [self.delegateForList listDidEditMode];
+  }
 }
 
 #pragma mark - 新規入力
@@ -147,6 +151,7 @@ static NSString *kTagCellID = @"TagCell";
  */
 -(void)toAdd:(id)sender
 {
+  [self.delegateForList listWillEditMode];
   TagDetailViewController *controller = [[TagDetailViewController alloc] initWithTitle:nil
                                                                              indexPath:nil
                                                                               delegate:self];

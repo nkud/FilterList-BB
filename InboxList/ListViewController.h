@@ -10,6 +10,8 @@
 
 #import "TagSelectViewController.h"
 
+@class ListViewController;
+
 @protocol ListViewControllerDelegate <NSObject>
 
 -(void)openTabBar;
@@ -17,6 +19,8 @@
 
 -(void)listWillEditMode;
 -(void)listDidEditMode;
+
+-(BOOL)isTopViewController:(ListViewController *)viewController;
 
 @end
 

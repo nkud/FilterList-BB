@@ -372,6 +372,15 @@
   return NO;
 }
 
+-(BOOL)isTopViewController:(ListViewController *)viewController
+{
+  if (viewController == self.mainViewController_) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 #pragma mark - リスト表示モード関数
 
 -(void)listWillEditMode
