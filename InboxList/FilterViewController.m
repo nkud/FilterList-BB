@@ -103,9 +103,21 @@ static NSString *kFilterCellID = @"FilterCell";
 
 -(void)didTappedEditTableButton
 {
-  [super didTappedEditTableButton];
   
 //  [self aleartMessage:@"Edit mode"];
+  if (self.tableView.isEditing) {
+    [self.delegateForList listDidEditMode];
+  } else {
+    [self.delegateForList listWillEditMode];
+  }
+
+  [super didTappedEditTableButton];
+  
+  [self toEdit:self];
+}
+
+-(void)toEdit:(id)sender
+{
   if (self.tableView.isEditing) {
     [self.tableView setEditing:false
                       animated:YES];

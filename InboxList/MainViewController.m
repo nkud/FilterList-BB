@@ -401,15 +401,25 @@
   self.itemNavigationController.view.frame = rect;
   
   // ナビゲーションコントローラー
-  CGRect frame = self.tagNavigationController.view.frame;
+  ListViewController *controller;
+  __NavigationController *navicontroller;
+  if (self.mainViewController_ == self.tagViewController) {
+    controller = self.tagViewController;
+    navicontroller = self.tagNavigationController;
+  } else {
+    controller = self.filterViewController;
+    navicontroller = self.filterNavigationController;
+  }
+  
+  CGRect frame = navicontroller.view.frame;
   frame.size.width = SCREEN_BOUNDS.size.width;
   frame.origin.x = 0;
-  self.tagNavigationController.view.frame = frame;
+  navicontroller.view.frame = frame;
 
   // テーブル
-  CGRect tframe = self.tagViewController.tableView.frame;
+  CGRect tframe = controller.tableView.frame;
   tframe.size.width = SCREEN_BOUNDS.size.width;
-  self.tagViewController.tableView.frame = tframe;
+  controller.tableView.frame = tframe;
   
   [UIView commitAnimations];
 }
@@ -424,15 +434,24 @@
   self.itemNavigationController.view.frame = rect;
   
   // ナビゲーションコントローラー
-  CGRect frame = self.tagNavigationController.view.frame;
+  ListViewController *controller;
+  __NavigationController *navicontroller;
+  if (self.mainViewController_ == self.tagViewController) {
+    controller = self.tagViewController;
+    navicontroller = self.tagNavigationController;
+  } else {
+    controller = self.filterViewController;
+    navicontroller = self.filterNavigationController;
+  }
+  CGRect frame = navicontroller.view.frame;
   frame.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
   frame.origin.x = ITEM_LIST_REMAIN_MARGIN;
-  self.tagNavigationController.view.frame = frame;
+  navicontroller.view.frame = frame;
   
   // テーブル
-  CGRect tframe = self.tagViewController.tableView.frame;
+  CGRect tframe = controller.tableView.frame;
   tframe.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
-  self.tagViewController.tableView.frame = tframe;
+  controller.tableView.frame = tframe;
   
   [UIView commitAnimations];
 }
