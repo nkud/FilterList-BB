@@ -28,6 +28,7 @@
 }
 
 @property ListViewController *mainViewController_;
+@property UIViewAnimationCurve animationCurve_;
 
 @end
 
@@ -42,6 +43,7 @@
 - (void)initParameter
 {
   swipe_distance = SWIPE_DURATION;
+  self.animationCurve_ = UIViewAnimationCurveEaseInOut;
 }
 
 /**
@@ -378,7 +380,7 @@
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [UIView setAnimationCurve:self.animationCurve_];
 //  [self closeTagListMode];
   [self toggleItemList:YES];
   [self closeFilterListMode];
@@ -392,7 +394,7 @@
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:duration];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [UIView setAnimationCurve:self.animationCurve_];
 //  [self closeTagListMode];
   [self toggleItemList:YES];
   [self closeFilterListMode];
@@ -407,7 +409,7 @@
   [self.tagViewController updateTableView];
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [UIView setAnimationCurve:self.animationCurve_];
   [self openTagListMode];
   [self toggleItemList:NO];
   [self closeFilterListMode];
@@ -421,7 +423,7 @@
   LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [UIView setAnimationCurve:self.animationCurve_];
   [self openTagListMode];
   [self toggleItemList:NO];
   [self openFilterListMode];
@@ -437,7 +439,7 @@
   
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+  [UIView setAnimationCurve:self.animationCurve_];
   [self openTagListMode];
   [self toggleItemList:NO];
   [self openFilterListMode];
