@@ -318,7 +318,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSIndexPath *indexPathInTableView = indexPath;
-//  NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTableView];
+
   if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView])
   {
     // 入力セル
@@ -335,8 +335,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     cell.inputField.placeholder = placeholder;
     return cell;
   }
-
-//  Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
 
   ItemCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kItemCellID];
   [self configureItemCell:cell
@@ -437,6 +435,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   
   // 状態
   [cell updateCheckBoxWithItem:item];
+
   
   // リマインダー
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
