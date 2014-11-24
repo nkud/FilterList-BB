@@ -479,6 +479,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
                                               bundle:nil];
   controller.delegate = self;
+//  controller.tagsForAlreadySelected = self.tagsForItem;
   controller.tagsForAlreadySelected = nil;
   controller.maxCapacityRowsForSelected = 1;
   

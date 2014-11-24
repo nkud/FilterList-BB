@@ -167,12 +167,18 @@ shouldReloadTableForSearchString:(NSString *)searchString
     return NO;
   }
 }
--(void)toggleCheckmark:(UITableViewCell *)cell
+-(void)toggleCheckmark:(UITableViewCell *)cell check:(BOOL)check
 {
-  if ([self cellHasCheckmark:cell]) {
-    cell.accessoryType = UITableViewCellAccessoryNone;
-  } else {
+  if (check == 0) {
+    if ([self cellHasCheckmark:cell]) {
+      cell.accessoryType = UITableViewCellAccessoryNone;
+    } else {
+      cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+  } else if (check == YES) {
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
+  } else {
+    cell.accessoryType = UITableViewCellAccessoryNone;
   }
 }
 #pragma mark - 終了処理
@@ -252,7 +258,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     // 選択セル配列に追加
     [self addIndexPathForSelectedRows:indexPath];
   }
-  [self toggleCheckmark:cell];
+  [self toggleCheckmark:cell check:0];
   
   // 選択されたセルが、最大選択セルを超えていれば、選択画面を終了
   if (self.maxCapacityRowsForSelected > 0) {
@@ -260,6 +266,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
       [self dismissTagSelectView];
     }
   }
+  
+  [self.tagTableView deselectRowAtIndexPath:indexPath
+                                   animated:YES];
 }
 
 /**
@@ -320,7 +329,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
   // 既存のタグなら、チェックマークをつける
   if ([self.kIndexPathsForSelectedRows containsObject:indexPath]) {
-    [self toggleCheckmark:cell];
+    [self toggleCheckmark:cell
+                    check:YES];
   }
   return cell;
 }

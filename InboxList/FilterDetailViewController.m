@@ -549,7 +549,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   TagSelectViewController *controller = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
                                                                                   bundle:nil];
   controller.delegate = self;
-  controller.tagsForAlreadySelected = nil;
+  controller.tagsForAlreadySelected = self.tagsForFilter;
   controller.maxCapacityRowsForSelected = 0;
   
   UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
