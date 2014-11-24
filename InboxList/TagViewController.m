@@ -85,6 +85,13 @@ static NSString *kTagCellID = @"TagCell";
 
 -(void)didTappedEditTableButton
 {
+  // 完全に開閉する
+  if (self.tableView.isEditing) {
+    [self.delegateForList listDidEditMode];
+  } else {
+    [self.delegateForList listWillEditMode];
+  }
+  
   [super didTappedEditTableButton];
   [self toEdit:self];
 }

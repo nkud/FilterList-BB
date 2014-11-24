@@ -15,6 +15,9 @@
 -(void)openTabBar;
 -(void)closeTabBar;
 
+-(void)listWillEditMode;
+-(void)listDidEditMode;
+
 @end
 
 @interface ListViewController : UIViewController

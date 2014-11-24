@@ -144,6 +144,34 @@
 }
 
 #pragma mark - ビュー移動関数
+#pragma mark - アイテムリスト
+/**
+ * @brief  アイテムリストを開閉する
+ *
+ * @param open 開閉
+ */
+-(void)toggleItemList:(BOOL)open margin:(CGFloat)rightMarginRate
+{
+  if (open) {
+    // 開く
+    CGRect rect = self.itemNavigationController.view.frame;
+    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
+    self.itemNavigationController.view.frame = rect;
+  } else {
+    // 閉じる
+    CGRect rect = self.itemNavigationController.view.frame;
+    rect.origin.x = - SCREEN_BOUNDS.size.width + rightMarginRate;
+    self.itemNavigationController.view.frame = rect;
+  }
+}
+//-(void)toggleTagListMode
+//{
+//  if ([self hasActivatedTagListMode]) {
+//    [self closeTagListMode];
+//  } else {
+//    [self openTagListMode];
+//  }
+//}
 
 #pragma mark タグリスト
 /**
@@ -176,35 +204,6 @@
     return YES;
   }
 }
-#pragma mark - アイテムリスト
-/**
- * @brief  アイテムリストを開閉する
- *
- * @param open 開閉
- */
--(void)toggleItemList:(BOOL)open
-{
-  if (open) {
-    // 開く
-    CGRect rect = self.itemNavigationController.view.frame;
-    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
-    self.itemNavigationController.view.frame = rect;
-  } else {
-    // 閉じる
-    CGRect rect = self.itemNavigationController.view.frame;
-    rect.origin.x = - SCREEN_BOUNDS.size.width + ITEM_LIST_REMAIN_MARGIN;
-    self.itemNavigationController.view.frame = rect;
-  }
-}
--(void)toggleTagListMode
-{
-  if ([self hasActivatedTagListMode]) {
-    [self closeTagListMode];
-  } else {
-    [self openTagListMode];
-  }
-}
-
 
 #pragma mark フィルターリスト
 /**
@@ -375,6 +374,53 @@
 
 #pragma mark - リスト表示モード関数
 
+-(void)listWillEditMode
+{
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:0.3f];
+
+  // アイテムリスト
+  CGRect rect = self.itemNavigationController.view.frame;
+  rect.origin.x = - SCREEN_BOUNDS.size.width - 10;
+  self.itemNavigationController.view.frame = rect;
+  
+  // ナビゲーションコントローラー
+  CGRect frame = self.tagNavigationController.view.frame;
+  frame.size.width = SCREEN_BOUNDS.size.width;
+  frame.origin.x = 0;
+  self.tagNavigationController.view.frame = frame;
+
+  // テーブル
+  CGRect tframe = self.tagViewController.tableView.frame;
+  tframe.size.width = SCREEN_BOUNDS.size.width;
+  self.tagViewController.tableView.frame = tframe;
+  
+  [UIView commitAnimations];
+}
+-(void)listDidEditMode
+{
+  [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDuration:0.3f];
+
+  // アイテムリスト
+  CGRect rect = self.itemNavigationController.view.frame;
+  rect.origin.x = - SCREEN_BOUNDS.size.width + ITEM_LIST_REMAIN_MARGIN;
+  self.itemNavigationController.view.frame = rect;
+  
+  // ナビゲーションコントローラー
+  CGRect frame = self.tagNavigationController.view.frame;
+  frame.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
+  frame.origin.x = ITEM_LIST_REMAIN_MARGIN;
+  self.tagNavigationController.view.frame = frame;
+  
+  // テーブル
+  CGRect tframe = self.tagViewController.tableView.frame;
+  tframe.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
+  self.tagViewController.tableView.frame = tframe;
+  
+  [UIView commitAnimations];
+}
+
 -(void)toItemListMode
 {
   LOG(@"アイテムリストモード");
@@ -382,7 +428,7 @@
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:self.animationCurve_];
 //  [self closeTagListMode];
-  [self toggleItemList:YES];
+  [self toggleItemList:YES margin:ITEM_LIST_REMAIN_MARGIN];
   [self closeFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
@@ -396,7 +442,7 @@
   [UIView setAnimationDuration:duration];
   [UIView setAnimationCurve:self.animationCurve_];
 //  [self closeTagListMode];
-  [self toggleItemList:YES];
+  [self toggleItemList:YES margin:ITEM_LIST_REMAIN_MARGIN];
   [self closeFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
@@ -411,7 +457,7 @@
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:self.animationCurve_];
   [self openTagListMode];
-  [self toggleItemList:NO];
+  [self toggleItemList:NO margin:ITEM_LIST_REMAIN_MARGIN];
   [self closeFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
@@ -425,7 +471,7 @@
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:self.animationCurve_];
   [self openTagListMode];
-  [self toggleItemList:NO];
+  [self toggleItemList:NO margin:ITEM_LIST_REMAIN_MARGIN];
   [self openFilterListMode];
   [self closeCompleteListMode];
   [UIView commitAnimations];
@@ -441,7 +487,7 @@
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:self.animationCurve_];
   [self openTagListMode];
-  [self toggleItemList:NO];
+  [self toggleItemList:NO margin:ITEM_LIST_REMAIN_MARGIN];
   [self openFilterListMode];
   [self openCompleteListMode];
   [UIView commitAnimations];
