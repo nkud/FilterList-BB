@@ -433,16 +433,20 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   cell.titleLabel.text = item.title;
   cell.tagLabel.text = item.tag.title;
   
-  // 状態
+  // チェックボックスを設定する
   [cell updateCheckBoxWithItem:item];
 
   
-  // リマインダー
+  // リマインダーラベル
+  NSString *reminderText;
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   formatter.dateFormat = @"yyyy/MM/dd";
   if (item.reminder) {
-    cell.reminderLabel.text = [formatter stringFromDate:item.reminder];
+    reminderText = [formatter stringFromDate:item.reminder];
+  } else {
+    reminderText = @"";
   }
+  cell.reminderLabel.text = reminderText;
   
   // テキストの色を変更する
   UIColor *textColor;

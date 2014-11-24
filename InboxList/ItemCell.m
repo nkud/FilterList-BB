@@ -25,21 +25,21 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
 
 @implementation ItemCell
 
-/**
- * 初期化する
- */
-- (id)initWithStyle:(UITableViewCellStyle)style
-    reuseIdentifier:(NSString *)reuseIdentifier
-{
-  /* superで初期化 */
-  self = [super initWithStyle:UITableViewCellStyleSubtitle
-              reuseIdentifier:reuseIdentifier];
-  if (self)
-  {
-    self.reminderLabel.text = @"none";
-  }
-  return self;
-}
+///**
+// * 初期化する
+// */
+//- (id)initWithStyle:(UITableViewCellStyle)style
+//    reuseIdentifier:(NSString *)reuseIdentifier
+//{
+//  /* superで初期化 */
+//  self = [super initWithStyle:style
+//              reuseIdentifier:reuseIdentifier];
+//  if (self)
+//  {
+//    self.reminderLabel.text = @"none";
+//  }
+//  return self;
+//}
 
 /**
  * @brief  チェックボックス用画像ファイル文字列を返す
