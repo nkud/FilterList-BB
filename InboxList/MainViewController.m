@@ -314,10 +314,17 @@
                              SCREEN_BOUNDS.size.height,
                              SCREEN_BOUNDS.size.width,
                              TABBAR_H);
-    [UIView animateWithDuration:kDurationForHiddenTabBar
-                     animations:^{
-                       self.tabBar.frame = rect;
-                     }];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:kDurationForHiddenTabBar];
+    if (self.mainViewController_ == self.tagViewController || self.mainViewController_ == self.filterViewController) {
+      // タグリストの時は遅らせる
+      [UIView setAnimationDelay:0.2f];
+    }
+    
+    self.tabBar.frame = rect;
+    
+    [UIView commitAnimations];
+    
   }
 }
 
