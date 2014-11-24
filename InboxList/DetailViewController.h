@@ -20,7 +20,7 @@
 -(NSString *)normalCellID;
 
 #pragma mark - キャンセルボタン
-- (void)addCancelButton:(UITableViewCell *)cell;
-- (void)didTappedCancelButton:(id)sender;
+- (void)addCancelButton:(UITableViewCell *)cell
+                 action:(SEL)action;
 
 @end

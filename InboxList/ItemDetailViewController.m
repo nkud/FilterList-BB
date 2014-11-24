@@ -187,6 +187,15 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   return cell;
 }
 
+-(ItemDetailTagCell *)tagCell
+{
+  NSIndexPath *indexPathForDateCell = [NSIndexPath indexPathForRow:0
+                                                         inSection:1];
+  ItemDetailTagCell *cell
+  = (ItemDetailTagCell *)[self.tableView cellForRowAtIndexPath:indexPathForDateCell];
+  return cell;
+}
+
 -(ItemDetailDateCell *)dateCell
 {
   NSIndexPath *indexPathForDateCell = [NSIndexPath indexPathForRow:1
@@ -564,7 +573,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     textColor = [UIColor grayColor];
   }
   cell.detailTextLabel.text = stringForTags;
-//  cell.detailTextLabel.textColor = textColor;
+  
+  if (self.tagsForItem != nil) {
+    [self addCancelButton:cell
+                   action:@selector(didTappedTagCancelButton:)];
+  } else {
+    cell.accessoryView = nil;
+  }
 }
 
 /**
@@ -595,9 +610,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     }
   }
   cell.detailTextLabel.text = stringForDate;
-//  cell.detailTextLabel.textColor = colorForText;
   
-//  [self addCancelButton:cell];
+  if (self.reminderForItem != nil) {
+    [self addCancelButton:cell
+                   action:@selector(didTappedDateCancelButton:)];
+  } else {
+    cell.accessoryView = nil;
+  }
 }
 
 /**
@@ -605,13 +624,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  *
  * @param sender センダー
  */
--(void)didTappedCancelButton:(id)sender
+-(void)didTappedDateCancelButton:(id)sender
 {
   self.reminderForItem = nil;
   
   // 日時セルを更新
   [self configureDateCell:[self dateCell]
               atIndexPath:nil];
+}
+
+/**
+ * @brief  タグのキャンセルボタンが押された時
+ *
+ * @param sender センダー
+ */
+-(void)didTappedTagCancelButton:(id)sender
+{
+  self.tagsForItem = nil;
+  
+  // 日時セルを更新
+  [self.tableView reloadData];
 }
 
 #pragma mark - デリゲート -
@@ -626,9 +658,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   // 日時を設定
   self.reminderForItem = date;
   // セルに反映させる
-  ItemDetailDateCell *cell = [self dateCell];
-  [self configureDateCell:cell
-              atIndexPath:nil];
+  [self.tableView reloadData];
 }
 
 

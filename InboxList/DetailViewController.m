@@ -68,7 +68,14 @@ static NSString *kNormalCellID = @"NormalCell";
   return kNormalCellID;
 }
 
+/**
+ * @brief  キャンセルボタンを追加する
+ *
+ * @param cell   セル
+ * @param action アクション
+ */
 - (void)addCancelButton:(UITableViewCell *)cell
+                 action:(SEL)action
 {
   UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0,
                                                                       0,
@@ -77,14 +84,9 @@ static NSString *kNormalCellID = @"NormalCell";
   [cancelButton setImage:[UIImage imageNamed:kCancelButtonImageName]
                 forState:UIControlStateNormal];
   [cancelButton addTarget:self
-                   action:@selector(didTappedCancelButton:)
+                   action:action
          forControlEvents:UIControlEventTouchUpInside];
   cell.accessoryView = cancelButton;
-}
-
-- (void)didTappedCancelButton:(id)sender
-{
-  LOG(@"キャンセルボタン");
 }
 
 #pragma mark - テーブルビュー -
