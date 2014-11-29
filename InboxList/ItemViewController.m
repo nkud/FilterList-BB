@@ -156,6 +156,21 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
 }
 #pragma mark - テーブルビュー
 
+#pragma mark - スクロール
+/**
+ * @brief  スクロール開始時の処理
+ *
+ * @param scrollView スクロールビュー
+ */
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+  // キーボードを閉じる
+  NSIndexPath *inputIndexPath = [NSIndexPath indexPathForRow:0
+                                                   inSection:0];
+  InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:inputIndexPath];
+  [cell.inputField resignFirstResponder];
+}
+
 #pragma mark セクション
 
 /**

@@ -126,6 +126,15 @@ static NSString *kTagCellID = @"TagCell";
   }
 }
 
+-(void)dismissInputKeyboard
+{
+  // キーボードを閉じる
+  NSIndexPath *inputIndexPath = [NSIndexPath indexPathForRow:0
+                                                   inSection:0];
+  InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:inputIndexPath];
+  [cell.inputField resignFirstResponder];
+}
+
 #pragma mark - 新規入力
 /**
  * @brief  リターンキーが押された時の処理
@@ -214,7 +223,18 @@ static NSString *kTagCellID = @"TagCell";
   return indexPath;
 }
 
-#pragma mark - テーブルビュー
+#pragma mark - テーブルビュ
+
+/**
+ * @brief  スクロール開始時の処理
+ *
+ * @param scrollView スクロールビュー
+ */
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+  // キーボードを閉じる
+  [self dismissInputKeyboard];
+}
 
 /**
  * @brief  位置が移動可能か評価する
@@ -304,6 +324,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // キーボードを閉じる
+  [self dismissInputKeyboard];
+  
   [super tableView:tableView didSelectRowAtIndexPath:indexPath];
   if (tableView.isEditing) {
     return;

@@ -668,6 +668,12 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 
 #pragma mark - テーブルビュー -
 
+#pragma mark - スクロールビュー
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+  LOG(@"スクロール開始");
+}
+
 #pragma mark デリゲート
 
 #pragma mark データソース
