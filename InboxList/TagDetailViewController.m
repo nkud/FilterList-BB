@@ -71,9 +71,7 @@
 -(NSArray *)dataArray
 {
   NSArray *itemOne = @[[self titleCellID]];
-  NSArray *itemTwo = @[[self titleCellID]];
-  NSArray *itemThree = @[[self titleCellID]];
-  dataArray_ = @[itemOne, itemTwo, itemThree];
+  dataArray_ = @[itemOne];
   return dataArray_;
 }
 

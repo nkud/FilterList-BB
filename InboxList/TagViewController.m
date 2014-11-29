@@ -767,7 +767,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   NSIndexPath *indexPathInController = indexPath;
   Tag *tag;
   if (isNewTag) {
-    tag = [CoreDataController newTagObject];
+    [CoreDataController insertNewTag:title];
+    return;
   } else {
     tag = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
   }
