@@ -680,6 +680,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
       [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationLeft];
       
+      LOG(@"%@", indexPath);
       NSArray *tags = [self.fetchedResultsController fetchedObjects];
       Tag *deleteTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
       NSInteger deleteOrder = deleteTag.order.integerValue;
@@ -687,7 +688,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
       LOG(@"--------- tag order ---------");
       for (Tag *tag in tags) {
         NSInteger order = tag.order.integerValue;
-        if (order > deleteOrder-1) { // @TODO: why -1 ?
+        if (order > indexPath.row) {
           LOG(@"%ld > %ld", (long)order, (long)deleteOrder);
           newOrder = order - 1;
           [tag setValue:@(newOrder)
