@@ -199,7 +199,7 @@ titleForHeaderInSection:(NSInteger)section
 
   NSString *sectionTitle = [sectionInfo name];
   if ([sectionTitle isEqualToString:@""]) {
-    sectionTitle = @"no tag";
+    sectionTitle = @"others";
   }
   
   LOG(@"section:%ld - %@ (count: %ld)", (long)sectionForController, sectionTitle, [sectionInfo numberOfObjects]);
