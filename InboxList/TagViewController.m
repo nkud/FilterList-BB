@@ -115,12 +115,11 @@ static NSString *kTagCellID = @"TagCell";
 -(void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-
-  [self.delegateForList openTabBar];
   
   // タグモードの時のみ幅を広げる
   if ([self.delegateForList isTopViewController:self] && self.tableView.isEditing == NO) {
     [self.delegateForList listDidEditMode];
+    [self.delegateForList openTabBar];
   }
 }
 
@@ -697,8 +696,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
       LOG(@"更新");
 //      [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
       //                       withRowAnimation:UITableViewRowAnimationAutomatic];
-      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPath]
-                 atIndexPath:indexPath];
+      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
+                 atIndexPath:indexPathInTableView];
 
       break;
 

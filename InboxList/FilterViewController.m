@@ -96,11 +96,9 @@ static NSString *kFilterCellID = @"FilterCell";
  */
 -(void)viewWillAppear:(BOOL)animated
 {
-  [self.delegateForList openTabBar];
-  [self.tableView reloadData];
-  
   if ([self.delegateForList isTopViewController:self] && self.tableView.isEditing == NO) {
     [self.delegateForList listDidEditMode];
+    [self.delegateForList openTabBar];
   }
 }
 
