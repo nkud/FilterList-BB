@@ -82,7 +82,7 @@
 
   self.itemViewController.fetchedResultsController = [CoreDataController itemFethcedResultsController:self.itemViewController];
   [self.itemViewController configureTitleWithString:@"ITEM"
-                                           subTitle:@"All Items"
+                                           subTitle:@"Inbox"
                                            subColor:ITEM_COLOR];
   
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
@@ -639,10 +639,11 @@ didSelectItem:(UITabBarItem *)item
       fetcheResultController:result_controller];
   } else {
     // 全アイテムを表示
+    // @note サブタイトル色は黒色
     result_controller = [CoreDataController itemFethcedResultsController:self.itemViewController];
-    titleForItemList = @"all items";
+    titleForItemList = @"Inbox";
     [self loadItemViewForTitle:titleForItemList
-                      subColor:TAG_COLOR
+                      subColor:ITEM_COLOR
                           tags:nil
         fetcheResultController:result_controller];
   }
