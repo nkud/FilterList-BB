@@ -688,6 +688,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
         }
         LOG(@"%@: %@", tag.title, tag.order);
       }
+      [CoreDataController saveContext];
       LOG(@"-----------------------------");
       break;
     }
