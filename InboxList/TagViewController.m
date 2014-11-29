@@ -256,6 +256,26 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
+ * @brief  セルの移動先を処理
+ *
+ * @param tableView                    テーブル
+ * @param sourceIndexPath              元位置
+ * @param proposedDestinationIndexPath 提案位置
+ *
+ * @return 移動先位置
+ */
+-(NSIndexPath *)tableView:(UITableView *)tableView
+targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+      toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+  // 上位セルを固定
+  if ([self isCellForAllItemsAtIndexPath:proposedDestinationIndexPath] || [self isCellForInputAtIndexPath:proposedDestinationIndexPath]) {
+    return sourceIndexPath;
+  }
+  return proposedDestinationIndexPath;
+}
+
+/**
  * @brief  セルを移動する
  *
  * @param tableView            テーブルビュー
