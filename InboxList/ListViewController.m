@@ -461,6 +461,32 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
                        subColor:(UIColor *)subColor
 {
   LOG(@"ナビゲーションバーのタイトル・サブタイトルを設定");
+  
+  //////////////////////////////////////////////////////////////////////////////
+  // タイトルのみの時
+  if (subTitle == nil) {
+    self.navigationItem.title = title;
+    
+    self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    self.titleView.backgroundColor = [UIColor clearColor];
+    self.titleView.opaque = NO;
+    self.navigationItem.titleView = self.titleView;
+    
+    // メインタイトルを作成・設定
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:kTitleFontSize];
+    self.titleLabel.text = title;
+    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.backgroundColor = [UIColor clearColor];
+    [self.titleView addSubview:self.titleLabel];
+    
+    return;
+  }
+  
+  //////////////////////////////////////////////////////////////////////////////
+  // タイトル・サブタイトルの時
   // タイトルビューを再設定
   self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
   self.titleView.backgroundColor = [UIColor clearColor];
@@ -474,6 +500,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   self.titleLabel.textColor = [UIColor blackColor];
   self.titleLabel.textAlignment = NSTextAlignmentCenter;
   self.titleLabel.backgroundColor = [UIColor clearColor];
+  self.titleLabel.adjustsFontSizeToFitWidth = YES;
   [self.titleView addSubview:self.titleLabel];
   
   // サブタイトルを作成・設定
