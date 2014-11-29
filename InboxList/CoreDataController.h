@@ -39,6 +39,7 @@
 +(NSArray *)getAllTagsArray;
 +(NSArray *)fetchTagsForTitle:(NSString *)title;
 +(Tag *)newTagObject;
++(void)refleshTagsOrder;
 
 +(void)insertNewTag:(NSString *)title;
 

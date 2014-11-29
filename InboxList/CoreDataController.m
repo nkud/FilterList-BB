@@ -445,17 +445,32 @@ enum __SECTION__ {
   [CoreDataController saveContext];
 }
 
-+ (NSInteger)lastTagOrder
+/**
+ * @brief  タグの順序をリフレッシュする
+ */
++(void)refleshTagsOrder
 {
-  NSInteger order = 0;
-  
-  NSArray *tags =  [[CoreDataController tagFetchedResultsController:nil] fetchedObjects];
-  if (tags.count > 0) {
-    Tag *lastTag = [tags lastObject];
-    order = [lastTag.order integerValue];
+  LOG(@"タグの順序をリフレッシュ");
+  NSArray *tags = [[CoreDataController tagFetchedResultsController:nil] fetchedObjects];
+  int order = 0;
+  for (Tag *tag in tags) {
+    tag.order = [NSNumber numberWithInteger:order];
+    order++;
   }
-  return order;
+  [CoreDataController saveContext];
 }
+
+//+ (NSInteger)lastTagOrder
+//{
+//  NSInteger order = 0;
+//  
+//  NSArray *tags =  [[CoreDataController tagFetchedResultsController:nil] fetchedObjects];
+//  if (tags.count > 0) {
+//    Tag *lastTag = [tags lastObject];
+//    order = [lastTag.order integerValue];
+//  }
+//  return order;
+//}
 
 /**
  *  @brief 全タグの配列を返す
