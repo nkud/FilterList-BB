@@ -72,7 +72,7 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
   //////////////////////////////////////////////////////////////////////////////
   // 検索
 //  self.searchBar.scopeButtonTitles = @[@"color", @"num"];
-  self.searchBar.placeholder = @"Search or Create";
+//  self.searchBar.placeholder = @"Search or Create";
   // TODO: これについて勉強する必要性あり
   // ステータスバーとか考えてくれる
   if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) { /// iOS 7 or above
