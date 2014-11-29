@@ -67,6 +67,7 @@ enum __LIST_DIRECTION__ {
 -(void)toCompleteListMode;
 
 -(void)loadItemViewForTitle:(NSString *)title
+                   subColor:(UIColor *)subColor
                        tags:(NSSet *)tags
      fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
 

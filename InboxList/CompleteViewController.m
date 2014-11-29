@@ -140,7 +140,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   = [self.fetchedResultsController sections][0];
   [self configureTitleWithString:@"COMPLETE"
                         subTitle:[NSString stringWithFormat:@"%ld items are completed.",
-                                  (long)[sectionInfo numberOfObjects]]];
+                                  (long)[sectionInfo numberOfObjects]]
+                        subColor:GRAY_COLOR];
   self.titleLabel.textColor = COMPLETE_COLOR;
   
 }
@@ -369,7 +370,8 @@ numberOfRowsInSection:(NSInteger)section
   = [self.fetchedResultsController sections][0];
   [self configureTitleWithString:@"COMPLETE"
                         subTitle:[NSString stringWithFormat:@"%ld items are completed.",
-                                  (long)[sectionInfo numberOfObjects]]];
+                                  (long)[sectionInfo numberOfObjects]]
+                        subColor:GRAY_COLOR];
   
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];

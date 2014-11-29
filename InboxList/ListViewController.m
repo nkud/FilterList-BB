@@ -458,6 +458,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
  */
 -(void)configureTitleWithString:(NSString *)title
                        subTitle:(NSString *)subTitle
+                       subColor:(UIColor *)subColor
 {
   LOG(@"ナビゲーションバーのタイトル・サブタイトルを設定");
   // タイトルビューを再設定
@@ -478,7 +479,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   // サブタイトルを作成・設定
   self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 195, 20)];
   self.subTitleLabel.font = [UIFont boldSystemFontOfSize:kSubTitleFontSize];
-  self.subTitleLabel.textColor = [UIColor blackColor];
+  self.subTitleLabel.textColor = subColor;
   self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
   self.subTitleLabel.backgroundColor = [UIColor clearColor];
   self.subTitleLabel.adjustsFontSizeToFitWidth = YES;

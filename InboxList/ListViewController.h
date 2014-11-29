@@ -47,7 +47,8 @@ UIActionSheetDelegate, TagSelectViewControllerDelegate>
 
 #pragma mark - ナビゲーションバー
 -(void)configureTitleWithString:(NSString *)title
-                       subTitle:(NSString *)subTitle;
+                       subTitle:(NSString *)subTitle
+                       subColor:(UIColor *)subColor;
 // ビューのタイトル
 @property UIView *titleView;
 

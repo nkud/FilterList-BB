@@ -82,7 +82,8 @@
 
   self.itemViewController.fetchedResultsController = [CoreDataController itemFethcedResultsController:self.itemViewController];
   [self.itemViewController configureTitleWithString:@"ITEM"
-                                           subTitle:@"All Items"];
+                                           subTitle:@"All Items"
+                                           subColor:ITEM_COLOR];
   
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
   self.itemViewController.navigationController = self.itemNavigationController;
@@ -113,7 +114,8 @@
                                                                          bundle:nil];
   self.completeViewController.fetchedResultsController = [CoreDataController completeFetchedResultsController:self.completeViewController];
   [self.completeViewController configureTitleWithString:@"COMPLETE"
-                                               subTitle:@"0 items are completed."];
+                                               subTitle:@"0 items are completed."
+                                               subColor:GRAY_COLOR];
   self.completeNavigationController
   = [[CompleteNavigationController alloc] initWithRootViewController:self.completeViewController];
   
@@ -632,6 +634,7 @@ didSelectItem:(UITabBarItem *)item
                                                                      controller:self.itemViewController];
     titleForItemList = tag.title;
     [self loadItemViewForTitle:titleForItemList
+                      subColor:TAG_COLOR
                         tags:[NSSet setWithObject:tag]
       fetcheResultController:result_controller];
   } else {
@@ -639,6 +642,7 @@ didSelectItem:(UITabBarItem *)item
     result_controller = [CoreDataController itemFethcedResultsController:self.itemViewController];
     titleForItemList = @"all items";
     [self loadItemViewForTitle:titleForItemList
+                      subColor:TAG_COLOR
                           tags:nil
         fetcheResultController:result_controller];
   }
@@ -659,6 +663,7 @@ didSelectItem:(UITabBarItem *)item
   NSFetchedResultsController *resultController = [CoreDataController itemFetchedResultsControllerForTags:tags
                                                                                              controller:self.itemViewController];
   [self loadItemViewForTitle:filterTitle
+                    subColor:FILTER_COLOR
                         tags:tags
       fetcheResultController:resultController];
 }
@@ -670,6 +675,7 @@ didSelectItem:(UITabBarItem *)item
  *  @param fetchedResultController リザルトコントローラー
  */
 - (void)loadItemViewForTitle:(NSString *)title
+                    subColor:(UIColor *)subColor
                        tags:(NSSet *)tags
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
 {
@@ -688,7 +694,8 @@ didSelectItem:(UITabBarItem *)item
   
   LOG(@"ナビゲーションバーのタイトルを更新");
   [self.itemViewController configureTitleWithString:@"ITEM"
-                                           subTitle:title];
+                                           subTitle:title
+                                           subColor:subColor];
 
   // タブバーのモードを変更する
   [self.tabBar setItemMode];

@@ -63,7 +63,8 @@ static NSString *kFilterCellID = @"FilterCell";
 
   // タイトルを設定
   [self configureTitleWithString:FILTER_LIST_TITLE
-                        subTitle:@"mini title"];
+                        subTitle:@"mini title"
+                        subColor:FILTER_COLOR];
   self.titleLabel.textColor = FILTER_COLOR;
   
 //  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];

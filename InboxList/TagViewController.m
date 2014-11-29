@@ -66,7 +66,8 @@ static NSString *kTagCellID = @"TagCell";
   
   // タイトルを設定
   [self configureTitleWithString:TAG_LIST_TITLE
-                        subTitle:@"mini title"];
+                        subTitle:@"mini title"
+                        subColor:TAG_COLOR];
   self.titleLabel.textColor = TAG_COLOR;
   
   // 使用するセルを登録
