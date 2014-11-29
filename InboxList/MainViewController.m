@@ -469,6 +469,7 @@
 {
   self.itemNavigationController.view.userInteractionEnabled = YES;
   
+  // スクロールバーを表示する
   [self toggleShowVerticalScrollIndicatorWithController:self.itemViewController];
   
   LOG(@"アイテムリストモード");
@@ -487,6 +488,7 @@
 {
   self.itemNavigationController.view.userInteractionEnabled = YES;
   
+  // スクロールバーを表示する
   [self toggleShowVerticalScrollIndicatorWithController:self.itemViewController];
   
   LOG(@"アイテムリストモード");
@@ -504,8 +506,13 @@
 -(void)toTagListMode
 {
   self.itemNavigationController.view.userInteractionEnabled = NO;
-  
+
+  // スクロールバーを非表示する
   [self toggleShowVerticalScrollIndicatorWithController:self.tagViewController];
+  // スクロールを止める
+  [self.itemViewController.tableView setContentOffset:self.itemViewController.tableView.contentOffset
+                                             animated:NO];
+  
   
   LOG(@"タグリストモード");
   [self.tagViewController updateTableView];
@@ -524,7 +531,12 @@
 {
   self.itemNavigationController.view.userInteractionEnabled = NO;
   
+  // スクロールバーを非表示にする
   [self toggleShowVerticalScrollIndicatorWithController:self.filterViewController];
+  // スクロールを止める
+  [self.itemViewController.tableView setContentOffset:self.itemViewController.tableView.contentOffset
+                                             animated:NO];
+  
   
   LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
@@ -541,8 +553,12 @@
 -(void)toCompleteListMode
 {
   self.itemNavigationController.view.userInteractionEnabled = NO;
-  
+
+  // スクロールバーを非表示にする
   [self toggleShowVerticalScrollIndicatorWithController:self.completeViewController];
+  // スクロールを止める
+  [self.itemViewController.tableView setContentOffset:self.itemViewController.tableView.contentOffset
+                                             animated:NO];
   
   LOG(@"完了リストモード");
   [self.completeViewController updateTableView];
