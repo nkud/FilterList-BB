@@ -64,6 +64,8 @@ static NSString *kTagCellID = @"TagCell";
   
   [self initParameter];
   
+  self.tableView.allowsMultipleSelectionDuringEditing = NO;
+  
   // タイトルを設定
   [self configureTitleWithString:TAG_LIST_TITLE
                         subTitle:nil
@@ -658,16 +660,22 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
       [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationLeft];
       
-      // 他のタグのアイテム数も変更するように更新
-      // TODO: これだと一瞬で切り替わってしまう
-//      [self.tableView reloadData];
-      //      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-      //      NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
-      //      for (Tag *tag in tags) { // そのセットそれぞれに対して
-      //        if ([tag.items count] == 0) { // タグの関連付けがそのアイテムのみだった場合
-      //          [app.managedObjectContext deleteObject:tag]; // そのタグも削除する
-      //        }
-      //      }
+      NSArray *tags = [self.fetchedResultsController fetchedObjects];
+      Tag *deleteTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      NSInteger deleteOrder = deleteTag.order.integerValue;
+      NSInteger newOrder;
+      LOG(@"--------- tag order ---------");
+      for (Tag *tag in tags) {
+        NSInteger order = tag.order.integerValue;
+        if (order > deleteOrder-1) { // @TODO: why -1 ?
+          LOG(@"%ld > %ld", (long)order, (long)deleteOrder);
+          newOrder = order - 1;
+          [tag setValue:@(newOrder)
+                 forKey:@"order"];
+        }
+        LOG(@"%@: %@", tag.title, tag.order);
+      }
+      LOG(@"-----------------------------");
       break;
     }
 
@@ -707,6 +715,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"コンテキストを更新した後の処理");
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];
+  
+//  [CoreDataController saveContext];
+  
+  LOG(@"--------- tag order ---------");
+  for (Tag *tag in [self.fetchedResultsController fetchedObjects]) {
+    LOG(@"%@: %@", tag.title, tag.order);
+  }
+  LOG(@"-----------------------------");
 }
 
 /*
