@@ -115,11 +115,7 @@ static NSString *kTagCellID = @"TagCell";
 -(void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-//  
-//  NSIndexPath *indexForAllItems = [NSIndexPath indexPathForRow:0 inSection:0];
-//  TagCell *cell = (TagCell *)[self.tableView cellForRowAtIndexPath:indexForAllItems];
-//  [self configureTagCell:cell atIndexPath:indexForAllItems];
-//  
+
   [self.delegateForList openTabBar];
   
   // タグモードの時のみ幅を広げる
@@ -516,7 +512,6 @@ numberOfRowsInSection:(NSInteger)section
   {
     // 全アイテム表示用タグの設定
     cell.labelForTitle.text = @"Inbox";
-//    cell.labelForOverDueItemsSize.text = @"";
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countUncompletedItems]];
   } else if([self isCellForInputAtIndexPath:indexPath]) {
     return;
@@ -527,9 +522,6 @@ numberOfRowsInSection:(NSInteger)section
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.labelForTitle.text = tag.title;
-//    NSInteger overDueItemsSizeForTag = [[self overDueItemsForTag:tag] count];
-//    cell.labelForOverDueItemsSize.text = [NSString stringWithFormat:@"%lu", (unsigned long)overDueItemsSizeForTag];
-//    itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
   }
   cell.labelForItemSize.text = itemCountString;
@@ -702,8 +694,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-//      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
-//                 atIndexPath:indexPath];                                // これであってる？？
       [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationAutomatic];
 
@@ -713,11 +703,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
       LOG(@"移動");
       [tableView moveRowAtIndexPath:indexPathInTableView
                         toIndexPath:newIndexPathInTableView];
-//      [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
-//                       withRowAnimation:UITableViewRowAnimationFade];
-//      [tableView insertRowsAtIndexPaths:@[newIndexPathInTableView]
-//                       withRowAnimation:UITableViewRowAnimationFade];
-//      [tableView reloadData];
       break;
   }
 }
