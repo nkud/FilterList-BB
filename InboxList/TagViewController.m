@@ -736,14 +736,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"コンテキストを更新した後の処理");
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];
-  
-//  [CoreDataController saveContext];
-  
-  LOG(@"--------- tag order ---------");
-  for (Tag *tag in [self.fetchedResultsController fetchedObjects]) {
-    LOG(@"%@: %@", tag.title, tag.order);
-  }
-  LOG(@"-----------------------------");
 }
 
 /*
