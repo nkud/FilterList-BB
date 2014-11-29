@@ -482,8 +482,7 @@ numberOfRowsInSection:(NSInteger)section
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.labelForTitle.text = tag.title;
-    NSInteger overDueItemsSizeForTag = [[self overDueItemsForTag:tag] count];
-    LOG(@"%ld", (long)overDueItemsSizeForTag);
+//    NSInteger overDueItemsSizeForTag = [[self overDueItemsForTag:tag] count];
 //    cell.labelForOverDueItemsSize.text = [NSString stringWithFormat:@"%lu", (unsigned long)overDueItemsSizeForTag];
 //    itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[tag.items count]];
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];

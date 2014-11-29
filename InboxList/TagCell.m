@@ -54,7 +54,6 @@
 -(void)setEditing:(BOOL)editing
          animated:(BOOL)animated
 {
-  LOG(@"%ld", self.editingStyle);
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.3];
   if (editing == YES) {

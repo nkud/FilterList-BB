@@ -467,6 +467,17 @@
   }
 }
 
+/**
+ * @brief  アイテムリストのスクロールを停止する
+ */
+-(void)stopItemListScroll
+{
+  CGPoint offset = self.itemViewController.tableView.contentOffset;
+  offset.y = MAX(0, offset.y);
+  [self.itemViewController.tableView setContentOffset:offset
+                                             animated:YES];
+}
+
 -(void)toItemListMode
 {
   self.itemNavigationController.view.userInteractionEnabled = YES;
@@ -512,8 +523,7 @@
   // スクロールバーを非表示する
   [self toggleShowVerticalScrollIndicatorWithController:self.tagViewController];
   // スクロールを止める
-  [self.itemViewController.tableView setContentOffset:self.itemViewController.tableView.contentOffset
-                                             animated:NO];
+  [self stopItemListScroll];
   
   
   LOG(@"タグリストモード");
@@ -536,9 +546,7 @@
   // スクロールバーを非表示にする
   [self toggleShowVerticalScrollIndicatorWithController:self.filterViewController];
   // スクロールを止める
-  [self.itemViewController.tableView setContentOffset:self.itemViewController.tableView.contentOffset
-                                             animated:NO];
-  
+  [self stopItemListScroll];
   
   LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
@@ -559,8 +567,7 @@
   // スクロールバーを非表示にする
   [self toggleShowVerticalScrollIndicatorWithController:self.completeViewController];
   // スクロールを止める
-  [self.itemViewController.tableView setContentOffset:self.itemViewController.tableView.contentOffset
-                                             animated:NO];
+  [self stopItemListScroll];
   
   LOG(@"完了リストモード");
   [self.completeViewController updateTableView];
