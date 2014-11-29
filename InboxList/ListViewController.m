@@ -297,8 +297,8 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)showConfirmActionSheetWithTitle:(NSString *)title
 {
   NSString *cancelTitle = NSLocalizedString(@"Cancel", @"Cancel title for item removal action");
-  NSString *okTitle = NSLocalizedString(@"OK", @"OK title for item removal action");
-  UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title
+  NSString *okTitle = NSLocalizedString(@"Delete", @"OK title for item removal action");
+  UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                            delegate:self
                                                   cancelButtonTitle:cancelTitle
                                              destructiveButtonTitle:okTitle
