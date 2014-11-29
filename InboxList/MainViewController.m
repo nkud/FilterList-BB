@@ -456,9 +456,20 @@
   [UIView commitAnimations];
 }
 
+-(void)toggleShowVerticalScrollIndicatorWithController:(ListViewController *)controller
+{
+  if (controller == self.itemViewController) {
+    self.itemViewController.tableView.showsVerticalScrollIndicator = YES;
+  } else {
+    self.itemViewController.tableView.showsVerticalScrollIndicator = NO;
+  }
+}
+
 -(void)toItemListMode
 {
   self.itemNavigationController.view.userInteractionEnabled = YES;
+  
+  [self toggleShowVerticalScrollIndicatorWithController:self.itemViewController];
   
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
@@ -476,6 +487,8 @@
 {
   self.itemNavigationController.view.userInteractionEnabled = YES;
   
+  [self toggleShowVerticalScrollIndicatorWithController:self.itemViewController];
+  
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:duration];
@@ -491,6 +504,8 @@
 -(void)toTagListMode
 {
   self.itemNavigationController.view.userInteractionEnabled = NO;
+  
+  [self toggleShowVerticalScrollIndicatorWithController:self.tagViewController];
   
   LOG(@"タグリストモード");
   [self.tagViewController updateTableView];
@@ -509,6 +524,8 @@
 {
   self.itemNavigationController.view.userInteractionEnabled = NO;
   
+  [self toggleShowVerticalScrollIndicatorWithController:self.filterViewController];
+  
   LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
@@ -524,6 +541,8 @@
 -(void)toCompleteListMode
 {
   self.itemNavigationController.view.userInteractionEnabled = NO;
+  
+  [self toggleShowVerticalScrollIndicatorWithController:self.completeViewController];
   
   LOG(@"完了リストモード");
   [self.completeViewController updateTableView];
