@@ -688,15 +688,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
         }
         LOG(@"%@: %@", tag.title, tag.order);
       }
-      [CoreDataController saveContext];
+
       LOG(@"-----------------------------");
       break;
     }
 
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-      [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
-                       withRowAnimation:UITableViewRowAnimationAutomatic];
+//      [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
+      //                       withRowAnimation:UITableViewRowAnimationAutomatic];
+      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPath]
+                 atIndexPath:indexPath];
 
       break;
 

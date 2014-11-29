@@ -387,13 +387,6 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
       LOG(@"削除");
       [tableView deleteRowsAtIndexPaths:@[indexPath]
                        withRowAnimation:UITableViewRowAnimationLeft];
-      //      Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
-      //      NSSet *tags = item.tags; // アイテムに設定されているタグのセットを取得して
-      //      for (Tag *tag in tags) { // そのセットそれぞれに対して
-      //        if ([tag.items count] == 0) { // タグの関連付けがそのアイテムのみだった場合
-      //          [app.managedObjectContext deleteObject:tag]; // そのタグも削除する
-      //        }
-      //      }
       break;
     }
 
