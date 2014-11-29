@@ -98,6 +98,10 @@ static NSString *kFilterCellID = @"FilterCell";
 {
   [self.delegateForList openTabBar];
   [self.tableView reloadData];
+  
+  if ([self.delegateForList isTopViewController:self]) {
+    [self.delegateForList listDidEditMode];
+  }
 }
 
 #pragma mark - フィルター入力 -
@@ -141,6 +145,7 @@ static NSString *kFilterCellID = @"FilterCell";
  */
 -(void)presentInputFilterView
 {
+  [self.delegateForList listWillEditMode];
   [self.delegateForList closeTabBar];
   
   LOG(@"フィルター入力画面を作成・表示");
