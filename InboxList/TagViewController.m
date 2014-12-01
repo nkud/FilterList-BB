@@ -590,7 +590,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     }
     [managedObj setValue:@(newOrder) forKey:@"order"];
   }
-  
   [CoreDataController saveContext];
 }
 
@@ -620,7 +619,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type
 {
-  LOG(@"コンテキストを更新");
   switch(type) {
     case NSFetchedResultsChangeInsert:
       LOG(@"挿入");
@@ -659,7 +657,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 {
   NSIndexPath *indexPathInTableView = [self mapIndexPathFromFetchResultsController:indexPath];
   NSIndexPath *newIndexPathInTableView = [self mapIndexPathFromFetchResultsController:newIndexPath];
-  LOG(@"コンテキストを更新");
   UITableView *tableView = self.tableView;
 
   switch(type) {
@@ -673,7 +670,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     {
       LOG(@"削除");
       [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
-                       withRowAnimation:UITableViewRowAnimationLeft];
+                       withRowAnimation:UITableViewRowAnimationFade];
       
       LOG(@"順序を整理する");
       NSArray *tags = [self.fetchedResultsController fetchedObjects];
@@ -708,9 +705,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
     case NSFetchedResultsChangeMove:
       LOG(@"移動");
-//      [tableView moveRowAtIndexPath:indexPathInTableView
-//                        toIndexPath:newIndexPathInTableView];
-      [tableView reloadData];
+      [tableView moveRowAtIndexPath:indexPathInTableView
+                        toIndexPath:newIndexPathInTableView];
       break;
   }
 }
@@ -729,6 +725,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   LOG(@"コンテキストを更新した後の処理");
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];
+  [self.tableView reloadData];
 }
 
 /*
