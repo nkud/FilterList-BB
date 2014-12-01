@@ -29,9 +29,6 @@ static NSString *kTagCellID = @"TagCell";
   
 }
 
-- (void)configureTagCell:(TagCell *)cell
-          atIndexPath:(NSIndexPath *)indexPath;
-
 @end
 
 @implementation TagViewController
@@ -73,9 +70,8 @@ static NSString *kTagCellID = @"TagCell";
   self.titleLabel.textColor = TAG_COLOR;
   
   // 使用するセルを登録
-  [self.tableView registerNib:[UINib nibWithNibName:kTagCellID
-                                             bundle:nil]
-       forCellReuseIdentifier:TagModeCellIdentifier];
+  [self.tableView registerClass:[TagCell class]
+         forCellReuseIdentifier:TagModeCellIdentifier];
   [self.tableView registerNib:[UINib nibWithNibName:kInputHeaderCellID
                                              bundle:nil]
        forCellReuseIdentifier:kInputHeaderCellID];
@@ -466,7 +462,7 @@ numberOfRowsInSection:(NSInteger)section
   if ([self isCellForAllItemsAtIndexPath:indexPath])
   {
     // 全アイテム表示用タグの設定
-    cell.labelForTitle.text = @"Inbox";
+    cell.titleLabel.text = @"Inbox";
     
     LOG(@"未完了アイテム数を取得する");
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countUncompletedItems]];
@@ -478,11 +474,11 @@ numberOfRowsInSection:(NSInteger)section
     // 通常のタグの設定
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.labelForTitle.text = tag.title;
+    cell.titleLabel.text = tag.title;
     LOG(@"タグに関連づいた未完了アイテム数を取得する");
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
   }
-  cell.labelForItemSize.text = itemCountString;
+  cell.itemSizeLabel.text = itemCountString;
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 

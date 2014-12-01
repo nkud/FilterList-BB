@@ -28,6 +28,11 @@
   if (self)
   {
     // Initialization code
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, self.frame.size.width-150, 44)];
+    [self.contentView addSubview:self.titleLabel];
+    self.itemSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 44)];
+    self.itemSizeLabel.textColor = RGB(180, 180, 180);
+    self.accessoryView = self.itemSizeLabel;
   }
   return self;
 }
@@ -40,9 +45,7 @@
   } else {
     alpha = 0.0f;
   }
-  self.labelForItemSize.alpha = alpha;
-//  self.labelForDueToTodayItemsSize.alpha = alpha;
-//  self.labelForOverDueItemsSize.alpha = alpha;
+  self.itemSizeLabel.alpha = alpha;
 }
 
 /**
@@ -58,7 +61,7 @@
   [UIView setAnimationDuration:0.3];
   if (editing == YES) {
     [self showItemSizeLabel:NO];
-    self.labelForItemSize.alpha = 0;
+    self.itemSizeLabel.alpha = 0;
   } else {
     [self showItemSizeLabel:YES];
   }
@@ -71,10 +74,8 @@
 - (void)awakeFromNib
 {
   // Initialization code
-  // 文字色を設定
-  self.labelForItemSize.textColor = GRAY_COLOR;
-//  self.labelForDueToTodayItemsSize.textColor = DUE_TO_TODAY_COLOR;
-//  self.labelForOverDueItemsSize.textColor = OVERDUE_COLOR;
+  // 文字色を設定する
+  self.itemSizeLabel.textColor = GRAY_COLOR;
 }
 
 - (void)setSelected:(BOOL)selected

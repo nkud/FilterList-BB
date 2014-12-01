@@ -11,9 +11,8 @@
 /// タグのセル
 @interface TagCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *labelForTitle;
-
-@property (weak, nonatomic) IBOutlet UILabel *labelForItemSize;
+@property UILabel *titleLabel;
+@property UILabel *itemSizeLabel;
 
 - (void)showItemSizeLabel:(BOOL)show;
 
