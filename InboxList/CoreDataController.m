@@ -51,6 +51,7 @@ enum __SECTION__ {
   
   // ソート設定
   // (タグのタイトル)でソート
+  LOG(@"タグのタイトルでソートする設定を追加する");
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag.title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
@@ -70,6 +71,7 @@ enum __SECTION__ {
                                           sectionNameKeyPath:@"tagName"
                                                    cacheName:nil]; //< 元は@"Master"
   
+  LOG(@"デリゲートを設定する");
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
   
 	NSError *error = nil;
@@ -94,7 +96,6 @@ enum __SECTION__ {
 {
   AppDelegate *app = [[UIApplication sharedApplication] delegate];
   
-  LOG(@"タグを指定したリザルトコントローラー");
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
                                             inManagedObjectContext:app.managedObjectContext];
@@ -113,11 +114,13 @@ enum __SECTION__ {
   // 指定されたタグ名で抽出
   NSMutableArray *predicate_array = [[NSMutableArray alloc] init];
   NSPredicate *predicate;
+  LOG(@"タグのタイトルで抽出する");
   for (Tag *tag in tags) {
     predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.tag.title", tag.title];
     [predicate_array addObject:predicate];
   }
   // 未完了のアイテムを抽出
+  LOG(@"未完了のアイテムを抽出する");
   predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:false]];
 
   // 条件の配列から条件を合成する
@@ -163,8 +166,8 @@ enum __SECTION__ {
                  tag:(Tag *)tag
             reminder:(NSDate *)reminder
 {
-  LOG(@"アイテムを新規挿入");
   // アイテムを作成
+  LOG(@"アイテムを作成する");
   Item *newItem = [self newItemObject];
   
   // タイトルを設定
@@ -174,12 +177,13 @@ enum __SECTION__ {
   // リマインダーを設定
   newItem.reminder = reminder;
   // アイテムとタグを関連付ける
+  LOG(@"アイテムとタグを関連付ける");
   if (tag) {
     newItem.tag = tag;
   } else {
     
   }
-
+  LOG(@"作成したアイテムを保存する");
   [self saveContext];
 }
 
@@ -634,7 +638,7 @@ enum __SECTION__ {
 /**
  *  @brief アプリケーションデリゲート
  *
- *  @return <#return value description#>
+ *  @return アプリケーション
  */
 +(AppDelegate *)app
 {
@@ -647,9 +651,9 @@ enum __SECTION__ {
  */
 +(void)saveContext
 {
-  LOG(@"保存開始");
+  LOG(@"コンテキストに保存開始");
   [[self app] saveContext];
-  LOG(@"保存終了");
+  LOG(@"コンテキストへの保存終了");
 }
 
 /**

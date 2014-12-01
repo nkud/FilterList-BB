@@ -220,7 +220,7 @@ static NSString *kTagCellID = @"TagCell";
   return indexPath;
 }
 
-#pragma mark - テーブルビュ
+#pragma mark - テーブルビュー
 
 /**
  * @brief  スクロール開始時の処理
@@ -439,8 +439,10 @@ numberOfRowsInSection:(NSInteger)section
 
 -(void)didInputtedNewItem:(NSString *)titleForItem
 {
-  LOG(@"クイック入力: %@", titleForItem);
+  LOG(@"新しいアイテムを挿入する");
   [CoreDataController insertNewTag:titleForItem];
+  
+  LOG(@"インスタントメッセージを表示する");
   [self instantMessage:@"Saved"
                  color:nil];
 }
@@ -458,12 +460,15 @@ numberOfRowsInSection:(NSInteger)section
   Tag *tag;
   NSString *itemCountString;
   
+  LOG(@"セルの背景色を設定する");
   cell.backgroundColor = LIST_BG_GRAY;
   
   if ([self isCellForAllItemsAtIndexPath:indexPath])
   {
     // 全アイテム表示用タグの設定
     cell.labelForTitle.text = @"Inbox";
+    
+    LOG(@"未完了アイテム数を取得する");
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countUncompletedItems]];
   } else if([self isCellForInputAtIndexPath:indexPath]) {
     return;
@@ -474,6 +479,7 @@ numberOfRowsInSection:(NSInteger)section
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.labelForTitle.text = tag.title;
+    LOG(@"タグに関連づいた未完了アイテム数を取得する");
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
   }
   cell.labelForItemSize.text = itemCountString;
@@ -489,7 +495,6 @@ numberOfRowsInSection:(NSInteger)section
 -(void)tableView:(UITableView *)tableView
 accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-  LOG(@"アクセサリーをタップ");
   NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPath];
   Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
   TagDetailViewController *controller
@@ -497,8 +502,10 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
                                          indexPath:indexPathInController
                                           delegate:self];
   
+  LOG(@"タグ詳細画面をプッシュする");
   [self.navigationController pushViewController:controller
                                        animated:YES];
+  LOG(@"タブバーを閉じる");
   [self.delegateForList closeTabBar];
 }
 
@@ -540,6 +547,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   NSIndexPath *indexForAllItems = [NSIndexPath indexPathForRow:0 inSection:0];
   TagCell *cell = (TagCell *)[self.tableView cellForRowAtIndexPath:indexForAllItems];
   [self configureTagCell:cell atIndexPath:indexForAllItems];
+  
+  LOG(@"テーブルビューのデータをリロードする");
   [self.tableView reloadData];
 }
 
@@ -560,16 +569,13 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   NSInteger minRowIdx, maxRowIdx;
   BOOL isMoveDirectionSmallToLarge;
   if(sourceIndexPathInController.row == destinationIndexPathInController.row){
-    LOG(@"同じ移動");
     return;
   }else if(sourceIndexPathInController.row < destinationIndexPathInController.row){
-    LOG(@"セルを下に移動");
     minRowIdx = sourceIndexPathInController.row;
     maxRowIdx = destinationIndexPathInController.row;
     isMoveDirectionSmallToLarge = YES;
     
   }else{
-    LOG(@"セルを上に移動");
     minRowIdx = destinationIndexPathInController.row;
     maxRowIdx = sourceIndexPathInController.row;
     isMoveDirectionSmallToLarge = NO;
@@ -601,7 +607,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-  LOG(@"コンテキストを更新する前処理");
+  LOG(@"テーブルビューのアップデートを開始する");
   [self.tableView beginUpdates];
 }
 
@@ -620,21 +626,21 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 {
   switch(type) {
     case NSFetchedResultsChangeInsert:
-      LOG(@"挿入");
+      LOG(@"セクションを挿入する");
       [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
 
     case NSFetchedResultsChangeDelete:
-      LOG(@"削除");
+      LOG(@"セクションを削除する");
       [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                     withRowAnimation:UITableViewRowAnimationFade];
       break;
     case NSFetchedResultsChangeMove: // by ios8
-      LOG(@"移動");
+      LOG(@"セクションを移動する");
       break;
     case NSFetchedResultsChangeUpdate:
-      LOG(@"更新");
+      LOG(@"セクションを更新する");
       break;
   }
 }
@@ -660,20 +666,20 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
   switch(type) {
     case NSFetchedResultsChangeInsert:
-      LOG(@"挿入");
+      LOG(@"セルを挿入する");
       [tableView insertRowsAtIndexPaths:@[newIndexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationLeft];
       break;
 
     case NSFetchedResultsChangeDelete:
     {
-      LOG(@"削除");
+      LOG(@"セルを削除する");
       [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationFade];
       
       LOG(@"順序を整理する");
-      NSArray *tags = [self.fetchedResultsController fetchedObjects];
-      Tag *deleteTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      NSArray *tags = [controller fetchedObjects];
+      Tag *deleteTag = [controller objectAtIndexPath:indexPath];
       NSInteger deleteOrder = deleteTag.order.integerValue;
       NSInteger newOrder;
       LOG(@"--------- tag order ---------");
@@ -692,7 +698,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     }
 
     case NSFetchedResultsChangeUpdate:
-      LOG(@"更新");
+      LOG(@"セルを更新する");
       // 以下ではアニメーションがおかしくなる。
       // [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
       //                  withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -701,7 +707,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       break;
 
     case NSFetchedResultsChangeMove:
-      LOG(@"移動");
+      LOG(@"セルを移動する");
       [tableView moveRowAtIndexPath:indexPathInTableView
                         toIndexPath:newIndexPathInTableView];
       break;
@@ -719,8 +725,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-  LOG(@"コンテキストを更新した後の処理");
   // In the simplest, most efficient, case, reload the table view.
+  LOG(@"テーブルビューのアップデートを終了する");
   [self.tableView endUpdates];
 }
 
@@ -746,6 +752,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                indexPath:(NSIndexPath *)indexPath
                 isNewTag:(BOOL)isNewTag
 {
+  // 空欄なら終了する
   if ([title isEqualToString:@""]) {
     return;
   }
@@ -770,12 +777,12 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 -(void)saveTags:(NSString *)tagTitle
 {
-  // 文字列が空欄なら終了
+  // 文字列が空欄なら終了する
   if ([tagTitle isEqual:@""]) {
     return;
   }
 
-  // 新規タグを保存
+  // 新規タグを保存する
   [CoreDataController insertNewTag:tagTitle];
 }
 
