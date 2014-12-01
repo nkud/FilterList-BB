@@ -57,6 +57,7 @@ UIActionSheetDelegate, TagSelectViewControllerDelegate>
 -(UIBarButtonItem *)newInsertObjectButton;
 -(void)didTappedEditTableButton;
 -(void)didTappedInsertObjectButton;
+-(void)toggleRightNavigationItemWithEditingState:(BOOL)isEditing;
 
 @property UIColor *navbarThemeColor;
 

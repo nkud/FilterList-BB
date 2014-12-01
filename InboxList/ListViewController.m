@@ -417,13 +417,13 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
     [UIView setAnimationDelay:0.2];
     [self hideEditTabBar:YES];
     [UIView commitAnimations];
-    [self toggleRightNavigationItemWithEditingState:NO];
+//    [self toggleRightNavigationItemWithEditingState:NO];
   } else {
     // そうでないなら
     // タブバーを閉じる
     [self hideEditTabBar:NO];
     [self.delegateForList closeTabBar];
-    [self toggleRightNavigationItemWithEditingState:YES];
+//    [self toggleRightNavigationItemWithEditingState:YES];
   }
 }
 

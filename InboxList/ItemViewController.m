@@ -567,10 +567,12 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
     LOG(@"編集モードの場合");
     [self.tableView setEditing:false
                       animated:YES];
+    [self toggleRightNavigationItemWithEditingState:NO];
   } else {
     LOG(@"編集モードでない場合");
     [self.tableView setEditing:true
                       animated:YES];
+    [self toggleRightNavigationItemWithEditingState:YES];
   }
 }
 
