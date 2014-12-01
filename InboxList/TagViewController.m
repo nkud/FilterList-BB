@@ -557,12 +557,10 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   NSIndexPath *sourceIndexPathInController = [self mapIndexPathToFetchResultsController:sourceIndexPath];
   NSIndexPath *destinationIndexPathInController = [self mapIndexPathToFetchResultsController:destinationIndexPath];
   
-  LOG(@"%ld", (long)sourceIndexPathInController.row);
-  LOG(@"%ld", (long)destinationIndexPathInController.row);
-  
   NSInteger minRowIdx, maxRowIdx;
   BOOL isMoveDirectionSmallToLarge;
   if(sourceIndexPathInController.row == destinationIndexPathInController.row){
+    LOG(@"同じ移動");
     return;
   }else if(sourceIndexPathInController.row < destinationIndexPathInController.row){
     LOG(@"セルを下に移動");
@@ -588,6 +586,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     }else{
       newOrder = [displayOrder integerValue] + 1;
     }
+    LOG(@"%ld, %ld, %ld", i, (long)displayOrder.integerValue, (long)newOrder);
     [managedObj setValue:@(newOrder) forKey:@"order"];
   }
   [CoreDataController saveContext];
@@ -688,7 +687,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
         }
         LOG(@"%@: %@", tag.title, tag.order);
       }
-
       LOG(@"-----------------------------");
       break;
     }
@@ -700,7 +698,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       //                  withRowAnimation:UITableViewRowAnimationAutomatic];
       [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
                  atIndexPath:indexPathInTableView];
-      
       break;
 
     case NSFetchedResultsChangeMove:
@@ -725,7 +722,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   LOG(@"コンテキストを更新した後の処理");
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];
-  [self.tableView reloadData];
 }
 
 /*
