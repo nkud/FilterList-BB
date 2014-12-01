@@ -270,53 +270,6 @@ targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   return proposedDestinationIndexPath;
 }
 
-/**
- * @brief  セルを移動する
- *
- * @param tableView            テーブルビュー
- * @param sourceIndexPath      前位置
- * @param destinationIndexPath 後位置
- */
--(void)tableView:(UITableView *)tableView
-moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
-     toIndexPath:(NSIndexPath *)destinationIndexPath
-{
-  LOG(@"移動: %@ -> %@", sourceIndexPath, destinationIndexPath);
-  NSIndexPath *sourceIndexPathInController = [self mapIndexPathToFetchResultsController:sourceIndexPath];
-  NSIndexPath *destinationIndexPathInController = [self mapIndexPathToFetchResultsController:destinationIndexPath];
-  
-  NSInteger minRowIdx, maxRowIdx;
-  BOOL isMoveDirectionSmallToLarge;
-  if(sourceIndexPathInController.row == destinationIndexPathInController.row){
-    return;
-  }else if(sourceIndexPathInController.row < destinationIndexPathInController.row){
-    minRowIdx = sourceIndexPathInController.row;
-    maxRowIdx = destinationIndexPathInController.row;
-    isMoveDirectionSmallToLarge = YES;
-    
-  }else{
-    minRowIdx = destinationIndexPathInController.row;
-    maxRowIdx = sourceIndexPathInController.row;
-    isMoveDirectionSmallToLarge = NO;
-  }
-  for(NSInteger i = minRowIdx; i <= maxRowIdx; i++){
-    NSIndexPath *itIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
-    NSManagedObject *managedObj = [self.fetchedResultsController objectAtIndexPath:itIndexPath];
-    NSNumber *displayOrder = [managedObj valueForKey:@"order"];
-    NSInteger newOrder;
-    if(i == sourceIndexPathInController.row){
-      newOrder = destinationIndexPathInController.row;
-    }else if(isMoveDirectionSmallToLarge){
-      newOrder = [displayOrder integerValue] - 1;
-    }else{
-      newOrder = [displayOrder integerValue] + 1;
-    }
-    [managedObj setValue:@(newOrder) forKey:@"order"];
-  }
-  
-  [CoreDataController saveContext];
-}
-
 -(void)selectAllRows:(id)sender
 {
   LOG(@"全選択");
@@ -590,6 +543,57 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
   [self.tableView reloadData];
 }
 
+/**
+ * @brief  セルを移動する
+ *
+ * @param tableView            テーブルビュー
+ * @param sourceIndexPath      前位置
+ * @param destinationIndexPath 後位置
+ */
+-(void)tableView:(UITableView *)tableView
+moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+     toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+  NSIndexPath *sourceIndexPathInController = [self mapIndexPathToFetchResultsController:sourceIndexPath];
+  NSIndexPath *destinationIndexPathInController = [self mapIndexPathToFetchResultsController:destinationIndexPath];
+  
+  LOG(@"%ld", (long)sourceIndexPathInController.row);
+  LOG(@"%ld", (long)destinationIndexPathInController.row);
+  
+  NSInteger minRowIdx, maxRowIdx;
+  BOOL isMoveDirectionSmallToLarge;
+  if(sourceIndexPathInController.row == destinationIndexPathInController.row){
+    return;
+  }else if(sourceIndexPathInController.row < destinationIndexPathInController.row){
+    LOG(@"セルを下に移動");
+    minRowIdx = sourceIndexPathInController.row;
+    maxRowIdx = destinationIndexPathInController.row;
+    isMoveDirectionSmallToLarge = YES;
+    
+  }else{
+    LOG(@"セルを上に移動");
+    minRowIdx = destinationIndexPathInController.row;
+    maxRowIdx = sourceIndexPathInController.row;
+    isMoveDirectionSmallToLarge = NO;
+  }
+  for(NSInteger i = minRowIdx; i <= maxRowIdx; i++){
+    NSIndexPath *itIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
+    NSManagedObject *managedObj = [self.fetchedResultsController objectAtIndexPath:itIndexPath];
+    NSNumber *displayOrder = [managedObj valueForKey:@"order"];
+    NSInteger newOrder;
+    if(i == sourceIndexPathInController.row){
+      newOrder = destinationIndexPathInController.row;
+    }else if(isMoveDirectionSmallToLarge){
+      newOrder = [displayOrder integerValue] - 1;
+    }else{
+      newOrder = [displayOrder integerValue] + 1;
+    }
+    [managedObj setValue:@(newOrder) forKey:@"order"];
+  }
+  
+  [CoreDataController saveContext];
+}
+
 #pragma mark - コンテンツの更新
 
 /**
@@ -671,7 +675,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
       [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationLeft];
       
-      LOG(@"%@", indexPath);
+      LOG(@"順序を整理する");
       NSArray *tags = [self.fetchedResultsController fetchedObjects];
       Tag *deleteTag = [self.fetchedResultsController objectAtIndexPath:indexPath];
       NSInteger deleteOrder = deleteTag.order.integerValue;
@@ -694,17 +698,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 
     case NSFetchedResultsChangeUpdate:
       LOG(@"更新");
-//      [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
-      //                       withRowAnimation:UITableViewRowAnimationAutomatic];
+      // 以下ではアニメーションがおかしくなる。
+      // [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
+      //                  withRowAnimation:UITableViewRowAnimationAutomatic];
       [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
                  atIndexPath:indexPathInTableView];
-
+      
       break;
 
     case NSFetchedResultsChangeMove:
       LOG(@"移動");
-      [tableView moveRowAtIndexPath:indexPathInTableView
-                        toIndexPath:newIndexPathInTableView];
+//      [tableView moveRowAtIndexPath:indexPathInTableView
+//                        toIndexPath:newIndexPathInTableView];
+      [tableView reloadData];
       break;
   }
 }
@@ -736,6 +742,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  }
  */
 
+/**
+ * @brief  詳細ビューを削除する前処理
+ *
+ * @param title     入力されたタイトル
+ * @param indexPath 位置
+ * @param isNewTag  新規評価
+ */
 -(void)dismissDetailView:(NSString *)title
                indexPath:(NSIndexPath *)indexPath
                 isNewTag:(BOOL)isNewTag
