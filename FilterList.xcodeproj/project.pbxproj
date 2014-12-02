@@ -30,7 +30,6 @@
 		B053050119EA486D00E87C64 /* FilterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B053050019EA486D00E87C64 /* FilterDetailViewController.m */; };
 		B053050619EAB46600E87C64 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B053050419EAB46600E87C64 /* FilterCell.m */; };
 		B053050719EAB46600E87C64 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B053050519EAB46600E87C64 /* FilterCell.xib */; };
-		B056F7CA198D394800768E8E /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B056F7C9198D394800768E8E /* TagCell.xib */; };
 		B05EA7C819F7648B00AC0289 /* TitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B05EA7C619F7648B00AC0289 /* TitleCell.m */; };
 		B05EA7C919F7648B00AC0289 /* TitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05EA7C719F7648B00AC0289 /* TitleCell.xib */; };
 		B05FA8231982B20C00E25FAF /* TabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B05FA8221982B20C00E25FAF /* TabBar.m */; };
@@ -139,7 +138,6 @@
 		B053050419EAB46600E87C64 /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
 		B053050519EAB46600E87C64 /* FilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 		B053C91B19557C1600C51AA1 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
-		B056F7C9198D394800768E8E /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
 		B05EA7C519F7648B00AC0289 /* TitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCell.h; sourceTree = "<group>"; };
 		B05EA7C619F7648B00AC0289 /* TitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCell.m; sourceTree = "<group>"; };
 		B05EA7C719F7648B00AC0289 /* TitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCell.xib; sourceTree = "<group>"; };
@@ -423,7 +421,6 @@
 		B06D719B198D3BE1001A9F91 /* TagCell */ = {
 			isa = PBXGroup;
 			children = (
-				B056F7C9198D394800768E8E /* TagCell.xib */,
 				B06D7198198D3BDA001A9F91 /* TagCell.h */,
 				B06D7199198D3BDA001A9F91 /* TagCell.m */,
 			);
@@ -802,7 +799,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B056F7CA198D394800768E8E /* TagCell.xib in Resources */,
 				B08FA7AC1A08BA43008A6434 /* unchecked-yellow@2x.png in Resources */,
 				B01DF84E1A171CC500F3AF01 /* ConfigBarButton@2x.png in Resources */,
 				B08FA7A51A08BA43008A6434 /* checked.png in Resources */,
