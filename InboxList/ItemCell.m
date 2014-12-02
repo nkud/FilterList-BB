@@ -68,12 +68,14 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
 // @TODO: 直接このメソッドを呼ぶべきではない
 -(void)layoutSubviews
 {
+  LOG(@"レイアウト");
   [super layoutSubviews];
   
   // アクセサリービューの位置を調整する
-  CGRect frame = self.accessoryView.frame;
-  frame.origin.x += 10;
-  self.accessoryView.frame = frame;
+  // @TODO: iphoneだとおかしくなる
+//  CGRect frame = self.accessoryView.frame;
+//  frame.origin.x += 10;
+//  self.accessoryView.frame = frame;
 }
 
 #pragma mark - ユーティリティ -
