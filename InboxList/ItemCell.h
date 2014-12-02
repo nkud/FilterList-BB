@@ -14,13 +14,19 @@
  */
 @interface ItemCell : UITableViewCell
 
-@property (strong, nonatomic) UIView *checkBox; /* チェックボックス */
+@property (strong, nonatomic) UIView *checkBox;
 
 //@property (weak, nonatomic) IBOutlet CheckBoxImageView *checkBoxImageView; // チェックボックス画像
-@property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
-@property (weak, nonatomic) IBOutlet UILabel *reminderLabel; // リマインダーラベル
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;    // タイトルラベル
-@property (weak, nonatomic) IBOutlet UILabel *tagLabel;
+//@property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
+//@property (weak, nonatomic) IBOutlet UILabel *reminderLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *tagLabel;
+
+@property UIImageView *checkBoxImageView;
+
+@property UILabel *titleLabel;
+@property UILabel *reminderLabel;
+@property UILabel *tagLabel;
 
 //+ (CGFloat)cellHeight;
 

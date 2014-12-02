@@ -35,8 +35,6 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
   NSInteger heightForSection_;
 }
 
-- (void)configureItemCell:(ItemCell *)cell
-          atIndexPath:(NSIndexPath *)indexPath;
 @end
 
 
@@ -87,9 +85,11 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
 
   //////////////////////////////////////////////////////////////////////////////
   // セルとして使うクラスを登録する
-  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ItemCell class])
-                                             bundle:nil]
-       forCellReuseIdentifier:kItemCellID];
+//  [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ItemCell class])
+//                                             bundle:nil]
+//       forCellReuseIdentifier:kItemCellID];
+  [self.tableView registerClass:[ItemCell class]
+         forCellReuseIdentifier:kItemCellID];
   [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InputHeaderCell class])
                                              bundle:nil]
        forCellReuseIdentifier:kInputHeaderCellID];
@@ -444,15 +444,14 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   /// セルを作成
   Item *item = [self itemAtIndexPathInTableView:indexPath];
   
-  // タイトル
+  // タイトルを設定する
   cell.titleLabel.text = item.title;
   cell.tagLabel.text = item.tag.title;
   
   // チェックボックスを設定する
   [cell updateCheckBoxWithItem:item];
-
   
-  // リマインダーラベル
+  // リマインダーラベルを設定する
   NSString *reminderText;
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   formatter.dateFormat = @"yyyy/MM/dd";

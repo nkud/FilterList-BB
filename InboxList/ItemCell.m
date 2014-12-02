@@ -25,21 +25,43 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
 
 @implementation ItemCell
 
-///**
-// * 初期化する
-// */
-//- (id)initWithStyle:(UITableViewCellStyle)style
-//    reuseIdentifier:(NSString *)reuseIdentifier
-//{
-//  /* superで初期化 */
-//  self = [super initWithStyle:style
-//              reuseIdentifier:reuseIdentifier];
-//  if (self)
-//  {
-//    self.reminderLabel.text = @"none";
-//  }
-//  return self;
-//}
+#pragma mark - 初期化 -
+
+/**
+ * @brief  初期化する
+ *
+ * @param style           スタイル
+ * @param reuseIdentifier 識別子
+ *
+ * @return インスタンス
+ */
+- (id)initWithStyle:(UITableViewCellStyle)style
+    reuseIdentifier:(NSString *)reuseIdentifier
+{
+  /* superで初期化 */
+  self = [super initWithStyle:style
+              reuseIdentifier:reuseIdentifier];
+  if (self)
+  {
+    LOG(@"タイトル・期限ラベルを追加する");
+    // タイトルラベルを設定する
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 22)];
+    [self.contentView addSubview:self.titleLabel];
+    
+    // リマインダーラベルを設定する
+    self.reminderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 22, 100, 22)];
+    [self.contentView addSubview:self.reminderLabel];
+    
+    // チェックボックスを設定する
+    self.checkBoxImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    self.accessoryView = self.checkBoxImageView;
+  }
+  return self;
+}
+
+#pragma mark - ユーティリティ -
+
+#pragma mark - チェックボックス
 
 /**
  * @brief  チェックボックス用画像ファイル文字列を返す
@@ -52,32 +74,24 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
 - (NSString *)stringForCheckBoxImageWithItem:(Item *)item
                                        check:(BOOL)check
 {
+  // 期限が今日の場合
+  // 黄色の画像名を返す
   if ([item isDueToToday]) {
-    if (check) {
-      return kYellowCheckedImageName;
-    } else {
-      return kYellowUncheckedImageName;
-    }
+    return check ? kYellowCheckedImageName : kYellowUncheckedImageName;
   }
+  // 期限が超過している場合
+  // 赤色の画像名を返す
   if ([item isOverDue]) {
-    if (check) {
-      return kRedCheckedImageName;
-    } else {
-      return kRedUncheckedImageName;
-    }
+    return check ? kRedCheckedImageName : kRedUncheckedImageName;
   }
+  // 期限が明日以降の場合
+  // 青色の画像名を返す
   if ([item hasDueDate]) {
-    if (check) {
-      return kBlueCheckedImageName;
-    } else {
-      return kBlueUncheckedImageName;
-    }
+    return check ? kBlueCheckedImageName : kBlueUncheckedImageName;
   }
-  if (check) {
-    return kCheckedImageName;
-  } else {
-    return kUncheckedImageName;
-  }
+  // 期限を持たない場合
+  // 灰色(デフォルト)の画像名を返す
+  return check ? kCheckedImageName : kUncheckedImageName;
 }
 
 /**
@@ -89,13 +103,16 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
  */
 -(BOOL)updateCheckBoxWithItem:(Item *)item
 {
+  // 目的の状態を取得する
   BOOL check = ! item.state;
+  
+  // 変更先の状態に合わせて分岐する
   if (check) {
     [self setCheckedWithItem:item];
-    return TRUE;
+    return YES;
   } else {
     [self setUnCheckedWithItem:item];
-    return FALSE;
+    return NO;
   }
 }
 
@@ -104,10 +121,8 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
  */
 -(void)setCheckedWithItem:(Item *)item
 {
-  LOG(@"チェックを付ける");
   NSString *imgname = [self stringForCheckBoxImageWithItem:item
                                                      check:YES];
-  LOG(@"%@", imgname);
   UIImage *img = [UIImage imageNamed:imgname];
   [self.checkBoxImageView setImage:img];
 }
@@ -117,7 +132,6 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
  */
 - (void)setUnCheckedWithItem:(Item *)item
 {
-  LOG(@"チェックを外す");
   UIImage *img
   = [UIImage imageNamed:[self stringForCheckBoxImageWithItem:item
                                                        check:NO]];
