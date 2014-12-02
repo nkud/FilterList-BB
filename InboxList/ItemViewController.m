@@ -443,10 +443,19 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   LOG(@"セルを作成");
   /// セルを作成
   Item *item = [self itemAtIndexPathInTableView:indexPath];
+
+
+  BOOL hasTitleOnly = ! item.reminder;
+  
+  if (hasTitleOnly) {
+    cell.titleLabel.frame = CGRectMake(10, 0, 100, 44);
+  } else {
+    cell.titleLabel.frame = CGRectMake(10, 5, 100, 22);
+  }
   
   // タイトルを設定する
   cell.titleLabel.text = item.title;
-  cell.tagLabel.text = item.tag.title;
+//  cell.tagLabel.text = item.tag.title;
   
   // チェックボックスを設定する
   [cell updateCheckBoxWithItem:item];

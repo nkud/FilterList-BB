@@ -45,11 +45,12 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
   {
     LOG(@"タイトル・期限ラベルを追加する");
     // タイトルラベルを設定する
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 22)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 22)];
     [self.contentView addSubview:self.titleLabel];
     
     // リマインダーラベルを設定する
-    self.reminderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 22, 100, 22)];
+    self.reminderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 22, 100, 22)];
+    self.reminderLabel.font = [UIFont systemFontOfSize:10];
     [self.contentView addSubview:self.reminderLabel];
     
     // チェックボックスを設定する
