@@ -20,7 +20,8 @@
 UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate>
 
 #pragma mark - IBOutlet
-@property (weak, nonatomic) IBOutlet UITableView *tagTableView;
+//@property (weak, nonatomic) IBOutlet UITableView *tagTableView;
+@property UITableView *tableView;
 
 #pragma mark - コントローラー
 
@@ -28,6 +29,9 @@ UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate>
 #pragma mark - 検索
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *tagSearchDisplayController;
+
+//@property UISearchBar *searchBar;
+//@property UISearchDisplayController *tagSearchDisplayController;
 
 #pragma mark - デリゲート
 @property id <TagSelectViewControllerDelegate> delegate;

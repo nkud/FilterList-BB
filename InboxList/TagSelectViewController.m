@@ -42,11 +42,32 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
+  
+  // テーブルビューを初期化する
+  CGRect frame = CGRectMake(0,
+                            self.searchBar.frame.size.height,
+                            SCREEN_BOUNDS.size.width,
+                            SCREEN_BOUNDS.size.height - NAVBAR_H - STATUSBAR_H - self.searchBar.frame.size.height);
+  self.tableView = [[UITableView alloc] initWithFrame:frame
+                                                style:UITableViewStylePlain];
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
+  
+  [self.view addSubview:self.tableView];
+  
+  // 検索バーを初期化する
+//  self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+//  self.searchBar.delegate = self;
+//  self.searchBar.showsCancelButton = YES;
+//  self.searchBar.keyboardType = UIKeyboardAppearanceDefault;
+//  self.searchBar.barStyle = UIBarStyleDefault;
+//  [self.view addSubview:self.searchBar];
+//  self.tableView.tableHeaderView = self.searchBar;
+  
   // セルを登録
-  [self.tagTableView registerNib:[UINib nibWithNibName:@"TagSelectCell"
-                                                bundle:nil]
-          forCellReuseIdentifier:kTagForSelectedCellID];
+  [self.tableView registerNib:[UINib nibWithNibName:@"TagSelectCell"
+                                             bundle:nil]
+       forCellReuseIdentifier:kTagForSelectedCellID];
   
   // 選択されたセル
   self.kIndexPathsForSelectedRows = [[NSMutableArray alloc] init];
@@ -133,7 +154,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
  */
 -(NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView
 {
-  return tableView == self.tagTableView ? self.fetchedResultsController : self.searchFetchedResultsController;
+  return tableView == self.tableView ? self.fetchedResultsController : self.searchFetchedResultsController;
 }
 
 /**
@@ -267,7 +288,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     }
   }
   
-  [self.tagTableView deselectRowAtIndexPath:indexPath
+  [self.tableView deselectRowAtIndexPath:indexPath
                                    animated:YES];
 }
 
@@ -321,7 +342,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(UITableViewCell *)tableView:(UITableView*)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [self.tagTableView dequeueReusableCellWithIdentifier:kTagForSelectedCellID];
+  UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagForSelectedCellID];
   
   [self configureCell:cell
            controller:[self fetchedResultsControllerForTableView:tableView]

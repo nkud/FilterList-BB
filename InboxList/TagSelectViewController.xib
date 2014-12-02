@@ -10,7 +10,6 @@
                 <outlet property="searchBar" destination="sMM-zW-umr" id="1pe-Kc-9cy"/>
                 <outlet property="searchDisplayController" destination="rRW-nD-F5o" id="sHb-xq-9Ke"/>
                 <outlet property="tagSearchDisplayController" destination="rRW-nD-F5o" id="NV9-yf-dwM"/>
-                <outlet property="tagTableView" destination="LJo-rk-CSh" id="kgy-IE-dkZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,14 +18,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LJo-rk-CSh">
-                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="ssL-nj-WoJ"/>
-                        <outlet property="delegate" destination="-1" id="KN6-O8-OQa"/>
-                    </connections>
-                </tableView>
                 <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sMM-zW-umr">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <textInputTraits key="textInputTraits"/>
