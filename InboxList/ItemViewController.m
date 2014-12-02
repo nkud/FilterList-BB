@@ -446,11 +446,14 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 
 
   BOOL hasTitleOnly = ! item.reminder;
+  NSInteger leftMargin = 10;
   
   if (hasTitleOnly) {
-    cell.titleLabel.frame = CGRectMake(10, 0, 100, 44);
+    cell.titleLabel.frame = CGRectMake(leftMargin, 0,
+                                       SCREEN_BOUNDS.size.width - leftMargin - 50, 44);
   } else {
-    cell.titleLabel.frame = CGRectMake(10, 5, 100, 22);
+    cell.titleLabel.frame = CGRectMake(leftMargin, 5,
+                                       SCREEN_BOUNDS.size.width - leftMargin - 50, 22);
   }
   
   // タイトルを設定する

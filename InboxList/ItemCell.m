@@ -20,6 +20,8 @@ static NSString *kRedUncheckedImageName = @"unchecked-red.png";
 static NSString *kYellowCheckedImageName = @"checked-yellow.png";
 static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
 
+#define kDueDateTitleFontSize 10
+
 
 #pragma mark -
 
@@ -44,13 +46,16 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
   if (self)
   {
     LOG(@"タイトル・期限ラベルを追加する");
+    
+    CGFloat leftMargin = 10;
+    
     // タイトルラベルを設定する
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 22)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:self.titleLabel];
     
     // リマインダーラベルを設定する
-    self.reminderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 22, 100, 22)];
-    self.reminderLabel.font = [UIFont systemFontOfSize:10];
+    self.reminderLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, 22, 100, 22)];
+    self.reminderLabel.font = [UIFont systemFontOfSize:kDueDateTitleFontSize];
     [self.contentView addSubview:self.reminderLabel];
     
     // チェックボックスを設定する
@@ -58,6 +63,17 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
     self.accessoryView = self.checkBoxImageView;
   }
   return self;
+}
+
+// @TODO: 直接このメソッドを呼ぶべきではない
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  
+  // アクセサリービューの位置を調整する
+  CGRect frame = self.accessoryView.frame;
+  frame.origin.x += 10;
+  self.accessoryView.frame = frame;
 }
 
 #pragma mark - ユーティリティ -
