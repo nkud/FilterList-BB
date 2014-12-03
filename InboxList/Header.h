@@ -9,9 +9,6 @@
 #ifndef InboxList_Header_h
 #define InboxList_Header_h
 
-//#define MIN(a,b)  ((a)<(b) ? (a) : (b))
-//#define MAX(a,b)  ((a)<(b) ? (b) : (a))
-
 // Debug
 #define LOG(A, ...) NSLog(@"%60s(%3d) [ MESSAGE ] %@",__PRETTY_FUNCTION__,__LINE__,[NSString stringWithFormat:A,##__VA_ARGS__]);
 //#define LOG(A, ...) NSLog(@"[ MESSAGE ] %@ %30s(%d)",[[NSString stringWithFormat:A,##__VA_ARGS__] stringByPaddingToLength:20 withString:@" " startingAtIndex:0],__PRETTY_FUNCTION__,__LINE__);

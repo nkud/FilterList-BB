@@ -11,16 +11,12 @@
 
 #include "Header.h"
 
-/**
- * @brief  スワイプする時間
- */
+// スワイプする時間
 #define SWIPE_DURATION 0.2
 
 #define SWIPE_DISTANCE SCREEN_BOUNDS.size.width
 
-/**
- * @brief  リストのタイトル
- */
+// リストのタイトル
 #define TAG_LIST_TITLE @"TAG"
 #define ITEM_LIST_TITLE @"ITEM"
 #define FILTER_LIST_TITLE @"FILTER"

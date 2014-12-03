@@ -47,27 +47,16 @@
 }
 
 /**
- *  @brief  初期化
- *
- *  @return インスタンス
- */
--(id)init
-{
-  self = [super init];
-  return self;
-}
-
-/**
  *  @brief  ビューがロードされた後の処理
  */
 - (void)viewDidLoad
 {
   [super viewDidLoad];
   
-  LOG(@"パラメータ初期化");
+  // パラメータを初期化する
   [self initParameter];
 
-  LOG(@"タブバー初期化");
+  // タブバーを初期化する
   self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
                                                          SCREEN_BOUNDS.size.height-TABBAR_H,
                                                          SCREEN_BOUNDS.size.width,
@@ -75,8 +64,7 @@
   self.tabBar.delegate = self;
 
   //////////////////////////////////////////////////////////////////////////////
-  // アイテムリストを初期化・設定
-  LOG(@"アイテムリストを初期化・設定");
+  // アイテムリストを初期化・設定する
   self.itemViewController = [[ItemViewController alloc] initWithNibName:nil
                                                                  bundle:nil];
 
@@ -135,14 +123,6 @@
   self.tagViewController.delegateForList = self;
   self.filterViewController.delegateForList = self;
   self.completeViewController.delegateForList = self;
-  
-  // リストのサイズを変更
-//  CGRect rect =  self.filterNavigationController.view.frame;
-//  rect.size.width = SCREEN_BOUNDS.size.width * ( 1.0 - kMarginRateForTagList );
-//  self.tagNavigationController.view.frame = rect;
-//  rect =  self.filterNavigationController.view.frame;
-//  rect.size.width = SCREEN_BOUNDS.size.width * ( 1.0 - kMarginRateForFilterList );
-//  self.filterNavigationController.view.frame = rect;
 }
 
 #pragma mark - ビュー移動関数
@@ -166,16 +146,9 @@
     self.itemNavigationController.view.frame = rect;
   }
 }
-//-(void)toggleTagListMode
-//{
-//  if ([self hasActivatedTagListMode]) {
-//    [self closeTagListMode];
-//  } else {
-//    [self openTagListMode];
-//  }
-//}
 
 #pragma mark タグリスト
+
 /**
  * @brief  タグリストを表示・非表示させる
  */
@@ -188,6 +161,10 @@
     self.tagNavigationController.view.frame = rect;
   }
 }
+
+/**
+ * @brief  タグリストを開く
+ */
 -(void)openTagListMode
 {
   if ( ! [self hasActivatedTagListMode]) {
@@ -197,6 +174,11 @@
   }
 }
 
+/**
+ * @brief  タグリストがアクティブか評価する
+ *
+ * @return 真偽値
+ */
 -(BOOL)hasActivatedTagListMode
 {
   CGRect rect = self.tagNavigationController.view.frame;
@@ -208,6 +190,7 @@
 }
 
 #pragma mark フィルターリスト
+
 /**
  * @brief  フィルターリストを表示・非表示させる
  */
@@ -219,6 +202,10 @@
     self.filterNavigationController.view.frame = rect;
   }
 }
+
+/**
+ * @brief  フィルターリストにする
+ */
 -(void)openFilterListMode
 {
   if ( ! [self hasActivatedFilterListMode]) {
@@ -231,8 +218,10 @@
 -(void)toggleFilterListMode
 {
   if ([self hasActivatedFilterListMode]) {
+    // フィルターモードを閉じる
     [self closeFilterListMode];
   } else {
+    // フィルターリストにする
     [self openFilterListMode];
   }
 }
