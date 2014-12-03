@@ -469,6 +469,12 @@
 
 -(void)toItemListMode
 {
+  // 既にアイテムリストがメインなら、
+  // １番上までスクロールさせて、終了する。
+  if ([self isItemListInMain]) {
+    [self.itemViewController scrollToTopCell];
+    return;
+  }
   self.itemNavigationController.view.userInteractionEnabled = YES;
   
   // スクロールバーを表示する
@@ -488,6 +494,13 @@
 }
 -(void)toItemListModeWithDuration:(NSTimeInterval)duration
 {
+  // 既にアイテムリストがメインなら、
+  // １番上までスクロールさせて、終了する。
+  if ([self isItemListInMain]) {
+    [self.itemViewController scrollToTopCell];
+    return;
+  }
+  
   self.itemNavigationController.view.userInteractionEnabled = YES;
   
   // スクロールバーを表示する
@@ -507,6 +520,13 @@
 }
 -(void)toTagListMode
 {
+  // 既にアイテムリストがメインなら、
+  // １番上までスクロールさせて、終了する。
+  if ([self isTagListInMain]) {
+    [self.tagViewController scrollToTopCell];
+    return;
+  }
+  
   self.itemNavigationController.view.userInteractionEnabled = NO;
 
   // スクロールバーを非表示する
@@ -530,6 +550,12 @@
 }
 -(void)toFilterListMode
 {
+  // 既にアイテムリストがメインなら、
+  // １番上までスクロールさせて、終了する。
+  if ([self isFilterListInMain]) {
+    [self.filterViewController scrollToTopCell];
+    return;
+  }
   self.itemNavigationController.view.userInteractionEnabled = NO;
   
   // スクロールバーを非表示にする
@@ -551,6 +577,12 @@
 }
 -(void)toCompleteListMode
 {
+  // 既にアイテムリストがメインなら、
+  // １番上までスクロールさせて、終了する。
+  if ([self isCompleteListInMain]) {
+    [self.completeViewController scrollToTopCell];
+    return;
+  }
   self.itemNavigationController.view.userInteractionEnabled = NO;
 
   // スクロールバーを非表示にする
@@ -587,14 +619,7 @@ didSelectItem:(UITabBarItem *)item
   switch (item.tag) {
     case 0:
       LOG(@"タブ０");
-      if ([self isItemListInMain]) {
-//        NSFetchedResultsController *result_controller = [CoreDataController itemFethcedResultsController:self.itemViewController];
-//        [self loadItemViewForTitle:@"ALL"
-//                              tags:nil
-//            fetcheResultController:result_controller];
-      } else {
-        [self toItemListMode];
-      }
+      [self toItemListMode];
       break;
     case 1:
       LOG(@"タブ１");

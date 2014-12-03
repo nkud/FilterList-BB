@@ -52,6 +52,8 @@ UIActionSheetDelegate, TagSelectViewControllerDelegate>
 // ビューのタイトル
 @property UIView *titleView;
 
+-(void)scrollToTopCell;
+
 #pragma mark - ナビゲーションバーボタン
 -(UIBarButtonItem *)newEditTableButton;
 -(UIBarButtonItem *)newInsertObjectButton;

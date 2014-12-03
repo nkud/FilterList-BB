@@ -359,6 +359,15 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 }
 
 #pragma mark - ユーティリティ -
+
+-(void)scrollToTopCell
+{
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+  [self.tableView scrollToRowAtIndexPath:indexPath
+                        atScrollPosition:UITableViewScrollPositionTop
+                                animated:YES];
+}
+
 #pragma mark ナビゲーションバー
 -(UIBarButtonItem *)newInsertObjectButton
 {
