@@ -31,6 +31,7 @@ static NSString *kFilterCellID = @"FilterCell";
 @implementation FilterViewController
 
 #pragma mark - 初期化 -
+
 /**
  *  @brief 初期化
  *
@@ -87,6 +88,9 @@ static NSString *kFilterCellID = @"FilterCell";
   CGRect frame = self.tableView.frame;
   frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
   self.tableView.frame = frame;
+  
+  // 編集中の複数選択を不可にする
+  self.tableView.allowsMultipleSelectionDuringEditing = NO;
 }
 
 /**
@@ -106,8 +110,6 @@ static NSString *kFilterCellID = @"FilterCell";
 
 -(void)didTappedEditTableButton
 {
-  
-//  [self aleartMessage:@"Edit mode"];
   if (self.tableView.isEditing) {
     [self.delegateForList listDidEditMode];
   } else {
