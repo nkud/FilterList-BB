@@ -172,11 +172,14 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
   Tag *selectedTag;
+  
+  // タグの先頭だけ取得する
   for (Tag *tag in tagsForSelectedRows) {
-    // １つだけ
     selectedTag = tag;
     break;
   }
+  
+  // 取得したタグを選択したアイテムに設定する
   NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
   if (self.tableView.editing) {
     for (NSIndexPath *indexPathInTable in selectedRows) {
@@ -184,6 +187,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
       [item setTag:selectedTag];
     }
   }
+  
+  // 保存する
   [CoreDataController saveContext];
 }
 
@@ -197,17 +202,27 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
   BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
   BOOL noItemsAreSelected = selectedRows.count == 0;
   NSString *title;
+  
+  // テーブルにアイテムがない場合、アイテムが選択されてない場合、
+  // 移動ボタンを選択不可にする。
+  // それ以外の場合、選択可能にする。
   if (noItemsInTable || noItemsAreSelected) {
     self.moveButton.enabled = NO;
     return;
   } else {
     self.moveButton.enabled = YES;
   }
+  
+  // 全てのアイテムが選択されている場合、
+  // タイトルを変更する。
+  // それ以外の場合、選択数を隣に表示する。
   if (allItemsAreSelected) {
     title = @"Move All";
   } else {
     title = [NSString stringWithFormat:@"Move(%lu)", (unsigned long)selectedRows.count];
   }
+  
+  // タイトルを実装する。
   [self.moveButton setTitle:title
                    forState:UIControlStateNormal];
 }
@@ -242,12 +257,14 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // 削除・移動ボタンの状態を更新する。
   [self updateDeleteButton];
   [self updateMoveButton];
 }
 -(void)tableView:(UITableView *)tableView
 didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // 削除・移動ボタンの状態を更新する。
   [self updateDeleteButton];
   [self updateMoveButton];
 }
@@ -259,6 +276,10 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
   BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
   BOOL noItemsAreSelected = selectedRows.count == 0;
   BOOL oneItemAreSelected = selectedRows.count == 1;
+  
+  // 全て選択されている場合、何も選択されていない場合、
+  // タイトルを調整する。
+  // @TODO: 使用していない。
   if (allItemsAreSelected || noItemsAreSelected) {
     title = NSLocalizedString(@"Are you sure you want to remove all items?", @"");
   } else {
@@ -278,7 +299,7 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
  */
 -(void)deleteAllSelectedRows:(id)sender
 {
-  LOG(@"選択セルのみ削除");
+  // 選択セルのみ削除する
   for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
     NSManagedObject *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [[self.fetchedResultsController managedObjectContext] deleteObject:item];
@@ -287,7 +308,7 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(void)deleteAllRows:(id)sender
 {
-  LOG(@"全削除");
+  // 全てのセルを削除する
   NSArray *allObjects = [self.fetchedResultsController fetchedObjects];
   for (NSManagedObject *obj in allObjects) {
     [[self.fetchedResultsController managedObjectContext] deleteObject:obj];
@@ -311,20 +332,27 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   if (buttonIndex == 0)
   {
-    // OKボタンの処理
-    LOG(@"OK");
+    LOG(@"selected: OK");
     NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
     BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
     BOOL noItemsAreSelected = selectedRows.count == 0;
+    
+    // 全て選択されている場合、アイテムが選択されていない場合、
+    // 全てのセルを削除する。
+    // そうでない場合、選択されたセルを削除する。
     if (allItemsAreSelected || noItemsAreSelected) {
       [self deleteAllRows:self];
     } else {
       [self deleteAllSelectedRows:self];
     }
+    
+    // 何か選択されていた場合、
+    // メッセージを表示する
     if ( ! noItemsAreSelected) {
       [self instantMessage:@"Delete"
                      color:nil];
     }
+    
     [CoreDataController saveContext];
     [self updateEditTabBar];
   }
@@ -379,7 +407,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 
 -(void)updateEditTabBar
 {
-  LOG(@"編集タブを更新する");
+  // 編集タブの状態を更新する
   [self updateMoveButton];
   [self updateDeleteButton];
 }
@@ -410,20 +438,20 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   
   if (self.tableView.isEditing)
   {
-    // 編集中なら
-    // タブバーを開く
+    // 編集中なら、
+    // タブバーを開く。
+    // 編集タブバーをアニメーションで閉じる。
     [self.delegateForList openTabBar];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelay:0.2];
     [self hideEditTabBar:YES];
     [UIView commitAnimations];
-//    [self toggleRightNavigationItemWithEditingState:NO];
   } else {
-    // そうでないなら
+    // 編集中でなければ、
     // タブバーを閉じる
+    // 編集タブバーを開く。
     [self hideEditTabBar:NO];
     [self.delegateForList closeTabBar];
-//    [self toggleRightNavigationItemWithEditingState:YES];
   }
 }
 
@@ -431,6 +459,10 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   UIBarButtonItem *rightItem;
   
+  // 編集中なら、
+  // 全選択ボタンを表示する。
+  // そうでないなら、
+  // 新規挿入ボタンを表示する。
   if (isEditing) {
     rightItem = [self newSelectAllButton];
   } else {
@@ -519,8 +551,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
  *
  * @param message メッセージ
  */
--(void)aleartMessage:(NSString *)message
-{
+-(void)aleartMessage:(NSString *)message {
   CGFloat duration = 0.3f;
   CGFloat presentDistance = 50;
   CGFloat delay = 0.8f;
@@ -534,7 +565,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   destinationFrame.origin.x += presentDistance;
 //  NSString *originString = label.text;
   
-  // メッセージ
+  // メッセージを作成する
   UILabel *mesLabel = [[UILabel alloc] initWithFrame:startFrame];
   mesLabel.font = [UIFont boldSystemFontOfSize:kSubTitleFontSize];
   mesLabel.textColor = [UIColor blackColor];
@@ -546,7 +577,8 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   
   [self.titleView addSubview:mesLabel];
   
-  // 消滅
+  // アニメーションを開始する
+  // 表示して、消滅させる
   [UIView animateWithDuration:duration
                    animations:^{
                      label.alpha = 0;
@@ -603,8 +635,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
  *
  * @param hide 真偽値
  */
--(void)hideEditTabBar:(BOOL)hide
-{
+-(void)hideEditTabBar:(BOOL)hide {
 //  CGFloat duration = 0.2;
   CGRect frame = self.editTabBar.frame;
   if (hide) {
@@ -627,8 +658,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
  *
  * @param message メッセージ
  */
--(void)instantMessage:(NSString *)message color:(UIColor *)color
-{
+-(void)instantMessage:(NSString *)message color:(UIColor *)color {
   CGFloat width = 80;
   CGFloat height = 50;
   UILabel *instant = [UILabel new];
@@ -696,8 +726,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 #pragma mark - テーブルビュー -
 
 #pragma mark - スクロールビュー
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
   LOG(@"スクロール開始");
 }
 
@@ -706,19 +735,22 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 #pragma mark データソース
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 0;
+  // Return the number of sections.
+  LOG(@"このメソッドはオーバライドする必要がある");
+  return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 0;
+  // Return the number of rows in the section.
+  LOG(@"このメソッドはオーバライドする必要がある");
+  return 0;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  LOG(@"このメソッドはオーバライドする必要がある");
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"
                                                           forIndexPath:indexPath];
   
