@@ -27,6 +27,7 @@
 		B00AD6BF18C45E480005A552 /* InboxListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AD6BE18C45E480005A552 /* InboxListTests.m */; };
 		B01DF84D1A171CC500F3AF01 /* ConfigBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B01DF84B1A171CC500F3AF01 /* ConfigBarButton.png */; };
 		B01DF84E1A171CC500F3AF01 /* ConfigBarButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01DF84C1A171CC500F3AF01 /* ConfigBarButton@2x.png */; };
+		B040A6161A329C6300546F28 /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B040A6151A329C6300546F28 /* SwitchCell.m */; };
 		B053050119EA486D00E87C64 /* FilterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B053050019EA486D00E87C64 /* FilterDetailViewController.m */; };
 		B053050619EAB46600E87C64 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B053050419EAB46600E87C64 /* FilterCell.m */; };
 		B053050719EAB46600E87C64 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B053050519EAB46600E87C64 /* FilterCell.xib */; };
@@ -131,6 +132,8 @@
 		B00AD6BE18C45E480005A552 /* InboxListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InboxListTests.m; sourceTree = "<group>"; };
 		B01DF84B1A171CC500F3AF01 /* ConfigBarButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ConfigBarButton.png; path = Icon/NavigationBarItem/ConfigBarButton.png; sourceTree = SOURCE_ROOT; };
 		B01DF84C1A171CC500F3AF01 /* ConfigBarButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ConfigBarButton@2x.png"; path = "Icon/NavigationBarItem/ConfigBarButton@2x.png"; sourceTree = SOURCE_ROOT; };
+		B040A6141A329C6300546F28 /* SwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchCell.h; sourceTree = "<group>"; };
+		B040A6151A329C6300546F28 /* SwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchCell.m; sourceTree = "<group>"; };
 		B05304FF19EA486D00E87C64 /* FilterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterDetailViewController.h; sourceTree = "<group>"; };
 		B053050019EA486D00E87C64 /* FilterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterDetailViewController.m; sourceTree = "<group>"; };
 		B053050319EAB46600E87C64 /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
@@ -377,6 +380,15 @@
 			name = Image;
 			sourceTree = "<group>";
 		};
+		B040A6171A329C6A00546F28 /* SwitchCell */ = {
+			isa = PBXGroup;
+			children = (
+				B040A6141A329C6300546F28 /* SwitchCell.h */,
+				B040A6151A329C6300546F28 /* SwitchCell.m */,
+			);
+			name = SwitchCell;
+			sourceTree = "<group>";
+		};
 		B0501AEA199E56DC00A58C2D /* FilterCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,6 +482,7 @@
 			children = (
 				B08EBBBF19703EB200DB9582 /* FilterViewController.h */,
 				B08EBBC019703EB200DB9582 /* FilterViewController.m */,
+				B040A6171A329C6A00546F28 /* SwitchCell */,
 				B053050219EA601C00E87C64 /* FilterDetailView */,
 				B0501AEA199E56DC00A58C2D /* FilterCell */,
 			);
@@ -881,6 +894,7 @@
 				B00AD69D18C45E470005A552 /* AppDelegate.m in Sources */,
 				B080804C19582CF6007D21E4 /* MainViewController.m in Sources */,
 				B00AD69918C45E470005A552 /* main.m in Sources */,
+				B040A6161A329C6300546F28 /* SwitchCell.m in Sources */,
 				B08F4B651915FAC80047E210 /* NavigationController.m in Sources */,
 				B08CDBBC19C55BAF008263AC /* ItemDetailDateCell.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */,
