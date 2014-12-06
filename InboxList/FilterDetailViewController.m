@@ -14,6 +14,7 @@
 #import "ItemDetailDatePickerCell.h"
 
 #import "ItemDetailTagCell.h"
+#import "SwitchCell.h"
 
 #import "TagSelectViewController.h"
 
@@ -26,6 +27,7 @@ static NSString *kTagSelectCellID = @"tagCell";
 static NSString *kDueDateCellID = @"DueDateCell";
 static NSString *kDatePickerCellID = @"DatePickerCell";
 static NSString *kSearchCellID = @"SearchCell";
+static NSString *kSwitchCellID = @"SwitchCell";
 
 static NSString *kTagCellNibName = @"ItemDetailTagCell";
 static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
@@ -65,6 +67,9 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   [self.tableView registerNib:[UINib nibWithNibName:kDatePickerCellNibName
                                              bundle:nil]
        forCellReuseIdentifier:kDatePickerCellID];
+  
+  [self.tableView registerClass:[SwitchCell class]
+         forCellReuseIdentifier:kSwitchCellID];
 }
 
 /**
@@ -112,12 +117,14 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 {
   NSArray *itemOne = @[ [self titleCellID] ];
   
-  NSArray *itemTwo = @[kTagSelectCellID];
+  NSArray *itemTwo = @[kSwitchCellID];
   
   NSArray *itemThree = @[kDueDateCellID, kDueDateCellID];
   
   NSArray *itemFour = @[kSearchCellID];
-  dataArray_ = @[itemOne, itemTwo, itemThree, itemFour];
+
+  NSArray *itemFive = @[kTagSelectCellID];
+  dataArray_ = @[itemOne, itemTwo, itemThree, itemFour, itemFive];
   return dataArray_;
 }
 
@@ -440,6 +447,11 @@ titleForHeaderInSection:(NSInteger)section
     cell.titleField.text = self.titleForFilter;
     cell.titleField.placeholder = @"title";
     cell.titleField.delegate = self;
+    return cell;
+  }
+  
+  if ([self cellIdentifierAtIndexPath:indexPath] == kSwitchCellID) {
+    SwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:kSwitchCellID];
     return cell;
   }
   if ([self isTagCellAtIndexPath:indexPath])
