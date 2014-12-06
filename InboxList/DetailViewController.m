@@ -31,8 +31,9 @@ static NSString *kNormalCellID = @"NormalCell";
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view.
-  
-  self.tableView = [[UITableView alloc] initWithFrame:SCREEN_BOUNDS
+  CGRect tableFrame = SCREEN_BOUNDS;
+  tableFrame.size.height -= NAVBAR_H + STATUSBAR_H;
+  self.tableView = [[UITableView alloc] initWithFrame:tableFrame
                                                 style:UITableViewStyleGrouped];
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
