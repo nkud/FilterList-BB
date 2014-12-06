@@ -80,6 +80,14 @@
   itemLayer.shadowOpacity = 0.8f;
 
   //////////////////////////////////////////////////////////////////////////////
+  // タグビューコントローラを初期化
+  self.tagViewController = [[TagViewController alloc] initWithNibName:nil
+                                                               bundle:nil];
+  self.tagViewController.delegate = self;
+  self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
+  self.tagNavigationController = [[TagNavigationController alloc] initWithRootViewController:self.tagViewController];
+  
+  //////////////////////////////////////////////////////////////////////////////
   // フィルターコントローラを初期化
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil
                                                                      bundle:nil];
@@ -88,16 +96,7 @@
   self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
 
   //////////////////////////////////////////////////////////////////////////////
-  // タグビューコントローラを初期化
-  self.tagViewController = [[TagViewController alloc] initWithNibName:nil
-                                                               bundle:nil];
-  self.tagViewController.delegate = self;
-  self.tagViewController.fetchedResultsController = [CoreDataController tagFetchedResultsController:self.tagViewController];
-  self.tagNavigationController = [[TagNavigationController alloc] initWithRootViewController:self.tagViewController];
-
-  //////////////////////////////////////////////////////////////////////////////
   // 完了リストコントローラーを初期化
-  LOG(@"完了リストコントローラーを初期化・設定");
   self.completeViewController = [[CompleteViewController alloc] initWithNibName:nil
                                                                          bundle:nil];
   self.completeViewController.fetchedResultsController = [CoreDataController completeFetchedResultsController:self.completeViewController];
@@ -107,8 +106,8 @@
   self.completeNavigationController
   = [[CompleteNavigationController alloc] initWithRootViewController:self.completeViewController];
   
-  // コントローラーを配置
-  LOG(@"コントローラーを配置");
+  // コントローラーを配置する
+  // タグリストを最下にする
   [self.view addSubview:self.tagNavigationController.view];
   [self.view addSubview:self.filterNavigationController.view];
   [self.view addSubview:self.itemNavigationController.view];

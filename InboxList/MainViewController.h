@@ -39,25 +39,20 @@ enum __LIST_DIRECTION__ {
   int swipe_distance;
 }
 
-#pragma mark - リストモード -
-#pragma mark - アイテムリスト
+// アイテムリスト
 @property (strong, nonatomic) ItemNavigationController   *itemNavigationController;
 @property (strong, nonatomic) ItemViewController         *itemViewController;
-
-#pragma mark - フィルターリスト
-@property (strong, nonatomic) FilterNavigationController *filterNavigationController;
-@property (strong, nonatomic) FilterViewController       *filterViewController;
-
-#pragma mark - タグリスト
+// タグリスト
 @property (strong, nonatomic) TagNavigationController    *tagNavigationController;
 @property (strong, nonatomic) TagViewController          *tagViewController;
-
-#pragma mark - 完了リスト
+// フィルターリスト
+@property (strong, nonatomic) FilterNavigationController *filterNavigationController;
+@property (strong, nonatomic) FilterViewController       *filterViewController;
+// 完了リスト
 @property (strong, nonatomic) CompleteNavigationController    *completeNavigationController;
 @property (strong, nonatomic) CompleteViewController          *completeViewController;
 
-
-#pragma mark - タブバー
+// タブバー
 @property (strong, nonatomic) TabBar                     *tabBar;
 
 
@@ -66,6 +61,14 @@ enum __LIST_DIRECTION__ {
 -(void)toFilterListMode;
 -(void)toCompleteListMode;
 
+/**
+ * @brief  アイテムリストをロードする
+ *
+ * @param title                   タイトル
+ * @param subColor                サブタイトルカラー
+ * @param tags                    選択したタグ
+ * @param fetchedResultController コントローラー
+ */
 -(void)loadItemViewForTitle:(NSString *)title
                    subColor:(UIColor *)subColor
                        tags:(NSSet *)tags
