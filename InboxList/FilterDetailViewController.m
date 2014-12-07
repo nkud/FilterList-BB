@@ -546,43 +546,96 @@ titleForHeaderInSection:(NSInteger)section
 }
 
 /**
+ * @brief  期限選択パネルを閉じる
+ */
+-(void)closeDueToSelectionPanel
+{
+  NSArray *indexPaths;
+  indexPaths = @[ [NSIndexPath indexPathForRow:1 inSection:2],
+                  [NSIndexPath indexPathForRow:2 inSection:2] ];
+  SwitchCell *cellOne = (SwitchCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+  
+  // 期間選択パネルが表示されていれば、
+  // 閉じる。
+  if (hasActivatedDueToSwitchs_) {
+    hasActivatedDueToSwitchs_ = NO;
+    [self.tableView deleteRowsAtIndexPaths:indexPaths
+                          withRowAnimation:UITableViewRowAnimationFade];
+    [cellOne.switchView setOn:NO
+                     animated:YES];
+  }
+}
+/**
+ * @brief  期限選択パネルを開く
+ */
+-(void)openDueToSelectionPanel
+{
+  NSArray *indexPaths;
+  indexPaths = @[ [NSIndexPath indexPathForRow:1 inSection:2],
+                  [NSIndexPath indexPathForRow:2 inSection:2] ];
+  
+  if ( ! hasActivatedDueToSwitchs_) {
+    hasActivatedDueToSwitchs_ = YES;
+    [self.tableView insertRowsAtIndexPaths:indexPaths
+                          withRowAnimation:UITableViewRowAnimationFade];
+    
+    // 期間選択パネルの全てをオンにする
+    SwitchCell *cellTwo = (SwitchCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]];
+    SwitchCell *cellThree = (SwitchCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:2]];
+    [cellTwo.switchView setOn:YES];
+    [cellThree.switchView setOn:YES];
+  }
+}
+
+/**
  * @brief  スイッチが変更された時の処理
  *
  * @param sender 変更されたスイッチ
  */
 -(void)changedSwitchValueOne:(UISwitch *)sender
 {
-  NSArray *indexPaths;
   // キーボードが開いていたら閉じる
   [[self titleCell].titleField resignFirstResponder];
   
   // スイッチがオンなら、
   // 期間選択パネルを開く
   // そうでないなら閉じる。
-  indexPaths = @[ [NSIndexPath indexPathForRow:1 inSection:2],
-                  [NSIndexPath indexPathForRow:2 inSection:2] ];
   if (sender.on) {
-    hasActivatedDueToSwitchs_ = YES;
-    [self.tableView insertRowsAtIndexPaths:indexPaths
-                          withRowAnimation:UITableViewRowAnimationFade];
+    [self openDueToSelectionPanel];
   } else {
-    hasActivatedDueToSwitchs_ = NO;
-    [self.tableView deleteRowsAtIndexPaths:indexPaths
-                          withRowAnimation:UITableViewRowAnimationFade];
+    [self closeDueToSelectionPanel];
   }
 }
--(void)changedSwitchValueTwo:(id)sender
+-(void)changedSwitchValueTwo:(UISwitch *)sender
 {
   // キーボードが開いていたら閉じる
   [[self titleCell].titleField resignFirstResponder];
+  
+  if (sender.on) {
+    ;
+  } else {
+    // もし他方のスイッチもオフなら、選択パネルを閉じる
+    SwitchCell *cellThree = (SwitchCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:2]];
+    if ( ! cellThree.switchView.on) {
+      [self closeDueToSelectionPanel];
+    }
+  }
 }
--(void)changedSwitchValueThree:(id)sender
+-(void)changedSwitchValueThree:(UISwitch *)sender
 {
   // キーボードが開いていたら閉じる
   [[self titleCell].titleField resignFirstResponder];
+
+  if (sender.on) {
+    ;
+  } else {
+    // もし他方のスイッチもオフなら、選択パネルを閉じる
+    SwitchCell *cellTwo = (SwitchCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]];
+    if ( ! cellTwo.switchView.on) {
+      [self closeDueToSelectionPanel];
+    }
+  }
 }
-
-
 
 - (void)displayInlineDatePickerForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -610,12 +663,17 @@ titleForHeaderInSection:(NSInteger)section
   
   [self.tableView deselectRowAtIndexPath:indexPath
                                 animated:YES];
-  
   [self.tableView endUpdates];
 }
 
 #pragma mark 選択の処理
 
+/**
+ * @brief  セルが選択された時の処理
+ *
+ * @param tableView テーブルビュー
+ * @param indexPath 位置
+ */
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -655,7 +713,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
-  LOG(@"タグが選択された");
   // 受け取ったタグのセットを
   // フィルターのタグセットとして
   // 一時記録する
