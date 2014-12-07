@@ -588,7 +588,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     }else{
       newOrder = [displayOrder integerValue] + 1;
     }
-    LOG(@"%ld, %ld, %ld", i, (long)displayOrder.integerValue, (long)newOrder);
+    LOG(@"%ld, %ld, %ld", (long)i, (long)displayOrder.integerValue, (long)newOrder);
     [managedObj setValue:@(newOrder) forKey:@"order"];
   }
   [CoreDataController saveContext];

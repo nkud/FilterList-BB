@@ -407,7 +407,6 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   
   for (; section > 0; section--) {
     NSInteger row = [self.tableView numberOfRowsInSection:section];
-    LOG(@"%lu, %lu", section, row);
     NSIndexPath *indexPathInController = [NSIndexPath indexPathForRow:row-1
                                                             inSection:section-1];
     [self.tableView selectRowAtIndexPath:indexPathInController

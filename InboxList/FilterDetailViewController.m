@@ -40,7 +40,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   
   BOOL didActivatedKeyboard_;
   
-  BOOL hasActivatedDueToSwitchs_;
+  NSArray *indexPathsForSelectionPanel_;
 }
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -126,13 +126,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   
   NSArray *itemTwo = @[kTagSelectCellID];
 
-  NSArray *itemThree;
-  if (hasActivatedDueToSwitchs_) {
-    itemThree = @[kSwitchCellID, kSwitchCellID, kSwitchCellID];
-  } else {
-     itemThree = @[kSwitchCellID];
-  }
-  
+  NSArray *itemThree = @[kSwitchCellID];
   
   NSArray *itemFour = @[kDueDateCellID, kDueDateCellID];
 
@@ -149,7 +143,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   didActivatedKeyboard_ = NO;
   
   // 最初は期間選択パネルを隠す
-  hasActivatedDueToSwitchs_ = NO;
+  indexPathsForSelectionPanel_ = nil;
 }
 
 - (void)viewDidLoad
@@ -330,8 +324,11 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 -(NSString *)cellIdentifierAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString *identifier;
+  if (indexPath.section == 2) {
+    return kSwitchCellID;
+  }
   if ([self hasInlineDatePickerCell]) {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 3) {
       if ([self indexPathHasPicker:indexPath]) {
         return kDatePickerCellID;
       } else {
@@ -406,7 +403,10 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 numberOfRowsInSection:(NSInteger)section
 {
   NSInteger numRows = [self.dataArray[section] count];
-  if ([self hasInlineDatePickerCell] && section == 2) {
+  if ([self hasInlineIntervalSelectionPanel] && section == 2) {
+    numRows += 2;
+  }
+  if ([self hasInlineDatePickerCell] && section == 3) {
     numRows += 1;
   }
   return numRows;
@@ -455,6 +455,7 @@ titleForHeaderInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  
   if ([self isTitleCellAtIndexPath:indexPath])
   {
     // タイトルセル
@@ -477,10 +478,10 @@ titleForHeaderInSection:(NSInteger)section
     if (indexPath.row == 0) {
       title = @"期限付";
       selector = @selector(changedSwitchValueOne:);
-    } else if (indexPath.row == 1) {
+    } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 1) {
       title = @"期限過";
       selector = @selector(changedSwitchValueTwo:);
-    } else if (indexPath.row == 2) {
+    } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 2) {
       title = @"今日まで";
       selector = @selector(changedSwitchValueThree:);
     } else {
@@ -545,22 +546,37 @@ titleForHeaderInSection:(NSInteger)section
   [self.tableView endUpdates];
 }
 
+#pragma mark - 期間選択パネルユーティリティ　
+
+/**
+ * @brief  期間選択パネルが表示されているか評価する
+ *
+ * @return 真偽値
+ */
+-(BOOL)hasInlineIntervalSelectionPanel
+{
+  // 期間選択パネル用のインデックスパス配列が存在すれば、真を返す
+  // そうでなければ、偽を返す
+  if (indexPathsForSelectionPanel_ != nil) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 /**
  * @brief  期限選択パネルを閉じる
  */
--(void)closeDueToSelectionPanel
+-(void)closeIntervalSelectionPanel
 {
-  NSArray *indexPaths;
-  indexPaths = @[ [NSIndexPath indexPathForRow:1 inSection:2],
-                  [NSIndexPath indexPathForRow:2 inSection:2] ];
-  SwitchCell *cellOne = (SwitchCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
-  
-  // 期間選択パネルが表示されていれば、
-  // 閉じる。
-  if (hasActivatedDueToSwitchs_) {
-    hasActivatedDueToSwitchs_ = NO;
+  // 期間選択パネルが表示されていれば、パネルを閉じる。
+  // １番目のスイッチをオフにする。
+  if ([self hasInlineIntervalSelectionPanel]) {
+    NSArray *indexPaths = indexPathsForSelectionPanel_;
+    indexPathsForSelectionPanel_ = nil;
     [self.tableView deleteRowsAtIndexPaths:indexPaths
                           withRowAnimation:UITableViewRowAnimationFade];
+    SwitchCell *cellOne = (SwitchCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
     [cellOne.switchView setOn:NO
                      animated:YES];
   }
@@ -568,15 +584,16 @@ titleForHeaderInSection:(NSInteger)section
 /**
  * @brief  期限選択パネルを開く
  */
--(void)openDueToSelectionPanel
+-(void)openIntervalSelectionPanel
 {
-  NSArray *indexPaths;
-  indexPaths = @[ [NSIndexPath indexPathForRow:1 inSection:2],
-                  [NSIndexPath indexPathForRow:2 inSection:2] ];
-  
-  if ( ! hasActivatedDueToSwitchs_) {
-    hasActivatedDueToSwitchs_ = YES;
-    [self.tableView insertRowsAtIndexPaths:indexPaths
+  // 期間選択パネルが閉じていれば、パネルを開く。
+  // 全てのスイッチをオンにする。
+  if ( ! [self hasInlineIntervalSelectionPanel]) {
+    indexPathsForSelectionPanel_ = @[ [NSIndexPath indexPathForRow:1 inSection:2],
+                                      [NSIndexPath indexPathForRow:2 inSection:2] ];
+    
+    LOG(@"%@", indexPathsForSelectionPanel_);
+    [self.tableView insertRowsAtIndexPaths:indexPathsForSelectionPanel_
                           withRowAnimation:UITableViewRowAnimationFade];
     
     // 期間選択パネルの全てをオンにする
@@ -601,9 +618,9 @@ titleForHeaderInSection:(NSInteger)section
   // 期間選択パネルを開く
   // そうでないなら閉じる。
   if (sender.on) {
-    [self openDueToSelectionPanel];
+    [self openIntervalSelectionPanel];
   } else {
-    [self closeDueToSelectionPanel];
+    [self closeIntervalSelectionPanel];
   }
 }
 -(void)changedSwitchValueTwo:(UISwitch *)sender
@@ -617,7 +634,7 @@ titleForHeaderInSection:(NSInteger)section
     // もし他方のスイッチもオフなら、選択パネルを閉じる
     SwitchCell *cellThree = (SwitchCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:2]];
     if ( ! cellThree.switchView.on) {
-      [self closeDueToSelectionPanel];
+      [self closeIntervalSelectionPanel];
     }
   }
 }
@@ -632,7 +649,7 @@ titleForHeaderInSection:(NSInteger)section
     // もし他方のスイッチもオフなら、選択パネルを閉じる
     SwitchCell *cellTwo = (SwitchCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:2]];
     if ( ! cellTwo.switchView.on) {
-      [self closeDueToSelectionPanel];
+      [self closeIntervalSelectionPanel];
     }
   }
 }

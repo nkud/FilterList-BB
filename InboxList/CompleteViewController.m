@@ -203,7 +203,7 @@ numberOfRowsInSection:(NSInteger)section
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInTableView];
   cell.titleLabel.text = item.title;
   cell.tagLabel.text = item.tag.title;
-  [cell updateCheckBox:item.state];
+  [cell updateCheckBox:item.state.boolValue];
   
   // 完了日を表示
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

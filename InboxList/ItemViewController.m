@@ -216,8 +216,6 @@ titleForHeaderInSection:(NSInteger)section
   if ([sectionTitle isEqualToString:@""]) {
     sectionTitle = @"others";
   }
-  
-  LOG(@"section:%ld - %@ (count: %ld)", (long)sectionForController, sectionTitle, [sectionInfo numberOfObjects]);
   return sectionTitle;
 }
 
