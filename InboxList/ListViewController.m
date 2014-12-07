@@ -38,7 +38,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 -(void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  // クリア
+
+  // 選択状態を解除する
   [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]
                                 animated:YES];
   [self.tableView reloadData];
@@ -51,6 +52,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
  */
 -(void)viewWillDisappear:(BOOL)animated
 {
+  // 編集状態でないなら、
+  // 編集バーを隠す
   if (self.tableView.editing == NO) {
     [self hideEditTabBar:YES];
   }
@@ -61,7 +64,8 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
  *
  * @param animated アニメーション
  */
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
   [super viewDidAppear:animated];
   
   // スクロールバーを点滅させる
@@ -71,17 +75,15 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 /**
  * @brief  ビューロード後処理
  */
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   //////////////////////////////////////////////////////////////////////////////
   // テーブルビュー初期化
-  LOG(@"テーブルビュー初期化");
-  CGRect frame = CGRectMake(0,
-                            0,
-                            SCREEN_BOUNDS.size.width,
-                            SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H);
-  self.tableView = [[UITableView alloc] initWithFrame:frame];
+  CGRect tableFrame = SCREEN_BOUNDS;
+  tableFrame.size.height -= TABBAR_H + NAVBAR_H + STATUSBAR_H;
+  self.tableView = [[UITableView alloc] initWithFrame:tableFrame];
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   
@@ -92,12 +94,12 @@ static NSString *kEditBarItemImageName = @"EditBarItem.png";
 
   //////////////////////////////////////////////////////////////////////////////
   // 編集タブ初期化
-  frame = CGRectMake(0,
-                     SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H,
-                     SCREEN_BOUNDS.size.width,
-                     TABBAR_H);
+  CGRect tabFrame = CGRectMake(0,
+                            SCREEN_BOUNDS.size.height - TABBAR_H - NAVBAR_H - STATUSBAR_H,
+                            SCREEN_BOUNDS.size.width,
+                            TABBAR_H);
   
-  self.tabBar = [[UITabBar alloc] initWithFrame:frame];
+  self.tabBar = [[UITabBar alloc] initWithFrame:tabFrame];
   self.tabBar.delegate = self;
   [self.view addSubview:self.tabBar];
   self.editTabBar = [[UIView alloc] initWithFrame:self.tabBar.frame];

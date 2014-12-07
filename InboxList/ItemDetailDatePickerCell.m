@@ -32,11 +32,6 @@
                        forState:UIControlStateNormal];
   
   self.selectionStyle = UITableViewCellSelectionStyleNone;
-
-//  self.todayButton.layer.borderWidth = 0.5f;
-//  self.oneDayButton.layer.borderWidth = 0.5f;
-//  self.oneWeekButton.layer.borderWidth = 0.5f;
-//  self.oneMonthButton.layer.borderWidth = 0.5f;
 }
 
 -(void)setTodayButton:(UIButton *)todayButton
