@@ -113,18 +113,22 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   return self;
 }
 
+/**
+ * @brief  テーブルのデータ
+ *
+ * @return データ配列
+ */
 -(NSArray *)dataArray
 {
   NSArray *itemOne = @[ [self titleCellID] ];
   
-  NSArray *itemTwo = @[kSwitchCellID];
-  
-  NSArray *itemThree = @[kDueDateCellID, kDueDateCellID];
-  
-  NSArray *itemFour = @[kSearchCellID];
+  NSArray *itemTwo = @[kTagSelectCellID];
 
-  NSArray *itemFive = @[kTagSelectCellID];
-  dataArray_ = @[itemOne, itemTwo, itemThree, itemFour, itemFive];
+  NSArray *itemThree = @[kSwitchCellID, kSwitchCellID, kSwitchCellID];
+  
+  NSArray *itemFour = @[kDueDateCellID, kDueDateCellID];
+
+  dataArray_ = @[itemOne, itemTwo, itemThree, itemFour];
   return dataArray_;
 }
 
@@ -418,10 +422,10 @@ titleForHeaderInSection:(NSInteger)section
     return @"TITLE";
   }
   if (section == 1) {
-    return @"TAG";
+    return @"";
   }
   if (section == 2) {
-    return @"INTERVAL";
+    return @"";
   }
   if (section == 3) {
     return @"SEARCH";
@@ -450,8 +454,25 @@ titleForHeaderInSection:(NSInteger)section
     return cell;
   }
   
-  if ([self cellIdentifierAtIndexPath:indexPath] == kSwitchCellID) {
+  if ([self cellIdentifierAtIndexPath:indexPath] == kSwitchCellID)
+  {
+    // スイッチセルを作成して返す
+    // 列ごとにタイトルを変える
+    // セルを選択しても変化しないようにする
     SwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:kSwitchCellID];
+    
+    NSString *title;
+    if (indexPath.row == 0) {
+      title = @"期限付";
+    } else if (indexPath.row == 1) {
+      title = @"期限過";
+    } else if (indexPath.row == 2) {
+      title = @"今日まで";
+    } else {
+      title = @"";
+    }
+    cell.textLabel.text = title;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
   }
   if ([self isTagCellAtIndexPath:indexPath])
