@@ -131,9 +131,9 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 
   NSArray *itemThree = @[kSwitchCellID];
   
-  NSArray *itemFour = @[kDueDateCellID, kDueDateCellID];
+//  NSArray *itemFour = @[kDueDateCellID, kDueDateCellID];
 
-  dataArray_ = @[itemOne, itemTwo, itemThree, itemFour];
+  dataArray_ = @[itemOne, itemTwo, itemThree];
   return dataArray_;
 }
 
