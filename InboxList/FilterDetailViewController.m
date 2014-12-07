@@ -634,9 +634,13 @@ titleForHeaderInSection:(NSInteger)section
     }
     cell.textLabel.text = title;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell.switchView addTarget:self
-                        action:selector
-              forControlEvents:UIControlEventValueChanged];
+    
+    // 初めの一回だけターゲットを設定する
+    if ([cell.switchView allTargets].count <= 0) {
+      [cell.switchView addTarget:self
+                          action:selector
+                forControlEvents:UIControlEventValueChanged];
+    }
     return cell;
   }
   else if ([self isTagCellAtIndexPath:indexPath])
