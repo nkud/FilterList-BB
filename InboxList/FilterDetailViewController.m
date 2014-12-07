@@ -473,6 +473,9 @@ titleForHeaderInSection:(NSInteger)section
     }
     cell.textLabel.text = title;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell.switchView addTarget:self
+                        action:@selector(changedSwitchValue:)
+              forControlEvents:UIControlEventValueChanged];
     return cell;
   }
   if ([self isTagCellAtIndexPath:indexPath])
@@ -524,6 +527,17 @@ titleForHeaderInSection:(NSInteger)section
                           withRowAnimation:UITableViewRowAnimationFade];
   }
   [self.tableView endUpdates];
+}
+
+/**
+ * @brief  スイッチが変更された時の処理
+ *
+ * @param sender 変更されたスイッチ
+ */
+-(void)changedSwitchValue:(id)sender
+{
+  // キーボードが開いていたら閉じる
+  [[self titleCell].titleField resignFirstResponder];
 }
 
 - (void)displayInlineDatePickerForRowAtIndexPath:(NSIndexPath *)indexPath
