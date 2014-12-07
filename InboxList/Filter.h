@@ -20,6 +20,8 @@
 @property (nonatomic, retain) NSSet *tags;
 @property (nonatomic, retain) NSDate *from;
 @property (nonatomic, retain) NSDate *interval;
+@property (nonatomic, retain) NSNumber *overdue;
+@property (nonatomic, retain) NSNumber *today;
 @end
 
 @interface Filter (CoreDataGeneratedAccessors)
@@ -28,5 +30,7 @@
 - (void)removeTagsObject:(Tag *)value;
 - (void)addTags:(NSSet *)values;
 - (void)removeTags:(NSSet *)values;
+
+- (BOOL)hasInterval;
 
 @end

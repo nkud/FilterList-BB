@@ -16,5 +16,21 @@
 @dynamic tags;
 @dynamic from;
 @dynamic interval;
+@dynamic overdue;
+@dynamic today;
+
+/**
+ * @brief  期限をフィルターしているか返す
+ *
+ * @return 真偽値
+ */
+-(BOOL)hasInterval
+{
+  if (self.overdue && self.today) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
 
 @end
