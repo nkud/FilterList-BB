@@ -116,9 +116,6 @@ static NSString *kDatePickerCellID = @"datePickerCell";
                                                   action:@selector(saveAndDismiss)];
   self.navigationItem.rightBarButtonItem = saveButton;
   
-  // スクロールを停止
-//  self.tableView.scrollEnabled = NO;
-  
   // ピッカーセルの高さを取得
   self.heightForPickerCell
   = CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID] frame]);
@@ -139,6 +136,13 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   }
 }
 
+/**
+ * @brief  テキストのリターンが押された時の処理
+ *
+ * @param textField テキストフィールド
+ *
+ * @return 真偽値
+ */
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   [textField resignFirstResponder];
@@ -174,7 +178,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 #pragma mark - ユーティリティ
 
 /**
- * @brief  タイトルセルを取得
+ * @brief  タイトルセルを取得する
  *
  * @return タイトルセル
  */
@@ -187,6 +191,11 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   return cell;
 }
 
+/**
+ * @brief  タグセルを取得する
+ *
+ * @return タグセル
+ */
 -(ItemDetailTagCell *)tagCell
 {
   NSIndexPath *indexPathForDateCell = [NSIndexPath indexPathForRow:0
@@ -196,6 +205,11 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   return cell;
 }
 
+/**
+ * @brief  日付セルを取得する
+ *
+ * @return 日付セル
+ */
 -(ItemDetailDateCell *)dateCell
 {
   NSIndexPath *indexPathForDateCell = [NSIndexPath indexPathForRow:1
@@ -225,7 +239,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
 }
 
 /**
- * @brief  タイトルセルか評価
+ * @brief  タイトルセルか評価する
  *
  * @param indexPath 位置
  *
@@ -239,7 +253,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   return NO;
 }
 /**
- * @brief  タグセルか評価
+ * @brief  タグセルか評価する
  *
  * @param indexPath 位置
  *
@@ -442,12 +456,10 @@ willDisplayHeaderView:(UIView *)view
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-  LOG(@"%@", cell.reuseIdentifier);
 
   if ([cell.reuseIdentifier isEqualToString:[self titleCellID]])
   {
     // タグセルの処理
-    LOG(@"タイトルセルを選択");
   } else if ([cell.reuseIdentifier isEqualToString:kTagCellID])
   {
     // タグ入力画面を表示

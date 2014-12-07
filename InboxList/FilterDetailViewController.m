@@ -39,6 +39,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   NSArray *dataArray_;
   
   BOOL didActivatedKeyboard_;
+  
+  BOOL hasActivatedDueToSwitchs_;
 }
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -124,7 +126,13 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   
   NSArray *itemTwo = @[kTagSelectCellID];
 
-  NSArray *itemThree = @[kSwitchCellID, kSwitchCellID, kSwitchCellID];
+  NSArray *itemThree;
+  if (hasActivatedDueToSwitchs_) {
+    itemThree = @[kSwitchCellID, kSwitchCellID, kSwitchCellID];
+  } else {
+     itemThree = @[kSwitchCellID];
+  }
+  
   
   NSArray *itemFour = @[kDueDateCellID, kDueDateCellID];
 
@@ -139,6 +147,9 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 {
   self.indexPathForDatePickerCell = nil;
   didActivatedKeyboard_ = NO;
+  
+  // 最初は期間選択パネルを隠す
+  hasActivatedDueToSwitchs_ = NO;
 }
 
 - (void)viewDidLoad
@@ -148,14 +159,14 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   // パラメータを初期化・設定
   [self initParam];
   
-
   // セルを登録
   [self registerClassForCells];
   
   // テーブルの設定
-  self.tableView.allowsMultipleSelectionDuringEditing = YES; // ???
+  self.tableView.allowsMultipleSelectionDuringEditing = YES;
 
-  // ボタンを設定
+  // ナビバーの右に
+  // 保存ボタンを作成する
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                 target:self
@@ -462,19 +473,24 @@ titleForHeaderInSection:(NSInteger)section
     SwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:kSwitchCellID];
     
     NSString *title;
+    SEL selector;
     if (indexPath.row == 0) {
       title = @"期限付";
+      selector = @selector(changedSwitchValueOne:);
     } else if (indexPath.row == 1) {
       title = @"期限過";
+      selector = @selector(changedSwitchValueTwo:);
     } else if (indexPath.row == 2) {
       title = @"今日まで";
+      selector = @selector(changedSwitchValueThree:);
     } else {
       title = @"";
+      selector = nil;
     }
     cell.textLabel.text = title;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell.switchView addTarget:self
-                        action:@selector(changedSwitchValue:)
+                        action:selector
               forControlEvents:UIControlEventValueChanged];
     return cell;
   }
@@ -534,11 +550,39 @@ titleForHeaderInSection:(NSInteger)section
  *
  * @param sender 変更されたスイッチ
  */
--(void)changedSwitchValue:(id)sender
+-(void)changedSwitchValueOne:(UISwitch *)sender
+{
+  NSArray *indexPaths;
+  // キーボードが開いていたら閉じる
+  [[self titleCell].titleField resignFirstResponder];
+  
+  // スイッチがオンなら、
+  // 期間選択パネルを開く
+  // そうでないなら閉じる。
+  indexPaths = @[ [NSIndexPath indexPathForRow:1 inSection:2],
+                  [NSIndexPath indexPathForRow:2 inSection:2] ];
+  if (sender.on) {
+    hasActivatedDueToSwitchs_ = YES;
+    [self.tableView insertRowsAtIndexPaths:indexPaths
+                          withRowAnimation:UITableViewRowAnimationFade];
+  } else {
+    hasActivatedDueToSwitchs_ = NO;
+    [self.tableView deleteRowsAtIndexPaths:indexPaths
+                          withRowAnimation:UITableViewRowAnimationFade];
+  }
+}
+-(void)changedSwitchValueTwo:(id)sender
 {
   // キーボードが開いていたら閉じる
   [[self titleCell].titleField resignFirstResponder];
 }
+-(void)changedSwitchValueThree:(id)sender
+{
+  // キーボードが開いていたら閉じる
+  [[self titleCell].titleField resignFirstResponder];
+}
+
+
 
 - (void)displayInlineDatePickerForRowAtIndexPath:(NSIndexPath *)indexPath
 {
