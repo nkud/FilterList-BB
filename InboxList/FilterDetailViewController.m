@@ -456,8 +456,8 @@ titleForHeaderInSection:(NSInteger)section
   
   if ([self cellIdentifierAtIndexPath:indexPath] == kSwitchCellID)
   {
-    // スイッチセルを作成して返す
-    // 列ごとにタイトルを変える
+    // スイッチセルを作成して返す。
+    // 列ごとにタイトルを変え、
     // セルを選択しても変化しないようにする
     SwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:kSwitchCellID];
     
@@ -591,7 +591,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 -(void)newTagSelectViewAndPush
 {
-  LOG(@"タグ選択画面を作成してプッシュ");
+  // タグ選択画面を作成して
+  // プッシュする
+  // タグの選択上限はなし
   self.titleForFilter = [self titleCell].titleField.text;
   TagSelectViewController *controller = [[TagSelectViewController alloc] initWithNibName:@"TagSelectViewController"
                                                                                   bundle:nil];
@@ -605,26 +607,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                      animated:YES
                    completion:^{
                    }];
-  
-//  [self presentViewController:controller
-//                     animated:YES
-//                   completion:^{
-//                     ;
-//                   }];
-//  [self.navigationController pushViewController:controller
-//                                       animated:YES];
 }
 
 -(void)dismissTagSelectView:(NSSet *)tagsForSelectedRows
 {
   LOG(@"タグが選択された");
+  // 受け取ったタグのセットを
+  // フィルターのタグセットとして
+  // 一時記録する
+  // テーブルをリロードする？？
   self.tagsForFilter = tagsForSelectedRows;
   
   [self.tableView reloadData];
-//  [self dismissViewControllerAnimated:YES
-//                           completion:^{
-//                             ;
-//                           }];
 }
 /**
  * @brief  タグのセットから文字列を作成
