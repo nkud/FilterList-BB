@@ -18,8 +18,12 @@
 #define RGB(r, g, b)      [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
 #define RGBA(r, g, b, a)  [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
+// NSIndexPath
+#define INDEX(row, section)       [NSIndexPath indexPathForRow:(row) inSection:(section)]
+
+
 // Bounds
-#define SCREEN_BOUNDS   ([UIScreen mainScreen].bounds)
+#define SCREEN_BOUNDS     ([UIScreen mainScreen].bounds)
 
 // Default Height
 #define STATUSBAR_H 20
