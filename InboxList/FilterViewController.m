@@ -155,6 +155,8 @@ static NSString *kFilterCellID = @"FilterCell";
                                                        tags:nil
                                                        from:nil
                                                    interval:nil
+                                              filterOverdue:nil
+                                                filterToday:nil
                                                 isNewFilter:YES
                                                   indexPath:nil
                                                    delegate:self];
@@ -299,6 +301,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
                                                        tags:filter.tags
                                                        from:filter.from
                                                    interval:filter.interval
+                                              filterOverdue:filter.overdue.boolValue
+                                                filterToday:filter.today.boolValue
                                                 isNewFilter:NO
                                                   indexPath:indexPath
                                                    delegate:self];
@@ -413,6 +417,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
               tagsForSelected:(NSSet *)tagsForSelected
                          from:(NSDate *)from
                      interval:(NSDate *)interval
+                filterOverdue:(BOOL)overdue
+                  filterToday:(BOOL)today
                     indexPath:(NSIndexPath *)indexPath
                   isNewFilter:(BOOL)isNewFilter
 {
@@ -430,6 +436,9 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
   filter.tags = tagsForSelected;
   filter.from = from;
   filter.interval = interval;
+  filter.overdue = [NSNumber numberWithBool:overdue];
+  filter.today = [NSNumber numberWithBool:today];
+  LOG(@"%@", filter);
   [CoreDataController saveContext];
 }
 

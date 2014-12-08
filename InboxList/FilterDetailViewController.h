@@ -22,6 +22,8 @@
                tagsForSelected:(NSSet *)tagsForSelected
                           from:(NSDate *)from
                       interval:(NSDate *)interval
+                 filterOverdue:(BOOL)overdue
+                   filterToday:(BOOL)today
                      indexPath:(NSIndexPath *)indexPath
                    isNewFilter:(BOOL)isNewFilter;
 
@@ -50,6 +52,8 @@
                                tags:(NSSet *)tags
                                from:(NSDate *)from
                            interval:(NSDate *)interval
+                      filterOverdue:(BOOL)overdue
+                        filterToday:(BOOL)today
                         isNewFilter:(BOOL)isNewFilter
                           indexPath:(NSIndexPath *)indexPath
                            delegate:(id<FilterDetailViewControllerDelegate>)delegate;
