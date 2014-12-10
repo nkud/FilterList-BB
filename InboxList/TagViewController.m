@@ -112,10 +112,19 @@ static NSString *kTagCellID = @"TagCell";
 {
   [super viewWillAppear:animated];
   
-  // タグモードの時のみ幅を広げる
+  // タグモードの時のみタブバーを開く
+  if ([self.delegateForList isTopViewController:self] && self.tableView.isEditing == NO) {
+    [self.delegateForList openTabBar];
+  }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
+  
+  // タグモードの時のみ
   if ([self.delegateForList isTopViewController:self] && self.tableView.isEditing == NO) {
     [self.delegateForList listDidEditMode];
-    [self.delegateForList openTabBar];
   }
 }
 
@@ -156,9 +165,13 @@ static NSString *kTagCellID = @"TagCell";
 -(void)toAdd:(id)sender
 {
   [self.delegateForList listWillEditMode];
+  
+  // 詳細画面を作成する
   TagDetailViewController *controller = [[TagDetailViewController alloc] initWithTitle:nil
                                                                              indexPath:nil
                                                                               delegate:self];
+  controller.navigationController = self.navigationController;
+  
   // プッシュする
   [self.navigationController pushViewController:controller
                                        animated:YES];
@@ -761,6 +774,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     tag = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
   }
   tag.title = title;
+  
   [CoreDataController saveContext];
 }
 

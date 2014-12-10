@@ -35,6 +35,7 @@ InputHeaderCellDelegate>
 
 @property (assign, nonatomic) id <TagViewControllerDelegate> delegate;
 
+@property __NavigationController *navigationController;
 
 - (void)updateTableView;
 

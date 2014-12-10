@@ -62,7 +62,7 @@
 -(void)pushViewControllerFromBottom:(UIViewController *)viewController
                            animated:(BOOL)animated
 {
-  LOG(@"プッシュ");
+  LOG(@"上からプッシュ");
   CATransition *transition = [CATransition animation];
   transition.duration = 0.3f;
   transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
@@ -111,7 +111,7 @@
 -(NSArray *)popToViewControllerFromBottom:(UIViewController *)viewController
                                  animated:(BOOL)animated
 {
-  LOG(@"ポップ");
+  LOG(@"下からポップ");
   CATransition *transition = [CATransition animation];
   transition.duration = 0.3f;
   transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];

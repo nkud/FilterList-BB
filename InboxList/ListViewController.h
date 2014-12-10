@@ -19,6 +19,7 @@
 
 -(void)listWillEditMode;
 -(void)listDidEditMode;
+-(void)listDidEditModeWithDelay:(CGFloat)delay;
 
 -(BOOL)isTopViewController:(ListViewController *)viewController;
 

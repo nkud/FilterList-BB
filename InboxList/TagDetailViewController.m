@@ -105,6 +105,8 @@
   [self.delegate dismissDetailView:self.tagTitle
                          indexPath:self.tagIndexPath
                           isNewTag:self.isNewTag];
+  
+  // ビューを削除する
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

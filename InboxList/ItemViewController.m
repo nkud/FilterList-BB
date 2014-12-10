@@ -681,12 +681,13 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   // タブバーを閉じる
   [self.delegateForList closeTabBar];
   
-  // セルの位置のアイテムを取得
+  // セルの位置のアイテムを取得する
   NSIndexPath *indexPathInController
   = [self mapIndexPathToFetchResultsController:indexPathInTableView];
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
   
-  // 詳細画面を作成
+  // 詳細画面を作成する
+  // 選択されているタグをあらかじめ表示するようにする
   ItemDetailViewController *detailViewController;
   if (item.tag) {
     NSSet *tags;
@@ -706,7 +707,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                                              delegate:self];
   }
   detailViewController.navigationController = self.navigationController;
-  // 詳細画面をプッシュ
+  
+  // 詳細画面をプッシュする
   [self.navigationController pushViewController:detailViewController
                                        animated:NO];
 }

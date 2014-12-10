@@ -3,11 +3,12 @@
 //  FilterList
 //
 //  Created by Naoki Ueda on 2014/10/19.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "DetailViewController.h"
+#import "NavigationController.h"
 
 @protocol TagDetailViewControllerDelegte <NSObject>
 
@@ -23,6 +24,8 @@
 @property NSString *tagTitle;
 @property NSIndexPath *tagIndexPath;
 @property BOOL isNewTag;
+
+@property __NavigationController *navigationController;
 
 - (instancetype)initWithTitle:(NSString *)title
                     indexPath:(NSIndexPath *)indexPath
