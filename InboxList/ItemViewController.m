@@ -599,9 +599,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   NSIndexPath *indexPathInTableView = indexPath;
   NSIndexPath *indexPathInController
   = [self mapIndexPathToFetchResultsController:indexPathInTableView];
-  LOG(@"テーブル編集時の処理");
-  /// 削除時
+  
   if (editingStyle == UITableViewCellEditingStyleDelete) {
+    // アイテムを削除して、保存する
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     [context deleteObject:[self.fetchedResultsController
                            objectAtIndexPath:indexPathInController]];
