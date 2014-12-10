@@ -59,8 +59,11 @@ static NSString *kFilterCellID = @"FilterCell";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
+
   [self initParameter];
+  
+  // 編集中の複数選択を不可にする
+  self.tableView.allowsMultipleSelectionDuringEditing = NO;
 
   // タイトルを設定
   [self configureTitleWithString:FILTER_LIST_TITLE
@@ -88,9 +91,7 @@ static NSString *kFilterCellID = @"FilterCell";
   CGRect frame = self.tableView.frame;
   frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
   self.tableView.frame = frame;
-  
-  // 編集中の複数選択を不可にする
-  self.tableView.allowsMultipleSelectionDuringEditing = NO;
+
 }
 
 /**
@@ -212,6 +213,30 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 #pragma mark データソース
+
+/**
+ * @brief  セルの削除を行えるようにする
+ *
+ * @param tableView    テーブルビュー
+ * @param editingStyle スタイル
+ * @param indexPath    位置
+ */
+-(void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  switch (editingStyle) {
+    case UITableViewCellEditingStyleDelete:
+    {
+      // フィルターを削除する
+      Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      [[CoreDataController managedObjectContext] deleteObject:filter];
+      break;
+    }
+    default:
+      break;
+  }
+}
 
 /**
  *  @brief セクション内のセル数を返す
