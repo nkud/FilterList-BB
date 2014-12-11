@@ -706,6 +706,7 @@ didSelectItem:(UITabBarItem *)item
 }
 
 #pragma mark フィルターリスト
+
 /**
  * @brief  フィルターが選択された時の処理
  *
@@ -714,10 +715,17 @@ didSelectItem:(UITabBarItem *)item
  */
 -(void)didSelectedFilter:(NSString *)filterTitle
                     tags:(NSSet *)tags
+                  filter:(Filter *)filter
 {
   LOG(@"フィルターが選択された時の処理");
-  NSFetchedResultsController *resultController = [CoreDataController itemFetchedResultsControllerForTags:tags
-                                                                                             controller:self.itemViewController];
+  
+  // フェッチコントローラーを作成し、
+  // アイテムリストをロードする
+  NSFetchedResultsController *resultController
+  = [CoreDataController itemFetchedResultsControllerForTags:tags
+                                              filterOverdue:filter.overdue.boolValue
+                                                filterToday:filter.today.boolValue
+                                                 controller:self.itemViewController];
   [self loadItemViewForTitle:filterTitle
                     subColor:FILTER_COLOR
                         tags:tags

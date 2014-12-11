@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FilterDetailViewController.h"
 #import "ListViewController.h"
+#import "Filter.h"
 
 @protocol FilterViewControllerDelegate <NSObject>
 
@@ -21,7 +22,8 @@
 //- (void)presentInputFilterView;
 
 -(void)didSelectedFilter:(NSString *)filterTitle
-                    tags:(NSSet *)tags;
+                    tags:(NSSet *)tags
+                  filter:(Filter *)filter;
 
 @end
 

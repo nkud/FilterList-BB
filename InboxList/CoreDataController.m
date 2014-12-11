@@ -101,26 +101,23 @@ enum __SECTION__ {
                                             inManagedObjectContext:app.managedObjectContext];
   [fetchRequest setEntity:entity];
   
-  /// Set the batch size to a suitable number.
+  // Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
-
-  // ソート条件
+  
+  // タグのタイトルで、アイテムをソートする
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag.title"
                                                                  ascending:NO];
   NSArray *sortDescriptors = @[sortDescriptor];
   [fetchRequest setSortDescriptors:sortDescriptors];
   
-  // 検索条件
-  // 指定されたタグ名で抽出
+  // 指定されたタグ名で、
+  // 未完了のアイテムを抽出する
   NSMutableArray *predicate_array = [[NSMutableArray alloc] init];
   NSPredicate *predicate;
-  LOG(@"タグのタイトルで抽出する");
   for (Tag *tag in tags) {
     predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.tag.title", tag.title];
     [predicate_array addObject:predicate];
   }
-  // 未完了のアイテムを抽出
-  LOG(@"未完了のアイテムを抽出する");
   predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:false]];
 
   // 条件の配列から条件を合成する
@@ -141,10 +138,9 @@ enum __SECTION__ {
                                                    cacheName:nil];   //< タグをキャッシュネームにする
   aFetchedResultsController.delegate = controller; //< デリゲートを設定
   
-	/**
-	 *  フェッチを実行
-	 */
-  LOG(@"フェッチを実行");
+  
+  // フェッチを実行して、
+  // 作成したコントローラーを返す
 	NSError *error = nil;
 	if (![aFetchedResultsController performFetch:&error]) {
     // Replace this implementation with code to handle the error appropriately.
@@ -152,7 +148,123 @@ enum __SECTION__ {
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     abort();
 	}
-  return aFetchedResultsController; // 作成したリザルトコントローラーを返す
+  return aFetchedResultsController;
+}
+
++ (NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
+                                                      filterOverdue:(BOOL)filterOverdue
+                                                        filterToday:(BOOL)filterToday
+                                                         controller:(id<NSFetchedResultsControllerDelegate>)controller
+{
+  AppDelegate *app = [[UIApplication sharedApplication] delegate];
+  
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item"
+                                            inManagedObjectContext:app.managedObjectContext];
+  [fetchRequest setEntity:entity];
+  
+  
+  // Set the batch size to a suitable number.
+  [fetchRequest setFetchBatchSize:20];
+  
+  
+  // タグのタイトルで、アイテムをソートする
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag.title"
+                                                                 ascending:NO];
+  NSArray *sortDescriptors = @[sortDescriptor];
+  [fetchRequest setSortDescriptors:sortDescriptors];
+
+  // 指定されたタグ名で、
+  // 未完了のアイテムを抽出する
+  NSMutableArray *predicate_array = [[NSMutableArray alloc] init];
+  NSPredicate *predicate;
+  for (Tag *tag in tags) {
+    predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.tag.title", tag.title];
+    [predicate_array addObject:predicate];
+  }
+  predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:false]];
+  
+  NSMutableArray *due_predicate_array = [[NSMutableArray alloc] init];
+  
+  // 指定された期限で抽出する。
+  // 今日かつ期限超過の時は、論理和で抽出する。
+  if (filterOverdue) {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit|
+                                    NSMonthCalendarUnit|
+                                    NSDayCalendarUnit|
+                                    NSHourCalendarUnit|
+                                    NSMinuteCalendarUnit
+                                               fromDate:[NSDate date]];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm"];
+    NSDate *startDate = [formatter dateFromString:[NSString stringWithFormat:@"%04ld-%02ld-%02ld-00-00",
+                                                 (long)components.year,
+                                                 (long)components.month,
+                                                 (long)components.day]];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF.reminder < %@", startDate];
+    [due_predicate_array addObject:pre];
+  }
+  if (filterToday) {
+    
+    // 今日までの場合、
+    // 今日の日付の午前０時から、
+    // 明日の日付の午前０時までの
+    // ２４時間で抽出する。
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit|
+                                    NSMonthCalendarUnit|
+                                    NSDayCalendarUnit|
+                                    NSHourCalendarUnit|
+                                    NSMinuteCalendarUnit
+                                               fromDate:[NSDate date]];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm"];
+    NSDate *startDate = [formatter dateFromString:[NSString stringWithFormat:@"%04ld-%02ld-%02ld-00-00",
+                                                   (long)components.year,
+                                                   (long)components.month,
+                                                   (long)components.day]];
+    NSDate *endDate = [formatter dateFromString:[NSString stringWithFormat:@"%04ld-%02ld-%02ld-00-00",
+                                                 (long)components.year,
+                                                 (long)components.month,
+                                                 (long)components.day+1]];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"(%@ <= SELF.reminder) AND (SELF.reminder <= %@)", startDate, endDate];
+    [due_predicate_array addObject:pre];
+  }
+  NSCompoundPredicate *due_predicates
+  =[[NSCompoundPredicate alloc] initWithType:NSOrPredicateType
+                               subpredicates:due_predicate_array];
+  
+  // 条件の配列から条件を合成する
+  NSCompoundPredicate *tag_predicates
+  = [[NSCompoundPredicate alloc] initWithType:NSOrPredicateType
+                                subpredicates:predicate_array];
+  NSCompoundPredicate *compound_predicate
+  = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType
+                                subpredicates:@[tag_predicates, predicate, due_predicates]];
+  [fetchRequest setPredicate:compound_predicate];
+  
+  // Edit the section name key path and cache name if appropriate.
+  // nil for section name key path means "no sections".
+  NSFetchedResultsController *aFetchedResultsController
+  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:app.managedObjectContext
+                                          sectionNameKeyPath:@"tagName"
+                                                   cacheName:nil];   //< タグをキャッシュネームにする
+  aFetchedResultsController.delegate = controller; //< デリゲートを設定
+  
+  
+  // フェッチを実行して、
+  // 作成したコントローラーを返す
+  NSError *error = nil;
+  if (![aFetchedResultsController performFetch:&error]) {
+    // Replace this implementation with code to handle the error appropriately.
+    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }
+  return aFetchedResultsController;
 }
 
 /**

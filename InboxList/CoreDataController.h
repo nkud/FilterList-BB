@@ -35,6 +35,10 @@
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSFetchedResultsController *)tagFetchedResultsControllerWithSearch:(NSString *)searchString
                                                             delegate:(id<NSFetchedResultsControllerDelegate>)controller;
++ (NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
+                                                      filterOverdue:(BOOL)filterOverdue
+                                                        filterToday:(BOOL)filterToday
+                                                         controller:(id<NSFetchedResultsControllerDelegate>)controller;
 
 +(NSArray *)getAllTagsArray;
 +(NSArray *)fetchTagsForTitle:(NSString *)title;

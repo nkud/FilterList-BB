@@ -214,12 +214,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   if (tableView.isEditing) {
     return;
   }
-  LOG(@"セルが選択された");
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
   [self.delegate didSelectedFilter:filter.title
-                              tags:filter.tags];
+                              tags:filter.tags
+                            filter:filter];
   
-  // セルの選択解除
+  // セルの選択を解除する
   [self.tableView deselectRowAtIndexPath:indexPath
                                 animated:YES];
 }
