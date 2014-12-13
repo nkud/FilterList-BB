@@ -560,7 +560,7 @@
   
   // タグリストを少しずらす
   CGRect frame = self.tagNavigationController.view.frame;
-  frame.origin.x -= 50;
+  frame.origin.x -= SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
   self.tagNavigationController.view.frame = frame;
   
   [self toggleItemList:NO margin:ITEM_LIST_REMAIN_MARGIN];
