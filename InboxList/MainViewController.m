@@ -495,6 +495,7 @@
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:self.animationCurve_];
+  [self openTagListMode];
 //  [self closeTagListMode];
   [self toggleItemList:YES margin:ITEM_LIST_REMAIN_MARGIN];
   [self closeFilterListMode];
@@ -521,6 +522,7 @@
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:duration];
   [UIView setAnimationCurve:self.animationCurve_];
+  [self openTagListMode];
 //  [self closeTagListMode];
   [self toggleItemList:YES margin:ITEM_LIST_REMAIN_MARGIN];
   [self closeFilterListMode];
