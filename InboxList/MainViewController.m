@@ -396,12 +396,13 @@
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.3f];
 
-  // アイテムリスト
+  // アイテムリストのx座標をずらす
   CGRect rect = self.itemNavigationController.view.frame;
   rect.origin.x = - SCREEN_BOUNDS.size.width + ITEM_LIST_REMAIN_MARGIN;
   self.itemNavigationController.view.frame = rect;
   
-  // ナビゲーションコントローラー
+  // 編集していたリストの、
+  // 幅とx座標を調節する。
   ListViewController *controller;
   __NavigationController *navicontroller;
   if (self.mainViewController_ == self.tagViewController) {
@@ -424,39 +425,39 @@
   [UIView commitAnimations];
 }
 
--(void)listDidEditModeWithDelay:(CGFloat)delay
-{
-  [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.3f];
-  [UIView setAnimationDelay:delay];
-  
-  // アイテムリスト
-  CGRect rect = self.itemNavigationController.view.frame;
-  rect.origin.x = - SCREEN_BOUNDS.size.width + ITEM_LIST_REMAIN_MARGIN;
-  self.itemNavigationController.view.frame = rect;
-  
-  // ナビゲーションコントローラー
-  ListViewController *controller;
-  __NavigationController *navicontroller;
-  if (self.mainViewController_ == self.tagViewController) {
-    controller = self.tagViewController;
-    navicontroller = self.tagNavigationController;
-  } else {
-    controller = self.filterViewController;
-    navicontroller = self.filterNavigationController;
-  }
-  CGRect frame = navicontroller.view.frame;
-  frame.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
-  frame.origin.x = ITEM_LIST_REMAIN_MARGIN;
-  navicontroller.view.frame = frame;
-  
-  // テーブル
-  CGRect tframe = controller.tableView.frame;
-  tframe.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
-  controller.tableView.frame = tframe;
-  
-  [UIView commitAnimations];
-}
+//-(void)listDidEditModeWithDelay:(CGFloat)delay
+//{
+//  [UIView beginAnimations:nil context:nil];
+//  [UIView setAnimationDuration:0.3f];
+//  [UIView setAnimationDelay:delay];
+//  
+//  // アイテムリスト
+//  CGRect rect = self.itemNavigationController.view.frame;
+//  rect.origin.x = - SCREEN_BOUNDS.size.width + ITEM_LIST_REMAIN_MARGIN;
+//  self.itemNavigationController.view.frame = rect;
+//  
+//  // ナビゲーションコントローラー
+//  ListViewController *controller;
+//  __NavigationController *navicontroller;
+//  if (self.mainViewController_ == self.tagViewController) {
+//    controller = self.tagViewController;
+//    navicontroller = self.tagNavigationController;
+//  } else {
+//    controller = self.filterViewController;
+//    navicontroller = self.filterNavigationController;
+//  }
+//  CGRect frame = navicontroller.view.frame;
+//  frame.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
+//  frame.origin.x = ITEM_LIST_REMAIN_MARGIN;
+//  navicontroller.view.frame = frame;
+//  
+//  // テーブル
+//  CGRect tframe = controller.tableView.frame;
+//  tframe.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
+//  controller.tableView.frame = tframe;
+//  
+//  [UIView commitAnimations];
+//}
 
 -(void)toggleShowVerticalScrollIndicatorWithController:(ListViewController *)controller
 {
@@ -561,6 +562,10 @@
   
   self.mainViewController_ = self.tagViewController;
 }
+
+/**
+ * @brief  フィルターリストに移行する
+ */
 -(void)toFilterListMode
 {
   // 既にアイテムリストがメインなら、
@@ -575,6 +580,9 @@
   [self toggleShowVerticalScrollIndicatorWithController:self.filterViewController];
   // スクロールを止める
   [self stopItemListScroll];
+  
+  // 編集後にすぐ移行するために必要
+  [self listDidEditMode];
   
   LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
@@ -608,6 +616,9 @@
   [self toggleShowVerticalScrollIndicatorWithController:self.completeViewController];
   // スクロールを止める
   [self stopItemListScroll];
+  
+  // 編集後にすぐ移行するために必要
+  [self listDidEditMode];
   
   LOG(@"完了リストモード");
   [self.completeViewController updateTableView];
