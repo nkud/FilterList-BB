@@ -56,6 +56,7 @@
   // パラメータを初期化する
   [self initParameter];
 
+  //
   // タブバーを初期化する
   self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
                                                          SCREEN_BOUNDS.size.height-TABBAR_H,
@@ -63,8 +64,9 @@
                                                          TABBAR_H)];
   self.tabBar.delegate = self;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // アイテムリストを初期化・設定する
+  //
+  // アイテムリストを初期化する。
+  // フェッチコントローラーを設定する。
   self.itemViewController = [[ItemViewController alloc] initWithNibName:nil
                                                                  bundle:nil];
 
@@ -79,8 +81,9 @@
   CALayer *itemLayer = self.itemNavigationController.view.layer;
   itemLayer.shadowOpacity = 0.8f;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // タグビューコントローラを初期化
+  //
+  // タグビューコントローラを初期化する。
+  // フェッチコントローラーを設定する。
   self.tagViewController = [[TagViewController alloc] initWithNibName:nil
                                                                bundle:nil];
   self.tagViewController.delegate = self;
@@ -88,16 +91,20 @@
   self.tagNavigationController = [[TagNavigationController alloc] initWithRootViewController:self.tagViewController];
   self.tagViewController.navigationController = self.tagNavigationController;
   
-  //////////////////////////////////////////////////////////////////////////////
-  // フィルターコントローラを初期化
+  //
+  // フィルターコントローラを初期化する。
+  // フェッチコントローラーを設定する。
+  // ナビゲーションコントローラーを初期化して、
+  // フィルターコントローラーを設定する。
   self.filterViewController = [[FilterViewController alloc] initWithNibName:nil
                                                                      bundle:nil];
   self.filterViewController.delegate = self;
   self.filterViewController.fetchedResultsController = [CoreDataController filterFetchedResultsController:self.filterViewController];
   self.filterNavigationController = [[FilterNavigationController alloc] initWithRootViewController:self.filterViewController];
 
-  //////////////////////////////////////////////////////////////////////////////
-  // 完了リストコントローラーを初期化
+  //
+  // 完了リストコントローラーを初期化する
+  //
   self.completeViewController = [[CompleteViewController alloc] initWithNibName:nil
                                                                          bundle:nil];
   self.completeViewController.fetchedResultsController = [CoreDataController completeFetchedResultsController:self.completeViewController];
@@ -115,10 +122,10 @@
   [self.view addSubview:self.completeNavigationController.view];
   [self.view addSubview:self.tabBar];
   
-  // アイテムリストモードで開始
+  // アイテムリストモードで開始する。
   [self toItemListModeWithDuration:0.0f];
   
-  // デリゲートを設定
+  // デリゲートを設定する
   self.itemViewController.delegateForList = self;
   self.tagViewController.delegateForList = self;
   self.filterViewController.delegateForList = self;
@@ -127,6 +134,7 @@
 
 #pragma mark - ビュー移動関数
 #pragma mark - アイテムリスト
+
 /**
  * @brief  アイテムリストを開閉する
  *
@@ -135,12 +143,12 @@
 -(void)toggleItemList:(BOOL)open margin:(CGFloat)rightMarginRate
 {
   if (open) {
-    // 開く
+    // アイテムリストの x座標 を変更する。
     CGRect rect = self.itemNavigationController.view.frame;
     rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
     self.itemNavigationController.view.frame = rect;
   } else {
-    // 閉じる
+    // アイテムリストの x座標 を変更する。
     CGRect rect = self.itemNavigationController.view.frame;
     rect.origin.x = - SCREEN_BOUNDS.size.width + rightMarginRate;
     self.itemNavigationController.view.frame = rect;
@@ -154,8 +162,8 @@
  */
 -(void)closeTagListMode
 {
-  // TODO: コメントなど
   if ([self hasActivatedTagListMode]) {
+    // タグリストの x座標 を変更する。
     CGRect rect = self.tagNavigationController.view.frame;
     rect.origin.x = SCREEN_BOUNDS.size.width + 100;
     self.tagNavigationController.view.frame = rect;
@@ -168,6 +176,7 @@
 -(void)openTagListMode
 {
   if ( ! [self hasActivatedTagListMode]) {
+    // タグリストの x座標 を変更する。
     CGRect rect = self.tagNavigationController.view.frame;
     rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
     self.tagNavigationController.view.frame = rect;
