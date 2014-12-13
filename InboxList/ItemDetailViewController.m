@@ -335,10 +335,10 @@ titleForHeaderInSection:(NSInteger)section
 {
   if (section == 0)
   {
-    return @"TITLE";
+    return @"";
   } else
   {
-    return @"OPTION";
+    return @"";
   }
 }
 
@@ -560,6 +560,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     cell.titleField.text = self.titleForItem;
   }
   cell.titleField.delegate = self;
+  cell.titleField.placeholder = @"title";
 }
 
 /**

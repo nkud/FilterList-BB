@@ -25,6 +25,8 @@
 static NSString *kInputHeaderCellID = @"InputHeaderCell";
 static NSString *kTagCellID = @"TagCell";
 
+static NSString *kInputFieldPlaceholder = @"new tag";
+
 @interface TagViewController () {
   
 }
@@ -431,7 +433,7 @@ numberOfRowsInSection:(NSInteger)section
   {
     // TODO: 入力セル用のコンフィグメソッドを作成する
     InputHeaderCell *inputCell = [tableView dequeueReusableCellWithIdentifier:kInputHeaderCellID];
-    inputCell.inputField.placeholder = @"new Tag";
+    inputCell.inputField.placeholder = kInputFieldPlaceholder;
     inputCell.delegate = self;
     inputCell.inputField.delegate = self;
     return inputCell;
@@ -451,7 +453,7 @@ numberOfRowsInSection:(NSInteger)section
   LOG(@"新しいアイテムを挿入する");
   [CoreDataController insertNewTag:titleForItem];
   
-  LOG(@"インスタントメッセージを表示する");
+  // インスタントメッセージを表示する
   [self instantMessage:@"Saved"
                  color:nil];
 }
@@ -469,7 +471,7 @@ numberOfRowsInSection:(NSInteger)section
   Tag *tag;
   NSString *itemCountString;
   
-  LOG(@"セルの背景色を設定する");
+  // セルの背景色を設定する
   cell.backgroundColor = TAG_BG_COLOR;
   
   if ([self isCellForAllItemsAtIndexPath:indexPath])
@@ -477,7 +479,7 @@ numberOfRowsInSection:(NSInteger)section
     // 全アイテム表示用タグの設定
     cell.titleLabel.text = @"Inbox";
     
-    LOG(@"未完了アイテム数を取得する");
+    // 未完了のアイテム数を取得する
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countUncompletedItems]];
   } else if([self isCellForInputAtIndexPath:indexPath]) {
     return;

@@ -204,8 +204,8 @@ heightForHeaderInSection:(NSInteger)section
 titleForHeaderInSection:(NSInteger)section
 {
   if (section == 0) {
-    // クイック入力用のセルのセクションはなし
-    return @"! input header";
+    // クイック入力用のセルのセクションにはタイトルを設定しない。
+    return @"";
   }
   // セクション名を取得
   NSInteger sectionForController = section - 1;
