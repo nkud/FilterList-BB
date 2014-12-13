@@ -105,7 +105,7 @@ static NSString *kFilterCellID = @"FilterCell";
   
   // タグモードの時のみタブバーを開く
   if ([self.delegateForList isTopViewController:self] && self.tableView.isEditing == NO) {
-    [self.delegateForList openTabBar];
+
   }
 }
 
@@ -115,6 +115,7 @@ static NSString *kFilterCellID = @"FilterCell";
   
   // タグモードの時のみ
   if ([self.delegateForList isTopViewController:self] && self.tableView.isEditing == NO) {
+    [self.delegateForList openTabBar];
     [self.delegateForList listDidEditMode];
   }
 }

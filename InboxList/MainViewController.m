@@ -175,12 +175,13 @@
  */
 -(void)openTagListMode
 {
-  if ( ! [self hasActivatedTagListMode]) {
+  
+//  if ( ! [self hasActivatedTagListMode]) {
     // タグリストの x座標 を変更する。
     CGRect rect = self.tagNavigationController.view.frame;
-    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForTagList;
+    rect.origin.x = ITEM_LIST_REMAIN_MARGIN;
     self.tagNavigationController.view.frame = rect;
-  }
+//  }
 }
 
 /**
@@ -578,6 +579,12 @@
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:self.animationCurve_];
   [self openTagListMode];
+  
+  // タグリストを少しずらす
+  CGRect frame = self.tagNavigationController.view.frame;
+  frame.origin.x -= 50;
+  self.tagNavigationController.view.frame = frame;
+  
   [self toggleItemList:NO margin:ITEM_LIST_REMAIN_MARGIN];
   [self openFilterListMode];
   [self closeCompleteListMode];
