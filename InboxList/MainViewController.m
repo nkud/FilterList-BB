@@ -296,6 +296,8 @@
 
 -(void)openTabBar
 {
+  // タブバーが開いていなければ
+  // アニメーションする
   if ( ! [self hasTabBar]) {
     CGRect rect = CGRectMake(0,
                              SCREEN_BOUNDS.size.height-TABBAR_H,
@@ -359,7 +361,7 @@
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.3f];
 
-  // アイテムリスト
+  // アイテムリストのx座標をずらす
   CGRect rect = self.itemNavigationController.view.frame;
   rect.origin.x = - SCREEN_BOUNDS.size.width - 10;
   self.itemNavigationController.view.frame = rect;
@@ -375,12 +377,13 @@
     navicontroller = self.filterNavigationController;
   }
   
+  // ナビゲーションのフレームを画面サイズにする
   CGRect frame = navicontroller.view.frame;
   frame.size.width = SCREEN_BOUNDS.size.width;
   frame.origin.x = 0;
   navicontroller.view.frame = frame;
 
-  // テーブル
+  // テーブルのフレームを画面サイズにする
   CGRect tframe = controller.tableView.frame;
   tframe.size.width = SCREEN_BOUNDS.size.width;
   controller.tableView.frame = tframe;

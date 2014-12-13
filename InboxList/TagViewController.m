@@ -102,6 +102,9 @@ static NSString *kInputFieldPlaceholder = @"new tag";
   
   [super didTappedEditTableButton];
   [self toEdit:self];
+  
+  // タブバーの時は、編集タブバーを開かない
+  [self hideEditTabBar:YES];
 }
 -(void)didTappedInsertObjectButton
 {

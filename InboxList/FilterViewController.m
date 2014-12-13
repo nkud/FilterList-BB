@@ -130,8 +130,9 @@ static NSString *kFilterCellID = @"FilterCell";
   }
 
   [super didTappedEditTableButton];
-  
   [self toEdit:self];
+  
+  [self hideEditTabBar:YES];
 }
 
 -(void)toEdit:(id)sender
