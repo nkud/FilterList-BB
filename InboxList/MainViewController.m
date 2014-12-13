@@ -425,40 +425,11 @@
   [UIView commitAnimations];
 }
 
-//-(void)listDidEditModeWithDelay:(CGFloat)delay
-//{
-//  [UIView beginAnimations:nil context:nil];
-//  [UIView setAnimationDuration:0.3f];
-//  [UIView setAnimationDelay:delay];
-//  
-//  // アイテムリスト
-//  CGRect rect = self.itemNavigationController.view.frame;
-//  rect.origin.x = - SCREEN_BOUNDS.size.width + ITEM_LIST_REMAIN_MARGIN;
-//  self.itemNavigationController.view.frame = rect;
-//  
-//  // ナビゲーションコントローラー
-//  ListViewController *controller;
-//  __NavigationController *navicontroller;
-//  if (self.mainViewController_ == self.tagViewController) {
-//    controller = self.tagViewController;
-//    navicontroller = self.tagNavigationController;
-//  } else {
-//    controller = self.filterViewController;
-//    navicontroller = self.filterNavigationController;
-//  }
-//  CGRect frame = navicontroller.view.frame;
-//  frame.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
-//  frame.origin.x = ITEM_LIST_REMAIN_MARGIN;
-//  navicontroller.view.frame = frame;
-//  
-//  // テーブル
-//  CGRect tframe = controller.tableView.frame;
-//  tframe.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
-//  controller.tableView.frame = tframe;
-//  
-//  [UIView commitAnimations];
-//}
-
+/**
+ * @brief  垂直バーの表示・非表示を切り替える
+ *
+ * @param controller コントローラー
+ */
 -(void)toggleShowVerticalScrollIndicatorWithController:(ListViewController *)controller
 {
   if (controller == self.itemViewController) {
@@ -548,7 +519,6 @@
   // スクロールを止める
   [self stopItemListScroll];
   
-  
   LOG(@"タグリストモード");
   [self.tagViewController updateTableView];
   [UIView beginAnimations:nil context:nil];
@@ -581,9 +551,7 @@
   // スクロールを止める
   [self stopItemListScroll];
   
-  // 編集後にすぐ移行するために必要
-  [self listDidEditMode];
-  
+
   LOG(@"フィルターリストモード");
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
@@ -617,9 +585,6 @@
   // スクロールを止める
   [self stopItemListScroll];
   
-  // 編集後にすぐ移行するために必要
-  [self listDidEditMode];
-  
   LOG(@"完了リストモード");
   [self.completeViewController updateTableView];
   
@@ -648,19 +613,38 @@ didSelectItem:(UITabBarItem *)item
 {
   switch (item.tag) {
     case 0:
-      LOG(@"タブ０");
+      LOG(@"アイテムリストに移行する");
+      if ([self isTopViewController:self.tagViewController]) {
+        [self willCloseTagListMode];
+      } else if ([self isTopViewController:self.filterViewController])
+      {
+        [self willCloseFilterListMode];
+      }
+      
       [self toItemListMode];
       break;
     case 1:
-      LOG(@"タブ１");
+      LOG(@"タグリストに移行する");
+      if ([self isTopViewController:self.filterViewController]) {
+        [self willCloseFilterListMode];
+      }
       [self toTagListMode];
       break;
     case 2:
-      LOG(@"タブ２");
+      LOG(@"フィルターリストに移行する");
+      if ([self isTopViewController:self.tagViewController]) {
+        [self willCloseFilterListMode];
+      }
       [self toFilterListMode];
       break;
     case 3:
-      LOG(@"タブ３");
+      LOG(@"完了リストに移行する");
+      if ([self isTopViewController:self.tagViewController]) {
+        [self willCloseTagListMode];
+      } else if ([self isTopViewController:self.filterViewController])
+      {
+        [self willCloseFilterListMode];
+      }
       [self toCompleteListMode];
       break;
     default:
@@ -668,7 +652,17 @@ didSelectItem:(UITabBarItem *)item
   }
 }
 
+-(void)willCloseTagListMode
+{
+  [self listDidEditMode];
+}
+-(void)willCloseFilterListMode
+{
+  [self listDidEditMode];
+}
+
 #pragma mark タグリスト
+
 /**
  * @brief タグが選択された時の処理
  *
