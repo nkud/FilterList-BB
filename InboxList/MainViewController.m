@@ -331,56 +331,16 @@
 #pragma mark - ユーティリティ
 
 /**
- * @brief  トップがアイテムリストなら真
+ * @brief  トップのコントローラーかを評価する
+ *
+ * @param viewController コントローラー
  *
  * @return 真偽値
  */
--(BOOL)isItemListInMain
-{
-  if (self.mainViewController_ == self.itemViewController) {
-    return YES;
-  }
-  return NO;
-}
-/**
- * @brief  トップがタグリストなら真
- *
- * @return 真偽値
- */
--(BOOL)isTagListInMain
-{
-  if (self.mainViewController_ == self.tagViewController) {
-    return YES;
-  }
-  return NO;
-}
-/**
- * @brief  トップがフィルターリストなら真
- *
- * @return 真偽値
- */
--(BOOL)isFilterListInMain
-{
-  if (self.mainViewController_ == self.filterViewController) {
-    return YES;
-  }
-  return NO;
-}
-/**
- * @brief  トップが完了リストなら真
- *
- * @return 真偽値
- */
--(BOOL)isCompleteListInMain
-{
-  if (self.mainViewController_ == self.completeViewController) {
-    return YES;
-  }
-  return NO;
-}
-
 -(BOOL)isTopViewController:(ListViewController *)viewController
 {
+  // メインビューコントローラーなら、真を返す。
+  // そうでなければ、偽を返す。
   if (viewController == self.mainViewController_) {
     return YES;
   } else {
@@ -390,6 +350,9 @@
 
 #pragma mark - リスト表示モード関数
 
+/**
+ * @brief  編集モードに入る前の処理をする
+ */
 -(void)listWillEditMode
 {
   [UIView beginAnimations:nil context:nil];
@@ -423,6 +386,10 @@
   
   [UIView commitAnimations];
 }
+
+/**
+ * @brief  編集処理を終了した後の処理をする
+ */
 -(void)listDidEditMode
 {
   [UIView beginAnimations:nil context:nil];
@@ -514,7 +481,7 @@
 {
   // 既にアイテムリストがメインなら、
   // １番上までスクロールさせて、終了する。
-  if ([self isItemListInMain]) {
+  if ([self isTopViewController:self.itemViewController]) {
     [self.itemViewController scrollToTopCell];
     return;
   }
@@ -539,7 +506,7 @@
 {
   // 既にアイテムリストがメインなら、
   // １番上までスクロールさせて、終了する。
-  if ([self isItemListInMain]) {
+  if ([self isTopViewController:self.itemViewController]) {
     [self.itemViewController scrollToTopCell];
     return;
   }
@@ -565,7 +532,7 @@
 {
   // 既にアイテムリストがメインなら、
   // １番上までスクロールさせて、終了する。
-  if ([self isTagListInMain]) {
+  if ([self isTopViewController:self.tagViewController]) {
     [self.tagViewController scrollToTopCell];
     return;
   }
@@ -595,7 +562,7 @@
 {
   // 既にアイテムリストがメインなら、
   // １番上までスクロールさせて、終了する。
-  if ([self isFilterListInMain]) {
+  if ([self isTopViewController:self.filterViewController]) {
     [self.filterViewController scrollToTopCell];
     return;
   }
@@ -622,7 +589,7 @@
 {
   // 既にアイテムリストがメインなら、
   // １番上までスクロールさせて、終了する。
-  if ([self isCompleteListInMain]) {
+  if ([self isTopViewController:self.completeViewController]) {
     [self.completeViewController scrollToTopCell];
     return;
   }

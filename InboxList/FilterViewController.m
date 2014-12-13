@@ -168,8 +168,8 @@ static NSString *kFilterCellID = @"FilterCell";
                                                        tags:nil
                                                        from:nil
                                                    interval:nil
-                                              filterOverdue:nil
-                                                filterToday:nil
+                                              filterOverdue:NO
+                                                filterToday:NO
                                                 isNewFilter:YES
                                                   indexPath:nil
                                                    delegate:self];
