@@ -646,15 +646,15 @@ titleForHeaderInSection:(NSInteger)section
     BOOL switchState;
     SEL selector;
     if (indexPath.row == 0) {
-      title = @"期限付";
+      title = @"Due Date";
       selector = @selector(changedSwitchValueOne:);
       switchState = [self hasIntervalFilter];
     } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 1) {
-      title = @"期限過";
+      title = @"Overdue";
       selector = @selector(changedSwitchValueTwo:);
       switchState = stateOfSwitchTwo_;
     } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 2) {
-      title = @"今日";
+      title = @"Today";
       selector = @selector(changedSwitchValueThree:);
       switchState = stateOfSwitchThree_;
     } else {
