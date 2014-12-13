@@ -450,7 +450,7 @@ numberOfRowsInSection:(NSInteger)section
 
 -(void)didInputtedNewItem:(NSString *)titleForItem
 {
-  LOG(@"新しいアイテムを挿入する");
+  // 新しいアイテムを挿入する
   [CoreDataController insertNewTag:titleForItem];
   
   // インスタントメッセージを表示する
