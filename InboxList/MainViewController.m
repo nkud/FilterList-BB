@@ -559,8 +559,9 @@
   [self openTagListMode];
   
   // タグリストを少しずらす
+  CGFloat shiftMargin = 0;
   CGRect frame = self.tagNavigationController.view.frame;
-  frame.origin.x -= SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
+  frame.origin.x = shiftMargin;
   self.tagNavigationController.view.frame = frame;
   
   [self toggleItemList:NO margin:ITEM_LIST_REMAIN_MARGIN];
