@@ -93,6 +93,8 @@ static NSString *kInputFieldPlaceholder = @"new tag";
 
 -(void)didTappedEditTableButton
 {
+  [super didTappedEditTableButton];
+
   // 完全に開閉する
   if (self.tableView.isEditing) {
     [self.delegateForList listDidEditMode];
@@ -100,7 +102,6 @@ static NSString *kInputFieldPlaceholder = @"new tag";
     [self.delegateForList listWillEditMode];
   }
   
-  [super didTappedEditTableButton];
   [self toEdit:self];
   
   // タブバーの時は、編集タブバーを開かない
@@ -378,9 +379,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       LOG(@"タグを削除");
       Tag *tag = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
       LOG(@"関連アイテム：%@", tag.items);
-      LOG(@"アイテムを削除");
+      
+      LOG(@"アイテムから関連を削除");
       for (Item *item in tag.items) {
-        [[CoreDataController managedObjectContext] deleteObject:item];
+        item.tag = nil;
+//        [[CoreDataController managedObjectContext] deleteObject:item];
       }
       
       LOG(@"タグを削除");

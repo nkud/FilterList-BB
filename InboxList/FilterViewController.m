@@ -119,17 +119,23 @@ static NSString *kFilterCellID = @"FilterCell";
   }
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+  [super viewWillDisappear:animated];
+}
+
 #pragma mark - フィルター入力 -
 
 -(void)didTappedEditTableButton
 {
+  [super didTappedEditTableButton];
+
   if (self.tableView.isEditing) {
     [self.delegateForList listDidEditMode];
   } else {
     [self.delegateForList listWillEditMode];
   }
 
-  [super didTappedEditTableButton];
   [self toEdit:self];
   
   [self hideEditTabBar:YES];
