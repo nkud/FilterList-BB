@@ -135,7 +135,7 @@
 titleForHeaderInSection:(NSInteger)section
 {
   if (section == 0) {
-    return @"TITLE";
+    return @"";
   }
   return @"";
 }
@@ -160,6 +160,7 @@ titleForHeaderInSection:(NSInteger)section
       cell.titleField.text = self.tagTitle;
     }
     cell.titleField.delegate = self;
+    cell.titleField.placeholder = @"title";
     return cell;
   } else {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
