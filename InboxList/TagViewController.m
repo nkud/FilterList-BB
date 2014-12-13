@@ -379,10 +379,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       LOG(@"タグを削除");
       Tag *tag = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
       LOG(@"関連アイテム：%@", tag.items);
+      NSSet *itemset = [tag.items mutableCopy];
       
       LOG(@"アイテムから関連を削除");
-      for (Item *item in tag.items) {
+      for (Item *item in itemset) {
         item.tag = nil;
+        
 //        [[CoreDataController managedObjectContext] deleteObject:item];
       }
       
