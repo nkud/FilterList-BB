@@ -1,0 +1,10 @@
+#+TITLE: アプリ設定
+#+AUTHOR: Naoki Ueda
+#+OPTIONS: \n:t H:1 toc:t author:nil email:nil timestamp:nil creator:nil num:t
+#+LANGUAGE: ja
+#+LaTeX_CLASS: normal
+#+STARTUP: content
+#+HTML_HEAD: <style type="text/css">body {font-family:"verdana";font-size:0.8em;}</style>
+#+STYLE: <link rel="stylesheet" type="text/css" href="" />
+
+* 名前
