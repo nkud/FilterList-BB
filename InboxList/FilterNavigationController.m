@@ -3,7 +3,7 @@
 //  InboxList
 //
 //  Created by Naoki Ueda on 2014/08/23.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "FilterNavigationController.h"
@@ -35,7 +35,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
-    self.navigationBar.barTintColor = LIST_BG_GRAY;
+    self.navigationBar.barTintColor = FILTER_BG_COLOR;
     CGRect frame = self.view.frame;
     frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
     frame.origin.x += ITEM_LIST_REMAIN_MARGIN;

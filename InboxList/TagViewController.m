@@ -83,7 +83,7 @@ static NSString *kTagCellID = @"TagCell";
   self.navigationItem.rightBarButtonItem.tintColor = TAG_COLOR;
   
   // テーブルの設定
-  self.tableView.backgroundColor = LIST_BG_GRAY;
+  self.tableView.backgroundColor = TAG_BG_COLOR;
   CGRect frame = self.tableView.frame;
   frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
   self.tableView.frame = frame;
@@ -470,7 +470,7 @@ numberOfRowsInSection:(NSInteger)section
   NSString *itemCountString;
   
   LOG(@"セルの背景色を設定する");
-  cell.backgroundColor = LIST_BG_GRAY;
+  cell.backgroundColor = TAG_BG_COLOR;
   
   if ([self isCellForAllItemsAtIndexPath:indexPath])
   {

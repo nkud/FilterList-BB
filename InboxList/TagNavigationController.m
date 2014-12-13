@@ -35,7 +35,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     // Custom initialization
-    self.navigationBar.barTintColor = LIST_BG_GRAY;
+    self.navigationBar.barTintColor = TAG_BG_COLOR;
     CGRect frame = self.view.frame;
     frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
     frame.origin.x += ITEM_LIST_REMAIN_MARGIN;
