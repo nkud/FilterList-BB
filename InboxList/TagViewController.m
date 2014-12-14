@@ -524,6 +524,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
                                          indexPath:indexPathInController
                                           delegate:self];
   
+  controller.navigationController = self.navigationController;
+  
   LOG(@"タグ詳細画面をプッシュする");
   [self.navigationController pushViewController:controller
                                        animated:YES];

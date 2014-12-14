@@ -361,11 +361,7 @@
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.3f];
 
-  // アイテムリストのx座標をずらす
-  CGRect rect = self.itemNavigationController.view.frame;
-  rect.origin.x = - SCREEN_BOUNDS.size.width - 10;
-  self.itemNavigationController.view.frame = rect;
-  
+
   // ナビゲーションコントローラー
   ListViewController *controller;
   __NavigationController *navicontroller;
@@ -388,6 +384,11 @@
   tframe.size.width = SCREEN_BOUNDS.size.width;
   controller.tableView.frame = tframe;
   
+  // アイテムリストのx座標をずらす
+  CGRect rect = self.itemNavigationController.view.frame;
+  rect.origin.x = - SCREEN_BOUNDS.size.width - 10;
+  self.itemNavigationController.view.frame = rect;
+  
   [UIView commitAnimations];
 }
 
@@ -399,11 +400,6 @@
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:0.3f];
 
-  // アイテムリストのx座標をずらす
-  CGRect rect = self.itemNavigationController.view.frame;
-  rect.origin.x = - SCREEN_BOUNDS.size.width + ITEM_LIST_REMAIN_MARGIN;
-  self.itemNavigationController.view.frame = rect;
-  
   // 編集していたリストの、
   // 幅とx座標を調節する。
   ListViewController *controller;
@@ -424,6 +420,11 @@
   CGRect tframe = controller.tableView.frame;
   tframe.size.width = SCREEN_BOUNDS.size.width - ITEM_LIST_REMAIN_MARGIN;
   controller.tableView.frame = tframe;
+  
+  // アイテムリストのx座標をずらす
+  CGRect rect = self.itemNavigationController.view.frame;
+  rect.origin.x = - SCREEN_BOUNDS.size.width + ITEM_LIST_REMAIN_MARGIN;
+  self.itemNavigationController.view.frame = rect;
   
   [UIView commitAnimations];
 }
