@@ -105,8 +105,10 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
 -(void)didTappedEditTableButton
 {
   [super didTappedEditTableButton];
-  InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-  [cell.inputField resignFirstResponder];
+  if ([self hasInlineInputHeader]) {
+    InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [cell.inputField resignFirstResponder];
+  }
   [self toEdit:self];
 }
 
@@ -167,8 +169,10 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
   // キーボードを閉じる
   NSIndexPath *inputIndexPath = [NSIndexPath indexPathForRow:0
                                                    inSection:0];
-  InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:inputIndexPath];
-  [cell.inputField resignFirstResponder];
+  if ([self hasInlineInputHeader]) {
+    InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:inputIndexPath];
+    [cell.inputField resignFirstResponder];
+  }
 }
 
 #pragma mark セクション
@@ -185,7 +189,7 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
 heightForHeaderInSection:(NSInteger)section
 {
   // クイック入力セル用
-  if (section == 0) {
+  if ([self hasInlineInputHeader] && section == 0) {
     return 0;
   }
   // 通常のアイテムセル用
@@ -203,12 +207,12 @@ heightForHeaderInSection:(NSInteger)section
 -(NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section
 {
-  if (section == 0) {
+  if ([self hasInlineInputHeader] && section == 0) {
     // クイック入力用のセルのセクションにはタイトルを設定しない。
     return @"";
   }
   // セクション名を取得
-  NSInteger sectionForController = section - 1;
+  NSInteger sectionForController = [self mapSectionToFetchedResultsController:section];
   id <NSFetchedResultsSectionInfo> sectionInfo
   = [[self.fetchedResultsController sections] objectAtIndex:sectionForController];
 
@@ -228,9 +232,12 @@ titleForHeaderInSection:(NSInteger)section
  */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  LOG(@"セクション数を返す");
-  // クイック入力セルを足している
-  return [[self.fetchedResultsController sections] count] + 1;
+  NSInteger numSections = [[self.fetchedResultsController sections] count];
+  if (self.indexPathForInputHeader) {
+    // クイック入力セルを足している
+    numSections++;
+  }
+  return numSections;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -293,6 +300,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+-(BOOL)hasInlineInputHeader
+{
+  if (self.indexPathForInputHeader) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 /**
  *  @brief 指定されたセクションのアイテム数
  *
@@ -305,7 +321,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  numberOfRowsInSection:(NSInteger)section
 {
   NSInteger number = 0;
-  if (section == 0) {
+  if ([self hasInlineInputHeader] && section == 0) {
     // クイック入力セルの場合
     number = 1;
   } else {
@@ -332,7 +348,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSIndexPath *indexPathInTableView = indexPath;
 
-  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView])
+  if ([self hasInlineInputHeader] && [self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView])
   {
     // 入力セル
     InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
@@ -396,7 +412,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSIndexPath *indexPathInTableView = indexPath;
-  if ([self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
+  if ([self hasInlineInputHeader] && [self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView]) {
     return NO;
   }
   return YES;
@@ -822,6 +838,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
  */
 -(BOOL)isInputHeaderCellAtIndexPathInTableView:(NSIndexPath *)indexPathInTableView
 {
+  if ( ! [self hasInlineInputHeader]) {
+    return NO;
+  }
   if ( indexPathInTableView.section == 0) {
     return YES;
   } else {
@@ -867,12 +886,16 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 
 -(NSInteger)mapSectionFromFetchedResultsController:(NSInteger)section
 {
-  section = section + 1;
+  if ([self hasInlineInputHeader]) {
+    section = section + 1;
+  }
   return section;
 }
 -(NSInteger)mapSectionToFetchedResultsController:(NSInteger)section
 {
-  section = section - 1;
+  if ([self hasInlineInputHeader]) {
+    section = section - 1;
+  }
   return section;
 }
 

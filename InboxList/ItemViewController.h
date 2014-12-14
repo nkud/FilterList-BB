@@ -29,6 +29,8 @@ UITextFieldDelegate>
 
 @property __NavigationController *navigationController;
 
+@property NSIndexPath *indexPathForInputHeader;
+
 -(void)updateTableView;
 
 -(void)showSectionHeader;
