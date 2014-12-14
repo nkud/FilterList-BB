@@ -696,7 +696,11 @@ didSelectItem:(UITabBarItem *)item
                           tags:nil
         fetcheResultController:result_controller];
   }
+}
 
+-(void)willDeleteTag:(Tag *)tag
+{
+  
 }
 
 #pragma mark フィルターリスト

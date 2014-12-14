@@ -21,6 +21,7 @@ static NSString * const TagModeCellIdentifier = @"TagCell";
 @protocol TagViewControllerDelegate <NSObject>
 
 - (void)didSelectTag:(Tag *)tag;
+-(void)willDeleteTag:(Tag *)tag;
 
 @end
 

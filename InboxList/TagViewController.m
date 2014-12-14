@@ -376,21 +376,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   switch (editingStyle) {
     case UITableViewCellEditingStyleDelete: // 削除
     {
-      LOG(@"タグを削除");
       Tag *tag = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
-      LOG(@"関連アイテム：%@", tag.items);
       NSSet *itemset = [tag.items mutableCopy];
+      
+      // 今から削除するタグをデリゲートに報告する
+      [self.delegate willDeleteTag:tag];
       
       LOG(@"アイテムから関連を削除");
       for (Item *item in itemset) {
         item.tag = nil;
-        
 //        [[CoreDataController managedObjectContext] deleteObject:item];
       }
       
       LOG(@"タグを削除");
       [[CoreDataController managedObjectContext] deleteObject:tag];
-      LOG(@"削除されるオブジェクト数：%lu", (unsigned long)[[[CoreDataController managedObjectContext] deletedObjects] count]);
       
       [CoreDataController saveContext];
       break;
