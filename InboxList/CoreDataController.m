@@ -631,8 +631,8 @@ enum __SECTION__ {
 
   // ソート条件を設定
   LOG(@"ソート条件");
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
-                                                                 ascending:NO];
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"order"
+                                                                 ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];
   fetchRequest.sortDescriptors = sortDescriptors;
 
@@ -663,22 +663,36 @@ enum __SECTION__ {
 +(void)insertNewFilter:(NSString *)filterTitle
          tagsForFilter:(NSSet *)tagsForFilter
 {
+  [CoreDataController incrementFilterOrder];
   LOG(@"フィルターを新規挿入");
   Filter *newFilter = [NSEntityDescription insertNewObjectForEntityForName:@"Filter"
                                                     inManagedObjectContext:[self managedObjectContext]];
   // フィルターにタイトルを設定
   newFilter.title = filterTitle;
+  newFilter.order = [NSNumber numberWithInt:0];
   
   // フィルターにタグを設定
   [newFilter addTags:tagsForFilter];
 
   [self saveContext];
 }
++(void)incrementFilterOrder
+{
+  NSArray *filters = [[CoreDataController filterFetchedResultsController:nil] fetchedObjects];
+  for (Filter *filter in filters) {
+    NSNumber *originOrder = [filter valueForKey:@"order"];
+    NSInteger newOrder = [originOrder integerValue] + 1;
+    filter.order = [NSNumber numberWithInteger:newOrder];
+  }
+  [CoreDataController saveContext];
+}
 
 +(Filter *)newFilterObject
 {
   Filter* filter = [NSEntityDescription insertNewObjectForEntityForName:@"Filter"
                                                  inManagedObjectContext:[self app].managedObjectContext];
+  [self incrementFilterOrder];
+  filter.order = [NSNumber numberWithInt:0];
   return filter;
 }
 
