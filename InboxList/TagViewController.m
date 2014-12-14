@@ -363,10 +363,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 -(BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // タグセクションのみ
+  // 編集可能にする
   if ([self isCellForAllItemsAtIndexPath:indexPath] || [self isCellForInputAtIndexPath:indexPath]) {
-    return NO;                  // 編集不可
-  }                             // タグセクションなら
-  return YES;                   // 編集可
+    return NO;
+  }
+  return YES;
 }
 
 -(void)tableView:(UITableView *)tableView
@@ -382,13 +384,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       // 今から削除するタグをデリゲートに報告する
       [self.delegate willDeleteTag:tag];
       
-      LOG(@"アイテムから関連を削除");
+      // アイテムの関連を削除する
       for (Item *item in itemset) {
         item.tag = nil;
 //        [[CoreDataController managedObjectContext] deleteObject:item];
       }
       
-      LOG(@"タグを削除");
+      LOG(@"タグを削除する");
       [[CoreDataController managedObjectContext] deleteObject:tag];
       
       [CoreDataController saveContext];
@@ -425,6 +427,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
+  // 入力セルと、全アイテム選択セルの分だけ増やす。
   id <NSFetchedResultsSectionInfo> sectionInfo
   = [[self.fetchedResultsController sections] objectAtIndex:section];
   return [sectionInfo numberOfObjects] + 2;
@@ -445,7 +448,7 @@ numberOfRowsInSection:(NSInteger)section
     inputCell.inputField.delegate = self;
     return inputCell;
   }
-  // セルを作成する
+  // 通常のセルを作成する
   TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
   
   // セルを設定
@@ -466,6 +469,7 @@ numberOfRowsInSection:(NSInteger)section
 }
 
 #pragma mark セル関係
+
 /**
  * @brief  セルを設定する
  *
