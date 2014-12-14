@@ -216,44 +216,6 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
--(void)tableView:(UITableView *)tableView
-moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
-     toIndexPath:(NSIndexPath *)destinationIndexPath
-{
-  NSInteger minRowIdx, maxRowIdx;
-  BOOL isMoveDirectionSmallToLarge;
-  if(sourceIndexPath.row == destinationIndexPath.row){
-    return;
-  }else if(sourceIndexPath.row < destinationIndexPath.row){
-    minRowIdx = sourceIndexPath.row;
-    maxRowIdx = destinationIndexPath.row;
-    isMoveDirectionSmallToLarge = YES;
-  }else{
-    minRowIdx = destinationIndexPath.row;
-    maxRowIdx = sourceIndexPath.row;
-    isMoveDirectionSmallToLarge = NO;
-  }
-  for(NSInteger i = minRowIdx; i <= maxRowIdx; i++){
-    NSIndexPath *itIndexPath = INDEX(i, 0);
-    Tag *tag = [self.fetchedResultsController objectAtIndexPath:itIndexPath];
-    NSNumber *displayOrder = tag.order;
-    NSInteger newOrder;
-    
-    // 移動前位置なら、移動先に移動。
-    // その他の位置なら、１つずらす。
-    if(i == sourceIndexPath.row){
-      newOrder = destinationIndexPath.row;
-    }else if(isMoveDirectionSmallToLarge){
-      newOrder = displayOrder.integerValue - 1;
-    }else{
-      newOrder = displayOrder.integerValue + 1;
-    }
-    LOG(@"%ld, %ld, %ld", (long)i, (long)displayOrder.integerValue, (long)newOrder);
-    tag.order = [NSNumber numberWithInteger:newOrder];
-  }
-  [CoreDataController saveContext];
-}
-
 /**
  * @brief  セルが選択された時の処理
  *
@@ -419,6 +381,45 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 }
 
 
+#pragma mark - セルの移動
+-(void)tableView:(UITableView *)tableView
+moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+     toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+  NSInteger minRowIdx, maxRowIdx;
+  BOOL isMoveDirectionSmallToLarge;
+  if(sourceIndexPath.row == destinationIndexPath.row){
+    return;
+  }else if(sourceIndexPath.row < destinationIndexPath.row){
+    minRowIdx = sourceIndexPath.row;
+    maxRowIdx = destinationIndexPath.row;
+    isMoveDirectionSmallToLarge = YES;
+  }else{
+    minRowIdx = destinationIndexPath.row;
+    maxRowIdx = sourceIndexPath.row;
+    isMoveDirectionSmallToLarge = NO;
+  }
+  for(NSInteger i = minRowIdx; i <= maxRowIdx; i++){
+    NSIndexPath *itIndexPath = INDEX(i, 0);
+    Tag *tag = [self.fetchedResultsController objectAtIndexPath:itIndexPath];
+    NSNumber *displayOrder = tag.order;
+    NSInteger newOrder;
+    
+    // 移動前位置なら、移動先に移動。
+    // その他の位置なら、１つずらす。
+    if(i == sourceIndexPath.row){
+      newOrder = destinationIndexPath.row;
+    }else if(isMoveDirectionSmallToLarge){
+      newOrder = displayOrder.integerValue - 1;
+    }else{
+      newOrder = displayOrder.integerValue + 1;
+    }
+    LOG(@"%ld, %ld, %ld", (long)i, (long)displayOrder.integerValue, (long)newOrder);
+    tag.order = [NSNumber numberWithInteger:newOrder];
+  }
+}
+
+
 #pragma mark - コンテンツの更新 -
 
 /**
@@ -492,14 +493,21 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 
     case NSFetchedResultsChangeMove:
       LOG(@"移動");
-//      [tableView deleteRowsAtIndexPaths:@[indexPath]
-//                       withRowAnimation:UITableViewRowAnimationFade];
-//      [tableView insertRowsAtIndexPaths:@[newIndexPath]
-//                       withRowAnimation:UITableViewRowAnimationFade];
-      [tableView moveRowAtIndexPath:indexPath
-                        toIndexPath:newIndexPath];
       break;
   }
+}
+
+/**
+ *  @brief コンテンツが更新された後処理
+ *
+ *  @param controller リザルトコントローラー
+ */
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+  LOG(@"アイテムビューが更新されたあとの処理");
+  // In the simplest, most efficient, case, reload the table view.
+  [CoreDataController saveContext];
+  [self.tableView endUpdates];
 }
 
 #pragma mark - その他 -
@@ -537,17 +545,6 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
  // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
  */
 
-/**
- *  @brief コンテンツが更新された後処理
- *
- *  @param controller リザルトコントローラー
- */
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-  LOG(@"アイテムビューが更新されたあとの処理");
-  // In the simplest, most efficient, case, reload the table view.
-  [self.tableView endUpdates];
-}
 
 #pragma mark - メモリー警告
 

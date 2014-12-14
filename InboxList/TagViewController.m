@@ -619,7 +619,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     LOG(@"%ld, %ld, %ld", (long)i, (long)displayOrder.integerValue, (long)newOrder);
     tag.order = [NSNumber numberWithInteger:newOrder];
   }
-  [CoreDataController saveContext];
 }
 
 #pragma mark - コンテンツの更新
@@ -723,18 +722,18 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       // [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
       //                  withRowAnimation:UITableViewRowAnimationAutomatic];
       
-//      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
-//                 atIndexPath:indexPathInTableView];
-      [self configureTagCell:anObject
+      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
                  atIndexPath:indexPathInTableView];
+//      [self configureTagCell:anObject
+//                 atIndexPath:indexPathInTableView];
       break;
     case NSFetchedResultsChangeMove:
       LOG(@"セルを移動する: %ld -> %ld",
           (long)indexPathInTableView.row, (long)newIndexPathInTableView.row);
 //      [tableView deleteRowsAtIndexPaths:@[indexPathInTableView] withRowAnimation:UITableViewRowAnimationFade];
 //      [tableView insertRowsAtIndexPaths:@[newIndexPathInTableView] withRowAnimation:UITableViewRowAnimationFade];
-      [tableView moveRowAtIndexPath:indexPathInTableView
-                        toIndexPath:newIndexPathInTableView];
+//      [tableView moveRowAtIndexPath:indexPathInTableView
+//                        toIndexPath:newIndexPathInTableView];
       break;
   }
 }
@@ -752,6 +751,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
 {
   // In the simplest, most efficient, case, reload the table view.
   LOG(@"テーブルビューのアップデートを終了する");
+  [CoreDataController saveContext];
   [self.tableView endUpdates];
 }
 
