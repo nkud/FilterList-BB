@@ -29,6 +29,7 @@
 
 @property ListViewController *mainViewController_;
 @property UIViewAnimationCurve animationCurve_;
+@property UIView *whiteCoverView_;
 
 @end
 
@@ -117,9 +118,17 @@
   self.completeNavigationController
   = [[CompleteNavigationController alloc] initWithRootViewController:self.completeViewController];
   
+  // ホワイトカバー
+  self.whiteCoverView_ = [UIView new];
+  CGRect wcFrame = SCREEN_BOUNDS;
+  wcFrame.origin.x = self.filterViewController.view.frame.origin.x;
+  self.whiteCoverView_.frame = wcFrame;
+  self.whiteCoverView_.backgroundColor = [UIColor whiteColor];
+  
   // コントローラーを配置する
   // タグリストを最下にする
   [self.view addSubview:self.tagNavigationController.view];
+  [self.view addSubview:self.whiteCoverView_];
   [self.view addSubview:self.filterNavigationController.view];
   [self.view addSubview:self.itemNavigationController.view];
   [self.view addSubview:self.completeNavigationController.view];
@@ -133,6 +142,20 @@
   self.tagViewController.delegateForList = self;
   self.filterViewController.delegateForList = self;
   self.completeViewController.delegateForList = self;
+}
+
+-(void)openWhiteCover
+{
+  CGRect frame = self.whiteCoverView_.frame;
+  frame.origin.x = 0;
+  self.whiteCoverView_.frame = frame;
+}
+
+-(void)closeWhiteCover
+{
+  CGRect frame = self.whiteCoverView_.frame;
+  frame.origin.x = SCREEN_BOUNDS.size.width;
+  self.whiteCoverView_.frame = frame;
 }
 
 #pragma mark - ビュー移動関数
@@ -209,11 +232,10 @@
  */
 -(void)closeFilterListMode
 {
-  if ([self hasActivatedFilterListMode]) {
-    CGRect rect = self.filterNavigationController.view.frame;
-    rect.origin.x = SCREEN_BOUNDS.size.width;
-    self.filterNavigationController.view.frame = rect;
-  }
+  CGRect rect = self.filterNavigationController.view.frame;
+  rect.origin.x = SCREEN_BOUNDS.size.width;
+  self.filterNavigationController.view.frame = rect;
+  [self closeWhiteCover];
 }
 
 /**
@@ -221,11 +243,10 @@
  */
 -(void)openFilterListMode
 {
-  if ( ! [self hasActivatedFilterListMode]) {
-    CGRect rect = self.filterNavigationController.view.frame;
-    rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForFilterList + ITEM_LIST_REMAIN_MARGIN;
-    self.filterNavigationController.view.frame = rect;
-  }
+  CGRect rect = self.filterNavigationController.view.frame;
+  rect.origin.x = SCREEN_BOUNDS.size.width * kMarginRateForFilterList + ITEM_LIST_REMAIN_MARGIN;
+  self.filterNavigationController.view.frame = rect;
+  [self openWhiteCover];
 }
 
 -(void)toggleFilterListMode
