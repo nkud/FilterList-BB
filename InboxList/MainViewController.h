@@ -72,6 +72,7 @@ enum __LIST_DIRECTION__ {
 -(void)loadItemViewForTitle:(NSString *)title
                    subColor:(UIColor *)subColor
                        tags:(NSSet *)tags
-     fetcheResultController:(NSFetchedResultsController *)fetchedResultController;
+     fetcheResultController:(NSFetchedResultsController *)fetchedResultController
+            withInputHeader:(BOOL)withInputHeader;
 
 @end

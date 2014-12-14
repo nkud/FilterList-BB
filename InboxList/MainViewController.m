@@ -78,6 +78,9 @@
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
   self.itemViewController.navigationController = self.itemNavigationController;
   
+  // 初めはクイック入力を表示させる。
+  self.itemViewController.indexPathForInputHeader = INDEX(0, 0);
+  
   CALayer *itemLayer = self.itemNavigationController.view.layer;
   itemLayer.shadowOpacity = 0.8f;
 
@@ -686,7 +689,8 @@ didSelectItem:(UITabBarItem *)item
     [self loadItemViewForTitle:titleForItemList
                       subColor:TAG_COLOR
                         tags:[NSSet setWithObject:tag]
-      fetcheResultController:result_controller];
+      fetcheResultController:result_controller
+               withInputHeader:YES];
   } else {
     // 全アイテムを表示
     // @note サブタイトル色は黒色
@@ -695,7 +699,8 @@ didSelectItem:(UITabBarItem *)item
     [self loadItemViewForTitle:titleForItemList
                       subColor:ITEM_COLOR
                           tags:nil
-        fetcheResultController:result_controller];
+        fetcheResultController:result_controller
+               withInputHeader:YES];
   }
 }
 
@@ -728,7 +733,8 @@ didSelectItem:(UITabBarItem *)item
   [self loadItemViewForTitle:filterTitle
                     subColor:FILTER_COLOR
                         tags:tags
-      fetcheResultController:resultController];
+      fetcheResultController:resultController
+             withInputHeader:NO];
 }
 
 /**
@@ -741,6 +747,7 @@ didSelectItem:(UITabBarItem *)item
                     subColor:(UIColor *)subColor
                        tags:(NSSet *)tags
       fetcheResultController:(NSFetchedResultsController *)fetchedResultController
+             withInputHeader:(BOOL)withInputHeader
 {
   LOG(@"アイテムビューをロードする");
   // 選択されたタグを渡して
@@ -751,6 +758,11 @@ didSelectItem:(UITabBarItem *)item
     self.itemViewController.selectedTags = nil;
     [self.itemViewController showSectionHeader];
   }
+  
+  // 選択タグが複数の場合、（フィルタリストから）
+  // クイック入力は表示させない
+  self.itemViewController.indexPathForInputHeader = withInputHeader ? INDEX(0, 0) : nil;
+  
   self.itemViewController.fetchedResultsController = fetchedResultController;
   // テーブルを更新
   [self.itemViewController updateTableView];
