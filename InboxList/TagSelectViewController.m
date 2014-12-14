@@ -26,9 +26,6 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
 @property NSMutableArray *kIndexPathsForSelectedRows;
 
 -(NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView;
--(void)configureCell:(UITableViewCell *)cell
-          controller:(NSFetchedResultsController *)controller
-           indexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -36,12 +33,19 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
 
 #pragma mark - 初期化
 
+-(void)initParam
+{
+  self.selectColor = GRAY_COLOR;
+}
+
 /**
  * @brief  ビュー読込後処理
  */
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  [self initParam];
   
   // テーブルビューを初期化する
   CGRect frame = CGRectMake(0,
@@ -52,6 +56,9 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
                                                 style:UITableViewStylePlain];
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
+  
+  // セパレーターを設定する
+  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   
   [self.view addSubview:self.tableView];
   
@@ -182,24 +189,29 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 -(BOOL)cellHasCheckmark:(UITableViewCell *)cell
 {
-  if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
+  if (cell.backgroundColor == self.selectColor) {
     return YES;
   } else {
     return NO;
   }
 }
--(void)toggleCheckmark:(UITableViewCell *)cell check:(BOOL)check
+-(void)toggleCheckmark:(UITableViewCell *)cell
+                 check:(BOOL)check
 {
   if (check == 0) {
     if ([self cellHasCheckmark:cell]) {
-      cell.accessoryType = UITableViewCellAccessoryNone;
+//      cell.accessoryType = UITableViewCellAccessoryNone;
+      cell.backgroundColor = [UIColor whiteColor];
     } else {
-      cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//      cell.accessoryType = UITableViewCellAccessoryCheckmark;
+      cell.backgroundColor = self.selectColor;
     }
   } else if (check == YES) {
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    cell.backgroundColor = self.selectColor;
   } else {
-    cell.accessoryType = UITableViewCellAccessoryNone;
+//    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.backgroundColor = [UIColor whiteColor];
   }
 }
 #pragma mark - 終了処理
@@ -287,9 +299,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
       [self dismissTagSelectView];
     }
   }
-  
-  [self.tableView deselectRowAtIndexPath:indexPath
-                                   animated:YES];
 }
 
 /**
@@ -352,6 +361,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   if ([self.kIndexPathsForSelectedRows containsObject:indexPath]) {
     [self toggleCheckmark:cell
                     check:YES];
+  } else {
+    cell.backgroundColor = [UIColor whiteColor];
   }
   return cell;
 }
@@ -360,6 +371,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
           controller:(NSFetchedResultsController *)controller
                         indexPath:(NSIndexPath *)indexPath
 {
+  // 選択時にアニメーションはしない
+  cell.selectionStyle = UITableViewCellSelectionStyleNone;
+  
   Tag *tag = [controller objectAtIndexPath:indexPath];
   cell.textLabel.text = tag.title;
 }

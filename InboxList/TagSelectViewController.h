@@ -39,6 +39,10 @@ UISearchBarDelegate, UISearchControllerDelegate, UISearchDisplayDelegate>
 #pragma mark - その他
 @property NSSet *tagsForAlreadySelected;
 
+// 選択色
+@property UIColor *selectColor;
+
+// 最大選択可能数
 @property NSInteger maxCapacityRowsForSelected;
 
 @end
