@@ -278,9 +278,10 @@ canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
-  // 上位セルを固定
+  // 上位セルを固定して、
+  // その位置にくると、一番上に移動するようにする。
   if ([self isCellForAllItemsAtIndexPath:proposedDestinationIndexPath] || [self isCellForInputAtIndexPath:proposedDestinationIndexPath]) {
-    return sourceIndexPath;
+    return INDEX(2, 0);
   }
   return proposedDestinationIndexPath;
 }
