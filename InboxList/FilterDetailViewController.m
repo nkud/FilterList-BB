@@ -19,6 +19,7 @@
 #import "TagSelectViewController.h"
 
 #import "Header.h"
+#import "Configure.h"
 
 #define kDatePickerTag 99
 
@@ -799,6 +800,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   controller.delegate = self;
   controller.tagsForAlreadySelected = self.tagsForFilter;
   controller.maxCapacityRowsForSelected = 0;
+  controller.selectColor = FILTER_COLOR;
   
   UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
   

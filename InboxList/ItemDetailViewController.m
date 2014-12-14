@@ -13,6 +13,7 @@
 #import "ItemDetailDatePickerCell.h"
 #import "TagSelectViewController.h"
 #import "Header.h"
+#import "Configure.h"
 #import "Tag.h"
 
 #define kPickerAnimationDuration 0.4
@@ -494,6 +495,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //  controller.tagsForAlreadySelected = self.tagsForItem;
   controller.tagsForAlreadySelected = nil;
   controller.maxCapacityRowsForSelected = 1;
+  controller.selectColor = TAG_COLOR;
   
   UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
   

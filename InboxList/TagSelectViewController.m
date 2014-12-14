@@ -35,7 +35,9 @@ static NSString *kTagForSelectedCellID = @"TagSelectCell";
 
 -(void)initParam
 {
-  self.selectColor = GRAY_COLOR;
+  if (! self.selectColor) {
+    self.selectColor = GRAY_COLOR;
+  }
 }
 
 /**
