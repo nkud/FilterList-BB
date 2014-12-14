@@ -697,23 +697,19 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       LOG(@"セルを削除する");
       [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationFade];
-      LOG(@"順序を整理する");
+      
+      // 順序を整理する
       NSArray *tags = [controller fetchedObjects];
-      Tag *deleteTag = [controller objectAtIndexPath:indexPath];
-      NSInteger deleteOrder = deleteTag.order.integerValue;
       NSInteger newOrder;
-      LOG(@"--------- tag order ---------");
       for (Tag *tag in tags) {
         NSInteger order = tag.order.integerValue;
         if (order > indexPath.row) {
-          LOG(@"%ld > %ld", (long)order, (long)deleteOrder);
           newOrder = order - 1;
           [tag setValue:@(newOrder)
                  forKey:@"order"];
         }
         LOG(@"%@: %@", tag.title, tag.order);
       }
-      LOG(@"-----------------------------");
       break;
     }
     case NSFetchedResultsChangeUpdate:
@@ -724,16 +720,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       
       [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
                  atIndexPath:indexPathInTableView];
-//      [self configureTagCell:anObject
-//                 atIndexPath:indexPathInTableView];
       break;
     case NSFetchedResultsChangeMove:
-      LOG(@"セルを移動する: %ld -> %ld",
-          (long)indexPathInTableView.row, (long)newIndexPathInTableView.row);
-//      [tableView deleteRowsAtIndexPaths:@[indexPathInTableView] withRowAnimation:UITableViewRowAnimationFade];
-//      [tableView insertRowsAtIndexPaths:@[newIndexPathInTableView] withRowAnimation:UITableViewRowAnimationFade];
-//      [tableView moveRowAtIndexPath:indexPathInTableView
-//                        toIndexPath:newIndexPathInTableView];
       break;
   }
 }

@@ -481,6 +481,19 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       LOG(@"削除");
       [tableView deleteRowsAtIndexPaths:@[indexPath]
                        withRowAnimation:UITableViewRowAnimationLeft];
+      
+      // 順序を整理する
+      NSArray *filters = [controller fetchedObjects];
+      NSInteger newOrder;
+      for (Filter *filter in filters) {
+        NSInteger order = filter.order.integerValue;
+        if (order > indexPath.row) {
+          newOrder = order - 1;
+          [filter setValue:@(newOrder)
+                 forKey:@"order"];
+        }
+      }
+
       break;
     }
 
