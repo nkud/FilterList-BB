@@ -391,8 +391,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 //        [[CoreDataController managedObjectContext] deleteObject:item];
       }
       
-      LOG(@"タグを削除する");
+      // タグを削除する
       [[CoreDataController managedObjectContext] deleteObject:tag];
+      
+      
+      // 順序を整理する
+      NSArray *tags = [self.fetchedResultsController fetchedObjects];
+      NSInteger newOrder;
+      for (Tag *tag in tags) {
+        NSInteger order = tag.order.integerValue;
+        if (order > indexPath.row) {
+          newOrder = order - 1;
+          [tag setValue:@(newOrder)
+                 forKey:@"order"];
+        }
+        LOG(@"%@: %@", tag.title, tag.order);
+      }
       
       [CoreDataController saveContext];
       break;
@@ -700,19 +714,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       LOG(@"セルを削除する");
       [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationFade];
-      
-      // 順序を整理する
-      NSArray *tags = [controller fetchedObjects];
-      NSInteger newOrder;
-      for (Tag *tag in tags) {
-        NSInteger order = tag.order.integerValue;
-        if (order > indexPath.row) {
-          newOrder = order - 1;
-          [tag setValue:@(newOrder)
-                 forKey:@"order"];
-        }
-        LOG(@"%@: %@", tag.title, tag.order);
-      }
       break;
     }
     case NSFetchedResultsChangeUpdate:

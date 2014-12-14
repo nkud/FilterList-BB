@@ -34,7 +34,7 @@ static NSString *kCompleteTabBarItemImageName = @"CompleteTabBarItem.png";
   self.filterModeTab = [[UITabBarItem alloc] initWithTitle:@"FILTER"
                                                      image:[UIImage imageNamed:kFilterTabBarItemImageName]
                                                        tag:2];
-  self.completedModeTab = [[UITabBarItem alloc] initWithTitle:@"COMP"
+  self.completedModeTab = [[UITabBarItem alloc] initWithTitle:@"DONE"
                                                         image:[UIImage imageNamed:kCompleteTabBarItemImageName]
                                                           tag:3];
   self.items = [NSArray arrayWithObjects:self.itemModeTab, self.tagModeTab, self.filterModeTab, self.completedModeTab, nil];

@@ -257,6 +257,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       // フィルターを削除する
       Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
       [[CoreDataController managedObjectContext] deleteObject:filter];
+      
+      // 順序を整理する
+      NSArray *filters = [self.fetchedResultsController fetchedObjects];
+      NSInteger newOrder;
+      for (Filter *filter in filters) {
+        NSInteger order = filter.order.integerValue;
+        if (order > indexPath.row) {
+          newOrder = order - 1;
+          filter.order = [NSNumber numberWithInteger:newOrder];
+        }
+      }
+      [CoreDataController saveContext];
       break;
     }
     default:
@@ -481,18 +493,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       LOG(@"削除");
       [tableView deleteRowsAtIndexPaths:@[indexPath]
                        withRowAnimation:UITableViewRowAnimationLeft];
-      
-      // 順序を整理する
-      NSArray *filters = [controller fetchedObjects];
-      NSInteger newOrder;
-      for (Filter *filter in filters) {
-        NSInteger order = filter.order.integerValue;
-        if (order > indexPath.row) {
-          newOrder = order - 1;
-          [filter setValue:@(newOrder)
-                 forKey:@"order"];
-        }
-      }
+
 
       break;
     }
