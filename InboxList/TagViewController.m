@@ -722,12 +722,17 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       // 以下ではアニメーションがおかしくなる。
       // [tableView reloadRowsAtIndexPaths:@[indexPathInTableView]
       //                  withRowAnimation:UITableViewRowAnimationAutomatic];
-      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
+      
+//      [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
+//                 atIndexPath:indexPathInTableView];
+      [self configureTagCell:anObject
                  atIndexPath:indexPathInTableView];
       break;
     case NSFetchedResultsChangeMove:
       LOG(@"セルを移動する: %ld -> %ld",
           (long)indexPathInTableView.row, (long)newIndexPathInTableView.row);
+//      [tableView deleteRowsAtIndexPaths:@[indexPathInTableView] withRowAnimation:UITableViewRowAnimationFade];
+//      [tableView insertRowsAtIndexPaths:@[newIndexPathInTableView] withRowAnimation:UITableViewRowAnimationFade];
       [tableView moveRowAtIndexPath:indexPathInTableView
                         toIndexPath:newIndexPathInTableView];
       break;
