@@ -698,7 +698,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   
   [self.view addSubview:instant];
   
-  CGFloat maxOpacity = 0.5f;
+  CGFloat maxOpacity = 0.8f;
   CGFloat animationDelay = 0.4f;
   
   // アニメーションを実行
