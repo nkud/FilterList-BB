@@ -601,7 +601,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 titleForHeaderInSection:(NSInteger)section
 {
   if (section == 0) {
-    return @"TITLE";
+    return @"";
   }
   if (section == 1) {
     return @"";
@@ -610,7 +610,7 @@ titleForHeaderInSection:(NSInteger)section
     return @"";
   }
   if (section == 3) {
-    return @"SEARCH";
+    return @"";
   }
   return @"";
 }
@@ -850,7 +850,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   } else {
     stringForTags = @"tags";
   }
-  cell.textLabel.text = stringForTags;
+  cell.textLabel.text = @"Tags";
+  cell.detailTextLabel.text = stringForTags;
 }
 
 #pragma mark - その他
