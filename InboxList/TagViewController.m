@@ -501,7 +501,6 @@ numberOfRowsInSection:(NSInteger)section
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.titleLabel.text = tag.title;
-    LOG(@"タグに関連づいた未完了アイテム数を取得する");
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
   }
   cell.itemSizeLabel.text = itemCountString;
@@ -585,6 +584,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
      toIndexPath:(NSIndexPath *)destinationIndexPath
 {
+  // コントローラ用の位置に変換する
   NSIndexPath *sourceIndexPathInController = [self mapIndexPathToFetchResultsController:sourceIndexPath];
   NSIndexPath *destinationIndexPathInController = [self mapIndexPathToFetchResultsController:destinationIndexPath];
   
@@ -596,26 +596,28 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     minRowIdx = sourceIndexPathInController.row;
     maxRowIdx = destinationIndexPathInController.row;
     isMoveDirectionSmallToLarge = YES;
-    
   }else{
     minRowIdx = destinationIndexPathInController.row;
     maxRowIdx = sourceIndexPathInController.row;
     isMoveDirectionSmallToLarge = NO;
   }
   for(NSInteger i = minRowIdx; i <= maxRowIdx; i++){
-    NSIndexPath *itIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
-    NSManagedObject *managedObj = [self.fetchedResultsController objectAtIndexPath:itIndexPath];
-    NSNumber *displayOrder = [managedObj valueForKey:@"order"];
+    NSIndexPath *itIndexPath = INDEX(i, 0);
+    Tag *tag = [self.fetchedResultsController objectAtIndexPath:itIndexPath];
+    NSNumber *displayOrder = tag.order;
     NSInteger newOrder;
+    
+    // 移動前位置なら、移動先に移動。
+    // その他の位置なら、１つずらす。
     if(i == sourceIndexPathInController.row){
       newOrder = destinationIndexPathInController.row;
     }else if(isMoveDirectionSmallToLarge){
-      newOrder = [displayOrder integerValue] - 1;
+      newOrder = displayOrder.integerValue - 1;
     }else{
-      newOrder = [displayOrder integerValue] + 1;
+      newOrder = displayOrder.integerValue + 1;
     }
     LOG(@"%ld, %ld, %ld", (long)i, (long)displayOrder.integerValue, (long)newOrder);
-    [managedObj setValue:@(newOrder) forKey:@"order"];
+    tag.order = [NSNumber numberWithInteger:newOrder];
   }
   [CoreDataController saveContext];
 }
@@ -685,20 +687,17 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   NSIndexPath *indexPathInTableView = [self mapIndexPathFromFetchResultsController:indexPath];
   NSIndexPath *newIndexPathInTableView = [self mapIndexPathFromFetchResultsController:newIndexPath];
   UITableView *tableView = self.tableView;
-
   switch(type) {
     case NSFetchedResultsChangeInsert:
       LOG(@"セルを挿入する");
       [tableView insertRowsAtIndexPaths:@[newIndexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationLeft];
       break;
-
     case NSFetchedResultsChangeDelete:
     {
       LOG(@"セルを削除する");
       [tableView deleteRowsAtIndexPaths:@[indexPathInTableView]
                        withRowAnimation:UITableViewRowAnimationFade];
-      
       LOG(@"順序を整理する");
       NSArray *tags = [controller fetchedObjects];
       Tag *deleteTag = [controller objectAtIndexPath:indexPath];
@@ -718,7 +717,6 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       LOG(@"-----------------------------");
       break;
     }
-
     case NSFetchedResultsChangeUpdate:
       LOG(@"セルを更新する");
       // 以下ではアニメーションがおかしくなる。
@@ -727,9 +725,9 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       [self configureTagCell:(TagCell *)[tableView cellForRowAtIndexPath:indexPathInTableView]
                  atIndexPath:indexPathInTableView];
       break;
-
     case NSFetchedResultsChangeMove:
-      LOG(@"セルを移動する");
+      LOG(@"セルを移動する: %ld -> %ld",
+          (long)indexPathInTableView.row, (long)newIndexPathInTableView.row);
       [tableView moveRowAtIndexPath:indexPathInTableView
                         toIndexPath:newIndexPathInTableView];
       break;
