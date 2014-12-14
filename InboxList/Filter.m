@@ -18,6 +18,7 @@
 @dynamic interval;
 @dynamic overdue;
 @dynamic today;
+@dynamic order;
 
 /**
  * @brief  期限をフィルターしているか返す

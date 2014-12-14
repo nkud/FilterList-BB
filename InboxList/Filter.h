@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSDate *interval;
 @property (nonatomic, retain) NSNumber *overdue;
 @property (nonatomic, retain) NSNumber *today;
+@property (nonatomic, retain) NSNumber *order;
 @end
 
 @interface Filter (CoreDataGeneratedAccessors)

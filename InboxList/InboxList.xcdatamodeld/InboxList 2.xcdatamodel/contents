@@ -3,6 +3,7 @@
     <entity name="Filter" representedClassName="Filter" syncable="YES">
         <attribute name="from" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="interval" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="overdue" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="today" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -25,7 +26,7 @@
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="tag" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Filter" positionX="-4689" positionY="-1873" width="128" height="135"/>
+        <element name="Filter" positionX="-4689" positionY="-1873" width="128" height="150"/>
         <element name="Item" positionX="-4743" positionY="-1719" width="162" height="135"/>
         <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="120"/>
     </elements>
