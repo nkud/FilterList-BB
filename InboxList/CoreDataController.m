@@ -388,11 +388,8 @@ enum __SECTION__ {
  *  @return リザルトコントローラー
  */
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
-{
-  LOG(@"タグ用のリザルトコントローラー");
-  
-//  [self addTagObjecForAllItems];
-  
+{ 
+  LOG(@"タグフェッチコントローラが呼び出される");
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   
   // エンティティを設定
@@ -417,10 +414,8 @@ enum __SECTION__ {
                                                    cacheName:nil];
   // デリゲートを設定
   aFetchedResultsController.delegate = controller;
-  
-	/**
-	 *  フェッチを実行
-	 */
+
+  // フェッチを実行する
 	NSError *error = nil;
 	if (![aFetchedResultsController performFetch:&error]) {
     NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -619,18 +614,17 @@ enum __SECTION__ {
  */
 +(NSFetchedResultsController *)filterFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller
 {
-  LOG(@"フィルターリザルトコントローラー");
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
   // エンティティを設定
-  NSEntityDescription *entity = [self entityDescriptionForName:@"Filter"];
+  static NSString *tag_entity_name = @"Filter";
+  NSEntityDescription *entity = [self entityDescriptionForName:tag_entity_name];
   fetchRequest.entity = entity;
 
   /// Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
 
   // ソート条件を設定
-  LOG(@"ソート条件");
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"order"
                                                                  ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];

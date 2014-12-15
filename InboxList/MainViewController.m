@@ -548,7 +548,7 @@
   [self stopItemListScroll];
   
   LOG(@"タグリストモード");
-  [self.tagViewController updateTableView];
+//  [self.tagViewController updateTableView];
   [UIView beginAnimations:nil context:nil];
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:self.animationCurve_];

@@ -582,13 +582,16 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
  */
 - (void)updateTableView
 {
-  NSIndexPath *indexForAllItems = [NSIndexPath indexPathForRow:0 inSection:0];
+  NSIndexPath *indexForAllItems = INDEX(0, 0);
   TagCell *cell = (TagCell *)[self.tableView cellForRowAtIndexPath:indexForAllItems];
   [self configureTagCell:cell atIndexPath:indexForAllItems];
-  
-  LOG(@"テーブルビューのデータをリロードする");
-  [self.tableView reloadData];
 }
+
+//- (void)updateVisibleCells {
+//  for (UITableViewCell *cell in [self.tableView visibleCells]){
+//    [self updateCell:cell atIndexPath:[self.tableView indexPathForCell:cell]];
+//  }
+//}
 
 /**
  * @brief  セルを移動する

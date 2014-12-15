@@ -426,7 +426,27 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)updateTableView
 {
-  LOG(@"テーブルビューの全てを更新");
+//  LOG(@"テーブルビューの全てを更新");
+//  for (UITableViewCell *cell in [self.tableView visibleCells]){
+//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+//    if ([self hasInlineInputHeader] && indexPath.row == 0 && indexPath.section == 0) {
+//        // 入力セル
+//        InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
+//        NSString *placeholder;
+//        if ([self selectedTag]) {
+//          placeholder = [NSString stringWithFormat:@"new item with \"%@\"", [self selectedTag].title];
+//        } else {
+//          placeholder = @"new item";
+//        }
+//        
+//        cell.delegate = self;
+//        cell.inputField.delegate = self;
+//        cell.inputField.placeholder = placeholder;
+//    } else {
+//      [self configureItemCell:(ItemCell *)cell
+//                  atIndexPath:[self.tableView indexPathForCell:cell]];
+//    }
+//  }
   [self.tableView reloadData];
 }
 
