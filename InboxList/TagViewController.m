@@ -496,6 +496,7 @@ numberOfRowsInSection:(NSInteger)section
 {
   Tag *tag;
   NSString *itemCountString;
+  NSString *titleString;
   
   // セルの背景色を設定する
   cell.backgroundColor = TAG_BG_COLOR;
@@ -503,7 +504,7 @@ numberOfRowsInSection:(NSInteger)section
   if ([self isCellForAllItemsAtIndexPath:indexPath])
   {
     // 全アイテム表示用タグの設定
-    cell.titleLabel.text = @"Inbox";
+    titleString = @"Inbox";
     
     // 未完了のアイテム数を取得する
     itemCountString = [NSString stringWithFormat:@"%ld", (long)[CoreDataController countUncompletedItems]];
@@ -513,12 +514,14 @@ numberOfRowsInSection:(NSInteger)section
   else
   {
     // 通常のタグの設定
+    // タグを取得して、情報を表示する
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.titleLabel.text = tag.title;
+    titleString = tag.title;
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
   }
-  cell.itemSizeLabel.text = itemCountString;
+  
+//  cell.itemSizeLabel.text = itemCountString;
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
