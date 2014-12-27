@@ -464,7 +464,8 @@ numberOfRowsInSection:(NSInteger)section
     return inputCell;
   }
   // 通常のセルを作成する
-  TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier];
+  TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier
+                                                  forIndexPath:indexPath];
   
   // セルを設定
   [self configureTagCell:cell
@@ -520,7 +521,7 @@ numberOfRowsInSection:(NSInteger)section
     titleString = tag.title;
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
   }
-  
+  cell.titleLabel.text = titleString;
   cell.itemSizeLabel.text = itemCountString;
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
