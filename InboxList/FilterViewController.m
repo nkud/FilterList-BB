@@ -333,7 +333,8 @@ numberOfRowsInSection:(NSInteger)section
 -(void)configureFilterCell:(FilterCell *)cell
                atIndexPath:(NSIndexPath *)indexPath
 {
-  LOG(@"セルを設定");
+  // フィルターを取得して、
+  // フィルターの情報を表示する。
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.titleLabel.text = filter.title;
   cell.tagLabel.text = [self createStringForSet:filter.tags];
@@ -384,8 +385,10 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
   NSMutableString *string = [[NSMutableString alloc] init];
   
   for( Tag *tag in set )
-  { //< すべてのタグに対して
-    [string appendString:tag.title]; //< フィールドに足していく
+  {
+    // 全てのタグに対して、
+    // フィールドに足していく。
+    [string appendString:tag.title];
     [string appendString:@" "];
   }
   
