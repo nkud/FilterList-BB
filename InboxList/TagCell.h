@@ -11,8 +11,8 @@
 /// タグのセル
 @interface TagCell : UITableViewCell
 
-@property (strong) UILabel *titleLabel;
-@property (strong) UILabel *itemSizeLabel;
+@property UILabel *titleLabel;
+@property UILabel *itemSizeLabel;
 
 - (void)showItemSizeLabel:(BOOL)show;
 
