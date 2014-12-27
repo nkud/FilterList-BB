@@ -521,7 +521,7 @@ numberOfRowsInSection:(NSInteger)section
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
   }
   
-//  cell.itemSizeLabel.text = itemCountString;
+  cell.itemSizeLabel.text = itemCountString;
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
