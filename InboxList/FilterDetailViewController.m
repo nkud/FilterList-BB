@@ -504,9 +504,9 @@ titleForHeaderInSection:(NSInteger)section
   } else if (selectedIndex == 1 && [self hasInlineDueDateSelectionPanel] == NO) {
     indexPathsForDueDateSelectionPanel_ = @[INDEX(1, 2), INDEX(2, 2), INDEX(3, 2)];
     // 選択パネルをリセットする
-    overdueState_ = NO;
-    todayState_ = NO;
-    futureState_ = NO;
+    overdueState_ = YES;
+    todayState_ = YES;
+    futureState_ = YES;
     [self openDueDateSelectionPanel];
   }
   [self.tableView endUpdates];
@@ -531,6 +531,10 @@ titleForHeaderInSection:(NSInteger)section
   NSArray *indexPaths = @[INDEX(1, 2), INDEX(2, 2), INDEX(3, 2)];
   [self.tableView deleteRowsAtIndexPaths:indexPaths
                         withRowAnimation:UITableViewRowAnimationFade];
+  
+  // セグメントコントロールを更新する
+  [self.tableView reloadRowsAtIndexPaths:@[INDEX(0, 2)]
+                        withRowAnimation:NO];
 }
 -(void)switchChanged:(UISwitch *)sender
 {
@@ -540,6 +544,12 @@ titleForHeaderInSection:(NSInteger)section
     todayState_ = sender.on;
   } else {
     futureState_ = sender.on;
+  }
+  if ( ! (overdueState_ || todayState_ || futureState_)) {
+    [self.tableView beginUpdates];
+    indexPathsForDueDateSelectionPanel_ = nil;
+    [self closeDueDateSelectionPanel];
+    [self.tableView endUpdates];
   }
 }
 /**
