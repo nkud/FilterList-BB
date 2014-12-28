@@ -28,7 +28,8 @@ static NSString *kTagSelectCellID = @"tagCell";
 static NSString *kDueDateCellID = @"DueDateCell";
 static NSString *kDatePickerCellID = @"DatePickerCell";
 static NSString *kSearchCellID = @"SearchCell";
-static NSString *kSegmentedCellID = @"SegmentedCel";
+static NSString *kSegmentedCellID = @"SegmentedCell";
+static NSString *kSwitchCellID = @"SwitchCell";
 
 static NSString *kTagCellNibName = @"ItemDetailTagCell";
 static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
@@ -42,6 +43,10 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   BOOL didActivatedKeyboard_;
   
   NSArray *indexPathsForDueDateSelectionPanel_;
+  
+  BOOL overdueState_;
+  BOOL todayState_;
+  BOOL futureState_;
 }
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -73,6 +78,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kSegmentedCellID];
+  [self.tableView registerClass:[SwitchCell class]
+         forCellReuseIdentifier:kSwitchCellID];
 }
 
 /**
@@ -103,6 +110,10 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
       self.filterInterval = interval;
       self.indexPathForFilter = indexPath;
       
+      overdueState_ = overdue;
+      todayState_ = today;
+      futureState_ = NO;
+      
       self.isNewFilter = NO;
       
     } else {
@@ -111,6 +122,10 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
       self.filterFromDate = nil;
       self.filterInterval = nil;
       self.indexPathForFilter = nil;
+      
+      overdueState_ = NO;
+      todayState_ = NO;
+      futureState_ = NO;
       
       self.isNewFilter = YES;
     }
@@ -144,7 +159,16 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 {
   self.indexPathForDatePickerCell = nil;
   didActivatedKeyboard_ = NO;
-  indexPathsForDueDateSelectionPanel_ = nil;
+  [self initDueDateState];
+}
+
+-(void)initDueDateState
+{
+  if (overdueState_ || todayState_ || futureState_) {
+    indexPathsForDueDateSelectionPanel_ = @[INDEX(1, 2), INDEX(2, 2), INDEX(3, 2)];
+  } else {
+    indexPathsForDueDateSelectionPanel_ = nil;
+  }
 }
 
 - (void)viewDidLoad
@@ -207,8 +231,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
                         tagsForSelected:self.tagsForFilter
                                    from:self.filterFromDate
                                interval:self.filterInterval
-                          filterOverdue:NO
-                            filterToday:NO
+                          filterOverdue:overdueState_
+                            filterToday:todayState_
                               indexPath:self.indexPathForFilter
                             isNewFilter:self.isNewFilter];
   
@@ -456,7 +480,6 @@ titleForHeaderInSection:(NSInteger)section
   }
   return @"";
 }
-
 /**
  * @brief  セグメントコントロールの値が変わった時に呼び出される
  *
@@ -472,10 +495,18 @@ titleForHeaderInSection:(NSInteger)section
   
   [self.tableView beginUpdates];
   if (selectedIndex == 0 && [self hasInlineDueDateSelectionPanel] == YES) {
-      indexPathsForDueDateSelectionPanel_ = nil;
-      [self closeDueDateSelectionPanel];
+    indexPathsForDueDateSelectionPanel_ = nil;
+    [self closeDueDateSelectionPanel];
+    // 選択パネルをリセットする
+    overdueState_ = NO;
+    todayState_ = NO;
+    futureState_ = NO;
   } else if (selectedIndex == 1 && [self hasInlineDueDateSelectionPanel] == NO) {
     indexPathsForDueDateSelectionPanel_ = @[INDEX(1, 2), INDEX(2, 2), INDEX(3, 2)];
+    // 選択パネルをリセットする
+    overdueState_ = NO;
+    todayState_ = NO;
+    futureState_ = NO;
     [self openDueDateSelectionPanel];
   }
   [self.tableView endUpdates];
@@ -501,6 +532,16 @@ titleForHeaderInSection:(NSInteger)section
   [self.tableView deleteRowsAtIndexPaths:indexPaths
                         withRowAnimation:UITableViewRowAnimationFade];
 }
+-(void)switchChanged:(UISwitch *)sender
+{
+  if (sender.tag == 1) {
+    overdueState_ = sender.on;
+  } else if (sender.tag == 2) {
+    todayState_ = sender.on;
+  } else {
+    futureState_ = sender.on;
+  }
+}
 /**
  * @brief  セルを作成する
  *
@@ -512,8 +553,34 @@ titleForHeaderInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // 期限選択パネルのセルを作成する。
+  // タイトルと、状態を設定する。
   if ([self hasInlineDueDateSelectionPanel] && indexPath.row != 0) {
-    UITableViewCell *cell = [UITableViewCell new];
+    SwitchCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kSwitchCellID
+                                                            forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSString *title;
+    BOOL state;
+    NSInteger tag;
+    if (indexPath.row == 1) {
+      title = @"OverDue";
+      state = overdueState_;
+      tag = 1;
+    } else if (indexPath.row == 2) {
+      title = @"Today";
+      state = todayState_;
+      tag = 2;
+    } else {
+      title = @"Future";
+      state = futureState_;
+      tag = 3;
+    }
+    [cell.switchView addTarget:self
+                        action:@selector(switchChanged:)
+              forControlEvents:UIControlEventValueChanged];
+    cell.textLabel.text = title;
+    cell.switchView.on = state;
+    cell.switchView.tag = tag;
     return cell;
   }
   // セルのIDで場合分けする
@@ -524,6 +591,7 @@ titleForHeaderInSection:(NSInteger)section
     cell.titleField.text = self.titleForFilter;
     cell.titleField.placeholder = @"title";
     cell.titleField.delegate = self;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
   }
   else if ([self cellIdentifierAtIndexPath:indexPath] == kSegmentedCellID)
@@ -546,6 +614,8 @@ titleForHeaderInSection:(NSInteger)section
     segment.selectedSegmentIndex = [self hasInlineDueDateSelectionPanel] ? 1 : 0;
     // accessoryViewに追加する。
     cell.accessoryView = segment;
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
   }
   else if ([self isTagCellAtIndexPath:indexPath])
@@ -649,6 +719,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [self.tableView deselectRowAtIndexPath:indexPath
                                 animated:YES];
+  // オプションセクションでは
+  // なにも起こらないようにする
+  if (indexPath.section == 2) {
+    return;
+  }
   if ([self isTagCellAtIndexPath:indexPath])
   {
     // タグセル
