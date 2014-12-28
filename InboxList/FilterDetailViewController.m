@@ -40,6 +40,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   NSArray *dataArray_;
   
   BOOL didActivatedKeyboard_;
+  
+  NSArray *indexPathsForDueDateSelectionPanel_;
 }
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -142,6 +144,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 {
   self.indexPathForDatePickerCell = nil;
   didActivatedKeyboard_ = NO;
+  indexPathsForDueDateSelectionPanel_ = nil;
 }
 
 - (void)viewDidLoad
@@ -329,7 +332,11 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   return self.dataArray[indexPath.section][indexPath.row];
   NSString *identifier;
   if (indexPath.section == 2) {
-    return kSegmentedCellID;
+    if (indexPath.row == 0) {
+      return kSegmentedCellID;
+    } else {
+      return @"Cell";
+    }
   }
   if ([self hasInlineDatePickerCell]) {
     if (indexPath.section == 3) {
@@ -409,6 +416,9 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 numberOfRowsInSection:(NSInteger)section
 {
   NSInteger numRows = [self.dataArray[section] count];
+  if ([self hasInlineDueDateSelectionPanel] && section == 2) {
+    numRows += [indexPathsForDueDateSelectionPanel_ count];
+  }
   if ([self hasInlineDatePickerCell] && section == 3) {
     numRows += 1;
   }
@@ -448,6 +458,39 @@ titleForHeaderInSection:(NSInteger)section
 }
 
 /**
+ * @brief  セグメントコントロールの値が変わった時に呼び出される
+ *
+ * @param sender センダー
+ */
+-(void)segmentChanged:(id)sender
+{
+  // キーボードを閉じる
+  [[self titleCell].titleField resignFirstResponder];
+  
+  UISegmentedControl *control = (UISegmentedControl *)sender;
+  NSInteger selectedIndex = control.selectedSegmentIndex;
+  
+  [self.tableView beginUpdates];
+  if (selectedIndex == 0) {
+    [self.tableView deleteRowsAtIndexPaths:indexPathsForDueDateSelectionPanel_
+                          withRowAnimation:UITableViewRowAnimationFade];
+    indexPathsForDueDateSelectionPanel_ = nil;
+  } else if (selectedIndex == 1) {
+    indexPathsForDueDateSelectionPanel_ = @[INDEX(1, 2), INDEX(2, 2), INDEX(3, 2)];
+    [self.tableView insertRowsAtIndexPaths:indexPathsForDueDateSelectionPanel_
+                          withRowAnimation:UITableViewRowAnimationFade];
+  }
+  [self.tableView endUpdates];
+ }
+-(BOOL)hasInlineDueDateSelectionPanel
+{
+  if (indexPathsForDueDateSelectionPanel_) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+/**
  * @brief  セルを作成する
  *
  * @param tableView テーブルビュー
@@ -470,42 +513,22 @@ titleForHeaderInSection:(NSInteger)section
   }
   else if ([self cellIdentifierAtIndexPath:indexPath] == kSegmentedCellID)
   {
-    // スイッチセルを作成して返す。
-    // 列ごとにタイトルを変え、
-    // セルを選択しても変化しないようにする
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSegmentedCellID];
-    cell.textLabel.text = @"DueDate";
-//    NSString *title;
-//    BOOL switchState;
-//    SEL selector;
-//    if (indexPath.row == 0) {
-//      title = @"Due Date";
-//      selector = @selector(changedSwitchValueOne:);
-//      switchState = [self hasIntervalFilter];
-//    } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 1) {
-//      title = @"Overdue";
-//      selector = @selector(changedSwitchValueTwo:);
-//      switchState = stateOfSwitchTwo_;
-//    } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 2) {
-//      title = @"Today";
-//      selector = @selector(changedSwitchValueThree:);
-//      switchState = stateOfSwitchThree_;
-//    } else {
-//      title = @"";
-//      selector = nil;
-//      switchState = NO;
-//    }
-//    cell.textLabel.text = title;
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    [cell.switchView setOn:switchState
-//                  animated:NO];
-//    
-//    // 初めの一回だけターゲットを設定する
-//    if ([cell.switchView allTargets].count <= 0) {
-//      [cell.switchView addTarget:self
-//                          action:selector
-//                forControlEvents:UIControlEventValueChanged];
-//    }
+    cell.textLabel.text = @"Option";
+
+    // セグメントコントロールを追加する
+    NSArray *items = [[NSArray alloc] initWithObjects:@"All", @"DueDate", nil];
+    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:items];
+    segment.frame = CGRectMake(0, 0, 180, 30);
+    // そのまま載せると少し大きいので、小さめにする。
+    NSDictionary *attribute = [NSDictionary dictionaryWithObject:[UIFont boldSystemFontOfSize:10]
+                                                          forKey:NSFontAttributeName];
+    [segment setTitleTextAttributes:attribute forState:UIControlStateNormal];
+    // セグメントコントロールの値がかわった際に呼び出されるメソッドを指定する。
+    [segment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
+    segment.selectedSegmentIndex = 0;
+    // accessoryViewに追加する。
+    cell.accessoryView = segment;
     return cell;
   }
   else if ([self isTagCellAtIndexPath:indexPath])
