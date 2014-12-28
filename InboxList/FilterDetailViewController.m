@@ -482,10 +482,10 @@ titleForHeaderInSection:(NSInteger)section
  }
 -(BOOL)hasInlineDueDateSelectionPanel
 {
-  if (indexPathsForDueDateSelectionPanel_) {
-    return YES;
-  } else {
+  if (indexPathsForDueDateSelectionPanel_ == nil) {
     return NO;
+  } else {
+    return YES;
   }
 }
 
@@ -512,6 +512,10 @@ titleForHeaderInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if ([self hasInlineDueDateSelectionPanel] && indexPath.row != 0) {
+    UITableViewCell *cell = [UITableViewCell new];
+    return cell;
+  }
   // セルのIDで場合分けする
   if ([self isTitleCellAtIndexPath:indexPath])
   {
@@ -537,7 +541,9 @@ titleForHeaderInSection:(NSInteger)section
     [segment setTitleTextAttributes:attribute forState:UIControlStateNormal];
     // セグメントコントロールの値がかわった際に呼び出されるメソッドを指定する。
     [segment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
-    segment.selectedSegmentIndex = 0;
+
+    // パネルの開閉状態で決める
+    segment.selectedSegmentIndex = [self hasInlineDueDateSelectionPanel] ? 1 : 0;
     // accessoryViewに追加する。
     cell.accessoryView = segment;
     return cell;
