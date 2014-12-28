@@ -471,14 +471,12 @@ titleForHeaderInSection:(NSInteger)section
   NSInteger selectedIndex = control.selectedSegmentIndex;
   
   [self.tableView beginUpdates];
-  if (selectedIndex == 0) {
-    [self.tableView deleteRowsAtIndexPaths:indexPathsForDueDateSelectionPanel_
-                          withRowAnimation:UITableViewRowAnimationFade];
-    indexPathsForDueDateSelectionPanel_ = nil;
-  } else if (selectedIndex == 1) {
+  if (selectedIndex == 0 && [self hasInlineDueDateSelectionPanel] == YES) {
+      indexPathsForDueDateSelectionPanel_ = nil;
+      [self closeDueDateSelectionPanel];
+  } else if (selectedIndex == 1 && [self hasInlineDueDateSelectionPanel] == NO) {
     indexPathsForDueDateSelectionPanel_ = @[INDEX(1, 2), INDEX(2, 2), INDEX(3, 2)];
-    [self.tableView insertRowsAtIndexPaths:indexPathsForDueDateSelectionPanel_
-                          withRowAnimation:UITableViewRowAnimationFade];
+    [self openDueDateSelectionPanel];
   }
   [self.tableView endUpdates];
  }
@@ -489,6 +487,19 @@ titleForHeaderInSection:(NSInteger)section
   } else {
     return NO;
   }
+}
+
+-(void)openDueDateSelectionPanel
+{
+  [self.tableView insertRowsAtIndexPaths:indexPathsForDueDateSelectionPanel_
+                        withRowAnimation:UITableViewRowAnimationFade];
+}
+
+-(void)closeDueDateSelectionPanel
+{
+  NSArray *indexPaths = @[INDEX(1, 2), INDEX(2, 2), INDEX(3, 2)];
+  [self.tableView deleteRowsAtIndexPaths:indexPaths
+                        withRowAnimation:UITableViewRowAnimationFade];
 }
 /**
  * @brief  セルを作成する
