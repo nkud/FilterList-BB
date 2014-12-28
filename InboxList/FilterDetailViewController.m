@@ -28,7 +28,7 @@ static NSString *kTagSelectCellID = @"tagCell";
 static NSString *kDueDateCellID = @"DueDateCell";
 static NSString *kDatePickerCellID = @"DatePickerCell";
 static NSString *kSearchCellID = @"SearchCell";
-static NSString *kSwitchCellID = @"SwitchCell";
+static NSString *kSegmentedCellID = @"SegmentedCel";
 
 static NSString *kTagCellNibName = @"ItemDetailTagCell";
 static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
@@ -40,11 +40,6 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   NSArray *dataArray_;
   
   BOOL didActivatedKeyboard_;
-  
-  NSArray *indexPathsForSelectionPanel_;
-
-  BOOL stateOfSwitchTwo_;
-  BOOL stateOfSwitchThree_;
 }
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -74,8 +69,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
                                              bundle:nil]
        forCellReuseIdentifier:kDatePickerCellID];
   
-  [self.tableView registerClass:[SwitchCell class]
-         forCellReuseIdentifier:kSwitchCellID];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kSegmentedCellID];
 }
 
 /**
@@ -106,9 +101,6 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
       self.filterInterval = interval;
       self.indexPathForFilter = indexPath;
       
-      stateOfSwitchTwo_ = overdue;
-      stateOfSwitchThree_ = today;
-      
       self.isNewFilter = NO;
       
     } else {
@@ -118,32 +110,12 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
       self.filterInterval = nil;
       self.indexPathForFilter = nil;
       
-      stateOfSwitchTwo_ = NO;
-      stateOfSwitchThree_ = NO;
-      
       self.isNewFilter = YES;
     }
   }
   
   self.delegate = delegate;
   return self;
-}
-
--(BOOL)hasIntervalFilter
-{
-  // 期限の設定があれば真を返す
-  return stateOfSwitchTwo_ || stateOfSwitchThree_;
-}
-
--(NSArray *)indexPathsForSelectionPanel
-{
-  if ([self hasIntervalFilter]) {
-    indexPathsForSelectionPanel_ = @[ INDEX(1, 2),
-                                      INDEX(2, 2) ];
-  } else {
-    indexPathsForSelectionPanel_ = nil;
-  }
-  return indexPathsForSelectionPanel_;
 }
 
 /**
@@ -157,9 +129,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   
   NSArray *itemTwo = @[kTagSelectCellID];
 
-  NSArray *itemThree = @[kSwitchCellID];
-  
-//  NSArray *itemFour = @[kDueDateCellID, kDueDateCellID];
+  NSArray *itemThree = @[kSegmentedCellID];
 
   dataArray_ = @[itemOne, itemTwo, itemThree];
   return dataArray_;
@@ -199,8 +169,6 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   self.dateFormatter = [[NSDateFormatter alloc] init];
   [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
   [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-  
-  [self updateSwitchDisplayWithAnimation:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -236,8 +204,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
                         tagsForSelected:self.tagsForFilter
                                    from:self.filterFromDate
                                interval:self.filterInterval
-                          filterOverdue:stateOfSwitchTwo_
-                            filterToday:stateOfSwitchThree_
+                          filterOverdue:NO
+                            filterToday:NO
                               indexPath:self.indexPathForFilter
                             isNewFilter:self.isNewFilter];
   
@@ -358,9 +326,10 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
  */
 -(NSString *)cellIdentifierAtIndexPath:(NSIndexPath *)indexPath
 {
+  return self.dataArray[indexPath.section][indexPath.row];
   NSString *identifier;
   if (indexPath.section == 2) {
-    return kSwitchCellID;
+    return kSegmentedCellID;
   }
   if ([self hasInlineDatePickerCell]) {
     if (indexPath.section == 3) {
@@ -434,149 +403,12 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 
 #pragma mark - 期間選択パネルユーティリティ
 
-/**
- * @brief  期間選択パネルが表示されているか評価する
- *
- * @return 真偽値
- */
--(BOOL)hasInlineIntervalSelectionPanel
-{
-  // 期間選択パネル用のインデックスパス配列が存在すれば、真を返す
-  // そうでなければ、偽を返す
-  if ([self indexPathsForSelectionPanel] == nil) {
-    return NO;
-  } else {
-    return YES;
-  }
-}
-
-/**
- * @brief  期限選択パネルを閉じる
- */
--(void)closeIntervalSelectionPanel
-{
-  // 期間選択パネルが表示されていれば、パネルを閉じる。
-  // １番目のスイッチをオフにする。
-  stateOfSwitchTwo_ = NO;
-  stateOfSwitchThree_ = NO;
-  
-  NSArray *indexPaths = @[ INDEX(1, 2),
-                           INDEX(2, 2) ];
-  
-  [self.tableView deleteRowsAtIndexPaths:indexPaths
-                        withRowAnimation:UITableViewRowAnimationFade];
-  
-  // １つ目のスイッチをオフにする
-  [self updateSwitchDisplayWithAnimation:YES];
-}
-/**
- * @brief  期限選択パネルを開く
- */
--(void)openIntervalSelectionPanel
-{
-  // 期間選択パネルが閉じていれば、パネルを開く。
-  // 全てのスイッチをオンにする。
-  stateOfSwitchTwo_ = YES;
-  stateOfSwitchThree_ = YES;
-  
-  [self.tableView insertRowsAtIndexPaths:[self indexPathsForSelectionPanel]
-                        withRowAnimation:UITableViewRowAnimationFade];
-  
-  // 期間選択パネルの全てをオンにする
-  [self updateSwitchDisplayWithAnimation:YES];
-}
-
-/**
- * @brief  スイッチの状態を返す
- *
- * @param row スイッチの列
- *
- * @return 真偽値
- */
--(BOOL)stateOfSwitchWithRow:(NSInteger)row
-{
-  NSIndexPath *indexPath = INDEX(row,2);
-  SwitchCell *cellTwo = (SwitchCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-  return cellTwo.switchView.on;
-}
-
-/**
- * @brief  スイッチの表示を現在の状態に更新する
- */
--(void)updateSwitchDisplayWithAnimation:(BOOL)animation
-{
-  SwitchCell *cellOne = (SwitchCell *)[self.tableView cellForRowAtIndexPath:INDEX(0, 2)];
-  SwitchCell *cellTwo = (SwitchCell *)[self.tableView cellForRowAtIndexPath:INDEX(1, 2)];
-  SwitchCell *cellThree = (SwitchCell *)[self.tableView cellForRowAtIndexPath:INDEX(2, 2)];
-  [cellOne.switchView setOn:[self hasIntervalFilter] animated:animation];
-  [cellTwo.switchView setOn:stateOfSwitchTwo_ animated:animation];
-  [cellThree.switchView setOn:stateOfSwitchThree_ animated:animation];
-}
-
-/**
- * @brief  スイッチが変更された時の処理
- *
- * @param sender 変更されたスイッチ
- */
--(void)changedSwitchValueOne:(UISwitch *)sender
-{
-  // キーボードが開いていたら閉じる
-  [[self titleCell].titleField resignFirstResponder];
-  
-  // スイッチの状態を記録する
-  stateOfSwitchTwo_ = sender.on;
-  stateOfSwitchThree_ = sender.on;
-  
-  // スイッチがオンなら、
-  // 期間選択パネルを開く
-  // そうでないなら閉じる。
-  if ([self hasIntervalFilter]) {
-    [self openIntervalSelectionPanel];
-  } else {
-    [self closeIntervalSelectionPanel];
-  }
-}
--(void)changedSwitchValueTwo:(UISwitch *)sender
-{
-  // キーボードが開いていたら閉じる
-  [[self titleCell].titleField resignFirstResponder];
-  
-  // スイッチの状態を記録する
-  stateOfSwitchTwo_ = sender.on;
-  if (stateOfSwitchTwo_) {
-    ;
-  } else {
-    // もし他方のスイッチもオフなら、選択パネルを閉じる
-    if ( ! [self hasIntervalFilter]) {
-      [self closeIntervalSelectionPanel];
-    }
-  }
-}
--(void)changedSwitchValueThree:(UISwitch *)sender
-{
-  // キーボードが開いていたら閉じる
-  [[self titleCell].titleField resignFirstResponder];
-  
-  // スイッチの状態を記録する
-  stateOfSwitchThree_ = sender.on;
-  if (stateOfSwitchThree_) {
-    ;
-  } else {
-    // もし他方のスイッチもオフなら、選択パネルを閉じる
-    if ( ! [self hasIntervalFilter]) {
-      [self closeIntervalSelectionPanel];
-    }
-  }
-}
 #pragma mark - テーブルビュー
 
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section
 {
   NSInteger numRows = [self.dataArray[section] count];
-  if ([self hasInlineIntervalSelectionPanel] && section == 2) {
-    numRows += 2;
-  }
   if ([self hasInlineDatePickerCell] && section == 3) {
     numRows += 1;
   }
@@ -636,44 +468,44 @@ titleForHeaderInSection:(NSInteger)section
     cell.titleField.delegate = self;
     return cell;
   }
-  else if ([self cellIdentifierAtIndexPath:indexPath] == kSwitchCellID)
+  else if ([self cellIdentifierAtIndexPath:indexPath] == kSegmentedCellID)
   {
     // スイッチセルを作成して返す。
     // 列ごとにタイトルを変え、
     // セルを選択しても変化しないようにする
-    SwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:kSwitchCellID];
-    
-    NSString *title;
-    BOOL switchState;
-    SEL selector;
-    if (indexPath.row == 0) {
-      title = @"Due Date";
-      selector = @selector(changedSwitchValueOne:);
-      switchState = [self hasIntervalFilter];
-    } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 1) {
-      title = @"Overdue";
-      selector = @selector(changedSwitchValueTwo:);
-      switchState = stateOfSwitchTwo_;
-    } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 2) {
-      title = @"Today";
-      selector = @selector(changedSwitchValueThree:);
-      switchState = stateOfSwitchThree_;
-    } else {
-      title = @"";
-      selector = nil;
-      switchState = NO;
-    }
-    cell.textLabel.text = title;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell.switchView setOn:switchState
-                  animated:NO];
-    
-    // 初めの一回だけターゲットを設定する
-    if ([cell.switchView allTargets].count <= 0) {
-      [cell.switchView addTarget:self
-                          action:selector
-                forControlEvents:UIControlEventValueChanged];
-    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSegmentedCellID];
+    cell.textLabel.text = @"DueDate";
+//    NSString *title;
+//    BOOL switchState;
+//    SEL selector;
+//    if (indexPath.row == 0) {
+//      title = @"Due Date";
+//      selector = @selector(changedSwitchValueOne:);
+//      switchState = [self hasIntervalFilter];
+//    } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 1) {
+//      title = @"Overdue";
+//      selector = @selector(changedSwitchValueTwo:);
+//      switchState = stateOfSwitchTwo_;
+//    } else if ([self hasInlineIntervalSelectionPanel] && indexPath.row == 2) {
+//      title = @"Today";
+//      selector = @selector(changedSwitchValueThree:);
+//      switchState = stateOfSwitchThree_;
+//    } else {
+//      title = @"";
+//      selector = nil;
+//      switchState = NO;
+//    }
+//    cell.textLabel.text = title;
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    [cell.switchView setOn:switchState
+//                  animated:NO];
+//    
+//    // 初めの一回だけターゲットを設定する
+//    if ([cell.switchView allTargets].count <= 0) {
+//      [cell.switchView addTarget:self
+//                          action:selector
+//                forControlEvents:UIControlEventValueChanged];
+//    }
     return cell;
   }
   else if ([self isTagCellAtIndexPath:indexPath])
