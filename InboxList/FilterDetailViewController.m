@@ -614,7 +614,7 @@ titleForHeaderInSection:(NSInteger)section
     UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:items];
     segment.frame = CGRectMake(0, 0, 180, 30);
     // そのまま載せると少し大きいので、小さめにする。
-    NSDictionary *attribute = [NSDictionary dictionaryWithObject:[UIFont boldSystemFontOfSize:10]
+    NSDictionary *attribute = [NSDictionary dictionaryWithObject:[UIFont boldSystemFontOfSize:11]
                                                           forKey:NSFontAttributeName];
     [segment setTitleTextAttributes:attribute forState:UIControlStateNormal];
     // セグメントコントロールの値がかわった際に呼び出されるメソッドを指定する。
@@ -622,6 +622,7 @@ titleForHeaderInSection:(NSInteger)section
 
     // パネルの開閉状態で決める
     segment.selectedSegmentIndex = [self hasInlineDueDateSelectionPanel] ? 1 : 0;
+    segment.tintColor = FILTER_COLOR;
     // accessoryViewに追加する。
     cell.accessoryView = segment;
     
