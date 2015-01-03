@@ -569,7 +569,7 @@
   // 既にアイテムリストがメインなら、
   // １番上までスクロールさせて、終了する。
   if ([self isTopViewController:self.filterViewController]) {
-    [self.filterViewController scrollToTopCell];
+//    [self.filterViewController scrollToTopCell];
     return;
   }
   self.itemNavigationController.view.userInteractionEnabled = NO;
@@ -604,7 +604,7 @@
   // 既にアイテムリストがメインなら、
   // １番上までスクロールさせて、終了する。
   if ([self isTopViewController:self.completeViewController]) {
-    [self.completeViewController scrollToTopCell];
+//    [self.completeViewController scrollToTopCell];
     return;
   }
   self.itemNavigationController.view.userInteractionEnabled = NO;
