@@ -126,12 +126,15 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
     selectedTag = tag;
     break;
   }
+  
   NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
   if (self.tableView.editing) {
     for (NSIndexPath *indexPathInTable in selectedRows) {
       NSIndexPath *indexPathInController = [self mapIndexPathToFetchResultsController:indexPathInTable];
       Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInController];
-      [item setTag:selectedTag];
+      if (item.tag != selectedTag) {
+        [item setTag:selectedTag];
+      }
     }
     [self instantMessage:@"Move"
                    color:nil];
