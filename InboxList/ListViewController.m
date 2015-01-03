@@ -367,10 +367,12 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 
 -(void)scrollToTopCell
 {
-  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-  [self.tableView scrollToRowAtIndexPath:indexPath
-                        atScrollPosition:UITableViewScrollPositionTop
-                                animated:YES];
+  if ([self.tableView numberOfSections] > 0) {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath
+                          atScrollPosition:UITableViewScrollPositionTop
+                                  animated:YES];
+  }
 }
 
 #pragma mark ナビゲーションバー

@@ -403,7 +403,9 @@ numberOfRowsInSection:(NSInteger)section
   // ピッカーセルを作成
   if ([self hasInlineDatePicker] && [self isDatePickerCellAtIndexPath:indexPath]) {
     ItemDetailDatePickerCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
-    cell.datePicker.date = self.reminderForItem;
+    if (self.reminderForItem) {
+      cell.datePicker.date = self.reminderForItem;
+    }
     cell.delegate = self;
     return cell;
   }
