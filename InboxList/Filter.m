@@ -19,7 +19,6 @@
 @dynamic overdue;
 @dynamic today;
 @dynamic future;
-@dynamic all;
 @dynamic order;
 
 /**
@@ -30,6 +29,20 @@
 -(BOOL)hasInterval
 {
   if (self.overdue && self.today) {
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
+/**
+ * @brief  期限オプションがなければ真を返す
+ *
+ * @return 真偽値
+ */
+-(BOOL)hasAllItem
+{
+  if( (self.overdue.boolValue || self.today.boolValue || self.future.boolValue) == NO ) {
     return YES;
   } else {
     return NO;

@@ -38,6 +38,7 @@
 + (NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
                                                       filterOverdue:(BOOL)filterOverdue
                                                         filterToday:(BOOL)filterToday
+                                                       filterFuture:(BOOL)filterFuture
                                                          controller:(id<NSFetchedResultsControllerDelegate>)controller;
 
 +(NSArray *)getAllTagsArray;

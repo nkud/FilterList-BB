@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Filter" representedClassName="Filter" syncable="YES">
-        <attribute name="all" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="from" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="future" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="interval" optional="YES" attributeType="Date" syncable="YES"/>
@@ -28,7 +27,7 @@
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="tag" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Filter" positionX="-4689" positionY="-1873" width="128" height="180"/>
+        <element name="Filter" positionX="-4689" positionY="-1873" width="128" height="165"/>
         <element name="Item" positionX="-4743" positionY="-1719" width="162" height="135"/>
         <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="120"/>
     </elements>

@@ -24,6 +24,7 @@
                       interval:(NSDate *)interval
                  filterOverdue:(BOOL)overdue
                    filterToday:(BOOL)today
+                  filterFuture:(BOOL)future
                      indexPath:(NSIndexPath *)indexPath
                    isNewFilter:(BOOL)isNewFilter;
 
@@ -54,6 +55,7 @@
                            interval:(NSDate *)interval
                       filterOverdue:(BOOL)overdue
                         filterToday:(BOOL)today
+                       filterFuture:(BOOL)future
                         isNewFilter:(BOOL)isNewFilter
                           indexPath:(NSIndexPath *)indexPath
                            delegate:(id<FilterDetailViewControllerDelegate>)delegate;

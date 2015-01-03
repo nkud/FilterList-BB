@@ -177,6 +177,7 @@ static NSString *kFilterCellID = @"FilterCell";
                                                    interval:nil
                                               filterOverdue:NO
                                                 filterToday:NO
+                                               filterFuture:NO
                                                 isNewFilter:YES
                                                   indexPath:nil
                                                    delegate:self];
@@ -367,6 +368,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
                                                    interval:filter.interval
                                               filterOverdue:filter.overdue.boolValue
                                                 filterToday:filter.today.boolValue
+                                               filterFuture:filter.future.boolValue
                                                 isNewFilter:NO
                                                   indexPath:indexPath
                                                    delegate:self];
@@ -535,6 +537,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                      interval:(NSDate *)interval
                 filterOverdue:(BOOL)overdue
                   filterToday:(BOOL)today
+                 filterFuture:(BOOL)future
                     indexPath:(NSIndexPath *)indexPath
                   isNewFilter:(BOOL)isNewFilter
 {
@@ -554,6 +557,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   filter.interval = interval;
   filter.overdue = [NSNumber numberWithBool:overdue];
   filter.today = [NSNumber numberWithBool:today];
+  filter.future = [NSNumber numberWithBool:future];
   LOG(@"%@", filter);
   [CoreDataController saveContext];
 }

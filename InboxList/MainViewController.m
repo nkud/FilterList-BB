@@ -746,15 +746,23 @@ didSelectItem:(UITabBarItem *)item
   
   // フェッチコントローラーを作成し、
   // アイテムリストをロードする
-  NSFetchedResultsController *resultController
-  = [CoreDataController itemFetchedResultsControllerForTags:tags
-                                              filterOverdue:filter.overdue.boolValue
-                                                filterToday:filter.today.boolValue
-                                                 controller:self.itemViewController];
+  NSFetchedResultsController *resultsController;
+  if ([filter hasAllItem]) {
+    resultsController
+     = [CoreDataController itemFetchedResultsControllerForTags:tags
+                                                    controller:self.itemViewController];
+  } else {
+    resultsController
+    = [CoreDataController itemFetchedResultsControllerForTags:tags
+                                                filterOverdue:filter.overdue.boolValue
+                                                  filterToday:filter.today.boolValue
+                                                 filterFuture:filter.future.boolValue
+                                                   controller:self.itemViewController];
+  }
   [self loadItemViewForTitle:filterTitle
                     subColor:FILTER_COLOR
                         tags:tags
-      fetcheResultController:resultController
+      fetcheResultController:resultsController
              withInputHeader:NO];
 }
 

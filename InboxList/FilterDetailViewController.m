@@ -97,6 +97,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
                           interval:(NSDate *)interval
                      filterOverdue:(BOOL)overdue
                        filterToday:(BOOL)today
+                      filterFuture:(BOOL)future
                        isNewFilter:(BOOL)isNewFilter
                          indexPath:(NSIndexPath *)indexPath
                           delegate:(id<FilterDetailViewControllerDelegate>)delegate
@@ -110,9 +111,10 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
       self.filterInterval = interval;
       self.indexPathForFilter = indexPath;
       
+      // オプションの状態を保存する
       overdueState_ = overdue;
       todayState_ = today;
-      futureState_ = NO;
+      futureState_ = future;
       
       self.isNewFilter = NO;
       
@@ -122,7 +124,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
       self.filterFromDate = nil;
       self.filterInterval = nil;
       self.indexPathForFilter = nil;
-      
+
+      // オプションの状態を保存する
       overdueState_ = NO;
       todayState_ = NO;
       futureState_ = NO;
@@ -164,6 +167,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 
 -(void)initDueDateState
 {
+  // 期限のオプションがどれか１つでも真ならば、
+  // 期限選択パネルを開く。
   if (overdueState_ || todayState_ || futureState_) {
     indexPathsForDueDateSelectionPanel_ = @[INDEX(1, 2), INDEX(2, 2), INDEX(3, 2)];
   } else {
@@ -175,13 +180,13 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
 {
   [super viewDidLoad];
   
-  // パラメータを初期化・設定
+  // パラメータを初期化・設定する
   [self initParam];
   
-  // セルを登録
+  // セルを登録する
   [self registerClassForCells];
   
-  // テーブルの設定
+  // テーブルの設定をする
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
 
   // ナビバーの右に
@@ -233,6 +238,7 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
                                interval:self.filterInterval
                           filterOverdue:overdueState_
                             filterToday:todayState_
+                           filterFuture:futureState_
                               indexPath:self.indexPathForFilter
                             isNewFilter:self.isNewFilter];
   

@@ -153,6 +153,7 @@ enum __SECTION__ {
 + (NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
                                                       filterOverdue:(BOOL)filterOverdue
                                                         filterToday:(BOOL)filterToday
+                                                       filterFuture:(BOOL)filterFuture
                                                          controller:(id<NSFetchedResultsControllerDelegate>)controller
 {
   AppDelegate *app = [[UIApplication sharedApplication] delegate];
@@ -165,7 +166,6 @@ enum __SECTION__ {
   
   // Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
-  
   
   // タグのタイトルで、アイテムをソートする
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag.title"
@@ -204,13 +204,28 @@ enum __SECTION__ {
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF.reminder < %@", startDate];
     [due_predicate_array addObject:pre];
   }
+  if (filterFuture) {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit|
+                                    NSMonthCalendarUnit|
+                                    NSDayCalendarUnit|
+                                    NSHourCalendarUnit|
+                                    NSMinuteCalendarUnit
+                                               fromDate:[NSDate date]];
+    [formatter setDateFormat:@"yyyy-MM-dd-HH-mm"];
+    NSDate *endDate = [formatter dateFromString:[NSString stringWithFormat:@"%04ld-%02ld-%02ld-00-00",
+                                                 (long)components.year,
+                                                 (long)components.month,
+                                                 (long)components.day+1]];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF.reminder > %@", endDate];
+    [due_predicate_array addObject:pre];
+  }
   if (filterToday) {
-    
     // 今日までの場合、
     // 今日の日付の午前０時から、
     // 明日の日付の午前０時までの
     // ２４時間で抽出する。
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSYearCalendarUnit|

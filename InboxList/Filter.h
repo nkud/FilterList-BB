@@ -23,7 +23,6 @@
 @property (nonatomic, retain) NSDate *from;
 @property (nonatomic, retain) NSDate *interval;
 
-@property (nonatomic, retain) NSNumber *all;
 @property (nonatomic, retain) NSNumber *overdue;
 @property (nonatomic, retain) NSNumber *today;
 @property (nonatomic, retain) NSNumber *future;
@@ -37,5 +36,7 @@
 - (void)removeTags:(NSSet *)values;
 
 - (BOOL)hasInterval;
+
+- (BOOL)hasAllItem;
 
 @end
