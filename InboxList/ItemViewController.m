@@ -192,6 +192,15 @@ heightForHeaderInSection:(NSInteger)section
   if ([self hasInlineInputHeader] && section == 0) {
     return 0;
   }
+  // タグを持たないアイテムのセクションは、
+  // 表示しないようにする。
+  NSInteger sectionForController = [self mapSectionToFetchedResultsController:section];
+  id <NSFetchedResultsSectionInfo> sectionInfo
+  = [[self.fetchedResultsController sections] objectAtIndex:sectionForController];
+  if ([[sectionInfo name] isEqualToString:@""]) {
+    return 0;
+  }
+  
   // 通常のアイテムセル用
   return heightForSection_;
 }
@@ -218,7 +227,7 @@ titleForHeaderInSection:(NSInteger)section
 
   NSString *sectionTitle = [sectionInfo name];
   if ([sectionTitle isEqualToString:@""]) {
-    sectionTitle = @"others";
+    sectionTitle = @"";
   }
   return sectionTitle;
 }

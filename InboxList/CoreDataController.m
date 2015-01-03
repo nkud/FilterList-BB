@@ -50,10 +50,9 @@ enum __SECTION__ {
   [fetchRequest setFetchBatchSize:20];
   
   // ソート設定
-  // (タグのタイトル)でソート
-  LOG(@"タグのタイトルでソートする設定を追加する");
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag.title"
-                                                                 ascending:NO];
+  // (タグのタイトル)でソートする
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag.order"
+                                                                 ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];
   
   [fetchRequest setSortDescriptors:sortDescriptors];
