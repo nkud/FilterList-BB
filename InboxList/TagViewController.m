@@ -372,13 +372,21 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   return YES;
 }
 
+/**
+ * @brief  編集時の処理
+ *
+ * @param tableView    テーブルビュー
+ * @param editingStyle 編集状態
+ * @param indexPath    位置
+ */
 -(void)tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   switch (editingStyle) {
-    case UITableViewCellEditingStyleDelete: // 削除
+    case UITableViewCellEditingStyleDelete:
     {
+      // タグを削除する
       Tag *tag = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
       NSSet *itemset = [tag.items mutableCopy];
       
@@ -388,7 +396,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       // アイテムの関連を削除する
       for (Item *item in itemset) {
         item.tag = nil;
-//        [[CoreDataController managedObjectContext] deleteObject:item];
       }
       
       // タグを削除する
