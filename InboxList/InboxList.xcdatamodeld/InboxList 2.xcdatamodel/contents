@@ -8,7 +8,7 @@
         <attribute name="overdue" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="today" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="filter" inverseEntity="Tag" syncable="YES"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="filters" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="Item" representedClassName="Item">
         <attribute name="color" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -23,12 +23,12 @@
         <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="section" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="filter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Filter" inverseName="tags" inverseEntity="Filter" syncable="YES"/>
+        <relationship name="filters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Filter" inverseName="tags" inverseEntity="Filter" syncable="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="tag" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Filter" positionX="-4689" positionY="-1873" width="128" height="165"/>
+        <element name="Filter" positionX="-4725" positionY="-1929" width="128" height="165"/>
         <element name="Item" positionX="-4743" positionY="-1719" width="162" height="135"/>
-        <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="120"/>
+        <element name="Tag" positionX="-4428" positionY="-1816" width="128" height="118"/>
     </elements>
 </model>

@@ -18,7 +18,7 @@
 
 @property (nonatomic, retain) NSNumber * section;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) Filter *filter;
+@property (nonatomic, retain) NSSet *filters;
 @property (nonatomic, retain) NSSet *items;
 @property (nonatomic, retain) NSNumber* order;
 
@@ -30,6 +30,11 @@
 - (void)removeItemsObject:(Item *)value;
 - (void)addItems:(NSSet *)values;
 - (void)removeItems:(NSSet *)values;
+
+- (void)addFiltersObject:(Filter *)value;
+- (void)removeFiltersObject:(Filter *)value;
+- (void)addFilters:(NSSet *)values;
+- (void)removeFilters:(NSSet *)values;
 
 /// @todo 期限切れのアイテム数を数える
 -(NSInteger)countItemsOfOverDue;

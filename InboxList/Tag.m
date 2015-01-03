@@ -15,7 +15,7 @@
 
 @dynamic section;
 @dynamic title;
-@dynamic filter;
+@dynamic filters;
 @dynamic items;
 @dynamic order;
 

@@ -367,7 +367,10 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 
 -(void)scrollToTopCell
 {
-  if ([self.tableView numberOfSections] > 0) {
+  // セルが存在すれば、トップのセルまでスクロールする。
+  // セルがなければ、何故か落ちる。
+  BOOL hasAnyCell = ([self.tableView numberOfRowsInSection:0]>0) ? YES : NO;
+  if (hasAnyCell) {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexPath
                           atScrollPosition:UITableViewScrollPositionTop
@@ -376,6 +379,12 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 }
 
 #pragma mark ナビゲーションバー
+
+/**
+ * @brief  新規挿入ボタンを作成する
+ *
+ * @return インスタンス
+ */
 -(UIBarButtonItem *)newInsertObjectButton
 {
   UIBarButtonItem *insertObjectButton
