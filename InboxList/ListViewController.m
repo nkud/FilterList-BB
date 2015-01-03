@@ -358,6 +358,9 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
     [CoreDataController saveContext];
     [self updateEditTabBar];
   }
+  
+  // テーブルを更新する
+  [self.tableView reloadData];
 }
 
 #pragma mark - ユーティリティ -
