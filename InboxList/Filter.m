@@ -18,6 +18,8 @@
 @dynamic interval;
 @dynamic overdue;
 @dynamic today;
+@dynamic future;
+@dynamic all;
 @dynamic order;
 
 /**

@@ -18,11 +18,15 @@
 
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSSet *tags;
+@property (nonatomic, retain) NSNumber *order;
+
 @property (nonatomic, retain) NSDate *from;
 @property (nonatomic, retain) NSDate *interval;
+
+@property (nonatomic, retain) NSNumber *all;
 @property (nonatomic, retain) NSNumber *overdue;
 @property (nonatomic, retain) NSNumber *today;
-@property (nonatomic, retain) NSNumber *order;
+@property (nonatomic, retain) NSNumber *future;
 @end
 
 @interface Filter (CoreDataGeneratedAccessors)
