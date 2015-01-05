@@ -27,10 +27,7 @@ static NSString *kTagCellID = @"TagCell";
 
 static NSString *kInputFieldPlaceholder = @"new tag";
 
-@interface TagViewController () {
-  
-}
-
+@interface TagViewController ()
 @end
 
 @implementation TagViewController
@@ -38,16 +35,8 @@ static NSString *kInputFieldPlaceholder = @"new tag";
 #pragma mark - 初期化
 
 /**
- * @brief この初期化方法は変えたほうがいいかも
+ * @brief  パラメータを初期化する
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil
-               bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nibNameOrNil
-                         bundle:nibBundleOrNil];
-  return self;
-}
-
 -(void)initParameter
 {
   self.navbarThemeColor = TAG_COLOR;
@@ -58,39 +47,46 @@ static NSString *kInputFieldPlaceholder = @"new tag";
  */
 - (void)viewDidLoad
 {
-  LOG(@"タグビューがロードされた後の処理");
   [super viewDidLoad];
   
+  // パラメータを初期化する
   [self initParameter];
   
-  self.tableView.allowsMultipleSelectionDuringEditing = NO;
-  
-  // タイトルを設定
+  // ナビバーのタイトルを設定する
   [self configureTitleWithString:TAG_LIST_TITLE
                         subTitle:nil
                         subColor:TAG_COLOR];
   self.titleLabel.textColor = TAG_COLOR;
   
-  // 使用するセルを登録
+  // 使用するセルを登録する
   [self.tableView registerClass:[TagCell class]
          forCellReuseIdentifier:TagModeCellIdentifier];
   [self.tableView registerNib:[UINib nibWithNibName:kInputHeaderCellID
                                              bundle:nil]
        forCellReuseIdentifier:kInputHeaderCellID];
 
-  // 編集・追加ボタンを追加
+  // 編集・追加ボタンを追加する
   self.navigationItem.leftBarButtonItem = [self newEditTableButton];
   self.navigationItem.leftBarButtonItem.tintColor = TAG_COLOR;
   self.navigationItem.rightBarButtonItem = [self newInsertObjectButton];
   self.navigationItem.rightBarButtonItem.tintColor = TAG_COLOR;
   
-  // テーブルの設定
+  // テーブルの設定をする。
+  // テーブルの編集時複数選択を不可能にする。
+  // 背景色を設定する。
+  // フレームのサイズをアイテムリストの出っ張りの分だけ細くする。
+  self.tableView.allowsMultipleSelectionDuringEditing = NO;
   self.tableView.backgroundColor = TAG_BG_COLOR;
   CGRect frame = self.tableView.frame;
   frame.size.width -= ITEM_LIST_REMAIN_MARGIN;
   self.tableView.frame = frame;
 }
 
+#pragma mark - 遷移
+
+/**
+ * @brief  編集ボタンがタップされた時の処理
+ */
 -(void)didTappedEditTableButton
 {
   [super didTappedEditTableButton];
@@ -107,13 +103,23 @@ static NSString *kInputFieldPlaceholder = @"new tag";
   // タブバーの時は、編集タブバーを開かない
   [self hideEditTabBar:YES];
 }
+
+/**
+ * @brief  挿入ボタンがタップされた時の処理
+ */
 -(void)didTappedInsertObjectButton
 {
   [super didTappedInsertObjectButton];
+  
+  // タグの挿入へ遷移する。
   [self toAdd:self];
 }
 
-#pragma mark - 遷移
+/**
+ * @brief  ビューが表示する前処理
+ *
+ * @param animated アニメーション
+ */
 -(void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
@@ -124,6 +130,11 @@ static NSString *kInputFieldPlaceholder = @"new tag";
   }
 }
 
+/**
+ * @brief  ビューの表示後の処理
+ *
+ * @param animated アニメーション
+ */
 -(void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];
@@ -134,16 +145,20 @@ static NSString *kInputFieldPlaceholder = @"new tag";
   }
 }
 
+#pragma mark - キーボード操作
+
+/**
+ * @brief  インプットセルによるキーボードを閉じる
+ */
 -(void)dismissInputKeyboard
 {
-  // キーボードを閉じる
-  NSIndexPath *inputIndexPath = [NSIndexPath indexPathForRow:0
-                                                   inSection:0];
-  InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:inputIndexPath];
+  // インプットセルの位置を取得して、
+  // キーボードを閉じる。
+  NSIndexPath *inputCellIndexPath = INDEX(0, 0);
+  InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:inputCellIndexPath];
   [cell.inputField resignFirstResponder];
 }
 
-#pragma mark - 新規入力
 /**
  * @brief  リターンキーが押された時の処理
  *
@@ -163,7 +178,11 @@ static NSString *kInputFieldPlaceholder = @"new tag";
     textField.text = @"";
   }
   return YES;
-}/**
+}
+
+#pragma mark - 新規入力
+
+/**
  *  @brief 新規入力を開始する
  *
  *  @param sender センダー
@@ -183,8 +202,16 @@ static NSString *kInputFieldPlaceholder = @"new tag";
                                        animated:YES];
   [self.delegateForList closeTabBar];
 }
+
 #pragma mark - ユーティリティ
 
+/**
+ * @brief  全アイテム選択用セルかどうかを評価する
+ *
+ * @param indexPath 位置
+ *
+ * @return 真偽値
+ */
 -(BOOL)isCellForAllItemsAtIndexPath:(NSIndexPath *)indexPath
 {
   if (indexPath.row == 1 && indexPath.section == 0 ) {
@@ -194,6 +221,13 @@ static NSString *kInputFieldPlaceholder = @"new tag";
   }
 }
 
+/**
+ * @brief  入力用セルかどうかを評価する
+ *
+ * @param indexPath 位置
+ *
+ * @return 真偽値
+ */
 -(BOOL)isCellForInputAtIndexPath:(NSIndexPath *)indexPath
 {
   if (indexPath.row == 0 && indexPath.section == 0 ) {
@@ -204,34 +238,30 @@ static NSString *kInputFieldPlaceholder = @"new tag";
 }
 
 /**
- * @brief  リザルトコントローラー -> インデックス
+ * @brief  コントローラー位置 -> テーブル位置
  *
- * @param indexPath インデックス
+ * @param indexPath コントローラ位置
  *
- * @return インデックス
+ * @return テーブル位置
  */
 - (NSIndexPath *)mapIndexPathFromFetchResultsController:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 0)
-    indexPath = [NSIndexPath indexPathForRow:indexPath.row + 2
-                                   inSection:indexPath.section];
-  
+  indexPath = INDEX(indexPath.row + 2,
+                    indexPath.section);
   return indexPath;
 }
 
 /**
- * @brief  インデックス -> リザルトコントローラー
+ * @brief  テーブル位置 -> コントローラ位置
  *
- * @param indexPath インデックス
+ * @param indexPath テーブル位置
  *
- * @return インデックス
+ * @return コントローラ位置
  */
 - (NSIndexPath *)mapIndexPathToFetchResultsController:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 0)
-    indexPath = [NSIndexPath indexPathForRow:indexPath.row - 2
-                                   inSection:indexPath.section];
-  
+  indexPath = INDEX(indexPath.row - 2,
+                      indexPath.section);
   return indexPath;
 }
 
@@ -244,7 +274,8 @@ static NSString *kInputFieldPlaceholder = @"new tag";
  */
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-  // キーボードを閉じる
+  // スクロール時には、
+  // キーボードを閉じる。
   [self dismissInputKeyboard];
 }
 
@@ -259,6 +290,7 @@ static NSString *kInputFieldPlaceholder = @"new tag";
 -(BOOL)tableView:(UITableView *)tableView
 canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // 通常セル以外は移動不可能にする。
   if ([self isCellForInputAtIndexPath:indexPath] || [self isCellForAllItemsAtIndexPath:indexPath]) {
     return NO;
   }
@@ -286,19 +318,19 @@ targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   return proposedDestinationIndexPath;
 }
 
--(void)selectAllRows:(id)sender
-{
-  LOG(@"全選択");
-  NSArray *objects = [self.fetchedResultsController fetchedObjects];
-  for (NSManagedObject *obj in objects) {
-    NSIndexPath *indexPathInController = [self.fetchedResultsController indexPathForObject:obj];
-    NSIndexPath *indexPathInTable = [self mapIndexPathFromFetchResultsController:indexPathInController];
-    [self.tableView selectRowAtIndexPath:indexPathInTable
-                                animated:NO
-                          scrollPosition:UITableViewScrollPositionNone];
-  }
-  [self updateEditTabBar];
-}
+//-(void)selectAllRows:(id)sender
+//{
+//  LOG(@"全選択");
+//  NSArray *objects = [self.fetchedResultsController fetchedObjects];
+//  for (NSManagedObject *obj in objects) {
+//    NSIndexPath *indexPathInController = [self.fetchedResultsController indexPathForObject:obj];
+//    NSIndexPath *indexPathInTable = [self mapIndexPathFromFetchResultsController:indexPathInController];
+//    [self.tableView selectRowAtIndexPath:indexPathInTable
+//                                animated:NO
+//                          scrollPosition:UITableViewScrollPositionNone];
+//  }
+//  [self updateEditTabBar];
+//}
 
 
 /**
@@ -331,7 +363,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     // 選択されたタグを渡す
     [self.delegate didSelectTag:tag];
   }
-  LOG(@"タグセルの選択を解除");
+
+  // タグの選択状態を解除する。
+  /// ここは、戻ってくるまで解除しないようにしてもいいかも。
   [tableView deselectRowAtIndexPath:indexPathInTableView
                            animated:YES];
 }
@@ -386,12 +420,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   switch (editingStyle) {
     case UITableViewCellEditingStyleDelete:
     {
-      // タグを削除する
-      Tag *tag = [self.fetchedResultsController objectAtIndexPath:[self mapIndexPathToFetchResultsController:indexPath]];
-      NSSet *itemset = [tag.items mutableCopy];
+      // コントローラ位置を取得して、タグを取得し、
+      // 関連づいているアイテムセット、順番を取得する。
+      NSIndexPath *indexInController = [self mapIndexPathToFetchResultsController:indexPath];
+      Tag *deleteTag = [self.fetchedResultsController objectAtIndexPath:indexInController];
+      NSSet *itemset = [deleteTag.items mutableCopy];
+      NSInteger deleteTagOrder = deleteTag.order.integerValue;
       
       // 今から削除するタグをデリゲートに報告する
-      [self.delegate willDeleteTag:tag];
+      [self.delegate willDeleteTag:deleteTag];
       
       // アイテムの関連を削除する
       for (Item *item in itemset) {
@@ -399,22 +436,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       }
       
       // タグを削除する
-      [[CoreDataController managedObjectContext] deleteObject:tag];
+      [[CoreDataController managedObjectContext] deleteObject:deleteTag];
       
-      
-      // 順序を整理する
+      // タグの順序を整理する
       NSArray *tags = [self.fetchedResultsController fetchedObjects];
       NSInteger newOrder;
       for (Tag *tag in tags) {
         NSInteger order = tag.order.integerValue;
-        if (order > indexPath.row) {
+        if (order > deleteTagOrder) {
           newOrder = order - 1;
           [tag setValue:@(newOrder)
                  forKey:@"order"];
         }
-        LOG(@"%@: %@", tag.title, tag.order);
       }
-      
       [CoreDataController saveContext];
       break;
     }

@@ -256,15 +256,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     case UITableViewCellEditingStyleDelete:
     {
       // フィルターを削除する
-      Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
-      [[CoreDataController managedObjectContext] deleteObject:filter];
+      Filter *deleteFilter = [self.fetchedResultsController objectAtIndexPath:indexPath];
+      [[CoreDataController managedObjectContext] deleteObject:deleteFilter];
+      NSInteger deleteFilterOrder = deleteFilter.order.integerValue;
       
       // 順序を整理する
       NSArray *filters = [self.fetchedResultsController fetchedObjects];
       NSInteger newOrder;
       for (Filter *filter in filters) {
         NSInteger order = filter.order.integerValue;
-        if (order > indexPath.row) {
+        if (order > deleteFilterOrder) {
           newOrder = order - 1;
           filter.order = [NSNumber numberWithInteger:newOrder];
         }
