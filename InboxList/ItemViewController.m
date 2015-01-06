@@ -478,6 +478,9 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
                            reminder:nil];
   [self instantMessage:@"Saved"
                  color:nil];
+
+  // デリゲートに新規挿入を通達する。
+  [self.delegateForItemViewController didInputNewItem:titleForItem];
 }
 
 #pragma mark - セル設定
@@ -785,7 +788,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
                indexPath:(NSIndexPath *)indexPath
                isNewItem:(BOOL)isNewItem
 {
-  // タブバーを開ける
+  /// タブバーを開ける ?????
   LOG(@"%@", title);
   Item *item;
   NSString *message;
@@ -819,13 +822,18 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   if ( ! [item.title isEqualToString:title] || ! [item isEqualDueDate:reminder] || item.tag != selectedTag) {
     showInstantMessage = YES;
   }
+  
+  // アイテムを設定して保存する。
   item.title = title;
   item.state = [NSNumber numberWithBool:false];
   item.reminder = reminder;
   item.tag = selectedTag;
-  LOG(@"%@", item);
   [CoreDataController saveContext];
   
+  // アイテムの新規挿入をデリゲートに通達する。
+  [self.delegateForItemViewController didInputNewItem:title];
+  
+  // インスタントメッセージを表示する。
   if (showInstantMessage) {
     [self instantMessage:message
                    color:nil];

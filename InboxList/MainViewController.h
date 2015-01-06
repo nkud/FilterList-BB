@@ -35,7 +35,8 @@ enum __LIST_DIRECTION__ {
  * @brief  メインコンテナ
  */
 @interface MainViewController : UIViewController
-<TagViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate, ListViewControllerDelegate> {
+<TagViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate,
+ListViewControllerDelegate, ItemViewControllerDelegate> {
   int swipe_distance;
 }
 

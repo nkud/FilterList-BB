@@ -65,7 +65,6 @@
                                                          TABBAR_H)];
   self.tabBar.delegate = self;
 
-  //
   // アイテムリストを初期化する。
   // フェッチコントローラーを設定する。
   self.itemViewController = [[ItemViewController alloc] initWithNibName:nil
@@ -75,6 +74,7 @@
   [self.itemViewController configureTitleWithString:@"ITEM"
                                            subTitle:@"Inbox"
                                            subColor:ITEM_COLOR];
+  self.itemViewController.delegateForItemViewController = self;
   
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
   self.itemViewController.navigationController = self.itemNavigationController;
@@ -728,6 +728,23 @@ didSelectItem:(UITabBarItem *)item
 -(void)willDeleteTag:(Tag *)tag
 {
   
+}
+
+#pragma mark - アイテムリスト
+
+/**
+ * @brief  アイテムリストで挿入された時の処理
+ *
+ * @param title 挿入されたアイテムのタイトル
+ */
+-(void)didInputNewItem:(NSString *)title
+{
+  // タグリストの全選択用セルの表示を更新する。
+  // タグ無しのアイテムを挿入した時には、これだけ自動で更新されないため。
+  NSIndexPath *indexForAllSelectCell = INDEX(1, 0);
+  UITableView *tagListTableView = self.tagViewController.tableView;
+  [tagListTableView reloadRowsAtIndexPaths:@[indexForAllSelectCell]
+                          withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark フィルターリスト
