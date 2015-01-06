@@ -16,12 +16,6 @@
 #import "ListViewController.h"
 #import "NavigationController.h"
 
-@protocol ItemViewControllerDelegate <NSObject>
-
--(void)didUpdateCoreData;
-
-@end
-
 /**
  * @brief  アイテムリスト
  */
@@ -36,8 +30,6 @@ UITextFieldDelegate>
 @property __NavigationController *navigationController;
 
 @property NSIndexPath *indexPathForInputHeader;
-
-@property id<ItemViewControllerDelegate> delegateForItemViewController;
 
 -(void)updateTableView;
 

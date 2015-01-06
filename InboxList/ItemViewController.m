@@ -480,7 +480,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
                  color:nil];
 
   // デリゲートに新規挿入を通達する。
-  [self.delegateForItemViewController didUpdateCoreData];
+  [self.delegateForList didUpdateCoreData];
 }
 
 #pragma mark - セル設定
@@ -831,7 +831,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   [CoreDataController saveContext];
   
   // アイテムの新規挿入をデリゲートに通達する。
-  [self.delegateForItemViewController didUpdateCoreData];
+  [self.delegateForList didUpdateCoreData];
   
   // インスタントメッセージを表示する。
   if (showInstantMessage) {

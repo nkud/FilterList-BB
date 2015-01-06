@@ -36,7 +36,7 @@ enum __LIST_DIRECTION__ {
  */
 @interface MainViewController : UIViewController
 <TagViewControllerDelegate, UITabBarDelegate, FilterViewControllerDelegate,
-ListViewControllerDelegate, ItemViewControllerDelegate> {
+ListViewControllerDelegate> {
   int swipe_distance;
 }
 

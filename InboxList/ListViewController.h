@@ -22,6 +22,8 @@
 
 -(BOOL)isTopViewController:(ListViewController *)viewController;
 
+-(void)didUpdateCoreData;
+
 @end
 
 @interface ListViewController : UIViewController

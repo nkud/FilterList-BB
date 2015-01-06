@@ -74,7 +74,6 @@
   [self.itemViewController configureTitleWithString:@"ITEM"
                                            subTitle:@"Inbox"
                                            subColor:ITEM_COLOR];
-  self.itemViewController.delegateForItemViewController = self;
   
   self.itemNavigationController = [[ItemNavigationController alloc] initWithRootViewController:self.itemViewController];
   self.itemViewController.navigationController = self.itemNavigationController;

@@ -361,6 +361,9 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   
   // テーブルを更新する
   [self.tableView reloadData];
+  
+  // デリゲートにデータの更新を通達する。
+  [self.delegateForList didUpdateCoreData];
 }
 
 #pragma mark - ユーティリティ -
