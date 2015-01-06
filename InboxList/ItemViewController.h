@@ -18,7 +18,7 @@
 
 @protocol ItemViewControllerDelegate <NSObject>
 
--(void)didInputNewItem:(NSString *)title;
+-(void)didUpdateCoreData;
 
 @end
 

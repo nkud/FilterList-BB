@@ -737,7 +737,7 @@ didSelectItem:(UITabBarItem *)item
  *
  * @param title 挿入されたアイテムのタイトル
  */
--(void)didInputNewItem:(NSString *)title
+-(void)didUpdateCoreData
 {
   // タグリストの全選択用セルの表示を更新する。
   // タグ無しのアイテムを挿入した時には、これだけ自動で更新されないため。
