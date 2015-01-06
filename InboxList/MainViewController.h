@@ -61,14 +61,6 @@ enum __LIST_DIRECTION__ {
 -(void)toFilterListMode;
 -(void)toCompleteListMode;
 
-/**
- * @brief  アイテムリストをロードする
- *
- * @param title                   タイトル
- * @param subColor                サブタイトルカラー
- * @param tags                    選択したタグ
- * @param fetchedResultController コントローラー
- */
 -(void)loadItemViewForTitle:(NSString *)title
                    subColor:(UIColor *)subColor
                        tags:(NSSet *)tags
