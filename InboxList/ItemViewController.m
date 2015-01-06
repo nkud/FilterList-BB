@@ -464,10 +464,15 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 
 #pragma mark - クイック入力処理
 
+/**
+ * @brief  新規のアイテムを挿入する
+ *
+ * @param titleForItem アイテムのタイトル
+ */
 -(void)didInputtedNewItem:(NSString *)titleForItem
 {
-  LOG(@"クイック入力タイトル:%@", titleForItem);
-
+  // 新しいアイテムを挿入して、
+  // インスタントメッセージを表示する。
   [CoreDataController insertNewItem:titleForItem
                                 tag:[self selectedTag]
                            reminder:nil];
@@ -486,14 +491,13 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)configureItemCell:(ItemCell *)cell
               atIndexPath:(NSIndexPath *)indexPath
 {
-  LOG(@"セルを作成");
-  /// セルを作成
+  // アイテムを取得する。
   Item *item = [self itemAtIndexPathInTableView:indexPath];
 
-
+  // タイトルの時と、そうでない時で
+  // 表示を調整する。
   BOOL hasTitleOnly = ! item.reminder;
   NSInteger leftMargin = 10;
-  
   if (hasTitleOnly) {
     cell.titleLabel.frame = CGRectMake(leftMargin, 0,
                                        SCREEN_BOUNDS.size.width - leftMargin - 50, 44);
@@ -523,6 +527,8 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   // テキストの色を変更する
   UIColor *textColor;
 
+  // 今日に対する期限の設定で、
+  // テキストの色を変える。
   if ([item isDueToToday]) {
     // 今日まで
     textColor = DUE_TO_TODAY_COLOR;
@@ -587,7 +593,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
       
       // その位置のセルのデータをモデルから取得する
     
-      LOG(@"モデルを取得");
+      // モデルを取得する
       if (indexPathInController.section < 0) {
         [selected_cell setUnCheckedWithItem:selected_item];
         return;
@@ -613,15 +619,15 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 #pragma mark - 編集時処理
 
 /**
- *  @brief 編集
+ *  @brief 編集モードに遷移する
  *
  *  @param sender センダー
  */
 - (void)toEdit:(id)sender
 {
-  LOG(@"編集モード");
   if (self.tableView.isEditing) {
     LOG(@"編集モードの場合");
+    // 編集モードの場合
     [self.tableView setEditing:false
                       animated:YES];
     [self toggleRightNavigationItemWithEditingState:NO];
@@ -648,8 +654,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   NSIndexPath *indexPathInController
   = [self mapIndexPathToFetchResultsController:indexPathInTableView];
   
+  // アイテムを削除する場合、
+  // 削除後に、保存する。
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    // アイテムを削除して、保存する
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     [context deleteObject:[self.fetchedResultsController
                            objectAtIndexPath:indexPathInController]];
@@ -704,7 +711,7 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   // タブバーを閉じる
   [self.delegateForList closeTabBar];
   
-  LOG(@"入力画面を表示");
+  // 入力画面を作成する。
   ItemDetailViewController *detailViewController
   = [[ItemDetailViewController alloc] initWithTitle:nil
                                                tags:nil
