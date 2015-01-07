@@ -13,6 +13,7 @@
 #import "CoreDataController.h"
 #import "Configure.h"
 #import "ListViewController.h"
+#import "ConfigViewController.h"
 
 #define kDurationForListModeSegue 0.2f
 
@@ -631,6 +632,30 @@
 }
 
 #pragma mark - デリゲート用
+
+-(void)presentConfigureView
+{
+  // コンフィグコントローラを作成する。
+  // タブバーは閉じる。
+   [self closeTabBar];
+  
+  ConfigViewController *controller = [[ConfigViewController alloc] initWithNibName:nil
+                                                                            bundle:nil];
+  CGRect configFrame = controller.view.frame;
+  configFrame.size.height = SCREEN_BOUNDS.size.height;
+  controller.view.frame = configFrame;
+  UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
+  CGRect frame = navcontroller.view.frame;
+  frame.size.height = SCREEN_BOUNDS.size.height;
+  navcontroller.view.frame = frame;
+  
+  [self.view bringSubviewToFront:navcontroller.view];
+  
+  [self presentViewController:navcontroller
+                     animated:YES
+                   completion:nil];
+}
+
 #pragma mark タブバー
 /**
  *  @brief タブが選択された時の処理

@@ -13,6 +13,9 @@
 
 // ナビバーに表示するタイトル
 static NSString *kNavBarTitle = @"Settings";
+static NSString *kTitleCellID = @"TitleCellIdentifier";
+static NSString *kTitleCellNibName = @"TitleCell";
+static NSString *kNormalCellID = @"NormalCell";
 
 #pragma mark -
 
@@ -29,7 +32,23 @@ static NSString *kNavBarTitle = @"Settings";
  * @brief  ビューロード後処理
  */
 - (void)viewDidLoad {
-  [super viewDidLoad];
+//  [super viewDidLoad];
+  
+  // Do any additional setup after loading the view.
+  CGRect tableFrame = SCREEN_BOUNDS;
+//  tableFrame.size.height -= NAVBAR_H + STATUSBAR_H;
+  self.tableView = [[UITableView alloc] initWithFrame:tableFrame
+                                                style:UITableViewStyleGrouped];
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
+  [self.view addSubview:self.tableView];
+  
+  // セルを登録
+  [self.tableView registerNib:[UINib nibWithNibName:kTitleCellNibName
+                                             bundle:nil]
+       forCellReuseIdentifier:kTitleCellID];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:kNormalCellID];
   
   // キャンセルボタン
   self.navigationItem.leftBarButtonItem

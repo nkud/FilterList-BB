@@ -24,6 +24,8 @@
 
 -(void)didUpdateCoreData;
 
+-(void)presentConfigureView;
+
 @end
 
 @interface ListViewController : UIViewController

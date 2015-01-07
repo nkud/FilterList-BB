@@ -81,15 +81,7 @@ static NSString *kCompleteCellID = @"CompleteCell";
  */
 -(void)presentConfigView:(id)sender
 {
-  // コンフィグコントローラを作成する。
-  // タブバーは閉じる。
-  ConfigViewController *controller = [[ConfigViewController alloc] initWithNibName:nil
-                                                                            bundle:nil];
-  UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
-  [self presentViewController:navcontroller
-                     animated:YES
-                   completion:nil];
-  [self.delegateForList closeTabBar];
+  [self.delegateForList presentConfigureView];
 }
 #pragma mark - テーブルビュー
 
