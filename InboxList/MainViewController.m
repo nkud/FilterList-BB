@@ -187,8 +187,9 @@
  */
 -(void)closeTagListMode
 {
+  // タグリストモードであれば、
+  // タグリストの x座標 を変更する。
   if ([self hasActivatedTagListMode]) {
-    // タグリストの x座標 を変更する。
     CGRect rect = self.tagNavigationController.view.frame;
     rect.origin.x = SCREEN_BOUNDS.size.width + 100;
     self.tagNavigationController.view.frame = rect;
@@ -200,13 +201,10 @@
  */
 -(void)openTagListMode
 {
-  
-//  if ( ! [self hasActivatedTagListMode]) {
-    // タグリストの x座標 を変更する。
-    CGRect rect = self.tagNavigationController.view.frame;
-    rect.origin.x = ITEM_LIST_REMAIN_MARGIN;
-    self.tagNavigationController.view.frame = rect;
-//  }
+  // タグリストの x座標 を変更する。
+  CGRect rect = self.tagNavigationController.view.frame;
+  rect.origin.x = ITEM_LIST_REMAIN_MARGIN;
+  self.tagNavigationController.view.frame = rect;
 }
 
 /**
@@ -231,6 +229,8 @@
  */
 -(void)closeFilterListMode
 {
+  // フィルターリストのｘ座標を変更する。
+  // 同時に、ホワイトカバーを閉じる。
   CGRect rect = self.filterNavigationController.view.frame;
   rect.origin.x = SCREEN_BOUNDS.size.width;
   self.filterNavigationController.view.frame = rect;
@@ -306,7 +306,9 @@
     return YES;
   }
 }
+
 #pragma mark - タブバー
+
 -(BOOL)hasTabBar
 {
   CGFloat y = self.tabBar.frame.origin.y;

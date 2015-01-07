@@ -102,16 +102,26 @@ static NSString *kInputHeaderCellID = @"InputHeaderCell";
   self.navigationItem.rightBarButtonItem.tintColor = ITEM_COLOR;
 }
 
+/**
+ * @brief  編集ボタンタップ時の処理
+ */
 -(void)didTappedEditTableButton
 {
   [super didTappedEditTableButton];
+  
+  // インプットヘッダーセルがあれば、
+  // キーボードを閉じる。
   if ([self hasInlineInputHeader]) {
-    InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    NSIndexPath *indexPathForInputHeaderCell = INDEX(0, 0);
+    InputHeaderCell *cell = (InputHeaderCell *)[self.tableView cellForRowAtIndexPath:indexPathForInputHeaderCell];
     [cell.inputField resignFirstResponder];
   }
   [self toEdit:self];
 }
 
+/**
+ * @brief  挿入ボタンタップ時の処理
+ */
 -(void)didTappedInsertObjectButton
 {
   [super didTappedInsertObjectButton];

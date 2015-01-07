@@ -105,14 +105,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
  */
 - (void)toEdit:(id)sender
 {
+  // 編集モードなら、
+  // 編集モードを終了し、
+  // ナビバー右アイテムを通常にする。
+  // 編集モードでないなら、
+  // 編集モードを開始し、
+  // ナビバー右アイテムを全選択ボタンにする。
   if (self.tableView.isEditing) {
-    LOG(@"編集モード終了");
     [self.tableView setEditing:false
                       animated:YES];
+    [self toggleRightNavigationItemWithEditingState:NO];
   } else {
-    LOG(@"編集モード開始");
     [self.tableView setEditing:true
                       animated:YES];
+    [self toggleRightNavigationItemWithEditingState:YES];
   }
 }
 
@@ -125,10 +131,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  [super tableView:tableView didSelectRowAtIndexPath:indexPath];
   if (tableView.isEditing) {
     return;
   }
-  LOG(@"完了リストセルが選択された");
   [tableView deselectRowAtIndexPath:indexPath
                            animated:YES];
 }

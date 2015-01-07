@@ -223,17 +223,16 @@ shouldReloadTableForSearchString:(NSString *)searchString
  */
 -(void)dismissTagSelectView
 {
-  // 選択されたタグを渡す
+  // デリゲートに選択されたタグを渡す
   [self.delegate dismissTagSelectView:[self tagsForSelectedRows]];
+  
   // 入力画面をポップして、１つ前の画面に戻る
-//  [self.navigationController popViewControllerAnimated:YES];
+  //  [self.navigationController popViewControllerAnimated:YES];
   
   [self dismissViewControllerAnimated:YES
                            completion:^{
-                             [self.navigationController.navigationBar setHidden:NO];
+                             self.navigationController.navigationBar.hidden = NO;
                            }];
-  // ナビゲーションバーを表示
-
 }
 
 #pragma mark - テーブルビュー
