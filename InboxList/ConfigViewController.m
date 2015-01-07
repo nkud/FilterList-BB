@@ -76,10 +76,10 @@ static NSString *kNormalCellID = @"NormalCell";
   // セルデータを作成
 //  NSArray *colorSection = @[[self normalCellID]];
 //  NSArray *badgeSection = @[[self normalCellID]];
-  NSArray *aboutSection = @[[self normalCellID]];
+//  NSArray *aboutSection = @[[self normalCellID]];
   NSArray *versionSection = @[[self normalCellID]];
 //  dataArray_ = @[colorSection, badgeSection, aboutSection];
-  dataArray_ = @[aboutSection, versionSection];
+  dataArray_ = @[versionSection];
   return dataArray_;
 }
 
@@ -101,7 +101,7 @@ static NSString *kNormalCellID = @"NormalCell";
 {
   NSString *identifier = self.dataArray[indexPath.section][indexPath.row];
   UITableViewCell *cell;
-  if (indexPath.section == 1) {
+  if (indexPath.section == 0) {
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                   reuseIdentifier:@"DetailCell"];
   } else {
@@ -116,7 +116,7 @@ static NSString *kNormalCellID = @"NormalCell";
 -(NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section
 {
-  return @"";
+  return @"About";
 }
 
 /**
@@ -128,11 +128,11 @@ titleForHeaderInSection:(NSInteger)section
 -(void)configureCell:(UITableViewCell *)cell
          atIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 0) {
-    cell.textLabel.text = @"About \"FilterList\"";
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-  }
   if (indexPath.section == 1) {
+    cell.textLabel.text = @"About";
+//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  }
+  if (indexPath.section == 0) {
     cell.textLabel.text = @"App Version";
     cell.detailTextLabel.text = @"1.0.0";
   }

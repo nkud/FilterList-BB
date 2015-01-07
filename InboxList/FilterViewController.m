@@ -77,9 +77,11 @@ static NSString *kFilterCellID = @"FilterCell";
        forCellReuseIdentifier:kFilterCellID];
   
   // セルを登録
-  [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
-                                             bundle:nil]
-       forCellReuseIdentifier:@"FilterCell"];
+//  [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
+//                                             bundle:nil]
+//       forCellReuseIdentifier:@"FilterCell"];
+  [self.tableView registerClass:[UITableViewCell class]
+         forCellReuseIdentifier:@"FilterCell"];
   // 編集ボタンを追加
   self.navigationItem.rightBarButtonItem = [self newInsertObjectButton];
   self.navigationItem.rightBarButtonItem.tintColor = FILTER_COLOR;
@@ -318,6 +320,7 @@ numberOfRowsInSection:(NSInteger)section
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:kFilterCellID];
+  
   [self configureFilterCell:cell
                 atIndexPath:indexPath];
   return cell;
@@ -338,8 +341,10 @@ numberOfRowsInSection:(NSInteger)section
   // フィルターを取得して、
   // フィルターの情報を表示する。
   Filter *filter = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.titleLabel.text = filter.title;
-  cell.tagLabel.text = [self createStringForSet:filter.tags];
+//  cell.titleLabel.text = filter.title;
+  cell.textLabel.text = filter.title;
+//  cell.tagLabel.text = [self createStringForSet:filter.tags];
+  cell.detailTextLabel.text = [self createStringForSet:filter.tags];
   
   // アクセサリー
 //  cell.accessoryView = [self newDisclosureIndicatorAccessory];

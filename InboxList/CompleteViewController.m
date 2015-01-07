@@ -237,7 +237,8 @@ numberOfRowsInSection:(NSInteger)section
   
   // 完了日を表示
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-  formatter.dateFormat = @"yyyy/MM/dd/hh:mm";
+//  formatter.dateFormat = @"yyyy/MM/dd/hh:mm";
+  formatter.dateFormat = @"yyyy/MM/dd";
   cell.completionDateLabel.textColor = [UIColor grayColor];
   cell.completionDateLabel.text = [formatter stringFromDate:item.completionDate];
   
