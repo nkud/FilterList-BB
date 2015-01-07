@@ -295,7 +295,7 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 /**
- * @brief  選択セルを削除
+ * @brief  選択セルを削除する
  *
  * @param sender センダー
  */
@@ -308,6 +308,11 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+/**
+ * @brief  全てのセルを削除する
+ *
+ * @param sender センダー
+ */
 -(void)deleteAllRows:(id)sender
 {
   // 全てのセルを削除する
@@ -317,6 +322,11 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
   }
 }
 
+/**
+ * @brief  確認用アクションシートを表示する
+ *
+ * @param title タイトル
+ */
 -(void)showConfirmActionSheetWithTitle:(NSString *)title
 {
   NSString *cancelTitle = NSLocalizedString(@"Cancel", @"Cancel title for item removal action");
@@ -329,19 +339,24 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
   [actionSheet showInView:self.view];
 }
 
+/**
+ * @brief  アクションシート選択後の処理
+ *
+ * @param actionSheet アクションシート
+ * @param buttonIndex 選択されたボタンの位置
+ */
 -(void)actionSheet:(UIActionSheet *)actionSheet
 clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+  // OK選択時の処理をする。
   if (buttonIndex == 0)
   {
-    LOG(@"selected: OK");
-    NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
-    BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
-    BOOL noItemsAreSelected = selectedRows.count == 0;
-    
     // 全て選択されている場合、アイテムが選択されていない場合、
     // 全てのセルを削除する。
     // そうでない場合、選択されたセルを削除する。
+    NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+    BOOL allItemsAreSelected = selectedRows.count == [[self.fetchedResultsController fetchedObjects] count];
+    BOOL noItemsAreSelected = selectedRows.count == 0;
     if (allItemsAreSelected || noItemsAreSelected) {
       [self deleteAllRows:self];
     } else {
@@ -355,7 +370,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
                      color:nil];
     }
     
+    // データの保存をする。
+    // TODO: いるか？
     [CoreDataController saveContext];
+    
+    // 編集タブバーの表示を更新する。
     [self updateEditTabBar];
   }
   
@@ -368,14 +387,17 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 
 #pragma mark - ユーティリティ -
 
+/**
+ * @brief  一番上のセルまでスクロールする
+ */
 -(void)scrollToTopCell
 {
   // セルが存在すれば、トップのセルまでスクロールする。
   // セルがなければ、何故か落ちる。
   BOOL hasAnyCell = ([self.tableView numberOfRowsInSection:0]>0) ? YES : NO;
   if (hasAnyCell) {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath
+    NSIndexPath *topIndexPath = INDEX(0, 0);
+    [self.tableView scrollToRowAtIndexPath:topIndexPath
                           atScrollPosition:UITableViewScrollPositionTop
                                   animated:YES];
   }
@@ -432,6 +454,9 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   }
 }
 
+/**
+ * @brief  編集タブバーの表示を更新する
+ */
 -(void)updateEditTabBar
 {
   // 編集タブの状態を更新する
@@ -482,6 +507,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   }
 }
 
+/**
+ * @brief  ナビバーの右アイテムを更新する
+ *
+ * @param isEditing 編集モード評価値
+ */
 -(void)toggleRightNavigationItemWithEditingState:(BOOL)isEditing
 {
   UIBarButtonItem *rightItem;
@@ -520,9 +550,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
                        subColor:(UIColor *)subColor
 {
   LOG(@"ナビゲーションバーのタイトル・サブタイトルを設定");
-  
-  //////////////////////////////////////////////////////////////////////////////
-  // タイトルのみの時
+  // タイトルのみの時の処理をする。
   if (subTitle == nil) {
     self.navigationItem.title = title;
     
@@ -544,8 +572,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
     return;
   }
   
-  //////////////////////////////////////////////////////////////////////////////
-  // タイトル・サブタイトルの時
+  // タイトル・サブタイトルの時の処理をする。
   // タイトルビューを再設定
   self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
   self.titleView.backgroundColor = [UIColor clearColor];
