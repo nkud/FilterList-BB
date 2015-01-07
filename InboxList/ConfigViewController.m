@@ -12,7 +12,8 @@
 #import "Configure.h"
 
 // ナビバーに表示するタイトル
-static NSString *kNavBarTitle = @"Settings";
+static NSString *kNavBarTitle = @"SETTINGS";
+
 static NSString *kTitleCellID = @"TitleCellIdentifier";
 static NSString *kTitleCellNibName = @"TitleCell";
 static NSString *kNormalCellID = @"NormalCell";
@@ -73,10 +74,12 @@ static NSString *kNormalCellID = @"NormalCell";
 -(NSArray *)dataArray
 {
   // セルデータを作成
-  NSArray *colorSection = @[[self normalCellID]];
-  NSArray *badgeSection = @[[self normalCellID]];
+//  NSArray *colorSection = @[[self normalCellID]];
+//  NSArray *badgeSection = @[[self normalCellID]];
   NSArray *aboutSection = @[[self normalCellID]];
-  dataArray_ = @[colorSection, badgeSection, aboutSection];
+  NSArray *versionSection = @[[self normalCellID]];
+//  dataArray_ = @[colorSection, badgeSection, aboutSection];
+  dataArray_ = @[aboutSection, versionSection];
   return dataArray_;
 }
 
@@ -97,7 +100,14 @@ static NSString *kNormalCellID = @"NormalCell";
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString *identifier = self.dataArray[indexPath.section][indexPath.row];
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+  UITableViewCell *cell;
+  if (indexPath.section == 1) {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                  reuseIdentifier:@"DetailCell"];
+  } else {
+    cell = [tableView dequeueReusableCellWithIdentifier:identifier
+                                           forIndexPath:indexPath];
+  }
   [self configureCell:cell
           atIndexPath:indexPath];
   return cell;
@@ -106,10 +116,7 @@ static NSString *kNormalCellID = @"NormalCell";
 -(NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section
 {
-  if (section == 2) {
-    return @"その他";
-  }
-  return @"未定";
+  return @"";
 }
 
 /**
@@ -121,10 +128,14 @@ titleForHeaderInSection:(NSInteger)section
 -(void)configureCell:(UITableViewCell *)cell
          atIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == 2) {
-    cell.textLabel.text = @"About FilterList";
+  if (indexPath.section == 0) {
+    cell.textLabel.text = @"About \"FilterList\"";
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   }
-  cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  if (indexPath.section == 1) {
+    cell.textLabel.text = @"App Version";
+    cell.detailTextLabel.text = @"1.0.0";
+  }
 }
 
 -(void)tableView:(UITableView *)tableView
