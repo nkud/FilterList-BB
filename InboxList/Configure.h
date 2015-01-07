@@ -26,7 +26,6 @@
 
 #define LIST_BG_GRAY RGB(236, 236, 236)
 
-
 #define ITEM_LIST_REMAIN_MARGIN 30
 
 //#define TAG_CELL_HEIGHT 50
@@ -46,6 +45,7 @@
 #define FILTER_BG_COLOR RGB(255,255,255)
 
 // 完了リスト
-#define COMPLETE_COLOR RGB(212, 212, 212)
+#define COMPLETE_COLOR RGB(160, 160, 160)
+//#define COMPLETE_COLOR ITEM_COLOR
 
 #endif

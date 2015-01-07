@@ -113,7 +113,7 @@
   self.completeViewController.fetchedResultsController = [CoreDataController completeFetchedResultsController:self.completeViewController];
   [self.completeViewController configureTitleWithString:@"COMPLETE"
                                                subTitle:@"0 items are completed."
-                                               subColor:GRAY_COLOR];
+                                               subColor:ITEM_COLOR];
   self.completeNavigationController
   = [[CompleteNavigationController alloc] initWithRootViewController:self.completeViewController];
   

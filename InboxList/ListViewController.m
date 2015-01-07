@@ -514,12 +514,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
  */
 -(void)toggleRightNavigationItemWithEditingState:(BOOL)isEditing
 {
-  UIBarButtonItem *rightItem;
-  
   // 編集中なら、
   // 全選択ボタンを表示する。
   // そうでないなら、
   // 新規挿入ボタンを表示する。
+  UIBarButtonItem *rightItem;
   if (isEditing) {
     rightItem = [self newSelectAllButton];
   } else {

@@ -22,7 +22,9 @@ static NSString *kCompleteCellID = @"CompleteCell";
 
 #pragma mark -
 
-@interface CompleteViewController ()
+@interface CompleteViewController () {
+  UIBarButtonItem *configButton_;
+}
 
 @end
 
@@ -35,8 +37,11 @@ static NSString *kCompleteCellID = @"CompleteCell";
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self.tableView registerNib:[UINib nibWithNibName:@"CompleteCell" bundle:nil]
+  [self.tableView registerNib:[UINib nibWithNibName:@"CompleteCell"
+                                             bundle:nil]
        forCellReuseIdentifier:kCompleteCellID];
+  
+  self.navbarThemeColor = COMPLETE_COLOR;
   
   // 編集ボタン
   self.navigationItem.leftBarButtonItem = [self newEditTableButton];
@@ -44,11 +49,12 @@ static NSString *kCompleteCellID = @"CompleteCell";
   
   self.tableView.allowsMultipleSelectionDuringEditing = YES;
   
-  UIBarButtonItem *configButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:kConfigButtonImageName]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(presentConfigView:)];
-  self.navigationItem.rightBarButtonItem = configButton;
+  configButton_ = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:kConfigButtonImageName]
+                                                  style:UIBarButtonItemStylePlain
+                                                 target:self
+                                                 action:@selector(presentConfigView:)];
+  configButton_.tintColor = self.navbarThemeColor;
+  self.navigationItem.rightBarButtonItem = configButton_;
 }
 
 -(void)didTappedEditTableButton
@@ -71,7 +77,8 @@ static NSString *kCompleteCellID = @"CompleteCell";
 -(void)presentConfigView:(id)sender
 {
   LOG(@"コンフィグ");
-  ConfigViewController *controller = [[ConfigViewController alloc] initWithNibName:nil bundle:nil];
+  ConfigViewController *controller = [[ConfigViewController alloc] initWithNibName:nil
+                                                                            bundle:nil];
   UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];
   [self presentViewController:navcontroller
                      animated:YES
@@ -79,6 +86,25 @@ static NSString *kCompleteCellID = @"CompleteCell";
   [self.delegateForList closeTabBar];
 }
 #pragma mark - テーブルビュー
+
+/**
+ * @brief  全選択する
+ *
+ * @param sender センダー
+ */
+-(void)selectAllRows:(id)sender
+{
+  LOG(@"全選択");
+  NSArray *objects = [self.fetchedResultsController fetchedObjects];
+  for (NSManagedObject *obj in objects) {
+    NSIndexPath *indexPathInController = [self.fetchedResultsController indexPathForObject:obj];
+    [self.tableView selectRowAtIndexPath:indexPathInController
+                                animated:NO
+                          scrollPosition:UITableViewScrollPositionNone];
+  }
+  [self updateEditTabBar];
+}
+
 /**
  *  @brief 編集時の処理
  *
@@ -115,6 +141,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     [self.tableView setEditing:false
                       animated:YES];
     [self toggleRightNavigationItemWithEditingState:NO];
+    self.navigationItem.rightBarButtonItem = configButton_;
   } else {
     [self.tableView setEditing:true
                       animated:YES];
@@ -147,9 +174,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   [self configureTitleWithString:@"COMPLETE"
                         subTitle:[NSString stringWithFormat:@"%ld items are completed.",
                                   (long)[sectionInfo numberOfObjects]]
-                        subColor:GRAY_COLOR];
+                        subColor:COMPLETE_COLOR];
   self.titleLabel.textColor = COMPLETE_COLOR;
-  
 }
 
 /**
@@ -377,7 +403,7 @@ numberOfRowsInSection:(NSInteger)section
   [self configureTitleWithString:@"COMPLETE"
                         subTitle:[NSString stringWithFormat:@"%ld items are completed.",
                                   (long)[sectionInfo numberOfObjects]]
-                        subColor:GRAY_COLOR];
+                        subColor:COMPLETE_COLOR];
   
   // In the simplest, most efficient, case, reload the table view.
   [self.tableView endUpdates];
