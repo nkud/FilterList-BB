@@ -74,9 +74,15 @@ static NSString *kCompleteCellID = @"CompleteCell";
 
 #pragma mark - コンフィグ画面
 
+/**
+ * @brief  設定画面を表示する
+ *
+ * @param sender センダー
+ */
 -(void)presentConfigView:(id)sender
 {
-  LOG(@"コンフィグ");
+  // コンフィグコントローラを作成する。
+  // タブバーは閉じる。
   ConfigViewController *controller = [[ConfigViewController alloc] initWithNibName:nil
                                                                             bundle:nil];
   UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:controller];

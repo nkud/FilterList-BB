@@ -3,10 +3,18 @@
 //  FilterList
 //
 //  Created by Naoki Ueda on 2014/11/03.
-//  Copyright (c) 2014年 Naoki Ueda. All rights reserved.
+//  Copyright (c) 2014 Naoki Ueda. All rights reserved.
 //
 
 #import "ConfigViewController.h"
+
+#import "Header.h"
+#import "Configure.h"
+
+// ナビバーに表示するタイトル
+static NSString *kNavBarTitle = @"Settings";
+
+#pragma mark -
 
 @interface ConfigViewController ()
 {
@@ -28,9 +36,8 @@
   = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                   target:self
                                                   action:@selector(cancel:)];
-  
-  // タイトル
-  self.navigationItem.title = @"Configure";
+  // タイトルを設定する
+  self.navigationItem.title = kNavBarTitle;
 }
 
 - (void)cancel:(id)sender
@@ -72,10 +79,8 @@
 {
   NSString *identifier = self.dataArray[indexPath.section][indexPath.row];
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-  
   [self configureCell:cell
           atIndexPath:indexPath];
-  
   return cell;
 }
 
