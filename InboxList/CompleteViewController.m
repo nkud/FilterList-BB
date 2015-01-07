@@ -221,6 +221,7 @@ numberOfRowsInSection:(NSInteger)section
   return cell;
 }
 #pragma mark セルの設定
+
 /**
  * @brief  セルを設定
  *
@@ -286,7 +287,6 @@ numberOfRowsInSection:(NSInteger)section
       NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
       
       // その位置のセルのデータをモデルから取得する
-      
       LOG(@"モデルを取得");
       Item *item = [self.fetchedResultsController objectAtIndexPath:indexPath];
       CompleteCell *cell = (CompleteCell *)[self.tableView cellForRowAtIndexPath:indexPath];

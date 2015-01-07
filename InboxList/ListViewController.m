@@ -562,7 +562,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
     self.titleLabel.font = [UIFont boldSystemFontOfSize:kTitleFontSize];
     self.titleLabel.text = title;
-    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.textColor = self.navbarThemeColor;
     self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.backgroundColor = [UIColor clearColor];
@@ -582,7 +582,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 195, 20)];
   self.titleLabel.font = [UIFont boldSystemFontOfSize:kTitleFontSize];
   self.titleLabel.text = title;
-  self.titleLabel.textColor = [UIColor blackColor];
+  self.titleLabel.textColor = self.navbarThemeColor;
   self.titleLabel.textAlignment = NSTextAlignmentCenter;
   self.titleLabel.backgroundColor = [UIColor clearColor];
   self.titleLabel.adjustsFontSizeToFitWidth = YES;
