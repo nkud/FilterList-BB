@@ -816,7 +816,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   if (tagsIsSelected) {
     stringForTags = [self createStringForSet:self.tagsForFilter];
   } else {
-    stringForTags = @"tags";
+    stringForTags = @"all items";
   }
   cell.textLabel.text = @"Tags";
   cell.detailTextLabel.text = stringForTags;
