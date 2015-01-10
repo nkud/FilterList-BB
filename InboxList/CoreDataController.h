@@ -23,6 +23,14 @@
 +(NSFetchedResultsController *)itemFethcedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
                                                         controller:(id<NSFetchedResultsControllerDelegate>)controller;
++ (NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
+                                                      filterOverdue:(BOOL)filterOverdue
+                                                        filterToday:(BOOL)filterToday
+                                                       filterFuture:(BOOL)filterFuture
+                                                         controller:(id<NSFetchedResultsControllerDelegate>)controller;
++ (NSFetchedResultsController *)itemFetchedResultsControllerWithFilter:(Filter *)filter
+                                                            controller:(id<NSFetchedResultsControllerDelegate>)controller;
+
 +(void)insertNewItem:(NSString *)itemTitle
                  tag:(Tag *)tag
             reminder:(NSDate *)reminder;
@@ -35,11 +43,6 @@
 +(NSFetchedResultsController *)tagFetchedResultsController:(id<NSFetchedResultsControllerDelegate>)controller;
 +(NSFetchedResultsController *)tagFetchedResultsControllerWithSearch:(NSString *)searchString
                                                             delegate:(id<NSFetchedResultsControllerDelegate>)controller;
-+ (NSFetchedResultsController *)itemFetchedResultsControllerForTags:(NSSet *)tags
-                                                      filterOverdue:(BOOL)filterOverdue
-                                                        filterToday:(BOOL)filterToday
-                                                       filterFuture:(BOOL)filterFuture
-                                                         controller:(id<NSFetchedResultsControllerDelegate>)controller;
 
 +(NSArray *)getAllTagsArray;
 +(NSArray *)fetchTagsForTitle:(NSString *)title;
