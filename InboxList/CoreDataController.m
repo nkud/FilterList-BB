@@ -169,9 +169,6 @@ enum __SECTION__ {
   NSArray *sortDescriptors = @[sortDescriptor];
   [fetchRequest setSortDescriptors:sortDescriptors];
   
-  // 指定されたタグ名で、
-  // 未完了のアイテムを抽出する
-  NSMutableArray *predicate_array = [[NSMutableArray alloc] init];
   NSPredicate *predicate;
   predicate = [NSPredicate predicateWithFormat:@"%@ == SELF.state", [NSNumber numberWithBool:false]];
   
@@ -243,12 +240,9 @@ enum __SECTION__ {
                                subpredicates:due_predicate_array];
   
   // 条件の配列から条件を合成する
-  NSCompoundPredicate *tag_predicates
-  = [[NSCompoundPredicate alloc] initWithType:NSOrPredicateType
-                                subpredicates:predicate_array];
     NSCompoundPredicate *compound_predicate
   = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType
-                                subpredicates:@[tag_predicates, predicate, due_predicates]];
+                                subpredicates:@[predicate, due_predicates]];
   [fetchRequest setPredicate:compound_predicate];
   
   // Edit the section name key path and cache name if appropriate.
