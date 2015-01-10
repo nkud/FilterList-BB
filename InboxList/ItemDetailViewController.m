@@ -583,16 +583,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
   if (self.tagsForItem && [self.tagsForItem count] > 0)
   {
     // タグが設定されている時
+    // 黒色にする。
     stringForTags = [self createStringForSet:self.tagsForItem];
     textColor = [UIColor blackColor];
   } else
   {
     // タグが設定されていない時
+    // 灰色にする。
     stringForTags = kTitleCellPlaceHold;
     textColor = [UIColor grayColor];
   }
   cell.detailTextLabel.text = stringForTags;
-  
+
+  // タグが選択されている時、
+  // キャンセルボタンを表示する。
   if (self.tagsForItem != nil) {
     [self addCancelButton:cell
                    action:@selector(didTappedTagCancelButton:)];

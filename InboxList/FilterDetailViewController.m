@@ -809,13 +809,32 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  atIndexPathInTableView:(NSIndexPath *)indexPathInTableView;
 {
   NSString *stringForTags;
-  if (self.tagsForFilter && [self.tagsForFilter count] > 0) {
+  BOOL tagsIsSelected = NO;
+  if (self.tagsForFilter) {
+    tagsIsSelected = [self.tagsForFilter count] > 0;
+  }
+  if (tagsIsSelected) {
     stringForTags = [self createStringForSet:self.tagsForFilter];
   } else {
     stringForTags = @"tags";
   }
   cell.textLabel.text = @"Tags";
   cell.detailTextLabel.text = stringForTags;
+  
+  // タグが選択されている時、
+  // キャンセルボタンを表示する。
+  if (tagsIsSelected) {
+    [self addCancelButton:cell
+                   action:@selector(didTappedTagCancelButton:)];
+  } else {
+    cell.accessoryView = nil;
+  }
+}
+
+-(void)didTappedTagCancelButton:(id)sender
+{
+  self.tagsForFilter = nil;
+  [self.tableView reloadData];
 }
 
 #pragma mark - その他

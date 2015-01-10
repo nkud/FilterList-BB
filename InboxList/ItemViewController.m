@@ -372,7 +372,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
   if ([self hasInlineInputHeader] && [self isInputHeaderCellAtIndexPathInTableView:indexPathInTableView])
   {
-    // 入力セル
+    // 入力セルを作成する。
+    // 空欄の時は、プレースホルダーを設定する。
+    // タグが選択されている時と、そうでない時で分岐する。
+    // 入力セルとそのフィールドのデリゲートを設定する。
     InputHeaderCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"InputHeaderCell"];
     NSString *placeholder;
     if ([self selectedTag]) {
@@ -380,13 +383,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     } else {
       placeholder = @"new item";
     }
-
     cell.delegate = self;
     cell.inputField.delegate = self;
     cell.inputField.placeholder = placeholder;
     return cell;
   }
 
+  // アイテムセルを作成する。
   ItemCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kItemCellID];
   [self configureItemCell:cell
               atIndexPath:indexPathInTableView];
