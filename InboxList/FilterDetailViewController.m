@@ -637,7 +637,12 @@ titleForHeaderInSection:(NSInteger)section
   else if ([self isTagCellAtIndexPath:indexPath])
   {
     // タグ選択セルを作成して返す
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagSelectCellID];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagSelectCellID];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tagcell"];
+    if (cell == nil) {
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                    reuseIdentifier:@"tagcell"];
+    }
     [self configureTagCell:cell
     atIndexPathInTableView:indexPath];
     return cell;

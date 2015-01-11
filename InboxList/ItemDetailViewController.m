@@ -385,15 +385,24 @@ numberOfRowsInSection:(NSInteger)section
   }
   // タグセルを作成
   if ([self isTagCelAtIndexPath:indexPath]) {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
-    
+//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"tagcell"];
+    if (cell == nil) {
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                    reuseIdentifier:@"tagcell"];
+    }
     [self configureTagCell:cell
                atIndexPath:indexPath];
     return cell;
   }
   // 日時セルを作成
   if ([self isDateCellAtIndexPath:indexPath]) {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
+//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"datecell"];
+    if (cell == nil) {
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                    reuseIdentifier:@"datecell"];
+    }
     [self configureDateCell:cell
                 atIndexPath:indexPath];
     return cell;
