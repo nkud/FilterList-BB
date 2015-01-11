@@ -8,8 +8,6 @@
 
 #import "ItemDetailViewController.h"
 #import "TitleCell.h"
-#import "ItemDetailTagCell.h"
-#import "ItemDetailDateCell.h"
 #import "ItemDetailDatePickerCell.h"
 #import "TagSelectViewController.h"
 #import "Header.h"
@@ -197,12 +195,12 @@ static NSString *kDatePickerCellID = @"datePickerCell";
  *
  * @return タグセル
  */
--(ItemDetailTagCell *)tagCell
+-(UITableViewCell *)tagCell
 {
   NSIndexPath *indexPathForDateCell = [NSIndexPath indexPathForRow:0
                                                          inSection:1];
-  ItemDetailTagCell *cell
-  = (ItemDetailTagCell *)[self.tableView cellForRowAtIndexPath:indexPathForDateCell];
+  UITableViewCell *cell
+  = [self.tableView cellForRowAtIndexPath:indexPathForDateCell];
   return cell;
 }
 
@@ -211,12 +209,12 @@ static NSString *kDatePickerCellID = @"datePickerCell";
  *
  * @return 日付セル
  */
--(ItemDetailDateCell *)dateCell
+-(UITableViewCell *)dateCell
 {
   NSIndexPath *indexPathForDateCell = [NSIndexPath indexPathForRow:1
                                                          inSection:1];
-  ItemDetailDateCell *cell
-  = (ItemDetailDateCell *)[self.tableView cellForRowAtIndexPath:indexPathForDateCell];
+  UITableViewCell *cell
+  = [self.tableView cellForRowAtIndexPath:indexPathForDateCell];
   return cell;
 }
 
@@ -387,7 +385,7 @@ numberOfRowsInSection:(NSInteger)section
   }
   // タグセルを作成
   if ([self isTagCelAtIndexPath:indexPath]) {
-    ItemDetailTagCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
     
     [self configureTagCell:cell
                atIndexPath:indexPath];
@@ -395,7 +393,7 @@ numberOfRowsInSection:(NSInteger)section
   }
   // 日時セルを作成
   if ([self isDateCellAtIndexPath:indexPath]) {
-    ItemDetailDateCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
     [self configureDateCell:cell
                 atIndexPath:indexPath];
     return cell;
@@ -476,7 +474,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [tcell.titleField resignFirstResponder]; // キーボードは閉じる
     
     [self toggleDatePickerCell];
-    [self configureDateCell:(ItemDetailDateCell *)cell
+    [self configureDateCell:cell
                 atIndexPath:indexPath];
   }
   // 選択解除
@@ -574,7 +572,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  * @param cell        セル
  * @param atIndexPath 位置
  */
--(void)configureTagCell:(ItemDetailTagCell *)cell
+-(void)configureTagCell:(UITableViewCell *)cell
             atIndexPath:(NSIndexPath *)atIndexPath
 {
   cell.textLabel.text = @"Tag";
@@ -611,7 +609,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  * @param cell        セル
  * @param atIndexPath 位置
  */
--(void)configureDateCell:(ItemDetailDateCell *)cell
+-(void)configureDateCell:(UITableViewCell *)cell
              atIndexPath:(NSIndexPath *)atIndexPath
 {
   cell.textLabel.text = @"Due Date";
@@ -638,7 +636,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [self addCancelButton:cell
                    action:@selector(didTappedDateCancelButton:)];
   } else {
-    cell.accessoryView = nil;
+//    cell.accessoryView = nil;
   }
 }
 

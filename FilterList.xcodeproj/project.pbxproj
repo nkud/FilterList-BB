@@ -40,10 +40,6 @@
 		B083521419CD59EC00071EE0 /* InputHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B083521219CD59EC00071EE0 /* InputHeaderCell.m */; };
 		B083521519CD59EC00071EE0 /* InputHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B083521319CD59EC00071EE0 /* InputHeaderCell.xib */; };
 		B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */; };
-		B08CDBB619C559B8008263AC /* ItemDetailTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B08CDBB419C559B8008263AC /* ItemDetailTagCell.m */; };
-		B08CDBB719C559B8008263AC /* ItemDetailTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08CDBB519C559B8008263AC /* ItemDetailTagCell.xib */; };
-		B08CDBBC19C55BAF008263AC /* ItemDetailDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B08CDBBA19C55BAF008263AC /* ItemDetailDateCell.m */; };
-		B08CDBBD19C55BAF008263AC /* ItemDetailDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08CDBBB19C55BAF008263AC /* ItemDetailDateCell.xib */; };
 		B08CDBC219C55BED008263AC /* ItemDetailDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B08CDBC019C55BED008263AC /* ItemDetailDatePickerCell.m */; };
 		B08CDBC319C55BED008263AC /* ItemDetailDatePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08CDBC119C55BED008263AC /* ItemDetailDatePickerCell.xib */; };
 		B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08EBBC019703EB200DB9582 /* FilterViewController.m */; };
@@ -155,12 +151,6 @@
 		B083521319CD59EC00071EE0 /* InputHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputHeaderCell.xib; sourceTree = "<group>"; };
 		B08C33A319A84E4F00AB5F25 /* ItemNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemNavigationController.h; sourceTree = "<group>"; };
 		B08C33A419A84E4F00AB5F25 /* ItemNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemNavigationController.m; sourceTree = "<group>"; };
-		B08CDBB319C559B8008263AC /* ItemDetailTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailTagCell.h; sourceTree = "<group>"; };
-		B08CDBB419C559B8008263AC /* ItemDetailTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailTagCell.m; sourceTree = "<group>"; };
-		B08CDBB519C559B8008263AC /* ItemDetailTagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemDetailTagCell.xib; sourceTree = "<group>"; };
-		B08CDBB919C55BAF008263AC /* ItemDetailDateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailDateCell.h; sourceTree = "<group>"; };
-		B08CDBBA19C55BAF008263AC /* ItemDetailDateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailDateCell.m; sourceTree = "<group>"; };
-		B08CDBBB19C55BAF008263AC /* ItemDetailDateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemDetailDateCell.xib; sourceTree = "<group>"; };
 		B08CDBBF19C55BED008263AC /* ItemDetailDatePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailDatePickerCell.h; sourceTree = "<group>"; };
 		B08CDBC019C55BED008263AC /* ItemDetailDatePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailDatePickerCell.m; sourceTree = "<group>"; };
 		B08CDBC119C55BED008263AC /* ItemDetailDatePickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemDetailDatePickerCell.xib; sourceTree = "<group>"; };
@@ -265,8 +255,6 @@
 				B0030D9D19F6E4F600CF8F40 /* DetailViewController.m */,
 				B05EA7CA19F7649400AC0289 /* TitleCell */,
 				B08CDBC419C55BEF008263AC /* DatePickerCell */,
-				B08CDBBE19C55BB3008263AC /* DateCell */,
-				B08CDBB819C559BC008263AC /* TagCell */,
 			);
 			name = DetailView;
 			sourceTree = "<group>";
@@ -443,26 +431,6 @@
 				B083521319CD59EC00071EE0 /* InputHeaderCell.xib */,
 			);
 			name = InputHeaderCell;
-			sourceTree = "<group>";
-		};
-		B08CDBB819C559BC008263AC /* TagCell */ = {
-			isa = PBXGroup;
-			children = (
-				B08CDBB319C559B8008263AC /* ItemDetailTagCell.h */,
-				B08CDBB419C559B8008263AC /* ItemDetailTagCell.m */,
-				B08CDBB519C559B8008263AC /* ItemDetailTagCell.xib */,
-			);
-			name = TagCell;
-			sourceTree = "<group>";
-		};
-		B08CDBBE19C55BB3008263AC /* DateCell */ = {
-			isa = PBXGroup;
-			children = (
-				B08CDBB919C55BAF008263AC /* ItemDetailDateCell.h */,
-				B08CDBBA19C55BAF008263AC /* ItemDetailDateCell.m */,
-				B08CDBBB19C55BAF008263AC /* ItemDetailDateCell.xib */,
-			);
-			name = DateCell;
 			sourceTree = "<group>";
 		};
 		B08CDBC419C55BEF008263AC /* DatePickerCell */ = {
@@ -816,7 +784,6 @@
 				B08FA7AD1A08BA43008A6434 /* unchecked.png in Resources */,
 				B00AD6AB18C45E470005A552 /* Images.xcassets in Resources */,
 				B08FA7AB1A08BA43008A6434 /* unchecked-yellow.png in Resources */,
-				B08CDBB719C559B8008263AC /* ItemDetailTagCell.xib in Resources */,
 				B08FA7A31A08BA43008A6434 /* checked-yellow.png in Resources */,
 				B08FA77C1A07E6F1008A6434 /* cancel@2x.png in Resources */,
 				B01DF84D1A171CC500F3AF01 /* ConfigBarButton.png in Resources */,
@@ -825,7 +792,6 @@
 				B08FA7C31A08BD2E008A6434 /* TagTabBarItem.png in Resources */,
 				B08FA7AA1A08BA43008A6434 /* unchecked-red@2x.png in Resources */,
 				B08FA7C11A08BD2E008A6434 /* ItemTabBarItem.png in Resources */,
-				B08CDBBD19C55BAF008263AC /* ItemDetailDateCell.xib in Resources */,
 				B08FA7C41A08BD2E008A6434 /* TagTabBarItem@2x.png in Resources */,
 				B08FA7A71A08BA43008A6434 /* unchecked-blue.png in Resources */,
 				B0BC6A8D19A9CDC700E53AEF /* TagSelectViewController.xib in Resources */,
@@ -881,7 +847,6 @@
 				B00AD6A618C45E470005A552 /* ItemViewController.m in Sources */,
 				B08EBBC119703EB200DB9582 /* FilterViewController.m in Sources */,
 				B053050119EA486D00E87C64 /* FilterDetailViewController.m in Sources */,
-				B08CDBB619C559B8008263AC /* ItemDetailTagCell.m in Sources */,
 				B08C33A519A84E4F00AB5F25 /* ItemNavigationController.m in Sources */,
 				B00AD6A318C45E470005A552 /* InboxList.xcdatamodeld in Sources */,
 				B0AD8C7919D12C070069B29D /* TagLabel.m in Sources */,
@@ -892,7 +857,6 @@
 				B00AD69918C45E470005A552 /* main.m in Sources */,
 				B040A6161A329C6300546F28 /* SwitchCell.m in Sources */,
 				B08F4B651915FAC80047E210 /* NavigationController.m in Sources */,
-				B08CDBBC19C55BAF008263AC /* ItemDetailDateCell.m in Sources */,
 				B0DABFAD1914CC50007597E3 /* ItemCell.m in Sources */,
 				B0E4690E19A84B99008B3150 /* TagNavigationController.m in Sources */,
 				B0C95D6719D5661C00F32F6C /* Tag.m in Sources */,

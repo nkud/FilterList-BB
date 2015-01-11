@@ -13,7 +13,6 @@
 #import "TitleCell.h"
 #import "ItemDetailDatePickerCell.h"
 
-#import "ItemDetailTagCell.h"
 #import "SwitchCell.h"
 
 #import "TagSelectViewController.h"
@@ -343,11 +342,11 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
   TitleCell *cell = (TitleCell *)[self.tableView cellForRowAtIndexPath:indexPathForTitleCell];
   return cell;
 }
--(ItemDetailTagCell *)tagCell
+-(UITableViewCell *)tagCell
 {
   NSIndexPath *indexPathForTagCell = [NSIndexPath indexPathForRow:0
                                                         inSection:1];
-  ItemDetailTagCell *cell = (ItemDetailTagCell *)[self.tableView cellForRowAtIndexPath:indexPathForTagCell];
+  UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPathForTagCell];
   return cell;
 }
 /**
@@ -638,7 +637,7 @@ titleForHeaderInSection:(NSInteger)section
   else if ([self isTagCellAtIndexPath:indexPath])
   {
     // タグ選択セルを作成して返す
-    ItemDetailTagCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagSelectCellID];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagSelectCellID];
     [self configureTagCell:cell
     atIndexPathInTableView:indexPath];
     return cell;
@@ -805,7 +804,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 #pragma mark セルの設定
 
--(void)configureTagCell:(ItemDetailTagCell *)cell
+-(void)configureTagCell:(UITableViewCell *)cell
  atIndexPathInTableView:(NSIndexPath *)indexPathInTableView;
 {
   NSString *stringForTags;
