@@ -501,6 +501,8 @@
   
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDelegate:self];
+  [UIView setAnimationDidStopSelector:@selector(didChangedForItemList:)];
   [UIView setAnimationDuration:kDurationForListModeSegue];
   [UIView setAnimationCurve:self.animationCurve_];
   [self openTagListMode];
@@ -511,6 +513,11 @@
   [UIView commitAnimations];
   
   self.mainViewController_ = self.itemViewController;
+}
+
+-(void)didChangedForItemList:(id)sender
+{
+  self.itemNavigationController.view.layer.shadowOpacity = 0.0f;
 }
 -(void)toItemListModeWithDuration:(NSTimeInterval)duration
 {
@@ -531,6 +538,8 @@
   
   LOG(@"アイテムリストモード");
   [UIView beginAnimations:nil context:nil];
+  [UIView setAnimationDelegate:self];
+  [UIView setAnimationDidStopSelector:@selector(didChangedForItemList:)];
   [UIView setAnimationDuration:duration];
   [UIView setAnimationCurve:self.animationCurve_];
   [self openTagListMode];
@@ -550,6 +559,8 @@
     [self.tagViewController scrollToTopCell];
     return;
   }
+  
+  self.itemNavigationController.view.layer.shadowOpacity = 0.7f;
   
   // これまでのメインリストの編集モードを取り消す。
   self.mainViewController_.tableView.editing = NO;
@@ -588,6 +599,8 @@
     [self.filterViewController scrollToTopCell];
     return;
   }
+  
+  self.itemNavigationController.view.layer.shadowOpacity = 0.7f;
 
   // これまでのメインリストの編集モードを取り消す。
   self.mainViewController_.tableView.editing = NO;
