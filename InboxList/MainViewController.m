@@ -60,10 +60,11 @@
 
   //
   // タブバーを初期化する
-  self.tabBar = [[TabBar alloc] initWithFrame:CGRectMake(0,
-                                                         SCREEN_BOUNDS.size.height-TABBAR_H,
-                                                         SCREEN_BOUNDS.size.width,
-                                                         TABBAR_H)];
+  CGRect tabBarFrame = CGRectMake(0,
+                                  SCREEN_BOUNDS.size.height-TABBAR_H,
+                                  SCREEN_BOUNDS.size.width,
+                                  TABBAR_H);
+  self.tabBar = [[TabBar alloc] initWithFrame:tabBarFrame];
   self.tabBar.delegate = self;
 
   // アイテムリストを初期化する。
