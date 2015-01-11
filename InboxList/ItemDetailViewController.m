@@ -98,12 +98,12 @@ static NSString *kDatePickerCellID = @"datePickerCell";
   [self initParam];
   
   // セル登録
-  [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTagCell"
-                                             bundle:nil]
-       forCellReuseIdentifier:kTagCellID];
-  [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailDateCell"
-                                             bundle:nil]
-       forCellReuseIdentifier:kDateCellID];
+//  [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailTagCell"
+//                                             bundle:nil]
+//       forCellReuseIdentifier:kTagCellID];
+//  [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailDateCell"
+//                                             bundle:nil]
+//       forCellReuseIdentifier:kDateCellID];
   [self.tableView registerNib:[UINib nibWithNibName:@"ItemDetailDatePickerCell"
                                              bundle:nil]
        forCellReuseIdentifier:kDatePickerCellID];
@@ -386,10 +386,10 @@ numberOfRowsInSection:(NSInteger)section
   // タグセルを作成
   if ([self isTagCelAtIndexPath:indexPath]) {
 //    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"tagcell"];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kTagCellID];
     if (cell == nil) {
       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                    reuseIdentifier:@"tagcell"];
+                                    reuseIdentifier:kTagCellID];
     }
     [self configureTagCell:cell
                atIndexPath:indexPath];
@@ -398,10 +398,10 @@ numberOfRowsInSection:(NSInteger)section
   // 日時セルを作成
   if ([self isDateCellAtIndexPath:indexPath]) {
 //    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"datecell"];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDateCellID];
     if (cell == nil) {
       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                    reuseIdentifier:@"datecell"];
+                                    reuseIdentifier:kDateCellID];
     }
     [self configureDateCell:cell
                 atIndexPath:indexPath];
