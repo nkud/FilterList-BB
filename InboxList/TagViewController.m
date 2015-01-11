@@ -508,12 +508,13 @@ numberOfRowsInSection:(NSInteger)section
   // 通常のセルを作成する
 //  TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier
 //                                                  forIndexPath:indexPath];
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tagcell"];
-  
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagCellID];
+
   if (cell == nil) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                  reuseIdentifier:@"tagcell"];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                  reuseIdentifier:kTagCellID];
   }
+
   
   // セルを設定する
   [self configureTagCell:cell
@@ -620,11 +621,11 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
  *
  * @return セルの高さ
  */
--(CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  return CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kTagCellID] frame]);
-}
+//-(CGFloat)tableView:(UITableView *)tableView
+//heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//  return CGRectGetHeight([[self.tableView dequeueReusableCellWithIdentifier:kTagCellID] frame]);
+//}
 
 #pragma mark 更新
 
