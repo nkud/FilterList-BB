@@ -102,6 +102,13 @@ static NSString *kInputFieldPlaceholder = @"new tag";
   
   // タブバーの時は、編集タブバーを開かない
   [self hideEditTabBar:YES];
+  
+  /// テーブルビューの表示を更新する
+  NSArray *visibleCells = [self.tableView visibleCells];
+  for (UITableViewCell *cell in visibleCells) {
+    [self configureTagCell:cell
+               atIndexPath:[self.tableView indexPathForCell:cell]];
+  }
 }
 
 /**
@@ -515,7 +522,6 @@ numberOfRowsInSection:(NSInteger)section
                                   reuseIdentifier:kTagCellID];
   }
 
-  
   // セルを設定する
   [self configureTagCell:cell
           atIndexPath:indexPath];
@@ -545,8 +551,9 @@ numberOfRowsInSection:(NSInteger)section
              atIndexPath:(NSIndexPath *)indexPath
 {
   Tag *tag;
-  NSString *itemCountString;
+  NSString *itemCountString = @"";
   NSString *titleString;
+  UITableView *table = self.tableView;
   
   // セルの背景色を設定する
   cell.backgroundColor = TAG_BG_COLOR;
@@ -568,11 +575,13 @@ numberOfRowsInSection:(NSInteger)section
     indexPath = [self mapIndexPathToFetchResultsController:indexPath];
     tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
     titleString = tag.title;
-    itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
+    if (table.isEditing == NO) {
+      itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
+    }
   }
   cell.textLabel.text = titleString;
   cell.detailTextLabel.text = itemCountString;
-  
+
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
