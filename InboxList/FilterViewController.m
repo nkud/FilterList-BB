@@ -127,7 +127,7 @@ static NSString *kFilterCellID = @"FilterCell";
 
 -(void)didTappedEditTableButton
 {
-  [super didTappedEditTableButton];
+//  [super didTappedEditTableButton];
 
   if (self.tableView.isEditing) {
     [self.delegateForList listDidEditMode];

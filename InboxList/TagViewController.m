@@ -89,7 +89,7 @@ static NSString *kInputFieldPlaceholder = @"new tag";
  */
 -(void)didTappedEditTableButton
 {
-  [super didTappedEditTableButton];
+//  [super didTappedEditTableButton];
 
   // 完全に開閉する
   if (self.tableView.isEditing) {

@@ -488,6 +488,10 @@
     [self.itemViewController scrollToTopCell];
     return;
   }
+  
+  // これまでのメインリストの編集モードを取り消す。
+  self.mainViewController_.tableView.editing = NO;
+  
   self.itemNavigationController.view.userInteractionEnabled = YES;
   
   // スクロールバーを表示する
@@ -515,6 +519,9 @@
     return;
   }
   
+  // これまでのメインリストの編集モードを取り消す。
+  self.mainViewController_.tableView.editing = NO;
+  
   self.itemNavigationController.view.userInteractionEnabled = YES;
   
   // スクロールバーを表示する
@@ -541,6 +548,9 @@
     [self.tagViewController scrollToTopCell];
     return;
   }
+  
+  // これまでのメインリストの編集モードを取り消す。
+  self.mainViewController_.tableView.editing = NO;
   
   self.itemNavigationController.view.userInteractionEnabled = NO;
 
@@ -574,6 +584,10 @@
     [self.filterViewController scrollToTopCell];
     return;
   }
+
+  // これまでのメインリストの編集モードを取り消す。
+  self.mainViewController_.tableView.editing = NO;
+  
   self.itemNavigationController.view.userInteractionEnabled = NO;
   
   // スクロールバーを非表示にする
@@ -609,6 +623,10 @@
     [self.completeViewController scrollToTopCell];
     return;
   }
+  
+  // これまでのメインリストの編集モードを取り消す。
+  self.mainViewController_.tableView.editing = NO;
+  
   self.itemNavigationController.view.userInteractionEnabled = NO;
 
   // スクロールバーを非表示にする
