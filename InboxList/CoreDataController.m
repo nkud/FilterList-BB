@@ -805,7 +805,11 @@ enum __SECTION__ {
   newFilter.order = [NSNumber numberWithInt:0];
   
   // フィルターにタグを設定
-  [newFilter addTags:tagsForFilter];
+  // addTagsでは警告が出る
+//  [newFilter addTags:tagsForFilter];
+  for (Tag *tag in tagsForFilter) {
+    [newFilter addTagsObject:tag];
+  }
 
   [self saveContext];
 }
