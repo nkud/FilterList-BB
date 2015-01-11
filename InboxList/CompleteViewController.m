@@ -37,9 +37,11 @@ static NSString *kCompleteCellID = @"CompleteCell";
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [self.tableView registerNib:[UINib nibWithNibName:@"CompleteCell"
-                                             bundle:nil]
-       forCellReuseIdentifier:kCompleteCellID];
+//  [self.tableView registerNib:[UINib nibWithNibName:@"CompleteCell"
+//                                             bundle:nil]
+//       forCellReuseIdentifier:kCompleteCellID];
+  [self.tableView registerClass:[CompleteCell class]
+         forCellReuseIdentifier:kCompleteCellID];
   
   self.navbarThemeColor = COMPLETE_COLOR;
   
@@ -232,16 +234,17 @@ numberOfRowsInSection:(NSInteger)section
       atIndexPathInTableView:(NSIndexPath *)indexPathInTableView
 {
   Item *item = [self.fetchedResultsController objectAtIndexPath:indexPathInTableView];
-  cell.titleLabel.text = item.title;
-  cell.tagLabel.text = item.tag.title;
+  cell.textLabel.text = item.title;
+  cell.detailTextLabel.text = item.tag.title;
+  cell.detailTextLabel.textColor = COMPLETE_COLOR;
   [cell updateCheckBox:item.state.boolValue];
   
   // 完了日を表示
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 //  formatter.dateFormat = @"yyyy/MM/dd/hh:mm";
   formatter.dateFormat = @"yyyy/MM/dd";
-  cell.completionDateLabel.textColor = [UIColor grayColor];
-  cell.completionDateLabel.text = [formatter stringFromDate:item.completionDate];
+//  cell.completionDateLabel.textColor = [UIColor grayColor];
+//  cell.completionDateLabel.text = [formatter stringFromDate:item.completionDate];
   
   // TODO: 親リストを継承させる
   // 画像タッチを認識する設定

@@ -92,7 +92,6 @@
 		B0E532FD19E38C49005A53B1 /* CompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E532FC19E38C49005A53B1 /* CompleteViewController.m */; };
 		B0E5330019E398ED005A53B1 /* CompleteNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E532FF19E398ED005A53B1 /* CompleteNavigationController.m */; };
 		B0E5330819E3EC85005A53B1 /* CompleteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E5330619E3EC85005A53B1 /* CompleteCell.m */; };
-		B0E5330919E3EC85005A53B1 /* CompleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E5330719E3EC85005A53B1 /* CompleteCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,7 +230,6 @@
 		B0E532FF19E398ED005A53B1 /* CompleteNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompleteNavigationController.m; sourceTree = "<group>"; };
 		B0E5330519E3EC85005A53B1 /* CompleteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompleteCell.h; sourceTree = "<group>"; };
 		B0E5330619E3EC85005A53B1 /* CompleteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompleteCell.m; sourceTree = "<group>"; };
-		B0E5330719E3EC85005A53B1 /* CompleteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompleteCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -695,7 +693,6 @@
 			children = (
 				B0E5330519E3EC85005A53B1 /* CompleteCell.h */,
 				B0E5330619E3EC85005A53B1 /* CompleteCell.m */,
-				B0E5330719E3EC85005A53B1 /* CompleteCell.xib */,
 			);
 			name = CompleteCell;
 			sourceTree = "<group>";
@@ -834,7 +831,6 @@
 				B0BC6A8D19A9CDC700E53AEF /* TagSelectViewController.xib in Resources */,
 				B08FA7A21A08BA43008A6434 /* checked-red@2x.png in Resources */,
 				B08CDBC319C55BED008263AC /* ItemDetailDatePickerCell.xib in Resources */,
-				B0E5330919E3EC85005A53B1 /* CompleteCell.xib in Resources */,
 				B08FA7AE1A08BA43008A6434 /* unchecked@2x.png in Resources */,
 				B05EA7C919F7648B00AC0289 /* TitleCell.xib in Resources */,
 				B0BC6A9319A9FA9800E53AEF /* TagSelectCell.xib in Resources */,

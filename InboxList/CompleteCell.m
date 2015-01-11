@@ -21,6 +21,18 @@
     // Configure the view for the selected state
 }
 
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+  self = [super initWithStyle:UITableViewCellStyleSubtitle
+              reuseIdentifier:reuseIdentifier];
+  if (self) {
+    // チェックボックスを設定する
+    self.checkBoxImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    self.accessoryView = self.checkBoxImageView;
+  }
+  return self;
+}
+
 /**
  * @brief  チェックボックスを更新する
  *
