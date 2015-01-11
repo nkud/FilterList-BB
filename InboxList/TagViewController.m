@@ -58,9 +58,9 @@ static NSString *kInputFieldPlaceholder = @"new tag";
                         subColor:TAG_COLOR];
   self.titleLabel.textColor = TAG_COLOR;
   
-  // 使用するセルを登録する
-  [self.tableView registerClass:[TagCell class]
-         forCellReuseIdentifier:TagModeCellIdentifier];
+  // 入力用セルを登録する
+//  [self.tableView registerClass:[UITableViewCell class]
+//         forCellReuseIdentifier:TagModeCellIdentifier];
   [self.tableView registerNib:[UINib nibWithNibName:kInputHeaderCellID
                                              bundle:nil]
        forCellReuseIdentifier:kInputHeaderCellID];
@@ -498,17 +498,24 @@ numberOfRowsInSection:(NSInteger)section
   if ([self isCellForInputAtIndexPath:indexPath])
   {
     // TODO: 入力セル用のコンフィグメソッドを作成する
-    InputHeaderCell *inputCell = [tableView dequeueReusableCellWithIdentifier:kInputHeaderCellID];
+    InputHeaderCell *inputCell = [tableView dequeueReusableCellWithIdentifier:kInputHeaderCellID
+                                                                 forIndexPath:indexPath];
     inputCell.inputField.placeholder = kInputFieldPlaceholder;
     inputCell.delegate = self;
     inputCell.inputField.delegate = self;
     return inputCell;
   }
   // 通常のセルを作成する
-  TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier
-                                                  forIndexPath:indexPath];
+//  TagCell *cell = [tableView dequeueReusableCellWithIdentifier:TagModeCellIdentifier
+//                                                  forIndexPath:indexPath];
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tagcell"];
   
-  // セルを設定
+  if (cell == nil) {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                  reuseIdentifier:@"tagcell"];
+  }
+  
+  // セルを設定する
   [self configureTagCell:cell
           atIndexPath:indexPath];
   
@@ -533,8 +540,8 @@ numberOfRowsInSection:(NSInteger)section
  * @param cell      設定するセル
  * @param indexPath セルの位置
  */
-- (void)configureTagCell:(TagCell *)cell
-          atIndexPath:(NSIndexPath *)indexPath
+- (void)configureTagCell:(UITableViewCell *)cell
+             atIndexPath:(NSIndexPath *)indexPath
 {
   Tag *tag;
   NSString *itemCountString;
@@ -562,8 +569,9 @@ numberOfRowsInSection:(NSInteger)section
     titleString = tag.title;
     itemCountString = [NSString stringWithFormat:@"%lu", (unsigned long)[CoreDataController countUncompletedItemsWithTags:[NSSet setWithObjects:tag, nil]]];
   }
-  cell.titleLabel.text = titleString;
-  cell.itemSizeLabel.text = itemCountString;
+  cell.textLabel.text = titleString;
+  cell.detailTextLabel.text = itemCountString;
+  
   cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 

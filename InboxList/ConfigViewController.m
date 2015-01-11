@@ -102,8 +102,11 @@ static NSString *kNormalCellID = @"NormalCell";
   NSString *identifier = self.dataArray[indexPath.section][indexPath.row];
   UITableViewCell *cell;
   if (indexPath.section == 0) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                  reuseIdentifier:@"DetailCell"];
+    cell = [tableView dequeueReusableCellWithIdentifier:@"detailcell"];
+    if (cell == nil) {
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                    reuseIdentifier:@"detailcell"];
+    }
   } else {
     cell = [tableView dequeueReusableCellWithIdentifier:identifier
                                            forIndexPath:indexPath];
