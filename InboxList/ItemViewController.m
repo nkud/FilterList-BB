@@ -864,6 +864,19 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   } else {
     [self updateEditTabBar];
   }
+  
+  CGRect tableFrame = SCREEN_BOUNDS;
+  tableFrame.size.height -= TABBAR_H + NAVBAR_H + STATUSBAR_H;
+  self.tableView.frame = tableFrame;
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+  [super viewWillDisappear:animated];
+  
+  CGRect tableFrame = SCREEN_BOUNDS;
+  tableFrame.size.height -= NAVBAR_H + STATUSBAR_H;
+  self.tableView.frame = tableFrame;
 }
 
 
