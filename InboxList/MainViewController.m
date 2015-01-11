@@ -83,10 +83,11 @@
   // 初めはクイック入力を表示させる。
   self.itemViewController.indexPathForInputHeader = INDEX(0, 0);
   
+  // アイテムリストに影をつける
   CALayer *itemLayer = self.itemNavigationController.view.layer;
-  itemLayer.shadowOpacity = 0.8f;
+  itemLayer.shadowOpacity = 0.7f;
+//  itemLayer.shadowOffset = CGSizeMake(3, -3);
 
-  //
   // タグビューコントローラを初期化する。
   // フェッチコントローラーを設定する。
   self.tagViewController = [[TagViewController alloc] initWithNibName:nil
