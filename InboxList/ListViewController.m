@@ -396,6 +396,9 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   // セルがなければ、何故か落ちる。
   BOOL hasAnyCell = ([self.tableView numberOfRowsInSection:0]>0) ? YES : NO;
   if (hasAnyCell) {
+    hasAnyCell = [[self.tableView visibleCells] count] > 0 ? YES : NO;
+  }
+  if (hasAnyCell) {
     NSIndexPath *topIndexPath = INDEX(0, 0);
     [self.tableView scrollToRowAtIndexPath:topIndexPath
                           atScrollPosition:UITableViewScrollPositionTop

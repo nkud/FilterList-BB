@@ -645,7 +645,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [self addCancelButton:cell
                    action:@selector(didTappedDateCancelButton:)];
   } else {
-//    cell.accessoryView = nil;
+    cell.accessoryView = nil;
   }
 }
 
