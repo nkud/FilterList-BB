@@ -23,9 +23,6 @@ static NSString *kFilterCellID = @"FilterCell";
 
 @interface FilterViewController ()
 
-- (void)configureFilterCell:(FilterCell *)cell
-                atIndexPath:(NSIndexPath *)indexPath;
-
 @end
 
 @implementation FilterViewController
@@ -72,9 +69,9 @@ static NSString *kFilterCellID = @"FilterCell";
   self.titleLabel.textColor = FILTER_COLOR;
   
 //  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FilterCell"];
-  [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
-                                             bundle:nil]
-       forCellReuseIdentifier:kFilterCellID];
+//  [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
+//                                             bundle:nil]
+//       forCellReuseIdentifier:kFilterCellID];
   
   // セルを登録
 //  [self.tableView registerNib:[UINib nibWithNibName:@"FilterCell"
@@ -319,12 +316,20 @@ numberOfRowsInSection:(NSInteger)section
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:kFilterCellID];
+//  FilterCell *cell = [tableView dequeueReusableCellWithIdentifier:kFilterCellID];
+  
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+  
+  if (cell == nil) {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                  reuseIdentifier:@"cell"];
+  }
   
   [self configureFilterCell:cell
                 atIndexPath:indexPath];
   return cell;
 }
+
 #pragma mark セル設定
 
 /**
@@ -335,7 +340,7 @@ numberOfRowsInSection:(NSInteger)section
  *
  *  @return 設定されたセル
  */
--(void)configureFilterCell:(FilterCell *)cell
+-(void)configureFilterCell:(UITableViewCell *)cell
                atIndexPath:(NSIndexPath *)indexPath
 {
   // フィルターを取得して、
