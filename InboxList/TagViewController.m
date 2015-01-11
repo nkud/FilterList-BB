@@ -84,6 +84,8 @@ static NSString *kInputFieldPlaceholder = @"new tag";
 
 #pragma mark - 遷移
 
+
+
 /**
  * @brief  編集ボタンがタップされた時の処理
  */
@@ -103,12 +105,7 @@ static NSString *kInputFieldPlaceholder = @"new tag";
   // タブバーの時は、編集タブバーを開かない
   [self hideEditTabBar:YES];
   
-  /// テーブルビューの表示を更新する
-  NSArray *visibleCells = [self.tableView visibleCells];
-  for (UITableViewCell *cell in visibleCells) {
-    [self configureTagCell:cell
-               atIndexPath:[self.tableView indexPathForCell:cell]];
-  }
+  [self updateTableView];
 }
 
 /**
@@ -132,7 +129,7 @@ static NSString *kInputFieldPlaceholder = @"new tag";
   [super viewWillAppear:animated];
   
   // タグモードの時のみタブバーを開く
-  if ([self.delegateForList isTopViewController:self] && self.tableView.isEditing == NO) {
+  if ([self.delegateForList isTopViewController:self]) {
     [self.delegateForList openTabBar];
   }
 }
@@ -645,9 +642,11 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
  */
 - (void)updateTableView
 {
-  NSIndexPath *indexForAllItems = INDEX(0, 0);
-  TagCell *cell = (TagCell *)[self.tableView cellForRowAtIndexPath:indexForAllItems];
-  [self configureTagCell:cell atIndexPath:indexForAllItems];
+  NSArray *visibleCells = [self.tableView visibleCells];
+  for (UITableViewCell *cell in visibleCells) {
+    [self configureTagCell:cell
+               atIndexPath:[self.tableView indexPathForCell:cell]];
+  }
 }
 
 //- (void)updateVisibleCells {

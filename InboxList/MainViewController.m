@@ -555,6 +555,8 @@
   self.mainViewController_.tableView.editing = NO;
   
   self.itemNavigationController.view.userInteractionEnabled = NO;
+  
+  [self.tagViewController updateTableView];
 
   // スクロールバーを非表示する
   [self toggleShowVerticalScrollIndicatorWithController:self.tagViewController];

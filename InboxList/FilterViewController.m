@@ -103,7 +103,7 @@ static NSString *kFilterCellID = @"FilterCell";
   [super viewWillAppear:animated];
   
   // タグモードの時のみタブバーを開く
-  if ([self.delegateForList isTopViewController:self] && self.tableView.isEditing == NO) {
+  if ([self.delegateForList isTopViewController:self]) {
     [self.delegateForList openTabBar];
   }
 }
