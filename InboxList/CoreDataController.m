@@ -494,12 +494,20 @@ enum __SECTION__ {
   NSMutableArray *predicate_array = [[NSMutableArray alloc] init];
   NSPredicate *tag_predicates;
   for (Tag *tag in tags) {
-    tag_predicates = [NSPredicate predicateWithFormat:@"%@ == SELF.tag.title", tag.title];
-    [predicate_array addObject:predicate];
+    if (tag.title) {
+      tag_predicates = [NSPredicate predicateWithFormat:@"%@ == SELF.tag.title", tag.title];
+      [predicate_array addObject:predicate];
+    }
+  }
+  NSArray *predicatesArray;
+  if (tag_predicates) {
+    predicatesArray = @[tag_predicates, predicate];
+  } else {
+    predicatesArray = @[predicate];
   }
   NSCompoundPredicate *compound_predicate
   = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType
-                                subpredicates:@[tag_predicates, predicate]];
+                                subpredicates:predicatesArray];
   
   [request setPredicate:compound_predicate];
   
