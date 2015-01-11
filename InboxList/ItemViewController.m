@@ -853,6 +853,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     [self instantMessage:message
                    color:nil];
   }
+  
+  [self updateTableView];
 }
 
 -(void)viewWillAppear:(BOOL)animated
