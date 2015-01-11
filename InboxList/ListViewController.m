@@ -711,7 +711,12 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
  *
  * @param message メッセージ
  */
--(void)instantMessage:(NSString *)message color:(UIColor *)color {
+-(void)instantMessage:(NSString *)message
+                color:(UIColor *)color
+{
+  if ([message isEqualToString:@""]) {
+    return;
+  }
   CGFloat width = 80;
   CGFloat height = 50;
   UILabel *instant = [UILabel new];

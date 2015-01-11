@@ -807,12 +807,11 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   /// タブバーを開ける ?????
   LOG(@"%@", title);
   Item *item;
-  NSString *message;
+  NSString *message = @"";
   if (isNewItem) {
-    message = @"Saved";
-  } else {
-    message = @"Update";
+//    message = @"Saved";
   }
+  
   if (isNewItem) {
     // 新規にアイテムを作成
     if ([title isEqualToString:@""])
@@ -868,6 +867,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
   CGRect tableFrame = SCREEN_BOUNDS;
   tableFrame.size.height -= TABBAR_H + NAVBAR_H + STATUSBAR_H;
   self.tableView.frame = tableFrame;
+  
+  [self.tableView reloadData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
