@@ -41,22 +41,20 @@ static NSString *kYellowUncheckedImageName = @"unchecked-yellow.png";
     reuseIdentifier:(NSString *)reuseIdentifier
 {
   /* superで初期化 */
-  self = [super initWithStyle:style
+  self = [super initWithStyle:UITableViewCellStyleSubtitle
               reuseIdentifier:reuseIdentifier];
   if (self)
   {
-    LOG(@"タイトル・期限ラベルを追加する");
+//    CGFloat leftMargin = 10;
     
-    CGFloat leftMargin = 10;
-    
-    // タイトルラベルを設定する
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    [self.contentView addSubview:self.titleLabel];
-    
-    // リマインダーラベルを設定する
-    self.reminderLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, 22, 100, 22)];
-    self.reminderLabel.font = [UIFont systemFontOfSize:kDueDateTitleFontSize];
-    [self.contentView addSubview:self.reminderLabel];
+//    // タイトルラベルを設定する
+//    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+//    [self.contentView addSubview:self.titleLabel];
+//    
+//    // リマインダーラベルを設定する
+//    self.reminderLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, 22, 100, 22)];
+//    self.reminderLabel.font = [UIFont systemFontOfSize:kDueDateTitleFontSize];
+//    [self.contentView addSubview:self.reminderLabel];
     
     // チェックボックスを設定する
     self.checkBoxImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];

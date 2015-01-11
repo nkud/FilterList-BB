@@ -24,9 +24,9 @@
 
 @property UIImageView *checkBoxImageView;
 
-@property UILabel *titleLabel;
-@property UILabel *reminderLabel;
-@property UILabel *tagLabel;
+//@property UILabel *titleLabel;
+//@property UILabel *reminderLabel;
+//@property UILabel *tagLabel;
 
 //+ (CGFloat)cellHeight;
 

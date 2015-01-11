@@ -512,18 +512,19 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
 
   // タイトルの時と、そうでない時で
   // 表示を調整する。
-  BOOL hasTitleOnly = ! item.reminder;
-  NSInteger leftMargin = 10;
-  if (hasTitleOnly) {
-    cell.titleLabel.frame = CGRectMake(leftMargin, 0,
-                                       SCREEN_BOUNDS.size.width - leftMargin - 50, 44);
-  } else {
-    cell.titleLabel.frame = CGRectMake(leftMargin, 5,
-                                       SCREEN_BOUNDS.size.width - leftMargin - 50, 22);
-  }
+//  BOOL hasTitleOnly = ! item.reminder;
+//  NSInteger leftMargin = 10;
+//  if (hasTitleOnly) {
+//    cell.titleLabel.frame = CGRectMake(leftMargin, 0,
+//                                       SCREEN_BOUNDS.size.width - leftMargin - 50, 44);
+//  } else {
+//    cell.titleLabel.frame = CGRectMake(leftMargin, 5,
+//                                       SCREEN_BOUNDS.size.width - leftMargin - 50, 22);
+//  }
   
   // タイトルを設定する
-  cell.titleLabel.text = item.title;
+//  cell.titleLabel.text = item.title;
+  cell.textLabel.text = item.title;
 //  cell.tagLabel.text = item.tag.title;
   
   // チェックボックスを設定する
@@ -538,7 +539,8 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
   } else {
     reminderText = @"";
   }
-  cell.reminderLabel.text = reminderText;
+//  cell.reminderLabel.text = reminderText;
+  cell.detailTextLabel.text = reminderText;
   
   // テキストの色を変更する
   UIColor *textColor;
@@ -558,7 +560,8 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath
     // その他
     textColor = GRAY_COLOR;
   }
-  cell.reminderLabel.textColor = textColor;
+//  cell.reminderLabel.textColor = textColor;
+  cell.detailTextLabel.textColor = textColor;
   
   // 画像タッチを認識する設定
   UILongPressGestureRecognizer *recognizer
