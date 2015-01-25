@@ -56,7 +56,8 @@ static NSString *kNormalCellID = @"NormalCell";
   title.text = @"Edit";
   [title sizeToFit];
   self.navigationItem.titleView = title;
-
+  
+  self.navigationController.navigationBar.tintColor = textColor;
 }
 
 - (void)didReceiveMemoryWarning {

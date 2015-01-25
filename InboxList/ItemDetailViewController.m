@@ -75,6 +75,8 @@ static NSString *kDatePickerCellID = @"datePickerCell";
       self.isNewItem = YES;
     }
     self.delegate = delegate;
+    
+    self.themeColor = ITEM_COLOR;
   }
   return self;
 }

@@ -131,6 +131,8 @@ static NSString *kDatePickerCellNibName = @"ItemDetailDatePickerCell";
       
       self.isNewFilter = YES;
     }
+    
+    self.themeColor = FILTER_COLOR;
   }
   
   self.delegate = delegate;

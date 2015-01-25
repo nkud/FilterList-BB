@@ -8,6 +8,7 @@
 
 #import "TagDetailViewController.h"
 #import "Header.h"
+#import "Configure.h"
 
 #import "TitleCell.h"
 
@@ -48,6 +49,8 @@
       self.tagIndexPath = nil;
       self.isNewTag = YES;
     }
+    
+    self.themeColor = TAG_COLOR;
   }
   self.delegate = delegate;
   
