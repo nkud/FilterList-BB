@@ -419,6 +419,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
                                                   target:self
                                                   action:@selector(didTappedInsertObjectButton)];
+  
   return insertObjectButton;
 }
 
@@ -556,10 +557,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
   if (subTitle == nil) {
     self.navigationItem.title = title;
     
-    self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    self.titleView = [[UIView alloc] initWithFrame:CGRectZero];
     self.titleView.backgroundColor = [UIColor clearColor];
     self.titleView.opaque = NO;
-    self.navigationItem.titleView = self.titleView;
+    [self.titleView sizeToFit];
+//    self.navigationItem.titleView = self.titleView;
     
     // メインタイトルを作成・設定
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
@@ -567,9 +569,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
     self.titleLabel.text = title;
     self.titleLabel.textColor = self.navbarThemeColor;
     self.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+//    self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.backgroundColor = [UIColor clearColor];
-    [self.titleView addSubview:self.titleLabel];
+    [self.titleLabel sizeToFit];
+    self.navigationItem.titleView = self.titleLabel;
+//    [self.titleView addSubview:self.titleLabel];
     
     return;
   }

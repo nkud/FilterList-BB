@@ -45,6 +45,18 @@ static NSString *kNormalCellID = @"NormalCell";
        forCellReuseIdentifier:kTitleCellID];
   [self.tableView registerClass:[UITableViewCell class]
          forCellReuseIdentifier:kNormalCellID];
+
+  // ナビバーのタイトルを設定する。
+  // 色を変更できるようにする。
+  // デフォルトは黒色。
+  UILabel *title = [[UILabel alloc] initWithFrame:CGRectZero];
+  title.font = [UIFont boldSystemFontOfSize:18.0];
+  UIColor *textColor = self.themeColor ? self.themeColor : [UIColor blackColor];
+  title.textColor = textColor;
+  title.text = @"Edit";
+  [title sizeToFit];
+  self.navigationItem.titleView = title;
+
 }
 
 - (void)didReceiveMemoryWarning {

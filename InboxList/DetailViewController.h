@@ -16,6 +16,8 @@
 - (NSArray *)dataArray;
 @property UITableView *tableView;
 
+@property UIColor *themeColor;
+
 -(NSString *)titleCellID;
 -(NSString *)normalCellID;
 
