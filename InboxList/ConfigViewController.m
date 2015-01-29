@@ -18,6 +18,8 @@ static NSString *kTitleCellID = @"TitleCellIdentifier";
 static NSString *kTitleCellNibName = @"TitleCell";
 static NSString *kNormalCellID = @"NormalCell";
 
+static NSString *kAppVersion = @"1.1";
+
 #pragma mark -
 
 @interface ConfigViewController ()
@@ -137,7 +139,7 @@ titleForHeaderInSection:(NSInteger)section
   }
   if (indexPath.section == 0) {
     cell.textLabel.text = @"App Version";
-    cell.detailTextLabel.text = @"1.0.0";
+    cell.detailTextLabel.text = kAppVersion;
   }
 }
 
